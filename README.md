@@ -1,10 +1,19 @@
 # Tokenometer
 
-> Empirical token-cost benchmarking for LLM prompts.
+> Empirical token-cost benchmarking for LLM prompts. **Live: https://tokenometer.vercel.app**
 
 Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, and Gemini?**
 
 It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). This is the tool anyone can run.
+
+## Findings (Anthropic, n=150 cells across 10 prompt shapes)
+
+- `claude-opus-4-7` real `messages.countTokens` is **+62% denser (median)** than the popular `cl100k_base` proxy. **If you budget Claude cost from `tiktoken`, you under-budget by ~half.**
+- `claude-sonnet-4-6` and `claude-haiku-4-5` are within ~17% of `cl100k_base` (and **identical to each other** — same tokenizer family).
+- Format choice (JSON / YAML / XML / Markdown / text) is a wash — within ~1pp on the median delta. Picking a cheaper model saves 7-12×; reformatting saves ~10%.
+- `gpt-4o` empirical (Anthropic's countTokens equivalent for OpenAI: tiktoken `o200k_base`) matches the offline tokenometer counts on **100/100 cells, exactly**. Sanity anchor.
+
+Reproduce: `npm install && npm run benchmarks:empirical` with `ANTHROPIC_API_KEY` set. Full sweep is free (countTokens is free).
 
 ## Why this exists
 

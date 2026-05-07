@@ -22,5 +22,6 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+      - run: npm run build -w @tokenometer/web
       - run: npm test
       - run: npm run benchmarks

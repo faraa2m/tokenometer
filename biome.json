@@ -34,7 +34,8 @@
       "**/node_modules",
       "**/coverage",
       "benchmarks/prompts/**",
-      "benchmarks/results.json"
+      "benchmarks/results.json",
+      "packages/web/index.html"
     ]
   }
 }

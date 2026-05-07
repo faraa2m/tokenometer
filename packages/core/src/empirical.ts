@@ -32,7 +32,7 @@ const countAnthropic = async (
   env: EmpiricalEnv,
 ): Promise<EmpiricalCountResult> => {
   const apiKey = requireKey(env, 'anthropicApiKey', 'anthropic');
-  const client = new Anthropic({ apiKey });
+  const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
   const result = await client.messages.countTokens({
     messages: [{ content: text, role: 'user' }],
     model: modelId,

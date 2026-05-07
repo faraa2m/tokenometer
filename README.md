@@ -59,9 +59,21 @@ Sends one minimal call per (provider × format), records `usage.input_tokens` an
 
 Posts a sticky PR comment with the cost diff vs the base branch. Fails the check if the diff exceeds `budget`.
 
+## Methodology
+
+Tokenometer chooses a tokenizer per provider and tells you when the count is approximate (rendered with a leading `~` and `approximate: true` in the API):
+
+| Provider  | Offline tokenizer            | Exactness   | Notes                                                                 |
+|-----------|------------------------------|-------------|-----------------------------------------------------------------------|
+| OpenAI    | `gpt-tokenizer` `o200k_base` | exact       | Same encoding GPT-4o / 4o-mini use in production.                      |
+| Anthropic | `gpt-tokenizer` `cl100k_base`| approximate | Anthropic does not publish a Claude 3+ tokenizer. cl100k is a close proxy; empirical mode (planned) will call Anthropic for the real number. |
+| Google    | `chars / 4` heuristic        | approximate | Gemini token counting is API-only. Empirical mode (planned) will call `countTokens` for the real number. |
+
+Cost = `tokens / 1000 × per-1k input rate`. Rate table is versioned (`RATES_VERSION`) and lives in [`packages/core/src/rates.ts`](packages/core/src/rates.ts).
+
 ## Status
 
-Early. v0 — see [milestones](https://github.com/faraa2m/tokenometer/milestones).
+Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones).
 
 ## License
 

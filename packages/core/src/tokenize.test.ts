@@ -50,12 +50,12 @@ describe('tokenize', () => {
   it('marks gpt models as exact, claude/gemini as approximate', () => {
     const sample = 'plain prompt';
     expect(tokenize({ format: 'text', modelId: 'gpt-4o', prompt: sample }).approximate).toBe(false);
-    expect(tokenize({ format: 'text', modelId: 'claude-opus-4-7', prompt: sample }).approximate).toBe(
-      true,
-    );
-    expect(tokenize({ format: 'text', modelId: 'gemini-2.5-pro', prompt: sample }).approximate).toBe(
-      true,
-    );
+    expect(
+      tokenize({ format: 'text', modelId: 'claude-opus-4-7', prompt: sample }).approximate,
+    ).toBe(true);
+    expect(
+      tokenize({ format: 'text', modelId: 'gemini-2.5-pro', prompt: sample }).approximate,
+    ).toBe(true);
   });
 });
 

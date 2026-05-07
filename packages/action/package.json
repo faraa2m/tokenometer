@@ -1,0 +1,24 @@
+{
+  "name": "@tokenometer/action",
+  "version": "0.0.1",
+  "description": "GitHub Action that posts a sticky PR comment with prompt-cost diff.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -b && esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0",
+    "@tokenometer/core": "0.0.1",
+    "minimatch": "^10.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.2"
+  }
+}

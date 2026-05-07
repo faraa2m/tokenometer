@@ -23,5 +23,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
       - run: npm run build -w @tokenometer/web
+      - run: npm run build -w @tokenometer/action
       - run: npm test
       - run: npm run benchmarks
+      - name: Verify action bundle is in sync
+        run: git diff --exit-code packages/action/dist || (echo 'packages/action/dist/index.cjs is out of sync. Run `npm run build -w @tokenometer/action` and commit.' && exit 1)

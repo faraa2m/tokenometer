@@ -1,0 +1,43 @@
+name: 'Tokenometer'
+description: 'Empirical prompt-cost diff sticky PR comment.'
+author: 'Faraazuddin Mohammed'
+branding:
+  icon: 'bar-chart-2'
+  color: 'orange'
+inputs:
+  paths:
+    description: 'Glob of prompt files to measure (newline or comma separated).'
+    required: false
+    default: 'prompts/**/*.md,prompts/**/*.json,prompts/**/*.yaml,prompts/**/*.yml,prompts/**/*.txt'
+  models:
+    description: 'Comma-separated model ids.'
+    required: false
+    default: 'claude-opus-4-7,claude-sonnet-4-6,gpt-4o'
+  formats:
+    description: 'Comma-separated formats.'
+    required: false
+    default: 'json,yaml,xml,markdown,text'
+  budget:
+    description: 'Maximum allowed total cost delta in USD. Action fails when exceeded. Empty disables the gate.'
+    required: false
+    default: ''
+  base-ref:
+    description: 'Base ref for the diff. Defaults to PR base or `HEAD~1`.'
+    required: false
+    default: ''
+  comment-marker:
+    description: 'HTML marker for the sticky comment.'
+    required: false
+    default: '<!-- tokenometer-cost-diff -->'
+  github-token:
+    description: 'GITHUB_TOKEN with `pull-requests: write`.'
+    required: false
+    default: ${{ github.token }}
+outputs:
+  cost-delta:
+    description: 'Total cost delta in USD (head minus base).'
+  comment-url:
+    description: 'URL of the sticky comment.'
+runs:
+  using: 'node20'
+  main: 'dist/index.cjs'

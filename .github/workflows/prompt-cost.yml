@@ -1,0 +1,23 @@
+name: prompt-cost
+
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/prompts/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ./packages/action
+        with:
+          paths: benchmarks/prompts/**/*.md,benchmarks/prompts/**/*.json,benchmarks/prompts/**/*.yaml,benchmarks/prompts/**/*.txt,benchmarks/prompts/**/*.ts,benchmarks/prompts/**/*.py
+          models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o
+          formats: json,yaml,xml,markdown,text

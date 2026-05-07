@@ -1,8 +1,32 @@
 {
   "name": "tokenometer",
   "version": "0.0.1",
-  "description": "Empirical token-cost benchmarking CLI for LLM prompts.",
+  "description": "Empirical token-cost benchmarking CLI for LLM prompts. Tells you what your prompt actually costs across Claude, GPT-4o, and Gemini, in every format.",
   "license": "MIT",
+  "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
+  "homepage": "https://tokenometer.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/tokenometer.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/faraa2m/tokenometer/issues"
+  },
+  "keywords": [
+    "ai",
+    "anthropic",
+    "claude",
+    "cli",
+    "cost",
+    "gemini",
+    "gpt",
+    "llm",
+    "openai",
+    "prompt",
+    "token",
+    "tokenizer"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,6 +40,10 @@
     }
   },
   "files": ["dist", "README.md"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist"
@@ -27,17 +55,5 @@
     "@types/node": "^22.10.5",
     "typescript": "^5.7.2",
     "vitest": "^3.0.0"
-  },
-  "keywords": [
-    "ai",
-    "anthropic",
-    "claude",
-    "cost",
-    "gpt",
-    "llm",
-    "openai",
-    "prompt",
-    "token",
-    "tokenizer"
-  ]
+  }
 }

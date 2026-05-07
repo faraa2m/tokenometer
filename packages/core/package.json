@@ -1,8 +1,33 @@
 {
   "name": "@tokenometer/core",
   "version": "0.0.1",
-  "description": "Core: tokenizer dispatch, format conversion, cost rate matrix.",
+  "description": "Empirical token-cost benchmarking for LLM prompts — core library (tokenizers, format converters, rate matrix, empirical countTokens dispatch).",
   "license": "MIT",
+  "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
+  "homepage": "https://tokenometer.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/tokenometer.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/faraa2m/tokenometer/issues"
+  },
+  "keywords": [
+    "ai",
+    "anthropic",
+    "claude",
+    "cl100k",
+    "cost",
+    "gemini",
+    "gpt",
+    "llm",
+    "o200k",
+    "openai",
+    "prompt",
+    "token",
+    "tokenizer"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,6 +38,10 @@
     }
   },
   "files": ["dist", "README.md"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist"

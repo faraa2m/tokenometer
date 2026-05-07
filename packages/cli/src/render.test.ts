@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import type { TokenizeResult } from '@tokenometer/core';
+import { describe, expect, it } from 'vitest';
 import { renderSummary, renderTable } from './render.js';
 
 const sample: TokenizeResult[] = [

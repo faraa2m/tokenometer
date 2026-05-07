@@ -1,4 +1,4 @@
-import { isFormat, allFormats, KNOWN_MODELS } from '@tokenometer/core';
+import { KNOWN_MODELS, allFormats, isFormat } from '@tokenometer/core';
 import type { Format } from '@tokenometer/core';
 
 export interface ParsedArgs {
@@ -92,9 +92,7 @@ export const parseArgs = (argv: readonly string[]): ParsedArgs => {
         .filter(Boolean);
       for (const fmt of formats) {
         if (!isFormat(fmt)) {
-          throw new Error(
-            `Unknown format "${fmt}". Known: ${allFormats().join(', ')}.`,
-          );
+          throw new Error(`Unknown format "${fmt}". Known: ${allFormats().join(', ')}.`);
         }
       }
       result.formats = formats as Format[];

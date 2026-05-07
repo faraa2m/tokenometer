@@ -28,15 +28,15 @@ export const renderTable = (results: readonly TokenizeResult[]): string => {
     return Math.max(h.length, maxRowWidth);
   });
 
-  const headerLine = headers
-    .map((h, i) => padRight(h, widths[i] ?? h.length))
-    .join('  ');
+  const headerLine = headers.map((h, i) => padRight(h, widths[i] ?? h.length)).join('  ');
   const separator = headers.map((_, i) => '-'.repeat(widths[i] ?? 0)).join('  ');
   const dataLines = rows.map((row) =>
     row
       .map((cell, i) => {
         const isNumeric = i >= 2;
-        return isNumeric ? padLeft(cell, widths[i] ?? cell.length) : padRight(cell, widths[i] ?? cell.length);
+        return isNumeric
+          ? padLeft(cell, widths[i] ?? cell.length)
+          : padRight(cell, widths[i] ?? cell.length);
       })
       .join('  '),
   );

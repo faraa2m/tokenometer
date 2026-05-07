@@ -1,17 +1,12 @@
-import { stringify as yamlStringify, parse as yamlParse } from 'yaml';
+import { parse as yamlParse, stringify as yamlStringify } from 'yaml';
 import type { Format } from './types.js';
 
 const FORMATS: Format[] = ['json', 'markdown', 'text', 'xml', 'yaml'];
 
-export const isFormat = (value: string): value is Format =>
-  (FORMATS as string[]).includes(value);
+export const isFormat = (value: string): value is Format => (FORMATS as string[]).includes(value);
 
 const escapeXml = (raw: string): string =>
-  raw
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const sanitizeTag = (key: string): string => key.replace(/[^a-zA-Z0-9_-]/g, '_');
 

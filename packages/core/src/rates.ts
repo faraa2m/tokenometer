@@ -27,9 +27,7 @@ export const KNOWN_MODELS = Object.keys(MODELS);
 export const getRate = (modelId: string): RateEntry => {
   const rate = RATES[modelId];
   if (!rate) {
-    throw new Error(
-      `Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`,
-    );
+    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
   }
   return rate;
 };
@@ -37,9 +35,7 @@ export const getRate = (modelId: string): RateEntry => {
 export const getModel = (modelId: string): ModelDescriptor => {
   const model = MODELS[modelId];
   if (!model) {
-    throw new Error(
-      `Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`,
-    );
+    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
   }
   return model;
 };

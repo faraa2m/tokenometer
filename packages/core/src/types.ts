@@ -14,12 +14,16 @@ export interface RateEntry {
 }
 
 export interface TokenizeResult {
+  approximate: boolean;
   format: Format;
   inputCost: number;
   inputTokens: number;
   model: string;
   provider: Provider;
+  tokenizer: TokenizerKind;
 }
+
+export type TokenizerKind = 'cl100k_base' | 'heuristic' | 'o200k_base';
 
 export interface EmpiricalResult extends TokenizeResult {
   cachedInputTokens: number;

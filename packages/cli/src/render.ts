@@ -19,7 +19,7 @@ export const renderTable = (results: readonly TokenizeResult[]): string => {
   const rows: string[][] = results.map((r) => [
     r.model,
     r.format,
-    r.inputTokens.toLocaleString(),
+    `${r.approximate ? '~' : ' '}${r.inputTokens.toLocaleString()}`,
     formatCost(r.inputCost),
   ]);
 

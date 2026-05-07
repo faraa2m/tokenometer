@@ -12,12 +12,16 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "gpt-tokenizer": "^3.4.0",
     "yaml": "^2.6.1"
   },
   "devDependencies": {

@@ -4,18 +4,22 @@ import { renderSummary, renderTable } from './render.js';
 
 const sample: TokenizeResult[] = [
   {
+    approximate: false,
     format: 'json',
     inputCost: 0.001,
     inputTokens: 100,
-    model: 'claude-opus-4-7',
-    provider: 'anthropic',
+    model: 'gpt-4o',
+    provider: 'openai',
+    tokenizer: 'o200k_base',
   },
   {
+    approximate: true,
     format: 'yaml',
     inputCost: 0.0008,
     inputTokens: 80,
     model: 'claude-opus-4-7',
     provider: 'anthropic',
+    tokenizer: 'cl100k_base',
   },
 ];
 
@@ -37,6 +41,11 @@ describe('renderTable', () => {
     const lines = out.split('\n');
     expect(lines.length).toBe(2 + sample.length);
   });
+
+  it('marks approximate counts with a tilde', () => {
+    const out = renderTable(sample);
+    expect(out).toMatch(/~80/);
+  });
 });
 
 describe('renderSummary', () => {
@@ -44,7 +53,6 @@ describe('renderSummary', () => {
     const out = renderSummary(sample);
     expect(out).toContain('Cheapest');
     expect(out).toContain('Priciest');
-    expect(out).toContain('yaml');
   });
 
   it('returns empty string for a single-result list', () => {

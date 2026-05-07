@@ -1,0 +1,51 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to bump to (e.g. 0.0.2). Leave empty to keep current package.json version.'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+      - run: npm ci
+
+      - name: Bump versions (if requested)
+        if: ${{ inputs.version != '' }}
+        run: |
+          npm version ${{ inputs.version }} --no-git-tag-version --workspaces
+
+      - run: npm run build
+      - run: npm test
+      - run: npm run benchmarks
+
+      - name: Publish @tokenometer/core
+        working-directory: packages/core
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish tokenometer (CLI)
+        working-directory: packages/cli
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        run: |
+          echo "### Published" >> $GITHUB_STEP_SUMMARY
+          echo "- https://www.npmjs.com/package/@tokenometer/core" >> $GITHUB_STEP_SUMMARY
+          echo "- https://www.npmjs.com/package/tokenometer" >> $GITHUB_STEP_SUMMARY

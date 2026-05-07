@@ -1,0 +1,10 @@
+instructions: You are a helpful assistant. Summarize the user's input in three bullets.
+examples:
+  - input: I had a long day at work.
+    output: User had a tiring workday.
+  - input: Booked a flight to Tokyo.
+    output: User is travelling to Tokyo.
+constraints:
+  max_bullets: 3
+  tone: neutral
+  length: short

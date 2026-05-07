@@ -1,0 +1,26 @@
+{
+  "task": "Extract structured records from the unstructured customer notes below.",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "company": { "type": "string" },
+        "intent": {
+          "type": "string",
+          "enum": ["evaluating", "renewal", "churn-risk", "expansion"]
+        },
+        "follow_up_at": { "type": "string", "format": "date" }
+      },
+      "required": ["name", "intent"]
+    }
+  },
+  "input": [
+    "Spoke with Maya at Acme Robotics, evaluating us against Datastrand. Wants a demo by next Tuesday.",
+    "Beth (Northwind Logistics) renewed her plan; mentioned wanting the new export feature in Q3.",
+    "Carlos at Vega Health is at churn risk. Pricing complaints. Suggested a 15% discount.",
+    "Followed up with Imani Patel at Greenfield Foods, expanding to 4 more seats next month.",
+    "Shay from Kitemark Studios cancelled - moving to an in-house tool. Logged feedback."
+  ]
+}

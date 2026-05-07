@@ -1,0 +1,28 @@
+Classify each support ticket into one of: BILLING, BUG, FEATURE_REQUEST, ACCOUNT, OTHER. Respond with only the label.
+
+Ticket: I was charged twice this month, can you refund the duplicate?
+Label: BILLING
+
+Ticket: The export-to-CSV button hangs forever in Firefox.
+Label: BUG
+
+Ticket: It would be great if dark mode was the default on Sundays.
+Label: FEATURE_REQUEST
+
+Ticket: I cannot log in - says "invalid token" every time.
+Label: ACCOUNT
+
+Ticket: Your tool changed my life. Just wanted to say thanks!
+Label: OTHER
+
+Ticket: My credit card on file expired - how do I update it?
+Label: BILLING
+
+Ticket: Can you add Slack notifications for completed jobs?
+Label: FEATURE_REQUEST
+
+Ticket: The mobile app crashes when I tap the Settings tab on iOS 17.
+Label: BUG
+
+Ticket: Please delete my account and all associated data.
+Label:

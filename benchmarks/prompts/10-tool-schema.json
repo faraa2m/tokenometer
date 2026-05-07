@@ -1,0 +1,64 @@
+{
+  "tools": [
+    {
+      "name": "search_knowledge_base",
+      "description": "Search the internal knowledge base for articles relevant to a query.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "Free-text query." },
+          "max_results": { "type": "integer", "minimum": 1, "maximum": 20, "default": 5 },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": ["billing", "product", "policy", "engineering"]
+              },
+              "min_published_date": { "type": "string", "format": "date" }
+            }
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "create_ticket",
+      "description": "Create a customer support ticket. Use only after explicit confirmation from the user.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "subject": { "type": "string" },
+          "body": { "type": "string" },
+          "priority": { "type": "string", "enum": ["low", "normal", "high", "urgent"] },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["subject", "body"]
+      }
+    },
+    {
+      "name": "send_email",
+      "description": "Send a transactional email to the authenticated user only. Cannot be used to send to other addresses.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "subject": { "type": "string" },
+          "body_markdown": { "type": "string" },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": { "type": "string" },
+                "content_type": { "type": "string" },
+                "url": { "type": "string", "format": "uri" }
+              },
+              "required": ["filename", "content_type", "url"]
+            }
+          }
+        },
+        "required": ["subject", "body_markdown"]
+      }
+    }
+  ]
+}

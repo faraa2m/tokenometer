@@ -1,0 +1,23 @@
+SECTION 1 — INTRODUCTION
+
+The cost of running large language models in production is dominated by input tokens. Most teams reach for a tokenizer published by their primary model vendor and use the count it returns as the answer to "how much will this prompt cost?" That answer is correct only when (1) the tokenizer is the one the vendor actually uses for billing, and (2) you intend to send the prompt verbatim. Both assumptions break in practice: tokenizers are sometimes proxies, prompts are usually templated and rendered at request time with dynamic data, and prompt caching can flip the per-request cost by an order of magnitude.
+
+SECTION 2 — TOKENIZER FAITHFULNESS
+
+When teams say "tokenizer," they usually mean a library: tiktoken for OpenAI, the Anthropic tokenizer package for Claude, or a generic BPE library used as a stand-in. None of these is necessarily what the vendor uses to bill the model. Anthropic, for example, does not publish a public tokenizer for Claude 3 and later — community projects substitute cl100k_base from OpenAI's tiktoken and call the result an estimate. The estimate is consistently wrong: real Claude tokenization, as returned by the messages.countTokens endpoint, is between 50 and 80 percent denser than cl100k_base on structured input. Teams budgeting Claude cost from cl100k_base under-budget by roughly half.
+
+SECTION 3 — FORMAT SENSITIVITY
+
+The token count of a piece of structured data depends heavily on its serialization. The same record, expressed as JSON, YAML, XML, Markdown table, and flattened plaintext, will tokenize to noticeably different sizes — usually within a 25 percent band, with YAML often the most compact and XML the most verbose. Format choice is real, but small relative to the next axis.
+
+SECTION 4 — MODEL CHOICE
+
+Across providers, the same prompt can range over more than an order of magnitude in cost. A representative input of a few hundred tokens, dispatched to Opus, Sonnet, and gpt-4o, can produce a 12-fold spread in dollar cost. The cheapest combination is rarely the one a team selects by default. The most useful single optimization is therefore not "rewrite your prompts in YAML" but "send your prompts to the model that actually needs to handle them, and cap the rest at the cheapest-correct tier."
+
+SECTION 5 — PROMPT CACHING
+
+Anthropic's prompt caching reduces the marginal cost of repeated prefixes by roughly an order of magnitude when configured correctly, and produces no benefit when configured incorrectly. The most common silent invalidator is a non-frozen system prompt — a `datetime.now()`, a user ID, an A/B-test flag — interpolated near the top. Any byte change in the prefix invalidates everything downstream. The fix is not "increase the cache TTL"; it is "stop changing the bytes."
+
+SECTION 6 — PUTTING IT TOGETHER
+
+Treating cost as a property of the rendered, model-specific prompt — not of the source code that produces it — is the first useful step toward predictable inference bills. Tools that estimate "tokens" without knowing the destination model are giving you the wrong number with confidence. Tools that report the number the vendor's billing system would use, on the rendered prompt, for the model you actually plan to call, are giving you the right number. The gap between the two is what this project measures.

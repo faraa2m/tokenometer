@@ -26,7 +26,8 @@
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "typecheck": "tsc -b",
-    "benchmarks": "node packages/cli/dist/index.js benchmarks --regenerate"
+    "benchmarks": "node benchmarks/run.mjs",
+    "benchmarks:regenerate": "node benchmarks/run.mjs --regenerate"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

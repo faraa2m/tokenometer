@@ -2,6 +2,7 @@ node_modules
 dist
 build
 *.tsbuildinfo
+benchmarks/empirical.json
 .turbo
 .next
 .vercel

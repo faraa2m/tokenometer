@@ -2,11 +2,18 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { KNOWN_MODELS, RATES_VERSION, allFormats, tokenize } from '@tokenometer/core';
+import {
+  KNOWN_MODELS,
+  RATES_VERSION,
+  allFormats,
+  tokenize,
+  tokenizeEmpirical,
+} from '@tokenometer/core';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const PROMPTS_DIR = join(HERE, 'prompts');
 const RESULTS_PATH = join(HERE, 'results.json');
+const EMPIRICAL_PATH = join(HERE, 'empirical.json');
 
 const loadPrompts = async () => {
   const files = (await readdir(PROMPTS_DIR)).filter((f) => !f.startsWith('.')).sort();
@@ -96,13 +103,135 @@ const compareResults = async (results) => {
   return { drift, onDisk };
 };
 
+const readEnv = () => {
+  const env = {};
+  if (process.env.ANTHROPIC_API_KEY) env.anthropicApiKey = process.env.ANTHROPIC_API_KEY;
+  const googleKey = process.env.GOOGLE_API_KEY ?? process.env.GEMINI_API_KEY;
+  if (googleKey) env.googleApiKey = googleKey;
+  return env;
+};
+
+const runEmpiricalSweep = async (prompts, env) => {
+  const formats = [...allFormats()];
+  const models = [...KNOWN_MODELS].sort();
+  const empirical = {};
+  let totalCalls = 0;
+  for (const [name, prompt] of Object.entries(prompts).sort()) {
+    process.stderr.write(`${name} ... `);
+    const byModel = {};
+    for (const modelId of models) {
+      const byFormat = {};
+      for (const format of formats) {
+        try {
+          const r = await tokenizeEmpirical({ env, format, modelId, prompt });
+          byFormat[format] = {
+            inputCost: Number(r.inputCost.toFixed(8)),
+            inputTokens: r.inputTokens,
+            tokenizer: r.tokenizer,
+          };
+          totalCalls++;
+        } catch (err) {
+          byFormat[format] = { error: err.message };
+        }
+      }
+      byModel[modelId] = byFormat;
+    }
+    empirical[name] = byModel;
+    process.stderr.write('done\n');
+  }
+  return {
+    empirical,
+    formats,
+    generatedAt: new Date().toISOString(),
+    models,
+    schemaVersion: 1,
+    totalCalls,
+  };
+};
+
+const computeDeltas = (offlineResults, empiricalResults) => {
+  const rows = [];
+  for (const [name, byModel] of Object.entries(empiricalResults.empirical)) {
+    for (const [modelId, byFormat] of Object.entries(byModel)) {
+      for (const [format, emp] of Object.entries(byFormat)) {
+        if (emp.error) continue;
+        const off = offlineResults.prompts[name]?.[modelId]?.[format];
+        if (!off) continue;
+        const delta = (emp.inputTokens - off.inputTokens) / off.inputTokens;
+        rows.push({
+          delta,
+          empirical: emp.inputTokens,
+          format,
+          model: modelId,
+          offline: off.inputTokens,
+          prompt: name,
+        });
+      }
+    }
+  }
+  return rows;
+};
+
+const summarizeByProvider = (rows) => {
+  const byProvider = { anthropic: [], google: [], openai: [] };
+  for (const row of rows) {
+    if (row.model.startsWith('claude')) byProvider.anthropic.push(row);
+    else if (row.model.startsWith('gemini')) byProvider.google.push(row);
+    else byProvider.openai.push(row);
+  }
+  const summary = {};
+  for (const [provider, list] of Object.entries(byProvider)) {
+    if (list.length === 0) continue;
+    const deltas = list.map((r) => r.delta);
+    const sum = deltas.reduce((a, b) => a + b, 0);
+    const sorted = [...deltas].sort((a, b) => a - b);
+    summary[provider] = {
+      avgDelta: sum / deltas.length,
+      maxDelta: sorted[sorted.length - 1],
+      medianDelta: sorted[Math.floor(sorted.length / 2)],
+      minDelta: sorted[0],
+      n: list.length,
+    };
+  }
+  return summary;
+};
+
 const main = async () => {
   const args = process.argv.slice(2);
-  const mode = args.includes('--regenerate') ? 'regenerate' : 'check';
+  const isRegenerate = args.includes('--regenerate');
+  const isEmpirical = args.includes('--empirical');
   const prompts = await loadPrompts();
+
+  if (isEmpirical) {
+    const env = readEnv();
+    if (!env.anthropicApiKey && !env.googleApiKey) {
+      console.error(
+        'Empirical sweep needs ANTHROPIC_API_KEY and/or GOOGLE_API_KEY (or GEMINI_API_KEY).',
+      );
+      console.error('OpenAI path is offline (tiktoken) and runs without keys.');
+      return 1;
+    }
+    const empResults = await runEmpiricalSweep(prompts, env);
+    await writeFile(EMPIRICAL_PATH, `${JSON.stringify(empResults, null, 2)}\n`, 'utf8');
+    console.log(`\nWrote ${EMPIRICAL_PATH} (${empResults.totalCalls} successful calls).`);
+
+    const offline = JSON.parse(await readFile(RESULTS_PATH, 'utf8'));
+    const deltas = computeDeltas(offline, empResults);
+    const summary = summarizeByProvider(deltas);
+
+    console.log('\nProvider deltas (empirical vs offline tokens):');
+    for (const [provider, s] of Object.entries(summary)) {
+      const fmt = (n) => `${(n * 100).toFixed(1)}%`;
+      console.log(
+        `  ${provider.padEnd(10)} n=${s.n.toString().padStart(3)}  median ${fmt(s.medianDelta).padStart(8)}  avg ${fmt(s.avgDelta).padStart(8)}  range [${fmt(s.minDelta)}, ${fmt(s.maxDelta)}]`,
+      );
+    }
+    return 0;
+  }
+
   const results = buildResults(prompts);
 
-  if (mode === 'regenerate') {
+  if (isRegenerate) {
     await writeResults(results);
     return 0;
   }

@@ -27,6 +27,7 @@
     "format": "biome format --write .",
     "typecheck": "tsc -b",
     "benchmarks": "node benchmarks/run.mjs",
+    "benchmarks:empirical": "node benchmarks/run.mjs --empirical",
     "benchmarks:regenerate": "node benchmarks/run.mjs --regenerate"
   },
   "devDependencies": {

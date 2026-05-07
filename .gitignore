@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+*.tsbuildinfo
+.turbo
+.next
+.vercel
+.wrangler
+.DS_Store
+*.log
+coverage
+.env
+.env.local
+.env.*.local
+.tokenometer-cache

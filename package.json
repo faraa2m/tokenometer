@@ -1,0 +1,41 @@
+{
+  "name": "tokenometer-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Empirical token-cost benchmarking for LLM prompts.",
+  "license": "MIT",
+  "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
+  "homepage": "https://github.com/faraa2m/tokenometer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/tokenometer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/faraa2m/tokenometer/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf packages/*/dist apps/*/dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "tsc -b",
+    "benchmarks": "node packages/cli/dist/index.js benchmarks --regenerate"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@changesets/cli": "^2.27.11",
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.0"
+  }
+}

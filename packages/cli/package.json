@@ -1,0 +1,43 @@
+{
+  "name": "tokenometer",
+  "version": "0.0.1",
+  "description": "Empirical token-cost benchmarking CLI for LLM prompts.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "tokenometer": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@tokenometer/core": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.0"
+  },
+  "keywords": [
+    "ai",
+    "anthropic",
+    "claude",
+    "cost",
+    "gpt",
+    "llm",
+    "openai",
+    "prompt",
+    "token",
+    "tokenizer"
+  ]
+}

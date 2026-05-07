@@ -1,6 +1,7 @@
 import type { TokenizeResult } from '@tokenometer/core';
 
 interface ResultsMatrixProps {
+  empirical: boolean;
   results: readonly TokenizeResult[];
 }
 
@@ -10,59 +11,64 @@ const formatCost = (usd: number): string => {
   return `$${usd.toExponential(2)}`;
 };
 
-export const ResultsMatrix = ({ results }: ResultsMatrixProps) => {
-  const cheapest = [...results].sort((a, b) => a.inputCost - b.inputCost)[0];
-  const priciest = [...results].sort((a, b) => b.inputCost - a.inputCost)[0];
+export const ResultsMatrix = ({ empirical, results }: ResultsMatrixProps) => {
+  const sorted = [...results].sort((a, b) => a.inputCost - b.inputCost);
+  const cheapest = sorted[0];
+  const priciest = sorted.at(-1);
   const ratio =
     cheapest && priciest && cheapest !== priciest
       ? priciest.inputCost / Math.max(cheapest.inputCost, Number.EPSILON)
       : 1;
 
   return (
-    <div className="space-y-4">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-black/60 dark:text-white/60">
-        Results · {results.length} cells
+    <section>
+      <p className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">
+        05 › results · {results.length} cells · mode = {empirical ? 'empirical' : 'offline'}
       </p>
-      <div className="overflow-x-auto rounded-lg border border-black/10 dark:border-white/10">
-        <table className="w-full border-collapse font-mono text-sm">
+      <div className="overflow-x-auto border border-[var(--tk-rule)]">
+        <table className="w-full border-collapse text-[12.5px]">
           <thead>
-            <tr className="bg-black/5 text-left dark:bg-white/5">
-              <th className="px-4 py-2 font-medium">Model</th>
-              <th className="px-4 py-2 font-medium">Format</th>
-              <th className="px-4 py-2 text-right font-medium">Tokens</th>
-              <th className="px-4 py-2 text-right font-medium">Est. cost</th>
-              <th className="px-4 py-2 text-right font-medium">Tokenizer</th>
+            <tr className="border-b border-[var(--tk-rule)] text-[10px] uppercase tracking-[0.25em] text-[var(--tk-dim)]">
+              <th className="px-3 py-2 text-left font-normal">model</th>
+              <th className="px-3 py-2 text-left font-normal">format</th>
+              <th className="px-3 py-2 text-right font-normal">tokens</th>
+              <th className="px-3 py-2 text-right font-normal">cost (input)</th>
+              <th className="px-3 py-2 text-right font-normal">tokenizer</th>
             </tr>
           </thead>
           <tbody>
-            {results.map((r, i) => {
+            {sorted.map((r, i) => {
               const isCheapest = r === cheapest;
               const isPriciest = r === priciest;
               return (
                 <tr
                   key={`${r.model}-${r.format}-${i}`}
-                  className="border-t border-black/5 dark:border-white/5"
+                  className={
+                    isCheapest || isPriciest
+                      ? 'border-t border-[var(--tk-rule)] bg-[var(--tk-cell)]/40'
+                      : 'border-t border-[var(--tk-rule)]/60'
+                  }
                 >
-                  <td className="px-4 py-2">{r.model}</td>
-                  <td className="px-4 py-2">{r.format}</td>
-                  <td className="px-4 py-2 text-right">
-                    {r.approximate ? (
-                      <span className="text-black/40 dark:text-white/40">~</span>
-                    ) : null}
+                  <td className="px-3 py-1.5 text-[var(--tk-fg)]">{r.model}</td>
+                  <td className="px-3 py-1.5 text-[var(--tk-dim)]">{r.format}</td>
+                  <td className="px-3 py-1.5 text-right tabular-nums text-[var(--tk-fg)]">
+                    <span aria-hidden="true" className="text-[var(--tk-dim)]">
+                      {r.approximate ? '~' : ' '}
+                    </span>
                     {r.inputTokens.toLocaleString()}
                   </td>
                   <td
                     className={
                       isCheapest
-                        ? 'px-4 py-2 text-right font-medium text-emerald-700 dark:text-emerald-400'
+                        ? 'px-3 py-1.5 text-right tabular-nums text-[var(--tk-green)]'
                         : isPriciest
-                          ? 'px-4 py-2 text-right font-medium text-red-700 dark:text-red-400'
-                          : 'px-4 py-2 text-right'
+                          ? 'px-3 py-1.5 text-right tabular-nums text-[var(--tk-red)]'
+                          : 'px-3 py-1.5 text-right tabular-nums text-[var(--tk-fg)]'
                     }
                   >
                     {formatCost(r.inputCost)}
                   </td>
-                  <td className="px-4 py-2 text-right text-xs text-black/50 dark:text-white/50">
+                  <td className="px-3 py-1.5 text-right text-[10.5px] text-[var(--tk-dim)]">
                     {r.tokenizer}
                   </td>
                 </tr>
@@ -72,14 +78,28 @@ export const ResultsMatrix = ({ results }: ResultsMatrixProps) => {
         </table>
       </div>
       {cheapest && priciest && cheapest !== priciest && (
-        <p className="text-sm text-black/70 dark:text-white/70">
-          <span className="font-medium text-emerald-700 dark:text-emerald-400">Cheapest:</span>{' '}
-          {cheapest.model} as {cheapest.format} ({formatCost(cheapest.inputCost)}){'  ·  '}
-          <span className="font-medium text-red-700 dark:text-red-400">Priciest:</span>{' '}
-          {priciest.model} as {priciest.format} ({formatCost(priciest.inputCost)},{' '}
-          <strong>{ratio.toFixed(2)}× more</strong>)
-        </p>
+        <div className="mt-3 grid grid-cols-12 gap-x-6 text-[11.5px]">
+          <p className="col-span-12 sm:col-span-6">
+            <span className="text-[var(--tk-dim)]">cheapest</span>{' '}
+            <span className="text-[var(--tk-green)]">
+              {cheapest.model} / {cheapest.format}
+            </span>{' '}
+            <span className="tabular-nums text-[var(--tk-fg)]">
+              {formatCost(cheapest.inputCost)}
+            </span>
+          </p>
+          <p className="col-span-12 sm:col-span-6 sm:text-right">
+            <span className="text-[var(--tk-dim)]">priciest</span>{' '}
+            <span className="text-[var(--tk-red)]">
+              {priciest.model} / {priciest.format}
+            </span>{' '}
+            <span className="tabular-nums text-[var(--tk-fg)]">
+              {formatCost(priciest.inputCost)}
+            </span>{' '}
+            <span className="text-[var(--tk-dim)]">({ratio.toFixed(2)}× cheapest)</span>
+          </p>
+        </div>
       )}
-    </div>
+    </section>
   );
 };

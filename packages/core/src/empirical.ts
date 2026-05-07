@@ -33,11 +33,21 @@ const countAnthropic = async (
 ): Promise<EmpiricalCountResult> => {
   const apiKey = requireKey(env, 'anthropicApiKey', 'anthropic');
   const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
-  const result = await client.messages.countTokens({
-    messages: [{ content: text, role: 'user' }],
-    model: modelId,
-  });
-  return { count: result.input_tokens, exact: true, source: 'anthropic-count' };
+  try {
+    const result = await client.messages.countTokens({
+      messages: [{ content: text, role: 'user' }],
+      model: modelId,
+    });
+    return { count: result.input_tokens, exact: true, source: 'anthropic-count' };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (/CORS/i.test(message)) {
+      throw new Error(
+        'Anthropic blocked the browser request (org has custom retention settings that disable CORS). Run the CLI instead: `ANTHROPIC_API_KEY=... npx tokenometer prompt.md --empirical`. Same numbers, no CORS.',
+      );
+    }
+    throw err;
+  }
 };
 
 const countGoogle = async (

@@ -2,6 +2,29 @@
 
 :root {
   color-scheme: light dark;
+  --tk-bg: #0a0a0a;
+  --tk-fg: #e8e6dc;
+  --tk-dim: #6e6a5e;
+  --tk-rule: #1f1d18;
+  --tk-amber: #f5b042;
+  --tk-amber-dim: #b3811e;
+  --tk-green: #7dd99c;
+  --tk-red: #e26b6b;
+  --tk-cell: #121110;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --tk-bg: #f3f1ea;
+    --tk-fg: #15140f;
+    --tk-dim: #6e6a5e;
+    --tk-rule: #cfcabc;
+    --tk-amber: #b35200;
+    --tk-amber-dim: #7a3a00;
+    --tk-green: #1d6b3d;
+    --tk-red: #a8231d;
+    --tk-cell: #ebe8df;
+  }
 }
 
 html,
@@ -11,19 +34,71 @@ body,
 }
 
 body {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
-  background: #faf9f6;
-  color: #111;
+  background: var(--tk-bg);
+  color: var(--tk-fg);
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #0b0b0b;
-    color: #f1f1f1;
+::selection {
+  background: var(--tk-amber);
+  color: var(--tk-bg);
+}
+
+/* phosphor cursor */
+@keyframes tk-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.tk-cursor::after {
+  content: "_";
+  margin-left: 0.15em;
+  color: var(--tk-amber);
+  animation: tk-blink 1.05s step-end infinite;
+}
+
+/* CRT scanline overlay (very subtle) */
+.tk-crt {
+  position: relative;
+  isolation: isolate;
+}
+.tk-crt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 2px,
+    rgba(255, 255, 255, 0.015) 3px
+  );
+}
+@media (prefers-color-scheme: light) {
+  .tk-crt::before {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2px,
+      rgba(0, 0, 0, 0.018) 2px,
+      rgba(0, 0, 0, 0.018) 3px
+    );
   }
 }
 
-.font-mono {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+@media (prefers-reduced-motion: reduce) {
+  .tk-cursor::after {
+    animation: none;
+    opacity: 1;
+  }
 }

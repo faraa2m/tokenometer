@@ -1,10 +1,20 @@
 #!/usr/bin/env node
 import { readFile } from 'node:fs/promises';
-import { tokenizeMatrix } from '@tokenometer/core';
+import { tokenizeMatrix, tokenizeMatrixEmpirical } from '@tokenometer/core';
+import type { EmpiricalEnv } from '@tokenometer/core';
 import { HELP_TEXT, parseArgs } from './args.js';
 import { renderSummary, renderTable } from './render.js';
 
 const VERSION = '0.0.1';
+
+const readEnv = (): EmpiricalEnv => {
+  const env: EmpiricalEnv = {};
+  const { ANTHROPIC_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY } = process.env;
+  if (ANTHROPIC_API_KEY) env.anthropicApiKey = ANTHROPIC_API_KEY;
+  const googleKey = GOOGLE_API_KEY ?? GEMINI_API_KEY;
+  if (googleKey) env.googleApiKey = googleKey;
+  return env;
+};
 
 const readStdin = async (): Promise<string> => {
   const chunks: Buffer[] = [];
@@ -53,21 +63,28 @@ export const main = async (argv: readonly string[]): Promise<number> => {
     return 1;
   }
 
-  if (parsed.empirical && !parsed.offline) {
-    process.stderr.write(
-      'Empirical mode is not yet implemented in v0.0.1. Falling back to estimated mode.\n',
-    );
-  }
-
-  const results = tokenizeMatrix({
-    formats: parsed.formats,
-    modelIds: parsed.modelIds,
-    prompt,
-  });
+  const useEmpirical = parsed.empirical && !parsed.offline;
+  const results = useEmpirical
+    ? await tokenizeMatrixEmpirical({
+        env: readEnv(),
+        formats: parsed.formats,
+        modelIds: parsed.modelIds,
+        prompt,
+      })
+    : tokenizeMatrix({
+        formats: parsed.formats,
+        modelIds: parsed.modelIds,
+        prompt,
+      });
 
   process.stdout.write(`${renderTable(results)}\n`);
   const summary = renderSummary(results);
   if (summary) process.stdout.write(`${summary}\n`);
+  if (useEmpirical) {
+    process.stdout.write(
+      '\n(empirical: Anthropic / Google counts via provider countTokens API; OpenAI via tiktoken o200k_base)\n',
+    );
+  }
   return 0;
 };
 

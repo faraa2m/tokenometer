@@ -18,6 +18,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.0",
+    "@google/generative-ai": "^0.24.1",
     "gpt-tokenizer": "^3.4.0",
     "yaml": "^2.6.1"
   },

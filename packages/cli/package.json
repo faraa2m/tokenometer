@@ -1,6 +1,6 @@
 {
   "name": "tokenometer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Empirical token-cost benchmarking CLI for LLM prompts. Tells you what your prompt actually costs across Claude, GPT-4o, and Gemini, in every format.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
@@ -49,7 +49,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@tokenometer/core": "0.0.1"
+    "@tokenometer/core": "0.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

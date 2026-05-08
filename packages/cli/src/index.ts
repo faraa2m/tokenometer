@@ -1,11 +1,13 @@
 #!/usr/bin/env node
+import { realpathSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
 import { tokenizeMatrix, tokenizeMatrixEmpirical } from '@tokenometer/core';
 import type { EmpiricalEnv } from '@tokenometer/core';
 import { HELP_TEXT, parseArgs } from './args.js';
 import { renderSummary, renderTable } from './render.js';
 
-const VERSION = '0.0.1';
+const VERSION = '0.0.2';
 
 const readEnv = (): EmpiricalEnv => {
   const env: EmpiricalEnv = {};
@@ -88,8 +90,17 @@ export const main = async (argv: readonly string[]): Promise<number> => {
   return 0;
 };
 
-const scriptUrl = `file://${process.argv[1]}`;
-if (import.meta.url === scriptUrl) {
+const isInvokedAsScript = (): boolean => {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  try {
+    return pathToFileURL(realpathSync(entry)).href === import.meta.url;
+  } catch {
+    return false;
+  }
+};
+
+if (isInvokedAsScript()) {
   main(process.argv.slice(2)).then(
     (code) => process.exit(code),
     (err: unknown) => {

@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/action",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "GitHub Action that posts a sticky PR comment with prompt-cost diff.",
   "license": "MIT",
   "private": true,
@@ -13,7 +13,7 @@
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
-    "@tokenometer/core": "0.0.1",
+    "@tokenometer/core": "0.0.2",
     "minimatch": "^10.2.5"
   },
   "devDependencies": {

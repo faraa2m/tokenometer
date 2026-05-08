@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Empirical token-cost benchmarking for LLM prompts — core library (tokenizers, format converters, rate matrix, empirical countTokens dispatch).",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",

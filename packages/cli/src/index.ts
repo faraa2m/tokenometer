@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { tokenizeMatrix, tokenizeMatrixEmpirical } from '@tokenometer/core';
 import type { EmpiricalEnv } from '@tokenometer/core';
 import { HELP_TEXT, parseArgs } from './args.js';
-import { renderSummary, renderTable } from './render.js';
+import { renderModelLimits, renderSummary, renderTable } from './render.js';
 
 const VERSION = '0.0.2';
 
@@ -80,6 +80,8 @@ export const main = async (argv: readonly string[]): Promise<number> => {
       });
 
   process.stdout.write(`${renderTable(results)}\n`);
+  const limits = renderModelLimits(results);
+  if (limits) process.stdout.write(`${limits}\n`);
   const summary = renderSummary(results);
   if (summary) process.stdout.write(`${summary}\n`);
   if (useEmpirical) {

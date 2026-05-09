@@ -44,12 +44,16 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist"
+    "check:overrides": "node scripts/check-overrides.mjs",
+    "clean": "rm -rf dist",
+    "snapshot:registry": "node scripts/snapshot-registry.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",
     "@google/generative-ai": "^0.24.1",
+    "@tokenlens/models": "^1.3.0",
     "gpt-tokenizer": "^3.4.0",
+    "tokenlens": "^1.3.1",
     "yaml": "^2.6.1"
   },
   "devDependencies": {

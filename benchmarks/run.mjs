@@ -24,9 +24,39 @@ const loadPrompts = async () => {
   return out;
 };
 
-const buildResults = (prompts) => {
+const parseModelFilter = (args) => {
+  const env = process.env.BENCH_MODELS;
+  if (env)
+    return new Set(
+      env
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
+    );
+  const flagIdx = args.findIndex((a) => a === '--models' || a === '--filter');
+  if (flagIdx === -1 || !args[flagIdx + 1]) return null;
+  return new Set(
+    args[flagIdx + 1]
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
+  );
+};
+
+const selectModels = (filter) => {
+  const all = [...KNOWN_MODELS].sort();
+  if (!filter) return all;
+  const selected = all.filter((m) => filter.has(m));
+  if (selected.length === 0) {
+    throw new Error(
+      `No matching models. Filter: ${[...filter].join(', ')}. Available: ${all.join(', ')}`,
+    );
+  }
+  return selected;
+};
+
+const buildResults = (prompts, models) => {
   const formats = [...allFormats()];
-  const models = [...KNOWN_MODELS].sort();
   const entries = {};
   for (const [name, prompt] of Object.entries(prompts).sort()) {
     const byModel = {};
@@ -111,9 +141,8 @@ const readEnv = () => {
   return env;
 };
 
-const runEmpiricalSweep = async (prompts, env) => {
+const runEmpiricalSweep = async (prompts, env, models) => {
   const formats = [...allFormats()];
-  const models = [...KNOWN_MODELS].sort();
   const empirical = {};
   let totalCalls = 0;
   for (const [name, prompt] of Object.entries(prompts).sort()) {
@@ -200,6 +229,11 @@ const main = async () => {
   const args = process.argv.slice(2);
   const isRegenerate = args.includes('--regenerate');
   const isEmpirical = args.includes('--empirical');
+  const filter = parseModelFilter(args);
+  const models = selectModels(filter);
+  if (filter) {
+    console.error(`Filter active — sweeping ${models.length}/${KNOWN_MODELS.length} models.`);
+  }
   const prompts = await loadPrompts();
 
   if (isEmpirical) {
@@ -211,7 +245,7 @@ const main = async () => {
       console.error('OpenAI path is offline (tiktoken) and runs without keys.');
       return 1;
     }
-    const empResults = await runEmpiricalSweep(prompts, env);
+    const empResults = await runEmpiricalSweep(prompts, env, models);
     await writeFile(EMPIRICAL_PATH, `${JSON.stringify(empResults, null, 2)}\n`, 'utf8');
     console.log(`\nWrote ${EMPIRICAL_PATH} (${empResults.totalCalls} successful calls).`);
 
@@ -229,7 +263,7 @@ const main = async () => {
     return 0;
   }
 
-  const results = buildResults(prompts);
+  const results = buildResults(prompts, models);
 
   if (isRegenerate) {
     await writeResults(results);

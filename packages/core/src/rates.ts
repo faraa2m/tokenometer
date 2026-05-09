@@ -1,41 +1,147 @@
-import type { ModelDescriptor, RateEntry } from './types.js';
+import type { ProvidersCatalog } from '@tokenlens/core';
+import anthropicProvider from '@tokenlens/models/anthropic';
+import googleProvider from '@tokenlens/models/google';
+import openaiProvider from '@tokenlens/models/openai';
+import { getContext, getTokenCosts } from 'tokenlens';
+import type { ModelDescriptor, Provider, RateEntry } from './types.js';
 
-export const RATES_VERSION = '2026-05-07';
+export const RATES_VERSION = '2026-05-08';
 
-export const RATES: Record<string, RateEntry> = {
-  'claude-haiku-4-5': { cachedInputPer1k: 0.0001, inputPer1k: 0.001, outputPer1k: 0.005 },
-  'claude-opus-4-7': { cachedInputPer1k: 0.0015, inputPer1k: 0.015, outputPer1k: 0.075 },
-  'claude-sonnet-4-6': { cachedInputPer1k: 0.0003, inputPer1k: 0.003, outputPer1k: 0.015 },
-  'gemini-2.5-flash': { inputPer1k: 0.000075, outputPer1k: 0.0003 },
-  'gemini-2.5-pro': { inputPer1k: 0.00125, outputPer1k: 0.005 },
-  'gpt-4o': { inputPer1k: 0.0025, outputPer1k: 0.01 },
-  'gpt-4o-mini': { inputPer1k: 0.00015, outputPer1k: 0.0006 },
+const CATALOG: ProvidersCatalog = {
+  anthropic: anthropicProvider,
+  google: googleProvider,
+  openai: openaiProvider,
 };
 
-export const MODELS: Record<string, ModelDescriptor> = {
-  'claude-haiku-4-5': { id: 'claude-haiku-4-5', provider: 'anthropic' },
-  'claude-opus-4-7': { id: 'claude-opus-4-7', provider: 'anthropic' },
-  'claude-sonnet-4-6': { id: 'claude-sonnet-4-6', provider: 'anthropic' },
-  'gemini-2.5-flash': { id: 'gemini-2.5-flash', provider: 'google' },
-  'gemini-2.5-pro': { id: 'gemini-2.5-pro', provider: 'google' },
-  'gpt-4o': { id: 'gpt-4o', provider: 'openai' },
-  'gpt-4o-mini': { id: 'gpt-4o-mini', provider: 'openai' },
+const PROVIDERS: readonly Provider[] = ['anthropic', 'google', 'openai'];
+
+interface RegistryEntry {
+  rate: RateEntry;
+  descriptor: ModelDescriptor;
+}
+
+// Bleeding-edge models tokenlens hasn't picked up from upstream yet.
+// Remove an entry once `scripts/check-overrides.mjs` reports it landed.
+const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
+  'claude-haiku-4-5': {
+    rate: { cachedInputPer1k: 0.0001, inputPer1k: 0.001, outputPer1k: 0.005 },
+    descriptor: {
+      contextWindow: 200_000,
+      id: 'claude-haiku-4-5',
+      maxOutputTokens: 64_000,
+      pricingSource: 'local',
+      provider: 'anthropic',
+    },
+  },
+  'claude-opus-4-7': {
+    rate: { cachedInputPer1k: 0.0015, inputPer1k: 0.015, outputPer1k: 0.075 },
+    descriptor: {
+      contextWindow: 200_000,
+      id: 'claude-opus-4-7',
+      maxOutputTokens: 32_000,
+      pricingSource: 'local',
+      provider: 'anthropic',
+    },
+  },
+  'claude-sonnet-4-6': {
+    rate: { cachedInputPer1k: 0.0003, inputPer1k: 0.003, outputPer1k: 0.015 },
+    descriptor: {
+      contextWindow: 200_000,
+      id: 'claude-sonnet-4-6',
+      maxOutputTokens: 64_000,
+      pricingSource: 'local',
+      provider: 'anthropic',
+    },
+  },
 };
 
-export const KNOWN_MODELS = Object.keys(MODELS);
+// Raw models.dev catalog data has no explicit status field; infer "preview" from
+// id naming conventions. Anything with "-preview" (or starting "preview-") is
+// dropped so the curated registry only includes generally-available models.
+const PREVIEW_ID_PATTERN = /(^|-)preview(-|$)/i;
+
+const buildFromTokenlens = (): Record<string, RegistryEntry> => {
+  const out: Record<string, RegistryEntry> = {};
+  for (const provider of PROVIDERS) {
+    const providerInfo = CATALOG[provider];
+    if (!providerInfo) continue;
+
+    for (const bareId of Object.keys(providerInfo.models)) {
+      if (PREVIEW_ID_PATTERN.test(bareId)) continue;
+
+      const namespacedId = `${provider}:${bareId}`;
+
+      const cost = getTokenCosts({
+        modelId: namespacedId,
+        providers: CATALOG,
+        usage: { input: 1000, output: 1000 },
+      });
+      if (!cost.inputUSD || !cost.outputUSD) continue;
+
+      const ctx = getContext({ modelId: namespacedId, providers: CATALOG });
+      const contextWindow = ctx.combinedMax ?? ctx.maxTotal ?? ctx.inputMax;
+      const maxOutputTokens = ctx.outputMax ?? ctx.maxOutput;
+
+      const rate: RateEntry = {
+        inputPer1k: cost.inputUSD,
+        outputPer1k: cost.outputUSD,
+        ...(cost.cacheReadUSD ? { cachedInputPer1k: cost.cacheReadUSD } : {}),
+      };
+
+      const descriptor: ModelDescriptor = {
+        id: bareId,
+        pricingSource: 'tokenlens',
+        provider,
+        ...(contextWindow ? { contextWindow } : {}),
+        ...(maxOutputTokens ? { maxOutputTokens } : {}),
+      };
+
+      const existing = out[bareId];
+      if (existing && existing.descriptor.provider !== provider) {
+        // Same bare id from a different provider — keep the first, warn loudly.
+        // eslint-disable-next-line no-console
+        console.warn(
+          `[tokenometer] bare id collision for "${bareId}": ${existing.descriptor.provider} vs ${provider}; keeping ${existing.descriptor.provider}.`,
+        );
+        continue;
+      }
+
+      out[bareId] = { descriptor, rate };
+    }
+  }
+  return out;
+};
+
+const REGISTRY: Record<string, RegistryEntry> = (() => {
+  const out = buildFromTokenlens();
+  for (const [id, entry] of Object.entries(LOCAL_OVERRIDES)) {
+    out[id] = entry;
+  }
+  return out;
+})();
+
+export const RATES: Record<string, RateEntry> = Object.fromEntries(
+  Object.entries(REGISTRY).map(([id, e]) => [id, e.rate]),
+);
+
+export const MODELS: Record<string, ModelDescriptor> = Object.fromEntries(
+  Object.entries(REGISTRY).map(([id, e]) => [id, e.descriptor]),
+);
+
+export const KNOWN_MODELS: readonly string[] = Object.keys(REGISTRY).sort();
 
 export const getRate = (modelId: string): RateEntry => {
-  const rate = RATES[modelId];
-  if (!rate) {
+  const entry = REGISTRY[modelId];
+  if (!entry) {
     throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
   }
-  return rate;
+  return entry.rate;
 };
 
 export const getModel = (modelId: string): ModelDescriptor => {
-  const model = MODELS[modelId];
-  if (!model) {
+  const entry = REGISTRY[modelId];
+  if (!entry) {
     throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
   }
-  return model;
+  return entry.descriptor;
 };

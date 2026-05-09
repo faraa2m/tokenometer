@@ -1,6 +1,6 @@
 import type { TokenizeResult } from '@tokenometer/core';
 import { describe, expect, it } from 'vitest';
-import { renderSummary, renderTable } from './render.js';
+import { renderModelLimits, renderSummary, renderTable } from './render.js';
 
 const sample: TokenizeResult[] = [
   {
@@ -45,6 +45,23 @@ describe('renderTable', () => {
   it('marks approximate counts with a tilde', () => {
     const out = renderTable(sample);
     expect(out).toMatch(/~80/);
+  });
+});
+
+describe('renderModelLimits', () => {
+  it('returns empty string for an empty result list', () => {
+    expect(renderModelLimits([])).toBe('');
+  });
+
+  it('lists each unique model once with context window', () => {
+    const out = renderModelLimits(sample);
+    expect(out).toContain('Limits:');
+    expect(out).toContain('gpt-4o');
+    expect(out).toContain('claude-opus-4-7');
+    expect(out).toContain('ctx 128k');
+    expect(out).toContain('ctx 200k');
+    const occurrences = out.match(/gpt-4o/g)?.length ?? 0;
+    expect(occurrences).toBe(1);
   });
 });
 

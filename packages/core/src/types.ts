@@ -5,6 +5,9 @@ export type Format = 'json' | 'markdown' | 'text' | 'xml' | 'yaml';
 export interface ModelDescriptor {
   id: string;
   provider: Provider;
+  contextWindow?: number;
+  maxOutputTokens?: number;
+  pricingSource?: 'local' | 'tokenlens';
 }
 
 export interface RateEntry {

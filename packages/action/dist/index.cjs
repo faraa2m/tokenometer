@@ -41143,39 +41143,17574 @@ var GptEncoding = class _GptEncoding {
 var api = GptEncoding.getEncodingApi("o200k_base", () => o200k_base_default);
 var { decode, decodeAsyncGenerator, decodeGenerator, encode: encode2, encodeGenerator, isWithinTokenLimit, countTokens, encodeChat, encodeChatGenerator, vocabularySize, setMergeCacheSize, clearMergeCache, estimateCost } = api;
 
+// ../../node_modules/@tokenlens/models/dist/providers/anthropic.js
+var anthropicModels = {
+  id: "anthropic",
+  name: "Anthropic",
+  npm: "@ai-sdk/anthropic",
+  doc: "https://docs.anthropic.com/en/docs/about-claude/models",
+  env: ["ANTHROPIC_API_KEY"],
+  models: {
+    "claude-3-7-sonnet-20250219": {
+      id: "claude-3-7-sonnet-20250219",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-31",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "claude-opus-4-1-20250805": {
+      id: "claude-opus-4-1-20250805",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "claude-3-haiku-20240307": {
+      id: "claude-3-haiku-20240307",
+      name: "Claude Haiku 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08-31",
+      release_date: "2024-03-13",
+      last_updated: "2024-03-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 1.25,
+        cache_read: 0.03,
+        cache_write: 0.3
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "claude-3-5-haiku-20241022": {
+      id: "claude-3-5-haiku-20241022",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07-31",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-opus-4-20250514": {
+      id: "claude-opus-4-20250514",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "claude-3-5-sonnet-20241022": {
+      id: "claude-3-5-sonnet-20241022",
+      name: "Claude Sonnet 3.5 v2",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04-30",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-3-5-sonnet-20240620": {
+      id: "claude-3-5-sonnet-20240620",
+      name: "Claude Sonnet 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04-30",
+      release_date: "2024-06-20",
+      last_updated: "2024-06-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-3-sonnet-20240229": {
+      id: "claude-3-sonnet-20240229",
+      name: "Claude Sonnet 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08-31",
+      release_date: "2024-03-04",
+      last_updated: "2024-03-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 0.3
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "claude-sonnet-4-20250514": {
+      id: "claude-sonnet-4-20250514",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "claude-3-opus-20240229": {
+      id: "claude-3-opus-20240229",
+      name: "Claude Opus 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08-31",
+      release_date: "2024-02-29",
+      last_updated: "2024-02-29",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    }
+  }
+};
+var anthropic_default = anthropicModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/google.js
+var googleModels = {
+  id: "google",
+  name: "Google",
+  npm: "@ai-sdk/google",
+  doc: "https://ai.google.dev/gemini-api/docs/pricing",
+  env: ["GOOGLE_GENERATIVE_AI_API_KEY"],
+  models: {
+    "gemini-2.5-flash-preview-05-20": {
+      id: "gemini-2.5-flash-preview-05-20",
+      name: "Gemini 2.5 Flash Preview 05-20",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-05-20",
+      last_updated: "2025-05-20",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro": {
+      id: "gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-1.5-flash": {
+      id: "gemini-1.5-flash",
+      name: "Gemini 1.5 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-05-14",
+      last_updated: "2024-05-14",
+      modalities: {
+        input: ["text", "image", "audio", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.075,
+        output: 0.3,
+        cache_read: 0.01875
+      },
+      limit: {
+        context: 1e6,
+        output: 8192
+      }
+    },
+    "gemini-2.0-flash-lite": {
+      id: "gemini-2.0-flash-lite",
+      name: "Gemini 2.0 Flash Lite",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.075,
+        output: 0.3
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "gemini-1.5-pro": {
+      id: "gemini-1.5-pro",
+      name: "Gemini 1.5 Pro",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-02-15",
+      last_updated: "2024-02-15",
+      modalities: {
+        input: ["text", "image", "audio", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 5,
+        cache_read: 0.3125
+      },
+      limit: {
+        context: 1e6,
+        output: 8192
+      }
+    },
+    "gemini-1.5-flash-8b": {
+      id: "gemini-1.5-flash-8b",
+      name: "Gemini 1.5 Flash-8B",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-10-03",
+      last_updated: "2024-10-03",
+      modalities: {
+        input: ["text", "image", "audio", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.0375,
+        output: 0.15,
+        cache_read: 0.01
+      },
+      limit: {
+        context: 1e6,
+        output: 8192
+      }
+    },
+    "gemini-2.5-flash": {
+      id: "gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.075
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro-preview-06-05": {
+      id: "gemini-2.5-pro-preview-06-05",
+      name: "Gemini 2.5 Pro Preview 06-05",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-05",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro-preview-05-06": {
+      id: "gemini-2.5-pro-preview-05-06",
+      name: "Gemini 2.5 Pro Preview 05-06",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-05-06",
+      last_updated: "2025-05-06",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.0-flash": {
+      id: "gemini-2.0-flash",
+      name: "Gemini 2.0 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "gemini-2.5-flash-lite-preview-06-17": {
+      id: "gemini-2.5-flash-lite-preview-06-17",
+      name: "Gemini 2.5 Flash Lite Preview 06-17",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 65536,
+        output: 65536
+      }
+    },
+    "gemini-2.5-flash-preview-04-17": {
+      id: "gemini-2.5-flash-preview-04-17",
+      name: "Gemini 2.5 Flash Preview 04-17",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-04-17",
+      last_updated: "2025-04-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    }
+  }
+};
+var google_default = googleModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/openai.js
+var openaiModels = {
+  id: "openai",
+  name: "OpenAI",
+  npm: "@ai-sdk/openai",
+  doc: "https://platform.openai.com/docs/models",
+  env: ["OPENAI_API_KEY"],
+  models: {
+    "gpt-5-nano": {
+      id: "gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4,
+        cache_read: 0.01
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "o3-pro": {
+      id: "o3-pro",
+      name: "o3-pro",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-06-10",
+      last_updated: "2025-06-10",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 20,
+        output: 80
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "codex-mini-latest": {
+      id: "codex-mini-latest",
+      name: "Codex Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-05-16",
+      last_updated: "2025-05-16",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.5,
+        output: 6,
+        cache_read: 0.375
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-4.1": {
+      id: "gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "gpt-4-turbo": {
+      id: "gpt-4-turbo",
+      name: "GPT-4 Turbo",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2023-11-06",
+      last_updated: "2024-04-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 10,
+        output: 30
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    o1: {
+      id: "o1",
+      name: "o1",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-12-05",
+      last_updated: "2024-12-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 60,
+        cache_read: 7.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "o3-deep-research": {
+      id: "o3-deep-research",
+      name: "o3-deep-research",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-06-26",
+      last_updated: "2024-06-26",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 10,
+        output: 40,
+        cache_read: 2.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-5": {
+      id: "gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.13
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "o1-pro": {
+      id: "o1-pro",
+      name: "o1-pro",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2025-03-19",
+      last_updated: "2025-03-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 150,
+        output: 600
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    o3: {
+      id: "o3",
+      name: "o3",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-5-chat-latest": {
+      id: "gpt-5-chat-latest",
+      name: "GPT-5 Chat (latest)",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "gpt-5-mini": {
+      id: "gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "o1-preview": {
+      id: "o1-preview",
+      name: "o1-preview",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-09",
+      release_date: "2024-09-12",
+      last_updated: "2024-09-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 60,
+        cache_read: 7.5
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "o4-mini-deep-research": {
+      id: "o4-mini-deep-research",
+      name: "o4-mini-deep-research",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-06-26",
+      last_updated: "2024-06-26",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-4o-mini": {
+      id: "gpt-4o-mini",
+      name: "GPT-4o mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.08
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gpt-4.1-nano": {
+      id: "gpt-4.1-nano",
+      name: "GPT-4.1 nano",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "gpt-4.1-mini": {
+      id: "gpt-4.1-mini",
+      name: "GPT-4.1 mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 1.6,
+        cache_read: 0.1
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "o1-mini": {
+      id: "o1-mini",
+      name: "o1-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2023-09",
+      release_date: "2024-09-12",
+      last_updated: "2024-09-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.55
+      },
+      limit: {
+        context: 128e3,
+        output: 65536
+      }
+    },
+    "gpt-4o": {
+      id: "gpt-4o",
+      name: "GPT-4o",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-05-13",
+      last_updated: "2024-05-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2.5,
+        output: 10,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gpt-4": {
+      id: "gpt-4",
+      name: "GPT-4",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-11",
+      release_date: "2023-11-06",
+      last_updated: "2024-04-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 30,
+        output: 60
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "gpt-3.5-turbo": {
+      id: "gpt-3.5-turbo",
+      name: "GPT-3.5-turbo",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-09-01",
+      release_date: "2023-03-01",
+      last_updated: "2023-11-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.5,
+        output: 1.5,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 16385,
+        output: 4096
+      }
+    },
+    "o4-mini": {
+      id: "o4-mini",
+      name: "o4-mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.28
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "o3-mini": {
+      id: "o3-mini",
+      name: "o3-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-12-20",
+      last_updated: "2025-01-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.55
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    }
+  }
+};
+var openai_default = openaiModels;
+
+// ../../node_modules/@tokenlens/helpers/dist/context.js
+var TOKENS_PER_MILLION = 1e6;
+function normalizeUsage(usage) {
+  if (!usage)
+    return { input: 0, output: 0, total: 0 };
+  if (typeof usage.input === "number" && typeof usage.output === "number") {
+    const u = usage;
+    return {
+      input: u.input,
+      output: u.output,
+      total: u.total ?? u.input + u.output
+    };
+  }
+  const ul = usage;
+  const inputCandidates = [
+    ul.input_tokens,
+    ul.prompt_tokens,
+    ul.promptTokens,
+    ul.inputTokens
+  ].filter((v) => typeof v === "number");
+  const outputCandidates = [
+    ul.output_tokens,
+    ul.completion_tokens,
+    ul.completionTokens,
+    ul.outputTokens
+  ].filter((v) => typeof v === "number");
+  const totalCandidates = [
+    ul.total_tokens,
+    ul.totalTokens,
+    ul.totalTokens
+  ].filter((v) => typeof v === "number");
+  const input = inputCandidates[0] ?? 0;
+  const output = outputCandidates[0] ?? 0;
+  const total = totalCandidates[0];
+  if (total !== void 0)
+    return { input, output, total };
+  return { input, output, total: input + output };
+}
+function breakdownTokens(usage) {
+  if (!usage)
+    return {
+      input: 0,
+      output: 0,
+      total: 0,
+      cacheReads: 0,
+      cacheWrites: 0,
+      reasoningTokens: 0
+    };
+  if (typeof usage.input === "number" && typeof usage.output === "number" && ("cacheReads" in usage || "cacheWrites" in usage || "total" in usage)) {
+    const u0 = usage;
+    return {
+      input: u0.input,
+      output: u0.output,
+      total: u0.total ?? u0.input + u0.output,
+      cacheReads: u0.cacheReads,
+      cacheWrites: u0.cacheWrites,
+      reasoningTokens: u0.reasoningTokens
+    };
+  }
+  const base = normalizeUsage(usage);
+  const u = usage;
+  const cacheReadCandidates = [
+    u.cache_read_input_tokens,
+    u.cache_read_tokens,
+    u.prompt_cache_hit_tokens,
+    u.prompt_tokens_details?.cached_tokens,
+    u.promptTokensDetails?.cachedTokens,
+    u.cachedInputTokens,
+    u.cacheReads
+  ].filter((v) => typeof v === "number");
+  const cacheWriteCandidates = [
+    u.cache_creation_input_tokens,
+    u.cache_creation_tokens,
+    u.prompt_cache_write_tokens,
+    u.promptTokensDetails?.cacheCreationTokens,
+    u.cacheWrites
+  ].filter((v) => typeof v === "number");
+  const cacheReads = cacheReadCandidates[0];
+  const cacheWrites = cacheWriteCandidates[0];
+  const reasoningCandidates = [u.reasoning_tokens, u.reasoningTokens].filter((v) => typeof v === "number");
+  const reasoningTokens = reasoningCandidates[0];
+  return { ...base, cacheReads, cacheWrites, reasoningTokens };
+}
+function getTokenCosts(a, b, c) {
+  const modelId = typeof a === "string" ? a : a.modelId;
+  const usage = (typeof a === "string" ? b : a.usage) ?? {};
+  const providers = typeof a === "string" ? c : a.providers;
+  const model = resolveModelFromCatalog(modelId, providers);
+  if (!model?.pricing)
+    return {};
+  const base = normalizeUsage(usage);
+  const breakdown = breakdownTokens(usage);
+  const inputUSD = model.pricing.inputPerMTokens !== void 0 ? base.input / TOKENS_PER_MILLION * model.pricing.inputPerMTokens : void 0;
+  const outputUSD = model.pricing.outputPerMTokens !== void 0 ? base.output / TOKENS_PER_MILLION * model.pricing.outputPerMTokens : void 0;
+  const reasoningUSD = model.pricing.reasoningPerMTokens !== void 0 && typeof breakdown.reasoningTokens === "number" ? breakdown.reasoningTokens / TOKENS_PER_MILLION * model.pricing.reasoningPerMTokens : void 0;
+  const cacheReadUSD = model.pricing.cacheReadPerMTokens !== void 0 && typeof breakdown.cacheReads === "number" ? breakdown.cacheReads / TOKENS_PER_MILLION * model.pricing.cacheReadPerMTokens : void 0;
+  const cacheWriteUSD = model.pricing.cacheWritePerMTokens !== void 0 && typeof breakdown.cacheWrites === "number" ? breakdown.cacheWrites / TOKENS_PER_MILLION * model.pricing.cacheWritePerMTokens : void 0;
+  const totalParts = [
+    inputUSD,
+    outputUSD,
+    reasoningUSD,
+    cacheReadUSD,
+    cacheWriteUSD
+  ].filter((v) => typeof v === "number");
+  const totalUSD = totalParts.length ? totalParts.reduce((a2, b2) => a2 + b2, 0) : void 0;
+  const res = {
+    inputUSD,
+    outputUSD,
+    reasoningUSD,
+    cacheReadUSD,
+    cacheWriteUSD,
+    totalUSD
+  };
+  return {
+    ...res,
+    inputTokenUSD: res.inputUSD,
+    outputTokenUSD: res.outputUSD,
+    reasoningTokenUSD: res.reasoningUSD,
+    cacheReadsUSD: res.cacheReadUSD,
+    cacheWritesUSD: res.cacheWriteUSD
+  };
+}
+function getContext(a, b) {
+  const modelId = typeof a === "string" ? a : a.modelId;
+  const providers = typeof a === "string" ? b : a.providers;
+  const model = resolveModelFromCatalog(modelId, providers);
+  const inputMax = model?.context?.inputMax;
+  const outputMax = model?.context?.outputMax;
+  const combinedMax = model?.context?.combinedMax;
+  const totalMax = combinedMax;
+  return {
+    inputMax,
+    outputMax,
+    combinedMax,
+    totalMax,
+    maxInput: inputMax,
+    maxOutput: outputMax,
+    maxTotal: totalMax
+  };
+}
+function resolveModelFromCatalog(idOrAlias, providers) {
+  if (!providers)
+    return void 0;
+  const base = idOrAlias.trim().toLowerCase();
+  const candidates = [base];
+  if (base.includes("/")) {
+    const i = base.indexOf("/");
+    const p = base.slice(0, i);
+    const rest = base.slice(i + 1);
+    candidates.push(`${p}:${rest}`);
+    candidates.push(`${p}:${rest.replace(/(\d)\.(\d)/g, "$1-$2")}`);
+  }
+  if (base.includes(":")) {
+    const i = base.indexOf(":");
+    const p = base.slice(0, i);
+    const rest = base.slice(i + 1);
+    candidates.push(`${p}:${rest.replace(/(\d)\.(\d)/g, "$1-$2")}`);
+  }
+  if (!base.includes(":") && !base.includes("/")) {
+    candidates.push(base.replace(/(\d)\.(\d)/g, "$1-$2"));
+  }
+  for (const key of candidates) {
+    const idx = key.indexOf(":");
+    if (idx > 0) {
+      const providerKey = key.slice(0, idx);
+      const mid = key.slice(idx + 1);
+      for (const [provKey, prov] of iterateProviders(providers)) {
+        if (mid) {
+          const m = prov?.models?.[mid];
+          if (m && (provKey === providerKey || providerKey.length > 0))
+            return mapModelsDevEntry(provKey, mid, m, prov);
+        }
+      }
+    }
+    for (const [provKey, prov] of iterateProviders(providers)) {
+      const m = prov?.models?.[key];
+      if (m)
+        return mapModelsDevEntry(provKey, key, m, prov);
+    }
+  }
+  return void 0;
+}
+function mapModelsDevEntry(provider, modelId, m, prov) {
+  const inputMods = Array.isArray(m?.modalities?.input) ? m.modalities?.input : [];
+  const outputMods = Array.isArray(m?.modalities?.output) ? m.modalities?.output : [];
+  const textIn = inputMods.includes("text");
+  const imageIn = inputMods.includes("image");
+  const textOut = outputMods.includes("text");
+  const combinedMax = typeof m?.limit?.context === "number" ? m.limit.context : void 0;
+  const inputMax = typeof m?.limit?.input === "number" ? m.limit.input : void 0;
+  const outputMax = typeof m?.limit?.output === "number" ? m.limit.output : void 0;
+  const pricing = m?.cost && (typeof m.cost.input === "number" || typeof m.cost.output === "number" || typeof m.cost.reasoning === "number" || typeof m.cost.cache_read === "number" || typeof m.cost.cache_write === "number") ? {
+    ...typeof m.cost.input === "number" ? { inputPerMTokens: m.cost.input } : {},
+    ...typeof m.cost.output === "number" ? { outputPerMTokens: m.cost.output } : {},
+    ...typeof m.cost.reasoning === "number" ? { reasoningPerMTokens: m.cost.reasoning } : {},
+    ...typeof m.cost.cache_read === "number" ? { cacheReadPerMTokens: m.cost.cache_read } : {},
+    ...typeof m.cost.cache_write === "number" ? { cacheWritePerMTokens: m.cost.cache_write } : {}
+  } : void 0;
+  return {
+    id: `${provider}:${modelId}`,
+    provider,
+    vendorId: modelId,
+    displayName: m?.name || modelId,
+    family: modelId,
+    status: "stable",
+    context: Object.fromEntries(Object.entries({ combinedMax, inputMax, outputMax }).filter(([, v]) => typeof v === "number")),
+    modalities: textIn || textOut || imageIn ? {
+      ...textIn && { textIn: true },
+      ...textOut && { textOut: true },
+      ...imageIn && { imageIn: true }
+    } : void 0,
+    pricing,
+    pricingSource: "models.dev",
+    aliases: [`${provider}/${modelId}`],
+    releasedAt: m?.release_date || void 0,
+    source: prov?.doc || prov.docs || "https://models.dev",
+    contextSource: prov?.doc || prov.docs || void 0,
+    verifiedAt: m?.last_updated || void 0
+  };
+}
+function* iterateProviders(providers) {
+  if (providers?.models) {
+    const p = providers;
+    const key = p.id || "provider";
+    yield [key, p];
+    return;
+  }
+  for (const [key, prov] of Object.entries(providers)) {
+    yield [key, prov];
+  }
+}
+
+// ../../node_modules/@tokenlens/models/dist/providers/alibaba.js
+var alibabaModels = {
+  id: "alibaba",
+  name: "Alibaba",
+  api: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://www.alibabacloud.com/help/en/model-studio/models",
+  env: ["DASHSCOPE_API_KEY"],
+  models: {
+    "qwen3-coder-plus": {
+      id: "qwen3-coder-plus",
+      name: "Qwen3 Coder Plus",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 5
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    }
+  }
+};
+var alibaba_default = alibabaModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/alibaba-cn.js
+var alibaba_cnModels = {
+  id: "alibaba-cn",
+  name: "Alibaba (China)",
+  api: "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://www.alibabacloud.com/help/en/model-studio/models",
+  env: ["DASHSCOPE_API_KEY"],
+  models: {
+    "qwen3-coder-plus": {
+      id: "qwen3-coder-plus",
+      name: "Qwen3 Coder Plus",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 5
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    }
+  }
+};
+var alibaba_cn_default = alibaba_cnModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/amazon-bedrock.js
+var amazon_bedrockModels = {
+  id: "amazon-bedrock",
+  name: "Amazon Bedrock",
+  npm: "@ai-sdk/amazon-bedrock",
+  doc: "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
+  env: ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"],
+  models: {
+    "anthropic.claude-3-5-sonnet-20241022-v2:0": {
+      id: "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      name: "Claude Sonnet 3.5 v2",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "cohere.command-light-text-v14": {
+      id: "cohere.command-light-text-v14",
+      name: "Command Light",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-08",
+      release_date: "2023-11-01",
+      last_updated: "2023-11-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 0.6
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "anthropic.claude-opus-4-1-20250805-v1:0": {
+      id: "anthropic.claude-opus-4-1-20250805-v1:0",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "meta.llama3-1-70b-instruct-v1:0": {
+      id: "meta.llama3-1-70b-instruct-v1:0",
+      name: "Llama 3.1 70B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.72,
+        output: 0.72
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-3-haiku-20240307-v1:0": {
+      id: "anthropic.claude-3-haiku-20240307-v1:0",
+      name: "Claude Haiku 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-02",
+      release_date: "2024-03-13",
+      last_updated: "2024-03-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 1.25
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "meta.llama3-2-3b-instruct-v1:0": {
+      id: "meta.llama3-2-3b-instruct-v1:0",
+      name: "Llama 3.2 3B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.15
+      },
+      limit: {
+        context: 131e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-3-opus-20240229-v1:0": {
+      id: "anthropic.claude-3-opus-20240229-v1:0",
+      name: "Claude Opus 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08",
+      release_date: "2024-02-29",
+      last_updated: "2024-02-29",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "cohere.command-text-v14": {
+      id: "cohere.command-text-v14",
+      name: "Command",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-08",
+      release_date: "2023-11-01",
+      last_updated: "2023-11-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.5,
+        output: 2
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "meta.llama4-scout-17b-instruct-v1:0": {
+      id: "meta.llama4-scout-17b-instruct-v1:0",
+      name: "Llama 4 Scout 17B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.17,
+        output: 0.66
+      },
+      limit: {
+        context: 35e5,
+        output: 16384
+      }
+    },
+    "amazon.nova-micro-v1:0": {
+      id: "amazon.nova-micro-v1:0",
+      name: "Nova Micro",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.035,
+        output: 0.14,
+        cache_read: 875e-5
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "amazon.nova-premier-v1:0": {
+      id: "amazon.nova-premier-v1:0",
+      name: "Nova Premier",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2.5,
+        output: 12.5
+      },
+      limit: {
+        context: 1e6,
+        output: 16384
+      }
+    },
+    "anthropic.claude-v2": {
+      id: "anthropic.claude-v2",
+      name: "Claude 2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-08",
+      release_date: "2023-07-11",
+      last_updated: "2023-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 8,
+        output: 24
+      },
+      limit: {
+        context: 1e5,
+        output: 4096
+      }
+    },
+    "anthropic.claude-3-7-sonnet-20250219-v1:0": {
+      id: "anthropic.claude-3-7-sonnet-20250219-v1:0",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "ai21.jamba-1-5-mini-v1:0": {
+      id: "ai21.jamba-1-5-mini-v1:0",
+      name: "Jamba 1.5 Mini",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.4
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "meta.llama3-8b-instruct-v1:0": {
+      id: "meta.llama3-8b-instruct-v1:0",
+      name: "Llama 3 8B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-03",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 0.6
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    },
+    "ai21.jamba-1-5-large-v1:0": {
+      id: "ai21.jamba-1-5-large-v1:0",
+      name: "Jamba 1.5 Large",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 8
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-opus-4-20250514-v1:0": {
+      id: "anthropic.claude-opus-4-20250514-v1:0",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "meta.llama3-70b-instruct-v1:0": {
+      id: "meta.llama3-70b-instruct-v1:0",
+      name: "Llama 3 70B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2.65,
+        output: 3.5
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    },
+    "meta.llama4-maverick-17b-instruct-v1:0": {
+      id: "meta.llama4-maverick-17b-instruct-v1:0",
+      name: "Llama 4 Maverick 17B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.24,
+        output: 0.97
+      },
+      limit: {
+        context: 1e6,
+        output: 16384
+      }
+    },
+    "amazon.nova-pro-v1:0": {
+      id: "amazon.nova-pro-v1:0",
+      name: "Nova Pro",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 3.2,
+        cache_read: 0.2
+      },
+      limit: {
+        context: 3e5,
+        output: 8192
+      }
+    },
+    "anthropic.claude-sonnet-4-20250514-v1:0": {
+      id: "anthropic.claude-sonnet-4-20250514-v1:0",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic.claude-3-5-haiku-20241022-v1:0": {
+      id: "anthropic.claude-3-5-haiku-20241022-v1:0",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "amazon.nova-lite-v1:0": {
+      id: "amazon.nova-lite-v1:0",
+      name: "Nova Lite",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.06,
+        output: 0.24,
+        cache_read: 0.015
+      },
+      limit: {
+        context: 3e5,
+        output: 8192
+      }
+    },
+    "meta.llama3-2-1b-instruct-v1:0": {
+      id: "meta.llama3-2-1b-instruct-v1:0",
+      name: "Llama 3.2 1B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 131e3,
+        output: 4096
+      }
+    },
+    "cohere.command-r-plus-v1:0": {
+      id: "cohere.command-r-plus-v1:0",
+      name: "Command R+",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-04-04",
+      last_updated: "2024-04-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-instant-v1": {
+      id: "anthropic.claude-instant-v1",
+      name: "Claude Instant",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-08",
+      release_date: "2023-03-01",
+      last_updated: "2023-03-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 2.4
+      },
+      limit: {
+        context: 1e5,
+        output: 4096
+      }
+    },
+    "meta.llama3-1-8b-instruct-v1:0": {
+      id: "meta.llama3-1-8b-instruct-v1:0",
+      name: "Llama 3.1 8B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.22,
+        output: 0.22
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-3-5-sonnet-20240620-v1:0": {
+      id: "anthropic.claude-3-5-sonnet-20240620-v1:0",
+      name: "Claude Sonnet 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-06-20",
+      last_updated: "2024-06-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "cohere.command-r-v1:0": {
+      id: "cohere.command-r-v1:0",
+      name: "Command R",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-03-11",
+      last_updated: "2024-03-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 1.5
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "meta.llama3-3-70b-instruct-v1:0": {
+      id: "meta.llama3-3-70b-instruct-v1:0",
+      name: "Llama 3.3 70B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.72,
+        output: 0.72
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "meta.llama3-2-11b-instruct-v1:0": {
+      id: "meta.llama3-2-11b-instruct-v1:0",
+      name: "Llama 3.2 11B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.16,
+        output: 0.16
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-v2:1": {
+      id: "anthropic.claude-v2:1",
+      name: "Claude 2.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-08",
+      release_date: "2023-11-21",
+      last_updated: "2023-11-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 8,
+        output: 24
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "meta.llama3-2-90b-instruct-v1:0": {
+      id: "meta.llama3-2-90b-instruct-v1:0",
+      name: "Llama 3.2 90B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.72,
+        output: 0.72
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "anthropic.claude-3-sonnet-20240229-v1:0": {
+      id: "anthropic.claude-3-sonnet-20240229-v1:0",
+      name: "Claude Sonnet 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08",
+      release_date: "2024-03-04",
+      last_updated: "2024-03-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "deepseek.r1-v1:0": {
+      id: "deepseek.r1-v1:0",
+      name: "DeepSeek-R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.35,
+        output: 5.4
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    }
+  }
+};
+var amazon_bedrock_default = amazon_bedrockModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/azure.js
+var azureModels = {
+  id: "azure",
+  name: "Azure",
+  npm: "@ai-sdk/azure",
+  doc: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models",
+  env: ["AZURE_RESOURCE_NAME", "AZURE_API_KEY"],
+  models: {
+    "gpt-5-nano": {
+      id: "gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4,
+        cache_read: 0.01
+      },
+      limit: {
+        context: 272e3,
+        output: 128e3
+      }
+    },
+    "gpt-3.5-turbo-0613": {
+      id: "gpt-3.5-turbo-0613",
+      name: "GPT-3.5 Turbo 0613",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-08",
+      release_date: "2023-06-13",
+      last_updated: "2023-06-13",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 4
+      },
+      limit: {
+        context: 16384,
+        output: 16384
+      }
+    },
+    "gpt-3.5-turbo-0301": {
+      id: "gpt-3.5-turbo-0301",
+      name: "GPT-3.5 Turbo 0301",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-08",
+      release_date: "2023-03-01",
+      last_updated: "2023-03-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.5,
+        output: 2
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "gpt-4.1": {
+      id: "gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "gpt-4-turbo": {
+      id: "gpt-4-turbo",
+      name: "GPT-4 Turbo",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-11",
+      release_date: "2023-11-06",
+      last_updated: "2024-04-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 10,
+        output: 30
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    o1: {
+      id: "o1",
+      name: "o1",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-12-05",
+      last_updated: "2024-12-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 60,
+        cache_read: 7.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-5": {
+      id: "gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.13
+      },
+      limit: {
+        context: 272e3,
+        output: 128e3
+      }
+    },
+    o3: {
+      id: "o3",
+      name: "o3",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-5-chat": {
+      id: "gpt-5-chat",
+      name: "GPT-5 Chat",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-10-24",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.13
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "codex-mini": {
+      id: "codex-mini",
+      name: "Codex Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-05-16",
+      last_updated: "2025-05-16",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.5,
+        output: 6,
+        cache_read: 0.375
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "gpt-4-turbo-vision": {
+      id: "gpt-4-turbo-vision",
+      name: "GPT-4 Turbo Vision",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-11",
+      release_date: "2023-11-06",
+      last_updated: "2024-04-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 10,
+        output: 30
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "gpt-5-mini": {
+      id: "gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 272e3,
+        output: 128e3
+      }
+    },
+    "o1-preview": {
+      id: "o1-preview",
+      name: "o1-preview",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-09-12",
+      last_updated: "2024-09-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 16.5,
+        output: 66,
+        cache_read: 8.25
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "gpt-3.5-turbo-1106": {
+      id: "gpt-3.5-turbo-1106",
+      name: "GPT-3.5 Turbo 1106",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-08",
+      release_date: "2023-11-06",
+      last_updated: "2023-11-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1,
+        output: 2
+      },
+      limit: {
+        context: 16384,
+        output: 16384
+      }
+    },
+    "gpt-4o-mini": {
+      id: "gpt-4o-mini",
+      name: "GPT-4o mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.08
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gpt-4.1-nano": {
+      id: "gpt-4.1-nano",
+      name: "GPT-4.1 nano",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "gpt-4.1-mini": {
+      id: "gpt-4.1-mini",
+      name: "GPT-4.1 mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 1.6,
+        cache_read: 0.1
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "o1-mini": {
+      id: "o1-mini",
+      name: "o1-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-09-12",
+      last_updated: "2024-09-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.55
+      },
+      limit: {
+        context: 128e3,
+        output: 65536
+      }
+    },
+    "gpt-3.5-turbo-0125": {
+      id: "gpt-3.5-turbo-0125",
+      name: "GPT-3.5 Turbo 0125",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-08",
+      release_date: "2024-01-25",
+      last_updated: "2024-01-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.5,
+        output: 1.5
+      },
+      limit: {
+        context: 16384,
+        output: 16384
+      }
+    },
+    "gpt-4-32k": {
+      id: "gpt-4-32k",
+      name: "GPT-4 32K",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-11",
+      release_date: "2023-03-14",
+      last_updated: "2023-03-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 60,
+        output: 120
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "gpt-3.5-turbo-instruct": {
+      id: "gpt-3.5-turbo-instruct",
+      name: "GPT-3.5 Turbo Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-08",
+      release_date: "2023-09-21",
+      last_updated: "2023-09-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.5,
+        output: 2
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "gpt-4o": {
+      id: "gpt-4o",
+      name: "GPT-4o",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-05-13",
+      last_updated: "2024-05-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2.5,
+        output: 10,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gpt-4": {
+      id: "gpt-4",
+      name: "GPT-4",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-11",
+      release_date: "2023-03-14",
+      last_updated: "2023-03-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 60,
+        output: 120
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "o4-mini": {
+      id: "o4-mini",
+      name: "o4-mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.28
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "o3-mini": {
+      id: "o3-mini",
+      name: "o3-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-12-20",
+      last_updated: "2025-01-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.55
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    }
+  }
+};
+var azure_default = azureModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/baseten.js
+var basetenModels = {
+  id: "baseten",
+  name: "Baseten",
+  api: "https://inference.baseten.co/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.baseten.co/development/model-apis/overview",
+  env: ["BASETEN_API_KEY"],
+  models: {
+    "Qwen3/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "Qwen3/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.38,
+        output: 1.53
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct-0905": {
+      id: "moonshotai/Kimi-K2-Instruct-0905",
+      name: "Kimi K2 Instruct 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-08",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    }
+  }
+};
+var baseten_default = basetenModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/cerebras.js
+var cerebrasModels = {
+  id: "cerebras",
+  name: "Cerebras",
+  npm: "@ai-sdk/cerebras",
+  doc: "https://inference-docs.cerebras.ai/models/overview",
+  env: ["CEREBRAS_API_KEY"],
+  models: {
+    "qwen-3-235b-a22b-instruct-2507": {
+      id: "qwen-3-235b-a22b-instruct-2507",
+      name: "Qwen 3 235B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-22",
+      last_updated: "2025-07-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 1.2
+      },
+      limit: {
+        context: 131e3,
+        output: 32e3
+      }
+    },
+    "gpt-oss-120b": {
+      id: "gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.25,
+        output: 0.69
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "qwen-3-coder-480b": {
+      id: "qwen-3-coder-480b",
+      name: "Qwen 3 Coder 480B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 2
+      },
+      limit: {
+        context: 131e3,
+        output: 32e3
+      }
+    }
+  }
+};
+var cerebras_default = cerebrasModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/chutes.js
+var chutesModels = {
+  id: "chutes",
+  name: "Chutes",
+  api: "https://llm.chutes.ai/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://llm.chutes.ai/v1/models",
+  env: ["CHUTES_API_KEY"],
+  models: {
+    "meituan-longcat/LongCat-Flash-Chat-FP8": {
+      id: "meituan-longcat/LongCat-Flash-Chat-FP8",
+      name: "LongCat Flash Chat FP8",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-09-10",
+      last_updated: "2025-09-10",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.25,
+        output: 1
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": {
+      id: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      name: "DeepSeek R1 Distill Llama 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-01-23",
+      last_updated: "2025-01-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.03,
+        output: 0.14
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "deepseek-ai/DeepSeek-V3.1": {
+      id: "deepseek-ai/DeepSeek-V3.1",
+      name: "DeepSeek V3.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-21",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B": {
+      id: "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+      name: "DeepSeek R1 0528 Qwen3 8B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-29",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.02,
+        output: 0.07
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "deepseek-ai/DeepSeek-V3.1:THINKING": {
+      id: "deepseek-ai/DeepSeek-V3.1:THINKING",
+      name: "DeepSeek V3.1 Reasoning",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-21",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek-ai/DeepSeek-V3-0324": {
+      id: "deepseek-ai/DeepSeek-V3-0324",
+      name: "DeepSeek V3 (0324)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.18,
+        output: 0.72
+      },
+      limit: {
+        context: 75e3,
+        output: 163840
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-0528": {
+      id: "deepseek-ai/DeepSeek-R1-0528",
+      name: "DeepSeek R1 (0528)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.18,
+        output: 0.72
+      },
+      limit: {
+        context: 75e3,
+        output: 163840
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.41
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "chutesai/Devstral-Small-2505": {
+      id: "chutesai/Devstral-Small-2505",
+      name: "Devstral Small (2505)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-05-21",
+      last_updated: "2025-05-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.02,
+        output: 0.08
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "chutesai/Mistral-Small-3.2-24B-Instruct-2506": {
+      id: "chutesai/Mistral-Small-3.2-24B-Instruct-2506",
+      name: "Mistral Small 3.2 24B Instruct (2506)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-06-20",
+      last_updated: "2025-06-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.02,
+        output: 0.08
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3-235B-A22B-Thinking-2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.078,
+        output: 0.312
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+      id: "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      name: "Qwen3 30B A3B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.2
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "Qwen/Qwen3-30B-A3B": {
+      id: "Qwen/Qwen3-30B-A3B",
+      name: "Qwen3 30B A3B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.02,
+        output: 0.08
+      },
+      limit: {
+        context: 40960,
+        output: 40960
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      name: "Qwen3 235B A22B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.078,
+        output: 0.312
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-Coder-30B-A3B-Instruct": {
+      id: "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      name: "Qwen3 Coder 30B A3B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+      name: "Qwen3 Coder 480B A35B Instruct (FP8)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "zai-org/GLM-4.5-FP8": {
+      id: "zai-org/GLM-4.5-FP8",
+      name: "GLM 4.5 FP8",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "zai-org/GLM-4.5-Air": {
+      id: "zai-org/GLM-4.5-Air",
+      name: "GLM 4.5 Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "tngtech/DeepSeek-TNG-R1T2-Chimera": {
+      id: "tngtech/DeepSeek-TNG-R1T2-Chimera",
+      name: "DeepSeek TNG R1T2 Chimera",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-07",
+      release_date: "2025-07-08",
+      last_updated: "2025-07-08",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "tngtech/DeepSeek-R1T-Chimera": {
+      id: "tngtech/DeepSeek-R1T-Chimera",
+      name: "DeepSeek R1T Chimera",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-04",
+      release_date: "2025-04-26",
+      last_updated: "2025-04-26",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.18,
+        output: 0.72
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct-75k": {
+      id: "moonshotai/Kimi-K2-Instruct-75k",
+      name: "Kimi K2 Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.59
+      },
+      limit: {
+        context: 75e3,
+        output: 75e3
+      }
+    },
+    "moonshotai/Kimi-VL-A3B-Thinking": {
+      id: "moonshotai/Kimi-VL-A3B-Thinking",
+      name: "Kimi VL A3B Thinking",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-12-01",
+      last_updated: "2024-12-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.02499,
+        output: 0.100008
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct-0905": {
+      id: "moonshotai/Kimi-K2-Instruct-0905",
+      name: "Kimi K2 Instruct 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-09-05",
+      last_updated: "2024-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.296176,
+        output: 1.18528
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "moonshotai/Kimi-Dev-72B": {
+      id: "moonshotai/Kimi-Dev-72B",
+      name: "Kimi Dev 72B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-12-01",
+      last_updated: "2024-12-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.06664,
+        output: 0.266688
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    }
+  }
+};
+var chutes_default = chutesModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/cloudflare-workers-ai.js
+var cloudflare_workers_aiModels = {
+  id: "cloudflare-workers-ai",
+  name: "Cloudflare Workers AI",
+  npm: "workers-ai-provider",
+  doc: "https://developers.cloudflare.com/workers-ai/models/",
+  env: ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_KEY"],
+  models: {
+    "starling-lm-7b-beta": {
+      id: "starling-lm-7b-beta",
+      name: "@hf/nexusflow/starling-lm-7b-beta",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-03-19",
+      last_updated: "2024-04-03",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "deepseek-coder-6.7b-base-awq": {
+      id: "deepseek-coder-6.7b-base-awq",
+      name: "@hf/thebloke/deepseek-coder-6.7b-base-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-11-05",
+      last_updated: "2023-11-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "openchat-3.5-0106": {
+      id: "openchat-3.5-0106",
+      name: "@cf/openchat/openchat-3.5-0106",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-01-07",
+      last_updated: "2024-05-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "mistral-7b-instruct-v0.2-lora": {
+      id: "mistral-7b-instruct-v0.2-lora",
+      name: "@cf/mistral/mistral-7b-instruct-v0.2-lora",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-04-01",
+      last_updated: "2024-04-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 15e3,
+        output: 15e3
+      }
+    },
+    "llama-3.1-8b-instruct-awq": {
+      id: "llama-3.1-8b-instruct-awq",
+      name: "@cf/meta/llama-3.1-8b-instruct-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-07-25",
+      last_updated: "2024-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.12,
+        output: 0.27
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "mistral-7b-instruct-v0.2": {
+      id: "mistral-7b-instruct-v0.2",
+      name: "@hf/mistral/mistral-7b-instruct-v0.2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-12-11",
+      last_updated: "2025-07-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 3072,
+        output: 3072
+      }
+    },
+    "llava-1.5-7b-hf": {
+      id: "llava-1.5-7b-hf",
+      name: "@cf/llava-hf/llava-1.5-7b-hf",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      release_date: "2023-12-05",
+      last_updated: "2025-06-06",
+      modalities: {
+        input: ["image", "text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "resnet-50": {
+      id: "resnet-50",
+      name: "@cf/microsoft/resnet-50",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2022-03-16",
+      last_updated: "2024-02-13",
+      modalities: {
+        input: ["image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 25e-7,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "deepseek-coder-6.7b-instruct-awq": {
+      id: "deepseek-coder-6.7b-instruct-awq",
+      name: "@hf/thebloke/deepseek-coder-6.7b-instruct-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-11-05",
+      last_updated: "2023-11-13",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "llama-3.1-70b-instruct": {
+      id: "llama-3.1-70b-instruct",
+      name: "@cf/meta/llama-3.1-70b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-07-16",
+      last_updated: "2024-12-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      limit: {
+        context: 24e3,
+        output: 24e3
+      }
+    },
+    "qwen1.5-0.5b-chat": {
+      id: "qwen1.5-0.5b-chat",
+      name: "@cf/qwen/qwen1.5-0.5b-chat",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-01-31",
+      last_updated: "2024-04-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    "qwen1.5-14b-chat-awq": {
+      id: "qwen1.5-14b-chat-awq",
+      name: "@cf/qwen/qwen1.5-14b-chat-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-02-03",
+      last_updated: "2024-04-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 7500,
+        output: 7500
+      }
+    },
+    "llama-3.2-3b-instruct": {
+      id: "llama-3.2-3b-instruct",
+      name: "@cf/meta/llama-3.2-3b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-09-18",
+      last_updated: "2024-10-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.051,
+        output: 0.34
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "gemma-7b-it-lora": {
+      id: "gemma-7b-it-lora",
+      name: "@cf/google/gemma-7b-it-lora",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-04-02",
+      last_updated: "2024-04-02",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 3500,
+        output: 3500
+      }
+    },
+    "gemma-3-12b-it": {
+      id: "gemma-3-12b-it",
+      name: "@cf/google/gemma-3-12b-it",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-03-01",
+      last_updated: "2025-03-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.35,
+        output: 0.56
+      },
+      limit: {
+        context: 8e4,
+        output: 8e4
+      }
+    },
+    "llama-3-8b-instruct": {
+      id: "llama-3-8b-instruct",
+      name: "@cf/meta/llama-3-8b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-04-17",
+      last_updated: "2025-06-19",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.28,
+        output: 0.83
+      },
+      limit: {
+        context: 7968,
+        output: 7968
+      }
+    },
+    "gemma-7b-it": {
+      id: "gemma-7b-it",
+      name: "@hf/google/gemma-7b-it",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-02-13",
+      last_updated: "2024-08-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "qwq-32b": {
+      id: "qwq-32b",
+      name: "@cf/qwen/qwq-32b",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-03-05",
+      last_updated: "2025-03-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.66,
+        output: 1
+      },
+      limit: {
+        context: 24e3,
+        output: 24e3
+      }
+    },
+    "llama-3.2-1b-instruct": {
+      id: "llama-3.2-1b-instruct",
+      name: "@cf/meta/llama-3.2-1b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-09-18",
+      last_updated: "2024-10-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.027,
+        output: 0.2
+      },
+      limit: {
+        context: 6e4,
+        output: 6e4
+      }
+    },
+    "falcon-7b-instruct": {
+      id: "falcon-7b-instruct",
+      name: "@cf/tiiuae/falcon-7b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-04-25",
+      last_updated: "2024-10-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "llama-3.1-8b-instruct-fast": {
+      id: "llama-3.1-8b-instruct-fast",
+      name: "@cf/meta/llama-3.1-8b-instruct-fast",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-07-18",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "tinyllama-1.1b-chat-v1.0": {
+      id: "tinyllama-1.1b-chat-v1.0",
+      name: "@cf/tinyllama/tinyllama-1.1b-chat-v1.0",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-12-30",
+      last_updated: "2024-03-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2048,
+        output: 2048
+      }
+    },
+    "phoenix-1.0": {
+      id: "phoenix-1.0",
+      name: "@cf/leonardo/phoenix-1.0",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-08-25",
+      last_updated: "2025-08-25",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: false,
+      cost: {
+        input: 58e-4,
+        output: 58e-4
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "stable-diffusion-v1-5-inpainting": {
+      id: "stable-diffusion-v1-5-inpainting",
+      name: "@cf/runwayml/stable-diffusion-v1-5-inpainting",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-02-27",
+      last_updated: "2024-02-27",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "llama-3-8b-instruct-awq": {
+      id: "llama-3-8b-instruct-awq",
+      name: "@cf/meta/llama-3-8b-instruct-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-05-09",
+      last_updated: "2024-05-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.12,
+        output: 0.27
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "openhermes-2.5-mistral-7b-awq": {
+      id: "openhermes-2.5-mistral-7b-awq",
+      name: "@hf/thebloke/openhermes-2.5-mistral-7b-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-11-02",
+      last_updated: "2023-11-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "llama-2-7b-chat-hf-lora": {
+      id: "llama-2-7b-chat-hf-lora",
+      name: "@cf/meta-llama/llama-2-7b-chat-hf-lora",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-07-13",
+      last_updated: "2024-04-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "gpt-oss-20b": {
+      id: "gpt-oss-20b",
+      name: "@cf/openai/gpt-oss-20b",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-08-04",
+      last_updated: "2025-08-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.3
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "llama-3.1-8b-instruct-fp8": {
+      id: "llama-3.1-8b-instruct-fp8",
+      name: "@cf/meta/llama-3.1-8b-instruct-fp8",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-07-25",
+      last_updated: "2024-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.29
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    whisper: {
+      id: "whisper",
+      name: "@cf/openai/whisper",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2023-11-07",
+      last_updated: "2024-08-12",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 45e-5,
+        output: 45e-5
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "uform-gen2-qwen-500m": {
+      id: "uform-gen2-qwen-500m",
+      name: "@cf/unum/uform-gen2-qwen-500m",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-02-15",
+      last_updated: "2024-04-24",
+      modalities: {
+        input: ["image", "text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "bart-large-cnn": {
+      id: "bart-large-cnn",
+      name: "@cf/facebook/bart-large-cnn",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2022-03-02",
+      last_updated: "2024-02-13",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "mistral-7b-instruct-v0.1": {
+      id: "mistral-7b-instruct-v0.1",
+      name: "@cf/mistral/mistral-7b-instruct-v0.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-09-27",
+      last_updated: "2025-07-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.11,
+        output: 0.19
+      },
+      limit: {
+        context: 2824,
+        output: 2824
+      }
+    },
+    "una-cybertron-7b-v2-bf16": {
+      id: "una-cybertron-7b-v2-bf16",
+      name: "@cf/fblgit/una-cybertron-7b-v2-bf16",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-12-02",
+      last_updated: "2024-03-08",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 15e3,
+        output: 15e3
+      }
+    },
+    "hermes-2-pro-mistral-7b": {
+      id: "hermes-2-pro-mistral-7b",
+      name: "@hf/nousresearch/hermes-2-pro-mistral-7b",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-03-11",
+      last_updated: "2024-09-08",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 24e3,
+        output: 24e3
+      }
+    },
+    "llama-2-13b-chat-awq": {
+      id: "llama-2-13b-chat-awq",
+      name: "@hf/thebloke/llama-2-13b-chat-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-09-19",
+      last_updated: "2023-11-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "qwen2.5-coder-32b-instruct": {
+      id: "qwen2.5-coder-32b-instruct",
+      name: "@cf/qwen/qwen2.5-coder-32b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-11-06",
+      last_updated: "2025-01-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.66,
+        output: 1
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "m2m100-1.2b": {
+      id: "m2m100-1.2b",
+      name: "@cf/meta/m2m100-1.2b",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2022-03-02",
+      last_updated: "2023-11-16",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.34,
+        output: 0.34
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    melotts: {
+      id: "melotts",
+      name: "@cf/myshell-ai/melotts",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-07-19",
+      last_updated: "2024-07-19",
+      modalities: {
+        input: ["text"],
+        output: ["audio"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2e-4,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "stable-diffusion-xl-base-1.0": {
+      id: "stable-diffusion-xl-base-1.0",
+      name: "@cf/stabilityai/stable-diffusion-xl-base-1.0",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2023-07-25",
+      last_updated: "2023-10-30",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "lucid-origin": {
+      id: "lucid-origin",
+      name: "@cf/leonardo/lucid-origin",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-08-25",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: false,
+      cost: {
+        input: 7e-3,
+        output: 7e-3
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "llama-3.1-8b-instruct": {
+      id: "llama-3.1-8b-instruct",
+      name: "@cf/meta/llama-3.1-8b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-07-18",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.28,
+        output: 0.83
+      },
+      limit: {
+        context: 7968,
+        output: 7968
+      }
+    },
+    "qwen1.5-7b-chat-awq": {
+      id: "qwen1.5-7b-chat-awq",
+      name: "@cf/qwen/qwen1.5-7b-chat-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-02-03",
+      last_updated: "2024-04-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e4,
+        output: 2e4
+      }
+    },
+    "mistral-small-3.1-24b-instruct": {
+      id: "mistral-small-3.1-24b-instruct",
+      name: "@cf/mistralai/mistral-small-3.1-24b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-03-11",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.35,
+        output: 0.56
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "llama-3.2-11b-vision-instruct": {
+      id: "llama-3.2-11b-vision-instruct",
+      name: "@cf/meta/llama-3.2-11b-vision-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-09-18",
+      last_updated: "2024-12-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.049,
+        output: 0.68
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "llama-3.3-70b-instruct-fp8-fast": {
+      id: "llama-3.3-70b-instruct-fp8-fast",
+      name: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.29,
+        output: 2.25
+      },
+      limit: {
+        context: 24e3,
+        output: 24e3
+      }
+    },
+    "phi-2": {
+      id: "phi-2",
+      name: "@cf/microsoft/phi-2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-12-13",
+      last_updated: "2024-04-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2048,
+        output: 2048
+      }
+    },
+    "whisper-large-v3-turbo": {
+      id: "whisper-large-v3-turbo",
+      name: "@cf/openai/whisper-large-v3-turbo",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-10-01",
+      last_updated: "2024-10-04",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 51e-5,
+        output: 51e-5
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "mistral-7b-instruct-v0.1-awq": {
+      id: "mistral-7b-instruct-v0.1-awq",
+      name: "@hf/thebloke/mistral-7b-instruct-v0.1-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-09-27",
+      last_updated: "2023-11-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "aura-1": {
+      id: "aura-1",
+      name: "@cf/deepgram/aura-1",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-08-27",
+      last_updated: "2025-07-07",
+      modalities: {
+        input: ["text"],
+        output: ["audio"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.015,
+        output: 0.015
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "neural-chat-7b-v3-1-awq": {
+      id: "neural-chat-7b-v3-1-awq",
+      name: "@hf/thebloke/neural-chat-7b-v3-1-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-11-15",
+      last_updated: "2023-11-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "gpt-oss-120b": {
+      id: "gpt-oss-120b",
+      name: "@cf/openai/gpt-oss-120b",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-08-04",
+      last_updated: "2025-08-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.35,
+        output: 0.75
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "qwen1.5-1.8b-chat": {
+      id: "qwen1.5-1.8b-chat",
+      name: "@cf/qwen/qwen1.5-1.8b-chat",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-01-30",
+      last_updated: "2024-04-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    "nova-3": {
+      id: "nova-3",
+      name: "@cf/deepgram/nova-3",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2025-06-05",
+      last_updated: "2025-07-08",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 52e-4,
+        output: 52e-4
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "llama-4-scout-17b-16e-instruct": {
+      id: "llama-4-scout-17b-16e-instruct",
+      name: "@cf/meta/llama-4-scout-17b-16e-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-04-02",
+      last_updated: "2025-05-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.27,
+        output: 0.85
+      },
+      limit: {
+        context: 131e3,
+        output: 131e3
+      }
+    },
+    "gemma-2b-it-lora": {
+      id: "gemma-2b-it-lora",
+      name: "@cf/google/gemma-2b-it-lora",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-04-02",
+      last_updated: "2024-04-02",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "sqlcoder-7b-2": {
+      id: "sqlcoder-7b-2",
+      name: "@cf/defog/sqlcoder-7b-2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-02-05",
+      last_updated: "2024-02-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 1e4,
+        output: 1e4
+      }
+    },
+    "deepseek-math-7b-instruct": {
+      id: "deepseek-math-7b-instruct",
+      name: "@cf/deepseek-ai/deepseek-math-7b-instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-02-05",
+      last_updated: "2024-02-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "llama-2-7b-chat-fp16": {
+      id: "llama-2-7b-chat-fp16",
+      name: "@cf/meta/llama-2-7b-chat-fp16",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-07-26",
+      last_updated: "2023-07-26",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.56,
+        output: 6.67
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "deepseek-r1-distill-qwen-32b": {
+      id: "deepseek-r1-distill-qwen-32b",
+      name: "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-01-20",
+      last_updated: "2025-02-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 4.88
+      },
+      limit: {
+        context: 8e4,
+        output: 8e4
+      }
+    },
+    "discolm-german-7b-v1-awq": {
+      id: "discolm-german-7b-v1-awq",
+      name: "@cf/thebloke/discolm-german-7b-v1-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2024-01-18",
+      last_updated: "2024-01-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "stable-diffusion-xl-lightning": {
+      id: "stable-diffusion-xl-lightning",
+      name: "@cf/bytedance/stable-diffusion-xl-lightning",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-02-20",
+      last_updated: "2024-04-03",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "whisper-tiny-en": {
+      id: "whisper-tiny-en",
+      name: "@cf/openai/whisper-tiny-en",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2022-09-26",
+      last_updated: "2024-01-22",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "zephyr-7b-beta-awq": {
+      id: "zephyr-7b-beta-awq",
+      name: "@hf/thebloke/zephyr-7b-beta-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-10-27",
+      last_updated: "2023-11-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "flux-1-schnell": {
+      id: "flux-1-schnell",
+      name: "@cf/black-forest-labs/flux-1-schnell",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-07-31",
+      last_updated: "2024-08-16",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 53e-6,
+        output: 11e-5
+      },
+      limit: {
+        context: 2048,
+        output: 0
+      }
+    },
+    "stable-diffusion-v1-5-img2img": {
+      id: "stable-diffusion-v1-5-img2img",
+      name: "@cf/runwayml/stable-diffusion-v1-5-img2img",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-02-27",
+      last_updated: "2024-02-27",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "llama-2-7b-chat-int8": {
+      id: "llama-2-7b-chat-int8",
+      name: "@cf/meta/llama-2-7b-chat-int8",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-09-25",
+      last_updated: "2023-09-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "llamaguard-7b-awq": {
+      id: "llamaguard-7b-awq",
+      name: "@hf/thebloke/llamaguard-7b-awq",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2023-12-11",
+      last_updated: "2023-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 4096
+      }
+    },
+    "llama-guard-3-8b": {
+      id: "llama-guard-3-8b",
+      name: "@cf/meta/llama-guard-3-8b",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      release_date: "2024-07-22",
+      last_updated: "2024-10-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.48,
+        output: 0.03
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    },
+    "dreamshaper-8-lcm": {
+      id: "dreamshaper-8-lcm",
+      name: "@cf/lykon/dreamshaper-8-lcm",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2023-12-06",
+      last_updated: "2023-12-07",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 0
+      }
+    }
+  }
+};
+var cloudflare_workers_ai_default = cloudflare_workers_aiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/deepinfra.js
+var deepinfraModels = {
+  id: "deepinfra",
+  name: "Deep Infra",
+  npm: "@ai-sdk/deepinfra",
+  doc: "https://deepinfra.com/models",
+  env: ["DEEPINFRA_API_KEY"],
+  models: {
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct-Turbo": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct-Turbo",
+      name: "Qwen3 Coder 480B A35B Instruct Turbo",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 1.2
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.4,
+        output: 1.6
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "zai-org/GLM-4.5": {
+      id: "zai-org/GLM-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.2
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct": {
+      id: "moonshotai/Kimi-K2-Instruct",
+      name: "Kimi K2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    }
+  }
+};
+var deepinfra_default = deepinfraModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/deepseek.js
+var deepseekModels = {
+  id: "deepseek",
+  name: "DeepSeek",
+  api: "https://api.deepseek.com",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://platform.deepseek.com/api-docs/pricing",
+  env: ["DEEPSEEK_API_KEY"],
+  models: {
+    "deepseek-reasoner": {
+      id: "deepseek-reasoner",
+      name: "DeepSeek Reasoner",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.57,
+        output: 1.68,
+        cache_read: 0.07
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "deepseek-chat": {
+      id: "deepseek-chat",
+      name: "DeepSeek Chat",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2024-12-26",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.57,
+        output: 1.68,
+        cache_read: 0.07
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    }
+  }
+};
+var deepseek_default = deepseekModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/fastrouter.js
+var fastrouterModels = {
+  id: "fastrouter",
+  name: "FastRouter",
+  api: "https://go.fastrouter.ai/api/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://fastrouter.ai/models",
+  env: ["FASTROUTER_API_KEY"],
+  models: {
+    "deepseek-ai/deepseek-r1-distill-llama-70b": {
+      id: "deepseek-ai/deepseek-r1-distill-llama-70b",
+      name: "DeepSeek R1 Distill Llama 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-01-23",
+      last_updated: "2025-01-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.03,
+        output: 0.14
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "anthropic/claude-sonnet-4": {
+      id: "anthropic/claude-sonnet-4",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic/claude-opus-4.1": {
+      id: "anthropic/claude-opus-4.1",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "openai/gpt-5-nano": {
+      id: "openai/gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4,
+        cache_read: 5e-3
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-4.1": {
+      id: "openai/gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-oss-20b": {
+      id: "openai/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.2
+      },
+      limit: {
+        context: 131072,
+        output: 65536
+      }
+    },
+    "openai/gpt-5": {
+      id: "openai/gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.125
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-5-mini": {
+      id: "openai/gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "x-ai/grok-4": {
+      id: "x-ai/grok-4",
+      name: "Grok 4",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-09",
+      last_updated: "2025-07-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75,
+        cache_write: 15
+      },
+      limit: {
+        context: 256e3,
+        output: 64e3
+      }
+    },
+    "google/gemini-2.5-pro": {
+      id: "google/gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemini-2.5-flash": {
+      id: "google/gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "qwen/qwen3-coder": {
+      id: "qwen/qwen3-coder",
+      name: "Qwen3 Coder",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 1.2
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "moonshotai/kimi-k2": {
+      id: "moonshotai/kimi-k2",
+      name: "Kimi K2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.55,
+        output: 2.2
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    }
+  }
+};
+var fastrouter_default = fastrouterModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/fireworks-ai.js
+var fireworks_aiModels = {
+  id: "fireworks-ai",
+  name: "Fireworks AI",
+  api: "https://api.fireworks.ai/inference/v1/",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://fireworks.ai/docs/",
+  env: ["FIREWORKS_API_KEY"],
+  models: {
+    "accounts/fireworks/models/qwen3-235b-a22b": {
+      id: "accounts/fireworks/models/qwen3-235b-a22b",
+      name: "Qwen3 235B-A22B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-29",
+      last_updated: "2025-04-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.22,
+        output: 0.88
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "accounts/fireworks/models/gpt-oss-20b": {
+      id: "accounts/fireworks/models/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.2
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "accounts/fireworks/models/deepseek-v3-0324": {
+      id: "accounts/fireworks/models/deepseek-v3-0324",
+      name: "Deepseek V3 03-24",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.9,
+        output: 0.9
+      },
+      limit: {
+        context: 16e4,
+        output: 16384
+      }
+    },
+    "accounts/fireworks/models/qwen3-coder-480b-a35b-instruct": {
+      id: "accounts/fireworks/models/qwen3-coder-480b-a35b-instruct",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-07-22",
+      last_updated: "2025-07-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.45,
+        output: 1.8
+      },
+      limit: {
+        context: 256e3,
+        output: 32768
+      }
+    },
+    "accounts/fireworks/models/deepseek-r1-0528": {
+      id: "accounts/fireworks/models/deepseek-r1-0528",
+      name: "Deepseek R1 05/28",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-28",
+      last_updated: "2025-05-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3,
+        output: 8
+      },
+      limit: {
+        context: 16e4,
+        output: 16384
+      }
+    },
+    "accounts/fireworks/models/glm-4p5-air": {
+      id: "accounts/fireworks/models/glm-4p5-air",
+      name: "GLM 4.5 Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.22,
+        output: 0.88
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "accounts/fireworks/models/kimi-k2-instruct": {
+      id: "accounts/fireworks/models/kimi-k2-instruct",
+      name: "Kimi K2 Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "accounts/fireworks/models/gpt-oss-120b": {
+      id: "accounts/fireworks/models/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "accounts/fireworks/models/glm-4p5": {
+      id: "accounts/fireworks/models/glm-4p5",
+      name: "GLM 4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-29",
+      last_updated: "2025-07-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.55,
+        output: 2.19
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "accounts/fireworks/models/deepseek-v3p1": {
+      id: "accounts/fireworks/models/deepseek-v3p1",
+      name: "DeepSeek V3.1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-08-21",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.56,
+        output: 1.68
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    }
+  }
+};
+var fireworks_ai_default = fireworks_aiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/github-copilot.js
+var github_copilotModels = {
+  id: "github-copilot",
+  name: "GitHub Copilot",
+  api: "https://api.githubcopilot.com",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.github.com/en/copilot",
+  env: ["GITHUB_TOKEN"],
+  models: {
+    "gemini-2.5-pro": {
+      id: "gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 64e3
+      }
+    },
+    "claude-sonnet-4": {
+      id: "claude-sonnet-4",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 16e3
+      }
+    },
+    "gpt-4.1": {
+      id: "gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gemini-2.0-flash-001": {
+      id: "gemini-2.0-flash-001",
+      name: "Gemini 2.0 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 1e6,
+        output: 8192
+      }
+    },
+    "claude-opus-4": {
+      id: "claude-opus-4",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 8e4,
+        output: 16e3
+      }
+    },
+    "grok-code-fast-1": {
+      id: "grok-code-fast-1",
+      name: "Grok Code Fast 1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-08",
+      release_date: "2025-08-27",
+      last_updated: "2025-08-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 256e3,
+        output: 1e4
+      }
+    },
+    "claude-opus-41": {
+      id: "claude-opus-41",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 8e4,
+        output: 16e3
+      }
+    },
+    "claude-3.7-sonnet-thought": {
+      id: "claude-3.7-sonnet-thought",
+      name: "Claude Sonnet 3.7 Thinking",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 2e5,
+        output: 16384
+      }
+    },
+    "gpt-5": {
+      id: "gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 64e3
+      }
+    },
+    o3: {
+      id: "o3",
+      name: "o3 (Preview)",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "gpt-5-mini": {
+      id: "gpt-5-mini",
+      name: "GPT-5-mini",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-08-13",
+      last_updated: "2025-08-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 64e3
+      }
+    },
+    "claude-3.7-sonnet": {
+      id: "claude-3.7-sonnet",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 2e5,
+        output: 16384
+      }
+    },
+    "claude-3.5-sonnet": {
+      id: "claude-3.5-sonnet",
+      name: "Claude Sonnet 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 9e4,
+        output: 8192
+      }
+    },
+    "gpt-4o": {
+      id: "gpt-4o",
+      name: "GPT-4o",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-05-13",
+      last_updated: "2024-05-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "o4-mini": {
+      id: "o4-mini",
+      name: "o4-mini (Preview)",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 65536
+      }
+    },
+    "o3-mini": {
+      id: "o3-mini",
+      name: "o3-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2024-12-20",
+      last_updated: "2025-01-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      limit: {
+        context: 128e3,
+        output: 65536
+      }
+    }
+  }
+};
+var github_copilot_default = github_copilotModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/github-models.js
+var github_modelsModels = {
+  id: "github-models",
+  name: "GitHub Models",
+  api: "https://models.github.ai/inference",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.github.com/en/github-models",
+  env: ["GITHUB_TOKEN"],
+  models: {
+    "deepseek/deepseek-v3-0324": {
+      id: "deepseek/deepseek-v3-0324",
+      name: "DeepSeek-V3-0324",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "deepseek/deepseek-r1-0528": {
+      id: "deepseek/deepseek-r1-0528",
+      name: "DeepSeek-R1-0528",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-05-28",
+      last_updated: "2025-05-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "deepseek/deepseek-r1": {
+      id: "deepseek/deepseek-r1",
+      name: "DeepSeek-R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "meta/meta-llama-3-8b-instruct": {
+      id: "meta/meta-llama-3-8b-instruct",
+      name: "Meta-Llama-3-8B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-04-18",
+      last_updated: "2024-04-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    },
+    "meta/llama-3.2-90b-vision-instruct": {
+      id: "meta/llama-3.2-90b-vision-instruct",
+      name: "Llama-3.2-90B-Vision-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "meta/llama-3.3-70b-instruct": {
+      id: "meta/llama-3.3-70b-instruct",
+      name: "Llama-3.3-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "meta/meta-llama-3.1-70b-instruct": {
+      id: "meta/meta-llama-3.1-70b-instruct",
+      name: "Meta-Llama-3.1-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "meta/llama-4-maverick-17b-128e-instruct-fp8": {
+      id: "meta/llama-4-maverick-17b-128e-instruct-fp8",
+      name: "Llama 4 Maverick 17B 128E Instruct FP8",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "meta/meta-llama-3.1-8b-instruct": {
+      id: "meta/meta-llama-3.1-8b-instruct",
+      name: "Meta-Llama-3.1-8B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "meta/meta-llama-3.1-405b-instruct": {
+      id: "meta/meta-llama-3.1-405b-instruct",
+      name: "Meta-Llama-3.1-405B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "meta/llama-3.2-11b-vision-instruct": {
+      id: "meta/llama-3.2-11b-vision-instruct",
+      name: "Llama-3.2-11B-Vision-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "meta/llama-4-scout-17b-16e-instruct": {
+      id: "meta/llama-4-scout-17b-16e-instruct",
+      name: "Llama 4 Scout 17B 16E Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "meta/meta-llama-3-70b-instruct": {
+      id: "meta/meta-llama-3-70b-instruct",
+      name: "Meta-Llama-3-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-04-18",
+      last_updated: "2024-04-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    },
+    "xai/grok-3": {
+      id: "xai/grok-3",
+      name: "Grok 3",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-09",
+      last_updated: "2024-12-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "xai/grok-3-mini": {
+      id: "xai/grok-3-mini",
+      name: "Grok 3 Mini",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-09",
+      last_updated: "2024-12-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "openai/gpt-4.1": {
+      id: "openai/gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/o1": {
+      id: "openai/o1",
+      name: "OpenAI o1",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2024-09-12",
+      last_updated: "2024-12-17",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/o3": {
+      id: "openai/o3",
+      name: "OpenAI o3",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-04",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/o1-preview": {
+      id: "openai/o1-preview",
+      name: "OpenAI o1-preview",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2024-09-12",
+      last_updated: "2024-09-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "openai/gpt-4o-mini": {
+      id: "openai/gpt-4o-mini",
+      name: "GPT-4o mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-4.1-nano": {
+      id: "openai/gpt-4.1-nano",
+      name: "GPT-4.1-nano",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-4.1-mini": {
+      id: "openai/gpt-4.1-mini",
+      name: "GPT-4.1-mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/o1-mini": {
+      id: "openai/o1-mini",
+      name: "OpenAI o1-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2024-09-12",
+      last_updated: "2024-12-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 65536
+      }
+    },
+    "openai/gpt-4o": {
+      id: "openai/gpt-4o",
+      name: "GPT-4o",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-05-13",
+      last_updated: "2024-05-13",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/o4-mini": {
+      id: "openai/o4-mini",
+      name: "OpenAI o4-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-04",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/o3-mini": {
+      id: "openai/o3-mini",
+      name: "OpenAI o3-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-04",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "ai21-labs/ai21-jamba-1.5-mini": {
+      id: "ai21-labs/ai21-jamba-1.5-mini",
+      name: "AI21 Jamba 1.5 Mini",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-08-29",
+      last_updated: "2024-08-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "ai21-labs/ai21-jamba-1.5-large": {
+      id: "ai21-labs/ai21-jamba-1.5-large",
+      name: "AI21 Jamba 1.5 Large",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-08-29",
+      last_updated: "2024-08-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3-medium-4k-instruct": {
+      id: "microsoft/phi-3-medium-4k-instruct",
+      name: "Phi-3-medium instruct (4k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 1024
+      }
+    },
+    "microsoft/phi-3.5-vision-instruct": {
+      id: "microsoft/phi-3.5-vision-instruct",
+      name: "Phi-3.5-vision instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-4-reasoning": {
+      id: "microsoft/phi-4-reasoning",
+      name: "Phi-4-Reasoning",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-4": {
+      id: "microsoft/phi-4",
+      name: "Phi-4",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3-small-8k-instruct": {
+      id: "microsoft/phi-3-small-8k-instruct",
+      name: "Phi-3-small instruct (8k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    },
+    "microsoft/phi-4-mini-instruct": {
+      id: "microsoft/phi-4-mini-instruct",
+      name: "Phi-4-mini-instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3-mini-128k-instruct": {
+      id: "microsoft/phi-3-mini-128k-instruct",
+      name: "Phi-3-mini instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3-small-128k-instruct": {
+      id: "microsoft/phi-3-small-128k-instruct",
+      name: "Phi-3-small instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/mai-ds-r1": {
+      id: "microsoft/mai-ds-r1",
+      name: "MAI-DS-R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "microsoft/phi-3.5-moe-instruct": {
+      id: "microsoft/phi-3.5-moe-instruct",
+      name: "Phi-3.5-MoE instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-4-multimodal-instruct": {
+      id: "microsoft/phi-4-multimodal-instruct",
+      name: "Phi-4-multimodal-instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-4-mini-reasoning": {
+      id: "microsoft/phi-4-mini-reasoning",
+      name: "Phi-4-mini-reasoning",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3.5-mini-instruct": {
+      id: "microsoft/phi-3.5-mini-instruct",
+      name: "Phi-3.5-mini instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "microsoft/phi-3-mini-4k-instruct": {
+      id: "microsoft/phi-3-mini-4k-instruct",
+      name: "Phi-3-mini instruct (4k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 1024
+      }
+    },
+    "microsoft/phi-3-medium-128k-instruct": {
+      id: "microsoft/phi-3-medium-128k-instruct",
+      name: "Phi-3-medium instruct (128k)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-04-23",
+      last_updated: "2024-04-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "mistral-ai/mistral-small-2503": {
+      id: "mistral-ai/mistral-small-2503",
+      name: "Mistral Small 3.1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2025-03-01",
+      last_updated: "2025-03-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "mistral-ai/mistral-large-2411": {
+      id: "mistral-ai/mistral-large-2411",
+      name: "Mistral Large 24.11",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "mistral-ai/mistral-medium-2505": {
+      id: "mistral-ai/mistral-medium-2505",
+      name: "Mistral Medium 3 (25.05)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2025-05-01",
+      last_updated: "2025-05-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "mistral-ai/ministral-3b": {
+      id: "mistral-ai/ministral-3b",
+      name: "Ministral 3B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "mistral-ai/mistral-nemo": {
+      id: "mistral-ai/mistral-nemo",
+      name: "Mistral Nemo",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "mistral-ai/codestral-2501": {
+      id: "mistral-ai/codestral-2501",
+      name: "Codestral 25.01",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32e3,
+        output: 8192
+      }
+    },
+    "cohere/cohere-command-r-08-2024": {
+      id: "cohere/cohere-command-r-08-2024",
+      name: "Cohere Command R 08-2024",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-08-01",
+      last_updated: "2024-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cohere/cohere-command-r-plus-08-2024": {
+      id: "cohere/cohere-command-r-plus-08-2024",
+      name: "Cohere Command R+ 08-2024",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-08-01",
+      last_updated: "2024-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cohere/cohere-command-a": {
+      id: "cohere/cohere-command-a",
+      name: "Cohere Command A",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cohere/cohere-command-r": {
+      id: "cohere/cohere-command-r",
+      name: "Cohere Command R",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-03-11",
+      last_updated: "2024-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cohere/cohere-command-r-plus": {
+      id: "cohere/cohere-command-r-plus",
+      name: "Cohere Command R+",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-03",
+      release_date: "2024-04-04",
+      last_updated: "2024-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "core42/jais-30b-chat": {
+      id: "core42/jais-30b-chat",
+      name: "JAIS 30b Chat",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-03",
+      release_date: "2023-08-30",
+      last_updated: "2023-08-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 2048
+      }
+    }
+  }
+};
+var github_models_default = github_modelsModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/google-vertex.js
+var google_vertexModels = {
+  id: "google-vertex",
+  name: "Vertex",
+  npm: "@ai-sdk/google-vertex",
+  doc: "https://cloud.google.com/vertex-ai/generative-ai/docs/models",
+  env: [
+    "GOOGLE_VERTEX_PROJECT",
+    "GOOGLE_VERTEX_LOCATION",
+    "GOOGLE_APPLICATION_CREDENTIALS"
+  ],
+  models: {
+    "gemini-2.5-flash-preview-05-20": {
+      id: "gemini-2.5-flash-preview-05-20",
+      name: "Gemini 2.5 Flash Preview 05-20",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-05-20",
+      last_updated: "2025-05-20",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro": {
+      id: "gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.0-flash-lite": {
+      id: "gemini-2.0-flash-lite",
+      name: "Gemini 2.0 Flash Lite",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.075,
+        output: 0.3
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "gemini-2.5-flash": {
+      id: "gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.075,
+        cache_write: 0.383
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro-preview-06-05": {
+      id: "gemini-2.5-pro-preview-06-05",
+      name: "Gemini 2.5 Pro Preview 06-05",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-05",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.5-pro-preview-05-06": {
+      id: "gemini-2.5-pro-preview-05-06",
+      name: "Gemini 2.5 Pro Preview 05-06",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-05-06",
+      last_updated: "2025-05-06",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "gemini-2.0-flash": {
+      id: "gemini-2.0-flash",
+      name: "Gemini 2.0 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "gemini-2.5-flash-lite-preview-06-17": {
+      id: "gemini-2.5-flash-lite-preview-06-17",
+      name: "Gemini 2.5 Flash Lite Preview 06-17",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 65536,
+        output: 65536
+      }
+    },
+    "gemini-2.5-flash-preview-04-17": {
+      id: "gemini-2.5-flash-preview-04-17",
+      name: "Gemini 2.5 Flash Preview 04-17",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-04-17",
+      last_updated: "2025-04-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    }
+  }
+};
+var google_vertex_default = google_vertexModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/google-vertex-anthropic.js
+var google_vertex_anthropicModels = {
+  id: "google-vertex-anthropic",
+  name: "Vertex",
+  npm: "@ai-sdk/google-vertex",
+  doc: "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/claude",
+  env: [
+    "GOOGLE_VERTEX_PROJECT",
+    "GOOGLE_VERTEX_LOCATION",
+    "GOOGLE_APPLICATION_CREDENTIALS"
+  ],
+  models: {
+    "claude-3-5-haiku@20241022": {
+      id: "claude-3-5-haiku@20241022",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07-31",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-opus-4@20250514": {
+      id: "claude-opus-4@20250514",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "claude-3-5-sonnet@20241022": {
+      id: "claude-3-5-sonnet@20241022",
+      name: "Claude Sonnet 3.5 v2",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04-30",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-opus-4-1@20250805": {
+      id: "claude-opus-4-1@20250805",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "claude-3-7-sonnet@20250219": {
+      id: "claude-3-7-sonnet@20250219",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-31",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "claude-sonnet-4@20250514": {
+      id: "claude-sonnet-4@20250514",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    }
+  }
+};
+var google_vertex_anthropic_default = google_vertex_anthropicModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/groq.js
+var groqModels = {
+  id: "groq",
+  name: "Groq",
+  npm: "@ai-sdk/groq",
+  doc: "https://console.groq.com/docs/models",
+  env: ["GROQ_API_KEY"],
+  models: {
+    "llama-3.1-8b-instant": {
+      id: "llama-3.1-8b-instant",
+      name: "Llama 3.1 8B Instant",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.08
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "qwen-qwq-32b": {
+      id: "qwen-qwq-32b",
+      name: "Qwen QwQ 32B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2024-11-27",
+      last_updated: "2024-11-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.29,
+        output: 0.39
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "llama3-70b-8192": {
+      id: "llama3-70b-8192",
+      name: "Llama 3 70B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-03",
+      release_date: "2024-04-18",
+      last_updated: "2024-04-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.59,
+        output: 0.79
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "deepseek-r1-distill-llama-70b": {
+      id: "deepseek-r1-distill-llama-70b",
+      name: "DeepSeek R1 Distill Llama 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.75,
+        output: 0.99
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "llama3-8b-8192": {
+      id: "llama3-8b-8192",
+      name: "Llama 3 8B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-03",
+      release_date: "2024-04-18",
+      last_updated: "2024-04-18",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.08
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "gemma2-9b-it": {
+      id: "gemma2-9b-it",
+      name: "Gemma 2 9B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-06-27",
+      last_updated: "2024-06-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.2
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "llama-3.3-70b-versatile": {
+      id: "llama-3.3-70b-versatile",
+      name: "Llama 3.3 70B Versatile",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.59,
+        output: 0.79
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "mistral-saba-24b": {
+      id: "mistral-saba-24b",
+      name: "Mistral Saba 24B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-02-06",
+      last_updated: "2025-02-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.79,
+        output: 0.79
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "llama-guard-3-8b": {
+      id: "llama-guard-3-8b",
+      name: "Llama Guard 3 8B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.2
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "openai/gpt-oss-20b": {
+      id: "openai/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.75
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "meta-llama/llama-guard-4-12b": {
+      id: "meta-llama/llama-guard-4-12b",
+      name: "Llama Guard 4 12B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.2
+      },
+      limit: {
+        context: 131072,
+        output: 128
+      }
+    },
+    "meta-llama/llama-4-maverick-17b-128e-instruct": {
+      id: "meta-llama/llama-4-maverick-17b-128e-instruct",
+      name: "Llama 4 Maverick 17B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.6
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "meta-llama/llama-4-scout-17b-16e-instruct": {
+      id: "meta-llama/llama-4-scout-17b-16e-instruct",
+      name: "Llama 4 Scout 17B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.11,
+        output: 0.34
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "qwen/qwen3-32b": {
+      id: "qwen/qwen3-32b",
+      name: "Qwen3 32B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11-08",
+      release_date: "2024-12-23",
+      last_updated: "2024-12-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.29,
+        output: 0.59
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "moonshotai/kimi-k2-instruct-0905": {
+      id: "moonshotai/kimi-k2-instruct-0905",
+      name: "Kimi K2 Instruct 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 262144,
+        output: 16384
+      }
+    },
+    "moonshotai/kimi-k2-instruct": {
+      id: "moonshotai/kimi-k2-instruct",
+      name: "Kimi K2 Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    }
+  }
+};
+var groq_default = groqModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/huggingface.js
+var huggingfaceModels = {
+  id: "huggingface",
+  name: "Hugging Face",
+  api: "https://router.huggingface.co/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://huggingface.co/docs/inference-providers",
+  env: ["HF_TOKEN"],
+  models: {
+    "deepseek-ai/Deepseek-V3-0324": {
+      id: "deepseek-ai/Deepseek-V3-0324",
+      name: "DeepSeek-V3-0324",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.25,
+        output: 1.25
+      },
+      limit: {
+        context: 16384,
+        output: 8192
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-0528": {
+      id: "deepseek-ai/DeepSeek-R1-0528",
+      name: "DeepSeek-R1-0528",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-28",
+      last_updated: "2025-05-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3,
+        output: 5
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen3-Coder-480B-A35B-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 2
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3-235B-A22B-Thinking-2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 3
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "zai-org/GLM-4.5-Air": {
+      id: "zai-org/GLM-4.5-Air",
+      name: "GLM-4.5-Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 1.1
+      },
+      limit: {
+        context: 128e3,
+        output: 96e3
+      }
+    },
+    "zai-org/GLM-4.5": {
+      id: "zai-org/GLM-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.2
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct": {
+      id: "moonshotai/Kimi-K2-Instruct",
+      name: "Kimi-K2-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    }
+  }
+};
+var huggingface_default = huggingfaceModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/inception.js
+var inceptionModels = {
+  id: "inception",
+  name: "Inception",
+  api: "https://api.inceptionlabs.ai/v1/",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://platform.inceptionlabs.ai/docs",
+  env: ["INCEPTION_API_KEY"],
+  models: {
+    "mercury-coder": {
+      id: "mercury-coder",
+      name: "Mercury Coder",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2025-02-26",
+      last_updated: "2025-07-31",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 1,
+        cache_read: 0.25,
+        cache_write: 1
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    mercury: {
+      id: "mercury",
+      name: "Mercury",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2025-06-26",
+      last_updated: "2025-07-31",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 1,
+        cache_read: 0.25,
+        cache_write: 1
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    }
+  }
+};
+var inception_default = inceptionModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/inference.js
+var inferenceModels = {
+  id: "inference",
+  name: "Inference",
+  api: "https://inference.net/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://inference.net/models",
+  env: ["INFERENCE_API_KEY"],
+  models: {
+    "meta/llama-3.2-3b-instruct": {
+      id: "meta/llama-3.2-3b-instruct",
+      name: "Llama 3.2 3B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.02,
+        output: 0.02
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "meta/llama-3.2-1b-instruct": {
+      id: "meta/llama-3.2-1b-instruct",
+      name: "Llama 3.2 1B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.01,
+        output: 0.01
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "meta/llama-3.1-8b-instruct": {
+      id: "meta/llama-3.1-8b-instruct",
+      name: "Llama 3.1 8B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.025,
+        output: 0.025
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "meta/llama-3.2-11b-vision-instruct": {
+      id: "meta/llama-3.2-11b-vision-instruct",
+      name: "Llama 3.2 11B Vision Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.055,
+        output: 0.055
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "mistral/mistral-nemo-12b-instruct": {
+      id: "mistral/mistral-nemo-12b-instruct",
+      name: "Mistral Nemo 12B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.038,
+        output: 0.1
+      },
+      limit: {
+        context: 16e3,
+        output: 4096
+      }
+    },
+    "google/gemma-3": {
+      id: "google/gemma-3",
+      name: "Google Gemma 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.3
+      },
+      limit: {
+        context: 125e3,
+        output: 4096
+      }
+    },
+    "osmosis/osmosis-structure-0.6b": {
+      id: "osmosis/osmosis-structure-0.6b",
+      name: "Osmosis Structure 0.6B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.5
+      },
+      limit: {
+        context: 4e3,
+        output: 2048
+      }
+    },
+    "qwen/qwen-2.5-7b-vision-instruct": {
+      id: "qwen/qwen-2.5-7b-vision-instruct",
+      name: "Qwen 2.5 7B Vision Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.2
+      },
+      limit: {
+        context: 125e3,
+        output: 4096
+      }
+    },
+    "qwen/qwen3-embedding-4b": {
+      id: "qwen/qwen3-embedding-4b",
+      name: "Qwen 3 Embedding 4B",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-12",
+      release_date: "2025-01-01",
+      last_updated: "2025-01-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.01,
+        output: 0
+      },
+      limit: {
+        context: 32e3,
+        output: 2048
+      }
+    }
+  }
+};
+var inference_default = inferenceModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/llama.js
+var llamaModels = {
+  id: "llama",
+  name: "Llama",
+  api: "https://api.llama.com/compat/v1/",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://llama.developer.meta.com/docs/models",
+  env: ["LLAMA_API_KEY"],
+  models: {
+    "groq-llama-4-maverick-17b-128e-instruct": {
+      id: "groq-llama-4-maverick-17b-128e-instruct",
+      name: "Groq-Llama-4-Maverick-17B-128E-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "llama-3.3-70b-instruct": {
+      id: "llama-3.3-70b-instruct",
+      name: "Llama-3.3-70B-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "llama-4-maverick-17b-128e-instruct-fp8": {
+      id: "llama-4-maverick-17b-128e-instruct-fp8",
+      name: "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "llama-4-scout-17b-16e-instruct-fp8": {
+      id: "llama-4-scout-17b-16e-instruct-fp8",
+      name: "Llama-4-Scout-17B-16E-Instruct-FP8",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cerebras-llama-4-scout-17b-16e-instruct": {
+      id: "cerebras-llama-4-scout-17b-16e-instruct",
+      name: "Cerebras-Llama-4-Scout-17B-16E-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "llama-3.3-8b-instruct": {
+      id: "llama-3.3-8b-instruct",
+      name: "Llama-3.3-8B-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "cerebras-llama-4-maverick-17b-128e-instruct": {
+      id: "cerebras-llama-4-maverick-17b-128e-instruct",
+      name: "Cerebras-Llama-4-Maverick-17B-128E-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    }
+  }
+};
+var llama_default = llamaModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/lmstudio.js
+var lmstudioModels = {
+  id: "lmstudio",
+  name: "LMStudio",
+  api: "http://127.0.0.1:1234/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://lmstudio.ai/models",
+  env: ["LMSTUDIO_API_KEY"],
+  models: {
+    "openai/gpt-oss-20b": {
+      id: "openai/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "qwen/qwen3-coder-30b": {
+      id: "qwen/qwen3-coder-30b",
+      name: "Qwen3 Coder 30B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 65536
+      }
+    },
+    "qwen/qwen3-30b-a3b-2507": {
+      id: "qwen/qwen3-30b-a3b-2507",
+      name: "Qwen3 30B A3B 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-30",
+      last_updated: "2025-07-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 16384
+      }
+    }
+  }
+};
+var lmstudio_default = lmstudioModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/mistral.js
+var mistralModels = {
+  id: "mistral",
+  name: "Mistral",
+  npm: "@ai-sdk/mistral",
+  doc: "https://docs.mistral.ai/getting-started/models/",
+  env: ["MISTRAL_API_KEY"],
+  models: {
+    "pixtral-large-latest": {
+      id: "pixtral-large-latest",
+      name: "Pixtral Large",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "open-mixtral-8x7b": {
+      id: "open-mixtral-8x7b",
+      name: "Mixtral 8x7B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-01",
+      release_date: "2023-12-11",
+      last_updated: "2023-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.7,
+        output: 0.7
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    "codestral-latest": {
+      id: "codestral-latest",
+      name: "Codestral",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-05-29",
+      last_updated: "2025-01-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 0.9
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "devstral-small-2505": {
+      id: "devstral-small-2505",
+      name: "Devstral Small 2505",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-07",
+      last_updated: "2025-05-07",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.3
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "devstral-medium-2507": {
+      id: "devstral-medium-2507",
+      name: "Devstral Medium",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-07-10",
+      last_updated: "2025-07-10",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral-medium-2505": {
+      id: "mistral-medium-2505",
+      name: "Mistral Medium 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-07",
+      last_updated: "2025-05-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "devstral-small-2507": {
+      id: "devstral-small-2507",
+      name: "Devstral Small",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-07-10",
+      last_updated: "2025-07-10",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.3
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "ministral-8b-latest": {
+      id: "ministral-8b-latest",
+      name: "Ministral 8B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-10-01",
+      last_updated: "2024-10-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "magistral-medium-latest": {
+      id: "magistral-medium-latest",
+      name: "Magistral Medium",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-03-17",
+      last_updated: "2025-03-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 5
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "pixtral-12b": {
+      id: "pixtral-12b",
+      name: "Pixtral 12B",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2024-09-01",
+      last_updated: "2024-09-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.15
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "open-mistral-7b": {
+      id: "open-mistral-7b",
+      name: "Mistral 7B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2023-09-27",
+      last_updated: "2023-09-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.25,
+        output: 0.25
+      },
+      limit: {
+        context: 8e3,
+        output: 8e3
+      }
+    },
+    "magistral-small": {
+      id: "magistral-small",
+      name: "Magistral Small",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-03-17",
+      last_updated: "2025-03-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 1.5
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral-medium-2508": {
+      id: "mistral-medium-2508",
+      name: "Mistral Medium 3.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-08-12",
+      last_updated: "2025-08-12",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "open-mixtral-8x22b": {
+      id: "open-mixtral-8x22b",
+      name: "Mixtral 8x22B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-04-17",
+      last_updated: "2024-04-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 64e3,
+        output: 64e3
+      }
+    },
+    "mistral-medium-latest": {
+      id: "mistral-medium-latest",
+      name: "Mistral Medium",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-07",
+      last_updated: "2025-05-10",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "mistral-small-latest": {
+      id: "mistral-small-latest",
+      name: "Mistral Small",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03",
+      release_date: "2024-09-01",
+      last_updated: "2024-09-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.3
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "mistral-large-latest": {
+      id: "mistral-large-latest",
+      name: "Mistral Large",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "mistral-nemo": {
+      id: "mistral-nemo",
+      name: "Mistral Nemo",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2024-07-01",
+      last_updated: "2024-07-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.15
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "ministral-3b-latest": {
+      id: "ministral-3b-latest",
+      name: "Ministral 3B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-10-01",
+      last_updated: "2024-10-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.04,
+        output: 0.04
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    }
+  }
+};
+var mistral_default = mistralModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/modelscope.js
+var modelscopeModels = {
+  id: "modelscope",
+  name: "ModelScope",
+  api: "https://api-inference.modelscope.cn/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://modelscope.cn/docs/model-service/API-Inference/intro",
+  env: ["MODELSCOPE_API_KEY"],
+  models: {
+    "Qwen/Qwen3-30B-A3B-Thinking-2507": {
+      id: "Qwen/Qwen3-30B-A3B-Thinking-2507",
+      name: "Qwen3 30B A3B Thinking 2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-30",
+      last_updated: "2025-07-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 32768
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen3-Coder-480B-A35B-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3-235B-A22B-Thinking-2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+      id: "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      name: "Qwen3 30B A3B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-30",
+      last_updated: "2025-07-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 16384
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      name: "Qwen3 235B A22B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-Coder-30B-A3B-Instruct": {
+      id: "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      name: "Qwen3 Coder 30B A3B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-31",
+      last_updated: "2025-07-31",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 65536
+      }
+    },
+    "ZhipuAI/GLM-4.5": {
+      id: "ZhipuAI/GLM-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct": {
+      id: "moonshotai/Kimi-K2-Instruct",
+      name: "Kimi-K2-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    }
+  }
+};
+var modelscope_default = modelscopeModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/moonshotai.js
+var moonshotaiModels = {
+  id: "moonshotai",
+  name: "Moonshot AI",
+  api: "https://api.moonshot.ai/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://platform.moonshot.ai/docs/api/chat",
+  env: ["MOONSHOT_API_KEY"],
+  models: {
+    "kimi-k2-turbo-preview": {
+      id: "kimi-k2-turbo-preview",
+      name: "Kimi K2 Turbo",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2.4,
+        output: 10,
+        cache_read: 0.6
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "kimi-k2-0711-preview": {
+      id: "kimi-k2-0711-preview",
+      name: "Kimi K2 0711",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "kimi-k2-0905-preview": {
+      id: "kimi-k2-0905-preview",
+      name: "Kimi K2 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    }
+  }
+};
+var moonshotai_default = moonshotaiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/moonshotai-cn.js
+var moonshotai_cnModels = {
+  id: "moonshotai-cn",
+  name: "Moonshot AI (China)",
+  api: "https://api.moonshot.cn/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://platform.moonshot.cn/docs/api/chat",
+  env: ["MOONSHOT_API_KEY"],
+  models: {
+    "kimi-k2-0905-preview": {
+      id: "kimi-k2-0905-preview",
+      name: "Kimi K2 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "kimi-k2-0711-preview": {
+      id: "kimi-k2-0711-preview",
+      name: "Kimi K2 0711",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "kimi-k2-turbo-preview": {
+      id: "kimi-k2-turbo-preview",
+      name: "Kimi K2 Turbo",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2.4,
+        output: 10,
+        cache_read: 0.6
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    }
+  }
+};
+var moonshotai_cn_default = moonshotai_cnModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/morph.js
+var morphModels = {
+  id: "morph",
+  name: "Morph",
+  api: "https://api.morphllm.com/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.morphllm.com/api-reference/introduction",
+  env: ["MORPH_API_KEY"],
+  models: {
+    auto: {
+      id: "auto",
+      name: "Auto",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-06-01",
+      last_updated: "2024-06-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.85,
+        output: 1.55
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    "morph-v3-fast": {
+      id: "morph-v3-fast",
+      name: "Morph v3 Fast",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 1.2
+      },
+      limit: {
+        context: 16e3,
+        output: 16e3
+      }
+    },
+    "morph-v3-large": {
+      id: "morph-v3-large",
+      name: "Morph v3 Large",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.9,
+        output: 1.9
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    }
+  }
+};
+var morph_default = morphModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/nvidia.js
+var nvidiaModels = {
+  id: "nvidia",
+  name: "Nvidia",
+  api: "https://integrate.api.nvidia.com/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.api.nvidia.com/nim/",
+  env: ["NVIDIA_API_KEY"],
+  models: {
+    "mistral-small-3.1-24b-instruct-2503": {
+      id: "mistral-small-3.1-24b-instruct-2503",
+      name: "Mistral-Small-3.1-24B-Instruct-2503",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2025-04-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "llama-3.3-nemotron-super-49b-v1.5": {
+      id: "llama-3.3-nemotron-super-49b-v1.5",
+      name: "Llama-3.3-Nemotron-Super-49B-v1.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-07-25",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "qwen3-235b-a22b": {
+      id: "qwen3-235b-a22b",
+      name: "Qwen3-235B-A22B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2024-12-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "deepseek-v3.1": {
+      id: "deepseek-v3.1",
+      name: "DeepSeek V3.1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-08-20",
+      last_updated: "2025-08-26",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "flux_1-dev": {
+      id: "flux_1-dev",
+      name: "FLUX.1-dev",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-08",
+      release_date: "2024-08-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["image"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 4096,
+        output: 0
+      }
+    },
+    "cosmos-nemotron-34b": {
+      id: "cosmos-nemotron-34b",
+      name: "Cosmos Nemotron 34B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "whisper-large-v3": {
+      id: "whisper-large-v3",
+      name: "Whisper Large v3",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2023-09",
+      release_date: "2023-09-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 4096
+      }
+    },
+    "qwen3-coder-480b-a35b-instruct": {
+      id: "qwen3-coder-480b-a35b-instruct",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "phi-4-multimodal-instruct": {
+      id: "phi-4-multimodal-instruct",
+      name: "Phi-4-Multimodal-Instruct",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2024-12-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "parakeet-tdt-0.6b-v2": {
+      id: "parakeet-tdt-0.6b-v2",
+      name: "Parakeet TDT 0.6B v2",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["audio"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 4096
+      }
+    },
+    "llama-3.1-nemotron-ultra-253b-v1": {
+      id: "llama-3.1-nemotron-ultra-253b-v1",
+      name: "Llama-3.1-Nemotron-Ultra-253B-v1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2024-07-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "deepseek-r1": {
+      id: "deepseek-r1",
+      name: "DeepSeek R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-11",
+      release_date: "2024-11-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "nemoretriever-ocr-v1": {
+      id: "nemoretriever-ocr-v1",
+      name: "NeMo Retriever OCR v1",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      knowledge: "2024-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 0,
+        output: 4096
+      }
+    },
+    "gemma-3-27b-it": {
+      id: "gemma-3-27b-it",
+      name: "Gemma-3-27B-IT",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2024-12-01",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    }
+  }
+};
+var nvidia_default = nvidiaModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/opencode.js
+var opencodeModels = {
+  id: "opencode",
+  name: "opencode",
+  api: "https://opencode.ai/zen/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://opencode.ai/docs",
+  env: ["OPENCODE_API_KEY"],
+  models: {
+    "claude-3-5-haiku": {
+      id: "claude-3-5-haiku",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07-31",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "claude-sonnet-4": {
+      id: "claude-sonnet-4",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        reasoning: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "grok-code": {
+      id: "grok-code",
+      name: "Grok Code Fast 1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-20",
+      last_updated: "2025-08-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 256e3,
+        output: 32e3
+      }
+    },
+    "claude-opus-4-1": {
+      id: "claude-opus-4-1",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        reasoning: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "gpt-5": {
+      id: "gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        reasoning: 10,
+        cache_read: 0.125
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "kimi-k2": {
+      id: "kimi-k2",
+      name: "Kimi K2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "qwen3-coder": {
+      id: "qwen3-coder",
+      name: "Qwen3 Coder",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.45,
+        output: 1.8
+      },
+      limit: {
+        context: 262144,
+        output: 65536
+      }
+    }
+  }
+};
+var opencode_default = opencodeModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/openrouter.js
+var openrouterModels = {
+  id: "openrouter",
+  name: "OpenRouter",
+  api: "https://openrouter.ai/api/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://openrouter.ai/models",
+  env: ["OPENROUTER_API_KEY"],
+  models: {
+    "deepseek/deepseek-r1-0528:free": {
+      id: "deepseek/deepseek-r1-0528:free",
+      name: "R1 0528 (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-28",
+      last_updated: "2025-05-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek/deepseek-chat-v3.1": {
+      id: "deepseek/deepseek-chat-v3.1",
+      name: "DeepSeek-V3.1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-08-21",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek/deepseek-r1-distill-llama-70b": {
+      id: "deepseek/deepseek-r1-distill-llama-70b",
+      name: "DeepSeek R1 Distill Llama 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-01-23",
+      last_updated: "2025-01-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "deepseek/deepseek-v3-base:free": {
+      id: "deepseek/deepseek-v3-base:free",
+      name: "DeepSeek V3 Base (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-03",
+      release_date: "2025-03-29",
+      last_updated: "2025-03-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek/deepseek-r1-0528-qwen3-8b:free": {
+      id: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+      name: "Deepseek R1 0528 Qwen3 8B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-29",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "deepseek/deepseek-chat-v3-0324": {
+      id: "deepseek/deepseek-chat-v3-0324",
+      name: "DeepSeek V3 0324",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 16384,
+        output: 8192
+      }
+    },
+    "deepseek/deepseek-r1:free": {
+      id: "deepseek/deepseek-r1:free",
+      name: "R1 (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "deepseek/deepseek-r1-distill-qwen-14b": {
+      id: "deepseek/deepseek-r1-distill-qwen-14b",
+      name: "DeepSeek R1 Distill Qwen 14B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-01-29",
+      last_updated: "2025-01-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 64e3,
+        output: 8192
+      }
+    },
+    "rekaai/reka-flash-3": {
+      id: "rekaai/reka-flash-3",
+      name: "Reka Flash 3",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-12",
+      last_updated: "2025-03-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "featherless/qwerky-72b": {
+      id: "featherless/qwerky-72b",
+      name: "Qwerky 72B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-03-20",
+      last_updated: "2025-03-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "openrouter/horizon-beta": {
+      id: "openrouter/horizon-beta",
+      name: "Horizon Beta",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 256e3,
+        output: 128e3
+      }
+    },
+    "openrouter/cypher-alpha:free": {
+      id: "openrouter/cypher-alpha:free",
+      name: "Cypher Alpha (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-01",
+      last_updated: "2025-07-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 1e6,
+        output: 1e6
+      }
+    },
+    "openrouter/sonoma-dusk-alpha": {
+      id: "openrouter/sonoma-dusk-alpha",
+      name: "Sonoma Dusk Alpha",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: true,
+      release_date: "2024-09-05",
+      last_updated: "2024-09-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e6,
+        output: 2e6
+      }
+    },
+    "openrouter/sonoma-sky-alpha": {
+      id: "openrouter/sonoma-sky-alpha",
+      name: "Sonoma Sky Alpha",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: true,
+      release_date: "2024-09-05",
+      last_updated: "2024-09-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 2e6,
+        output: 2e6
+      }
+    },
+    "openrouter/horizon-alpha": {
+      id: "openrouter/horizon-alpha",
+      name: "Horizon Alpha",
+      attachment: true,
+      reasoning: false,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-30",
+      last_updated: "2025-07-30",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 256e3,
+        output: 128e3
+      }
+    },
+    "anthropic/claude-sonnet-4": {
+      id: "anthropic/claude-sonnet-4",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic/claude-opus-4": {
+      id: "anthropic/claude-opus-4",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-3.5-haiku": {
+      id: "anthropic/claude-3.5-haiku",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07-31",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "anthropic/claude-opus-4.1": {
+      id: "anthropic/claude-opus-4.1",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-3.7-sonnet": {
+      id: "anthropic/claude-3.7-sonnet",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-01",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-5-nano": {
+      id: "openai/gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-4.1": {
+      id: "openai/gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-oss-20b": {
+      id: "openai/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.05,
+        output: 0.2
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "openai/gpt-5": {
+      id: "openai/gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-5-chat": {
+      id: "openai/gpt-5-chat",
+      name: "GPT-5 Chat (latest)",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-5-mini": {
+      id: "openai/gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-01",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-4o-mini": {
+      id: "openai/gpt-4o-mini",
+      name: "GPT-4o-mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.08
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-4.1-mini": {
+      id: "openai/gpt-4.1-mini",
+      name: "GPT-4.1 Mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 1.6,
+        cache_read: 0.1
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.072,
+        output: 0.28
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "openai/o4-mini": {
+      id: "openai/o4-mini",
+      name: "o4 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.28
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "thudm/glm-z1-32b:free": {
+      id: "thudm/glm-z1-32b:free",
+      name: "GLM Z1 32B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-17",
+      last_updated: "2025-04-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "sarvamai/sarvam-m:free": {
+      id: "sarvamai/sarvam-m:free",
+      name: "Sarvam-M (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-25",
+      last_updated: "2025-05-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "x-ai/grok-code-fast-1": {
+      id: "x-ai/grok-code-fast-1",
+      name: "Grok Code Fast 1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-08",
+      release_date: "2025-08-26",
+      last_updated: "2025-08-26",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 1.5,
+        cache_read: 0.02
+      },
+      limit: {
+        context: 256e3,
+        output: 1e4
+      }
+    },
+    "x-ai/grok-3-mini-beta": {
+      id: "x-ai/grok-3-mini-beta",
+      name: "Grok 3 Mini Beta",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 0.5,
+        cache_read: 0.075,
+        cache_write: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "x-ai/grok-3": {
+      id: "x-ai/grok-3",
+      name: "Grok 3",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75,
+        cache_write: 15
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "x-ai/grok-3-mini": {
+      id: "x-ai/grok-3-mini",
+      name: "Grok 3 Mini",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 0.5,
+        cache_read: 0.075,
+        cache_write: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "x-ai/grok-4": {
+      id: "x-ai/grok-4",
+      name: "Grok 4",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-09",
+      last_updated: "2025-07-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75,
+        cache_write: 15
+      },
+      limit: {
+        context: 256e3,
+        output: 64e3
+      }
+    },
+    "x-ai/grok-3-beta": {
+      id: "x-ai/grok-3-beta",
+      name: "Grok 3 Beta",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75,
+        cache_write: 15
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "mistralai/codestral-2508": {
+      id: "mistralai/codestral-2508",
+      name: "Codestral 2508",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 0.9
+      },
+      limit: {
+        context: 256e3,
+        output: 256e3
+      }
+    },
+    "mistralai/mistral-medium-3": {
+      id: "mistralai/mistral-medium-3",
+      name: "Mistral Medium 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-07",
+      last_updated: "2025-05-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "mistralai/devstral-small-2505": {
+      id: "mistralai/devstral-small-2505",
+      name: "Devstral Small",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-07",
+      last_updated: "2025-05-07",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.06,
+        output: 0.12
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistralai/mistral-small-3.2-24b-instruct:free": {
+      id: "mistralai/mistral-small-3.2-24b-instruct:free",
+      name: "Mistral Small 3.2 24B (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-06-20",
+      last_updated: "2025-06-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 96e3,
+        output: 96e3
+      }
+    },
+    "mistralai/devstral-medium-2507": {
+      id: "mistralai/devstral-medium-2507",
+      name: "Devstral Medium",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-07-10",
+      last_updated: "2025-07-10",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "mistralai/mistral-small-3.2-24b-instruct": {
+      id: "mistralai/mistral-small-3.2-24b-instruct",
+      name: "Mistral Small 3.2 24B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-06-20",
+      last_updated: "2025-06-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 96e3,
+        output: 8192
+      }
+    },
+    "mistralai/devstral-small-2507": {
+      id: "mistralai/devstral-small-2507",
+      name: "Devstral Small 1.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-07-10",
+      last_updated: "2025-07-10",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.3
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "mistralai/mistral-nemo:free": {
+      id: "mistralai/mistral-nemo:free",
+      name: "Mistral Nemo (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2024-07-19",
+      last_updated: "2024-07-19",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "mistralai/mistral-small-3.1-24b-instruct": {
+      id: "mistralai/mistral-small-3.1-24b-instruct",
+      name: "Mistral Small 3.1 24B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-17",
+      last_updated: "2025-03-17",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "mistralai/mistral-7b-instruct:free": {
+      id: "mistralai/mistral-7b-instruct:free",
+      name: "Mistral 7B Instruct (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-05-27",
+      last_updated: "2024-05-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "mistralai/mistral-medium-3.1": {
+      id: "mistralai/mistral-medium-3.1",
+      name: "Mistral Medium 3.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-08-12",
+      last_updated: "2025-08-12",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 2
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "mistralai/devstral-small-2505:free": {
+      id: "mistralai/devstral-small-2505:free",
+      name: "Devstral Small 2505 (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-21",
+      last_updated: "2025-05-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "meta-llama/llama-4-scout:free": {
+      id: "meta-llama/llama-4-scout:free",
+      name: "Llama 4 Scout (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 64e3,
+        output: 64e3
+      }
+    },
+    "meta-llama/llama-3.2-11b-vision-instruct": {
+      id: "meta-llama/llama-3.2-11b-vision-instruct",
+      name: "Llama 3.2 11B Vision Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-12",
+      release_date: "2024-09-25",
+      last_updated: "2024-09-25",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "meta-llama/llama-3.3-70b-instruct:free": {
+      id: "meta-llama/llama-3.3-70b-instruct:free",
+      name: "Llama 3.3 70B Instruct (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 65536,
+        output: 65536
+      }
+    },
+    "google/gemini-2.5-pro": {
+      id: "google/gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemma-3-12b-it": {
+      id: "google/gemma-3-12b-it",
+      name: "Gemma 3 12B IT",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-13",
+      last_updated: "2025-03-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 96e3,
+        output: 8192
+      }
+    },
+    "google/gemini-2.0-flash-001": {
+      id: "google/gemini-2.0-flash-001",
+      name: "Gemini 2.0 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "google/gemini-2.0-flash-exp:free": {
+      id: "google/gemini-2.0-flash-exp:free",
+      name: "Gemini 2.0 Flash Experimental (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 1048576,
+        output: 1048576
+      }
+    },
+    "google/gemma-3n-e4b-it:free": {
+      id: "google/gemma-3n-e4b-it:free",
+      name: "Gemma 3n 4B (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-20",
+      last_updated: "2025-05-20",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "google/gemma-2-9b-it:free": {
+      id: "google/gemma-2-9b-it:free",
+      name: "Gemma 2 9B (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-06-28",
+      last_updated: "2024-06-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "google/gemini-2.5-flash": {
+      id: "google/gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-07-17",
+      last_updated: "2025-07-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.0375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemini-2.5-pro-preview-06-05": {
+      id: "google/gemini-2.5-pro-preview-06-05",
+      name: "Gemini 2.5 Pro Preview 06-05",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-05",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemini-2.5-pro-preview-05-06": {
+      id: "google/gemini-2.5-pro-preview-05-06",
+      name: "Gemini 2.5 Pro Preview 05-06",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-05-06",
+      last_updated: "2025-05-06",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemma-3n-e4b-it": {
+      id: "google/gemma-3n-e4b-it",
+      name: "Gemma 3n E4B IT",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-05-20",
+      last_updated: "2025-05-20",
+      modalities: {
+        input: ["text", "image", "audio"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "google/gemma-3-27b-it": {
+      id: "google/gemma-3-27b-it",
+      name: "Gemma 3 27B IT",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-12",
+      last_updated: "2025-03-12",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 96e3,
+        output: 8192
+      }
+    },
+    "microsoft/mai-ds-r1:free": {
+      id: "microsoft/mai-ds-r1:free",
+      name: "MAI DS R1 (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-21",
+      last_updated: "2025-04-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "z-ai/glm-4.5-air:free": {
+      id: "z-ai/glm-4.5-air:free",
+      name: "GLM 4.5 Air (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 96e3
+      }
+    },
+    "z-ai/glm-4.5-air": {
+      id: "z-ai/glm-4.5-air",
+      name: "GLM 4.5 Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 1.1
+      },
+      limit: {
+        context: 128e3,
+        output: 96e3
+      }
+    },
+    "z-ai/glm-4.5v": {
+      id: "z-ai/glm-4.5v",
+      name: "GLM 4.5V",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-08-11",
+      last_updated: "2025-08-11",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 1.8
+      },
+      limit: {
+        context: 64e3,
+        output: 16384
+      }
+    },
+    "z-ai/glm-4.5": {
+      id: "z-ai/glm-4.5",
+      name: "GLM 4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.2
+      },
+      limit: {
+        context: 128e3,
+        output: 96e3
+      }
+    },
+    "cognitivecomputations/dolphin3.0-mistral-24b": {
+      id: "cognitivecomputations/dolphin3.0-mistral-24b",
+      name: "Dolphin3.0 Mistral 24B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-02-13",
+      last_updated: "2025-02-13",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "cognitivecomputations/dolphin3.0-r1-mistral-24b": {
+      id: "cognitivecomputations/dolphin3.0-r1-mistral-24b",
+      name: "Dolphin3.0 R1 Mistral 24B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-02-13",
+      last_updated: "2025-02-13",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen/qwen2.5-vl-72b-instruct": {
+      id: "qwen/qwen2.5-vl-72b-instruct",
+      name: "Qwen2.5 VL 72B Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2025-02-01",
+      last_updated: "2025-02-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen/qwen3-coder:free": {
+      id: "qwen/qwen3-coder:free",
+      name: "Qwen3 Coder 480B A35B Instruct (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "qwen/qwen3-235b-a22b-thinking-2507": {
+      id: "qwen/qwen3-235b-a22b-thinking-2507",
+      name: "Qwen3 235B A22B Thinking 2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.078,
+        output: 0.312
+      },
+      limit: {
+        context: 262144,
+        output: 81920
+      }
+    },
+    "qwen/qwen3-30b-a3b:free": {
+      id: "qwen/qwen3-30b-a3b:free",
+      name: "Qwen3 30B A3B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 40960,
+        output: 40960
+      }
+    },
+    "qwen/qwen3-32b:free": {
+      id: "qwen/qwen3-32b:free",
+      name: "Qwen3 32B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 40960,
+        output: 40960
+      }
+    },
+    "qwen/qwen3-max": {
+      id: "qwen/qwen3-max",
+      name: "Qwen3 Max",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.2,
+        output: 6
+      },
+      limit: {
+        context: 262144,
+        output: 32768
+      }
+    },
+    "qwen/qwen3-235b-a22b:free": {
+      id: "qwen/qwen3-235b-a22b:free",
+      name: "Qwen3 235B A22B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "qwen/qwen3-30b-a3b-instruct-2507": {
+      id: "qwen/qwen3-30b-a3b-instruct-2507",
+      name: "Qwen3 30B A3B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-04",
+      release_date: "2025-07-29",
+      last_updated: "2025-07-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 131072,
+        output: 33e3
+      }
+    },
+    "qwen/qwen-2.5-coder-32b-instruct": {
+      id: "qwen/qwen-2.5-coder-32b-instruct",
+      name: "Qwen2.5 Coder 32B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2024-11-11",
+      last_updated: "2024-11-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen/qwen2.5-vl-72b-instruct:free": {
+      id: "qwen/qwen2.5-vl-72b-instruct:free",
+      name: "Qwen2.5 VL 72B Instruct (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-02",
+      release_date: "2025-02-01",
+      last_updated: "2025-02-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "qwen/qwen3-235b-a22b-07-25:free": {
+      id: "qwen/qwen3-235b-a22b-07-25:free",
+      name: "Qwen3 235B A22B Instruct 2507 (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "qwen/qwq-32b:free": {
+      id: "qwen/qwq-32b:free",
+      name: "QwQ 32B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03",
+      release_date: "2025-03-05",
+      last_updated: "2025-03-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "qwen/qwen2.5-vl-32b-instruct:free": {
+      id: "qwen/qwen2.5-vl-32b-instruct:free",
+      name: "Qwen2.5 VL 32B Instruct (free)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 8192,
+        output: 8192
+      }
+    },
+    "qwen/qwen3-coder": {
+      id: "qwen/qwen3-coder",
+      name: "Qwen3 Coder",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 1.2
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "qwen/qwen3-8b:free": {
+      id: "qwen/qwen3-8b:free",
+      name: "Qwen3 8B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 40960,
+        output: 40960
+      }
+    },
+    "qwen/qwen3-235b-a22b-07-25": {
+      id: "qwen/qwen3-235b-a22b-07-25",
+      name: "Qwen3 235B A22B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.85
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "qwen/qwen3-next-80b-a3b-instruct": {
+      id: "qwen/qwen3-next-80b-a3b-instruct",
+      name: "Qwen3 Next 80B A3B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-09-11",
+      last_updated: "2025-09-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.14,
+        output: 1.4
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "qwen/qwen3-14b:free": {
+      id: "qwen/qwen3-14b:free",
+      name: "Qwen3 14B (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-04-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 40960,
+        output: 40960
+      }
+    },
+    "tngtech/deepseek-r1t2-chimera:free": {
+      id: "tngtech/deepseek-r1t2-chimera:free",
+      name: "DeepSeek R1T2 Chimera (free)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-07",
+      release_date: "2025-07-08",
+      last_updated: "2025-07-08",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 163840,
+        output: 163840
+      }
+    },
+    "nousresearch/hermes-4-405b": {
+      id: "nousresearch/hermes-4-405b",
+      name: "Hermes 4 405B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-08-25",
+      last_updated: "2025-08-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "nousresearch/hermes-4-70b": {
+      id: "nousresearch/hermes-4-70b",
+      name: "Hermes 4 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-08-25",
+      last_updated: "2025-08-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.13,
+        output: 0.4
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "nousresearch/deephermes-3-llama-3-8b-preview": {
+      id: "nousresearch/deephermes-3-llama-3-8b-preview",
+      name: "DeepHermes 3 Llama 3 8B Preview",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-02-28",
+      last_updated: "2025-02-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "moonshotai/kimi-k2-0905": {
+      id: "moonshotai/kimi-k2-0905",
+      name: "Kimi K2 Instruct 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5
+      },
+      limit: {
+        context: 262144,
+        output: 16384
+      }
+    },
+    "moonshotai/kimi-k2:free": {
+      id: "moonshotai/kimi-k2:free",
+      name: "Kimi K2 (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 32800,
+        output: 32800
+      }
+    },
+    "moonshotai/kimi-k2": {
+      id: "moonshotai/kimi-k2",
+      name: "Kimi K2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.55,
+        output: 2.2
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "moonshotai/kimi-dev-72b:free": {
+      id: "moonshotai/kimi-dev-72b:free",
+      name: "Kimi Dev 72b (free)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-06-16",
+      last_updated: "2025-06-16",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    }
+  }
+};
+var openrouter_default = openrouterModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/perplexity.js
+var perplexityModels = {
+  id: "perplexity",
+  name: "Perplexity",
+  npm: "@perplexity-ai/sdk",
+  doc: "https://docs.perplexity.ai",
+  env: ["PERPLEXITY_API_KEY"],
+  models: {
+    "sonar-pro": {
+      id: "sonar-pro",
+      name: "Sonar Pro",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-09-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    sonar: {
+      id: "sonar",
+      name: "Sonar",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-09-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1,
+        output: 1
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "sonar-reasoning": {
+      id: "sonar-reasoning",
+      name: "Sonar Reasoning",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-09-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1,
+        output: 5
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "sonar-reasoning-pro": {
+      id: "sonar-reasoning-pro",
+      name: "Sonar Reasoning Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2025-09-01",
+      release_date: "2024-01-01",
+      last_updated: "2025-09-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    }
+  }
+};
+var perplexity_default = perplexityModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/requesty.js
+var requestyModels = {
+  id: "requesty",
+  name: "Requesty",
+  npm: "@requesty/ai-sdk",
+  doc: "https://requesty.ai/solution/llm-routing/models",
+  env: ["REQUESTY_API_KEY"],
+  models: {
+    "anthropic/claude-opus-4": {
+      id: "anthropic/claude-opus-4",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-opus-4-1-20250805": {
+      id: "anthropic/claude-opus-4-1-20250805",
+      name: "Claude Opus 4.1",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-3-7-sonnet": {
+      id: "anthropic/claude-3-7-sonnet",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-01",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic/claude-4-sonnet-20250522": {
+      id: "anthropic/claude-4-sonnet-20250522",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "openai/gpt-5-nano": {
+      id: "openai/gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4,
+        cache_read: 0.01
+      },
+      limit: {
+        context: 16e3,
+        output: 4e3
+      }
+    },
+    "openai/gpt-4.1": {
+      id: "openai/gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-5": {
+      id: "openai/gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "audio", "image", "video"],
+        output: ["text", "audio", "image"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.13
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/gpt-5-mini": {
+      id: "openai/gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 128e3,
+        output: 32e3
+      }
+    },
+    "openai/gpt-4o-mini": {
+      id: "openai/gpt-4o-mini",
+      name: "GPT-4o Mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.08
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-4.1-mini": {
+      id: "openai/gpt-4.1-mini",
+      name: "GPT-4.1 Mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 1.6,
+        cache_read: 0.1
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/o4-mini": {
+      id: "openai/o4-mini",
+      name: "o4 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.28
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "google/gemini-2.5-pro": {
+      id: "google/gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31,
+        cache_write: 2.375
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemini-2.5-flash": {
+      id: "google/gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-06-17",
+      last_updated: "2025-06-17",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.075,
+        cache_write: 0.55
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    }
+  }
+};
+var requesty_default = requestyModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/submodel.js
+var submodelModels = {
+  id: "submodel",
+  name: "submodel",
+  api: "https://llm.submodel.ai/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://submodel.gitbook.io",
+  env: ["SUBMODEL_INSTAGEN_ACCESS_KEY"],
+  models: {
+    "deepseek-ai/DeepSeek-V3.1": {
+      id: "deepseek-ai/DeepSeek-V3.1",
+      name: "DeepSeek V3.1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 75e3,
+        output: 163840
+      }
+    },
+    "deepseek-ai/DeepSeek-V3-0324": {
+      id: "deepseek-ai/DeepSeek-V3-0324",
+      name: "DeepSeek V3 0324",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 75e3,
+        output: 163840
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-0528": {
+      id: "deepseek-ai/DeepSeek-R1-0528",
+      name: "DeepSeek R1 0528",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.5,
+        output: 2.15
+      },
+      limit: {
+        context: 75e3,
+        output: 163840
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3 235B A22B Thinking 2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.6
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      name: "Qwen3 235B A22B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.3
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-23",
+      last_updated: "2025-08-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 262144,
+        output: 262144
+      }
+    },
+    "zai-org/GLM-4.5-FP8": {
+      id: "zai-org/GLM-4.5-FP8",
+      name: "GLM 4.5 FP8",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.8
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "zai-org/GLM-4.5-Air": {
+      id: "zai-org/GLM-4.5-Air",
+      name: "GLM 4.5 Air",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    }
+  }
+};
+var submodel_default = submodelModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/synthetic.js
+var syntheticModels = {
+  id: "synthetic",
+  name: "Synthetic",
+  api: "https://api.synthetic.new/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://synthetic.new/pricing",
+  env: ["SYNTHETIC_API_KEY"],
+  models: {
+    "hf:meta-llama/Llama-3.1-405B-Instruct": {
+      id: "hf:meta-llama/Llama-3.1-405B-Instruct",
+      name: "Llama-3.1-405B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3,
+        output: 3
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+      id: "hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      name: "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.22,
+        output: 0.88
+      },
+      limit: {
+        context: 524e3,
+        output: 4096
+      }
+    },
+    "hf:meta-llama/Llama-3.1-70B-Instruct": {
+      id: "hf:meta-llama/Llama-3.1-70B-Instruct",
+      name: "Llama-3.1-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.9,
+        output: 0.9
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "hf:meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+      id: "hf:meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      name: "Llama-4-Scout-17B-16E-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 328e3,
+        output: 4096
+      }
+    },
+    "hf:meta-llama/Llama-3.3-70B-Instruct": {
+      id: "hf:meta-llama/Llama-3.3-70B-Instruct",
+      name: "Llama-3.3-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.9,
+        output: 0.9
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "hf:meta-llama/Llama-3.1-8B-Instruct": {
+      id: "hf:meta-llama/Llama-3.1-8B-Instruct",
+      name: "Llama-3.1-8B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.2
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "hf:deepseek-ai/DeepSeek-V3.1": {
+      id: "hf:deepseek-ai/DeepSeek-V3.1",
+      name: "DeepSeek V3.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-21",
+      last_updated: "2025-08-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.56,
+        output: 1.68
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "hf:deepseek-ai/DeepSeek-V3": {
+      id: "hf:deepseek-ai/DeepSeek-V3",
+      name: "DeepSeek V3",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.25,
+        output: 1.25
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "hf:deepseek-ai/DeepSeek-V3-0324": {
+      id: "hf:deepseek-ai/DeepSeek-V3-0324",
+      name: "DeepSeek V3 (0324)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.2,
+        output: 1.2
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "hf:deepseek-ai/DeepSeek-R1": {
+      id: "hf:deepseek-ai/DeepSeek-R1",
+      name: "DeepSeek R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.55,
+        output: 2.19
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "hf:deepseek-ai/DeepSeek-R1-0528": {
+      id: "hf:deepseek-ai/DeepSeek-R1-0528",
+      name: "DeepSeek R1 (0528)",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-01",
+      last_updated: "2025-08-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 8
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "hf:zai-org/GLM-4.5": {
+      id: "hf:zai-org/GLM-4.5",
+      name: "GLM 4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.55,
+        output: 2.19
+      },
+      limit: {
+        context: 128e3,
+        output: 96e3
+      }
+    },
+    "hf:moonshotai/Kimi-K2-Instruct": {
+      id: "hf:moonshotai/Kimi-K2-Instruct",
+      name: "Kimi K2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-11",
+      last_updated: "2025-07-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.5
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "hf:moonshotai/Kimi-K2-Instruct-0905": {
+      id: "hf:moonshotai/Kimi-K2-Instruct-0905",
+      name: "Kimi K2 0905",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-09-05",
+      last_updated: "2025-09-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.2,
+        output: 1.2
+      },
+      limit: {
+        context: 262144,
+        output: 32768
+      }
+    },
+    "hf:Qwen/Qwen2.5-Coder-32B-Instruct": {
+      id: "hf:Qwen/Qwen2.5-Coder-32B-Instruct",
+      name: "Qwen2.5-Coder-32B-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-10",
+      release_date: "2024-11-11",
+      last_updated: "2024-11-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.8,
+        output: 0.8
+      },
+      limit: {
+        context: 32768,
+        output: 32768
+      }
+    },
+    "hf:Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "hf:Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen 3 Coder 480B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 2
+      },
+      limit: {
+        context: 256e3,
+        output: 32e3
+      }
+    },
+    "hf:Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "hf:Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3 235B A22B Thinking 2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.65,
+        output: 3
+      },
+      limit: {
+        context: 256e3,
+        output: 32e3
+      }
+    },
+    "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      id: "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+      name: "Qwen 3 235B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 0.6
+      },
+      limit: {
+        context: 256e3,
+        output: 32e3
+      }
+    },
+    "hf:openai/gpt-oss-120b": {
+      id: "hf:openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    }
+  }
+};
+var synthetic_default = syntheticModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/togetherai.js
+var togetheraiModels = {
+  id: "togetherai",
+  name: "Together AI",
+  npm: "@ai-sdk/togetherai",
+  doc: "https://docs.together.ai/docs/serverless-models",
+  env: ["TOGETHER_API_KEY"],
+  models: {
+    "deepseek-ai/DeepSeek-V3": {
+      id: "deepseek-ai/DeepSeek-V3",
+      name: "DeepSeek V3",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.25,
+        output: 1.25
+      },
+      limit: {
+        context: 131072,
+        output: 12288
+      }
+    },
+    "deepseek-ai/DeepSeek-R1": {
+      id: "deepseek-ai/DeepSeek-R1",
+      name: "DeepSeek R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2024-07",
+      release_date: "2024-12-26",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3,
+        output: 7
+      },
+      limit: {
+        context: 163839,
+        output: 12288
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 131072,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+      name: "Qwen3 Coder 480B A35B Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 2
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "meta-llama/Llama-3.3-70B-Instruct-Turbo": {
+      id: "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      name: "Llama 3.3 70B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.88,
+        output: 0.88
+      },
+      limit: {
+        context: 131072,
+        output: 66536
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct": {
+      id: "moonshotai/Kimi-K2-Instruct",
+      name: "Kimi K2 Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    }
+  }
+};
+var togetherai_default = togetheraiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/upstage.js
+var upstageModels = {
+  id: "upstage",
+  name: "Upstage",
+  api: "https://api.upstage.ai",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://developers.upstage.ai/docs/apis/chat",
+  env: ["UPSTAGE_API_KEY"],
+  models: {
+    "solar-pro2": {
+      id: "solar-pro2",
+      name: "solar-pro2",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03",
+      release_date: "2025-05-20",
+      last_updated: "2025-05-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 0.25
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "solar-mini": {
+      id: "solar-mini",
+      name: "solar-mini",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2024-06-12",
+      last_updated: "2025-04-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.15
+      },
+      limit: {
+        context: 32768,
+        output: 4096
+      }
+    }
+  }
+};
+var upstage_default = upstageModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/v0.js
+var v0Models = {
+  id: "v0",
+  name: "v0",
+  npm: "@ai-sdk/vercel",
+  doc: "https://sdk.vercel.ai/providers/ai-sdk-providers/vercel",
+  env: ["V0_API_KEY"],
+  models: {
+    "v0-1.5-md": {
+      id: "v0-1.5-md",
+      name: "v0-1.5-md",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-06-09",
+      last_updated: "2025-06-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 128e3,
+        output: 32e3
+      }
+    },
+    "v0-1.0-md": {
+      id: "v0-1.0-md",
+      name: "v0-1.0-md",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 128e3,
+        output: 32e3
+      }
+    },
+    "v0-1.5-lg": {
+      id: "v0-1.5-lg",
+      name: "v0-1.5-lg",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-06-09",
+      last_updated: "2025-06-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75
+      },
+      limit: {
+        context: 512e3,
+        output: 32e3
+      }
+    }
+  }
+};
+var v0_default = v0Models;
+
+// ../../node_modules/@tokenlens/models/dist/providers/venice.js
+var veniceModels = {
+  id: "venice",
+  name: "Venice AI",
+  api: "https://api.venice.ai/api/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.venice.ai",
+  env: ["VENICE_API_KEY"],
+  models: {
+    "qwen-2.5-coder-32b": {
+      id: "qwen-2.5-coder-32b",
+      name: "Qwen 2.5 Coder 32B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2025-06-14",
+      last_updated: "2025-06-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "venice-uncensored": {
+      id: "venice-uncensored",
+      name: "Venice Uncensored 1.1",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2025-07-15",
+      last_updated: "2025-07-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "deepseek-coder-v2-lite": {
+      id: "deepseek-coder-v2-lite",
+      name: "DeepSeek Coder V2 Lite",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-09",
+      release_date: "2025-06-22",
+      last_updated: "2025-06-22",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "dolphin-2.9.2-qwen2-72b": {
+      id: "dolphin-2.9.2-qwen2-72b",
+      name: "Dolphin 72B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2021-09",
+      release_date: "2025-05-21",
+      last_updated: "2025-05-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.7,
+        output: 2.8
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen3-4b": {
+      id: "qwen3-4b",
+      name: "Venice Small",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-07-27",
+      last_updated: "2025-07-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen-2.5-vl": {
+      id: "qwen-2.5-vl",
+      name: "Qwen 2.5 VL 72B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2025-06-09",
+      last_updated: "2025-06-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.7,
+        output: 2.8
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "llama-3.3-70b": {
+      id: "llama-3.3-70b",
+      name: "Llama 3.3 70B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-06-09",
+      last_updated: "2025-06-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.7,
+        output: 2.8
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "llama-3.1-405b": {
+      id: "llama-3.1-405b",
+      name: "Llama 3.1 405B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-12",
+      release_date: "2025-06-30",
+      last_updated: "2025-06-30",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.5,
+        output: 6
+      },
+      limit: {
+        context: 65536,
+        output: 8192
+      }
+    },
+    "llama-3.2-3b": {
+      id: "llama-3.2-3b",
+      name: "Llama 3.2 3B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2025-05-23",
+      last_updated: "2025-05-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.6
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "deepseek-r1-671b": {
+      id: "deepseek-r1-671b",
+      name: "DeepSeek R1 671B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2025-06-05",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 3.5,
+        output: 14
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "qwen-2.5-qwq-32b": {
+      id: "qwen-2.5-qwq-32b",
+      name: "Venice Reasoning",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: false,
+      knowledge: "2023-10",
+      release_date: "2025-07-08",
+      last_updated: "2025-07-08",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 32768,
+        output: 8192
+      }
+    },
+    "qwen3-235b": {
+      id: "qwen3-235b",
+      name: "Venice Large",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-27",
+      last_updated: "2025-07-27",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.5,
+        output: 6
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "mistral-31-24b": {
+      id: "mistral-31-24b",
+      name: "Venice Medium",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2025-07-15",
+      last_updated: "2025-07-15",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    }
+  }
+};
+var venice_default = veniceModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/vercel.js
+var vercelModels = {
+  id: "vercel",
+  name: "Vercel AI Gateway",
+  npm: "@ai-sdk/gateway",
+  doc: "https://github.com/vercel/ai/tree/5eb85cc45a259553501f535b8ac79a77d0e79223/packages/gateway",
+  env: ["AI_GATEWAY_API_KEY"],
+  models: {
+    "deepseek/deepseek-r1": {
+      id: "deepseek/deepseek-r1",
+      name: "DeepSeek-R1",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-05-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.35,
+        output: 5.4
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "deepseek/deepseek-r1-distill-llama-70b": {
+      id: "deepseek/deepseek-r1-distill-llama-70b",
+      name: "DeepSeek R1 Distill Llama 70B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07",
+      release_date: "2025-01-20",
+      last_updated: "2025-01-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.75,
+        output: 0.99
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "meta/llama-4-scout": {
+      id: "meta/llama-4-scout",
+      name: "Llama-4-Scout-17B-16E-Instruct-FP8",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "meta/llama-3.3-70b": {
+      id: "meta/llama-3.3-70b",
+      name: "Llama-3.3-70B-Instruct",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "meta/llama-4-maverick": {
+      id: "meta/llama-4-maverick",
+      name: "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2025-04-05",
+      last_updated: "2025-04-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "xai/grok-3-mini-fast": {
+      id: "xai/grok-3-mini-fast",
+      name: "Grok 3 Mini Fast",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.6,
+        output: 4,
+        reasoning: 4,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "xai/grok-4": {
+      id: "xai/grok-4",
+      name: "Grok 4",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-09",
+      last_updated: "2025-07-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        reasoning: 15,
+        cache_read: 0.75
+      },
+      limit: {
+        context: 256e3,
+        output: 64e3
+      }
+    },
+    "xai/grok-3-fast": {
+      id: "xai/grok-3-fast",
+      name: "Grok 3 Fast",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 5,
+        output: 25,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "xai/grok-2-vision": {
+      id: "xai/grok-2-vision",
+      name: "Grok 2 Vision",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 8192,
+        output: 4096
+      }
+    },
+    "xai/grok-2": {
+      id: "xai/grok-2",
+      name: "Grok 2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "xai/grok-3-mini": {
+      id: "xai/grok-3-mini",
+      name: "Grok 3 Mini",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 0.5,
+        reasoning: 0.5,
+        cache_read: 0.075
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "xai/grok-3": {
+      id: "xai/grok-3",
+      name: "Grok 3",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "cerebras/qwen3-coder": {
+      id: "cerebras/qwen3-coder",
+      name: "Qwen 3 Coder 480B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 2
+      },
+      limit: {
+        context: 131e3,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-4-opus": {
+      id: "anthropic/claude-4-opus",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-3.5-sonnet": {
+      id: "anthropic/claude-3.5-sonnet",
+      name: "Claude Sonnet 3.5 v2",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04-30",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "anthropic/claude-3.7-sonnet": {
+      id: "anthropic/claude-3.7-sonnet",
+      name: "Claude Sonnet 3.7",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10-31",
+      release_date: "2025-02-19",
+      last_updated: "2025-02-19",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic/claude-4-sonnet": {
+      id: "anthropic/claude-4-sonnet",
+      name: "Claude Sonnet 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.3,
+        cache_write: 3.75
+      },
+      limit: {
+        context: 2e5,
+        output: 64e3
+      }
+    },
+    "anthropic/claude-3-haiku": {
+      id: "anthropic/claude-3-haiku",
+      name: "Claude Haiku 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08-31",
+      release_date: "2024-03-13",
+      last_updated: "2024-03-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 1.25,
+        cache_read: 0.03,
+        cache_write: 0.3
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "anthropic/claude-3-opus": {
+      id: "anthropic/claude-3-opus",
+      name: "Claude Opus 3",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-08-31",
+      release_date: "2024-02-29",
+      last_updated: "2024-02-29",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 4096
+      }
+    },
+    "anthropic/claude-4-1-opus": {
+      id: "anthropic/claude-4-1-opus",
+      name: "Claude Opus 4",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03-31",
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 75,
+        cache_read: 1.5,
+        cache_write: 18.75
+      },
+      limit: {
+        context: 2e5,
+        output: 32e3
+      }
+    },
+    "anthropic/claude-3-5-haiku": {
+      id: "anthropic/claude-3-5-haiku",
+      name: "Claude Haiku 3.5",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-07-31",
+      release_date: "2024-10-22",
+      last_updated: "2024-10-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 4,
+        cache_read: 0.08,
+        cache_write: 1
+      },
+      limit: {
+        context: 2e5,
+        output: 8192
+      }
+    },
+    "openai/gpt-oss-20b": {
+      id: "openai/gpt-oss-20b",
+      name: "GPT OSS 20B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.07,
+        output: 0.3
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "openai/gpt-oss-120b": {
+      id: "openai/gpt-oss-120b",
+      name: "GPT OSS 120B",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-08-05",
+      last_updated: "2025-08-05",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.5
+      },
+      limit: {
+        context: 131072,
+        output: 32768
+      }
+    },
+    "openai/o3-mini": {
+      id: "openai/o3-mini",
+      name: "o3-mini",
+      attachment: false,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2024-12-20",
+      last_updated: "2025-01-29",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.55
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/o4-mini": {
+      id: "openai/o4-mini",
+      name: "o4-mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.1,
+        output: 4.4,
+        cache_read: 0.28
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/gpt-4o": {
+      id: "openai/gpt-4o",
+      name: "GPT-4o",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-05-13",
+      last_updated: "2024-05-13",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2.5,
+        output: 10,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-4.1-mini": {
+      id: "openai/gpt-4.1-mini",
+      name: "GPT-4.1 mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.4,
+        output: 1.6,
+        cache_read: 0.1
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-4.1-nano": {
+      id: "openai/gpt-4.1-nano",
+      name: "GPT-4.1 nano",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-4o-mini": {
+      id: "openai/gpt-4o-mini",
+      name: "GPT-4o mini",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-07-18",
+      last_updated: "2024-07-18",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.15,
+        output: 0.6,
+        cache_read: 0.08
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "openai/gpt-5-mini": {
+      id: "openai/gpt-5-mini",
+      name: "GPT-5 Mini",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.25,
+        output: 2,
+        cache_read: 0.03
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/o3": {
+      id: "openai/o3",
+      name: "o3",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05",
+      release_date: "2025-04-16",
+      last_updated: "2025-04-16",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/gpt-5": {
+      id: "openai/gpt-5",
+      name: "GPT-5",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-09-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.13
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "openai/o1": {
+      id: "openai/o1",
+      name: "o1",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2023-09",
+      release_date: "2024-12-05",
+      last_updated: "2024-12-05",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 15,
+        output: 60,
+        cache_read: 7.5
+      },
+      limit: {
+        context: 2e5,
+        output: 1e5
+      }
+    },
+    "openai/gpt-4-turbo": {
+      id: "openai/gpt-4-turbo",
+      name: "GPT-4 Turbo",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2023-11-06",
+      last_updated: "2024-04-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 10,
+        output: 30
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "openai/gpt-4.1": {
+      id: "openai/gpt-4.1",
+      name: "GPT-4.1",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2025-04-14",
+      last_updated: "2025-04-14",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 8,
+        cache_read: 0.5
+      },
+      limit: {
+        context: 1047576,
+        output: 32768
+      }
+    },
+    "openai/gpt-5-nano": {
+      id: "openai/gpt-5-nano",
+      name: "GPT-5 Nano",
+      attachment: true,
+      reasoning: true,
+      temperature: false,
+      tool_call: true,
+      knowledge: "2024-05-30",
+      release_date: "2025-08-07",
+      last_updated: "2025-08-07",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.05,
+        output: 0.4,
+        cache_read: 0.01
+      },
+      limit: {
+        context: 4e5,
+        output: 128e3
+      }
+    },
+    "mistral/mixtral-8x22b-instruct": {
+      id: "mistral/mixtral-8x22b-instruct",
+      name: "Mixtral 8x22B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-04",
+      release_date: "2024-04-17",
+      last_updated: "2024-04-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 64e3,
+        output: 64e3
+      }
+    },
+    "mistral/mistral-small": {
+      id: "mistral/mistral-small",
+      name: "Mistral Small",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-03",
+      release_date: "2024-09-01",
+      last_updated: "2024-09-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.3
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "mistral/pixtral-large": {
+      id: "mistral/pixtral-large",
+      name: "Pixtral Large",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-04",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral/ministral-3b": {
+      id: "mistral/ministral-3b",
+      name: "Ministral 3B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-10-01",
+      last_updated: "2024-10-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.04,
+        output: 0.04
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral/magistral-medium": {
+      id: "mistral/magistral-medium",
+      name: "Magistral Medium",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-03-17",
+      last_updated: "2025-03-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 5
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    },
+    "mistral/magistral-small": {
+      id: "mistral/magistral-small",
+      name: "Magistral Small",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-06",
+      release_date: "2025-03-17",
+      last_updated: "2025-03-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.5,
+        output: 1.5
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral/pixtral-12b": {
+      id: "mistral/pixtral-12b",
+      name: "Pixtral 12B",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-09",
+      release_date: "2024-09-01",
+      last_updated: "2024-09-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.15,
+        output: 0.15
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral/codestral": {
+      id: "mistral/codestral",
+      name: "Codestral",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-05-29",
+      last_updated: "2025-01-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.3,
+        output: 0.9
+      },
+      limit: {
+        context: 256e3,
+        output: 4096
+      }
+    },
+    "mistral/ministral-8b": {
+      id: "mistral/ministral-8b",
+      name: "Ministral 8B",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-10-01",
+      last_updated: "2024-10-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 128e3,
+        output: 128e3
+      }
+    },
+    "mistral/mistral-large": {
+      id: "mistral/mistral-large",
+      name: "Mistral Large",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-04",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 2,
+        output: 6
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    },
+    "vercel/v0-1.0-md": {
+      id: "vercel/v0-1.0-md",
+      name: "v0-1.0-md",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-05-22",
+      last_updated: "2025-05-22",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 128e3,
+        output: 32e3
+      }
+    },
+    "vercel/v0-1.5-md": {
+      id: "vercel/v0-1.5-md",
+      name: "v0-1.5-md",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      release_date: "2025-06-09",
+      last_updated: "2025-06-09",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15
+      },
+      limit: {
+        context: 128e3,
+        output: 32e3
+      }
+    },
+    "google/gemini-2.0-flash": {
+      id: "google/gemini-2.0-flash",
+      name: "Gemini 2.0 Flash",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.1,
+        output: 0.4,
+        cache_read: 0.025
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "google/gemini-2.5-flash": {
+      id: "google/gemini-2.5-flash",
+      name: "Gemini 2.5 Flash",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 2.5,
+        cache_read: 0.075
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "google/gemini-2.0-flash-lite": {
+      id: "google/gemini-2.0-flash-lite",
+      name: "Gemini 2.0 Flash Lite",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-06",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.075,
+        output: 0.3
+      },
+      limit: {
+        context: 1048576,
+        output: 8192
+      }
+    },
+    "google/gemini-2.5-pro": {
+      id: "google/gemini-2.5-pro",
+      name: "Gemini 2.5 Pro",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-01",
+      release_date: "2025-03-20",
+      last_updated: "2025-06-05",
+      modalities: {
+        input: ["text", "image", "audio", "video", "pdf"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 1.25,
+        output: 10,
+        cache_read: 0.31
+      },
+      limit: {
+        context: 1048576,
+        output: 65536
+      }
+    },
+    "amazon/nova-micro": {
+      id: "amazon/nova-micro",
+      name: "Nova Micro",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.035,
+        output: 0.14,
+        cache_read: 875e-5
+      },
+      limit: {
+        context: 128e3,
+        output: 8192
+      }
+    },
+    "amazon/nova-lite": {
+      id: "amazon/nova-lite",
+      name: "Nova Lite",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.06,
+        output: 0.24,
+        cache_read: 0.015
+      },
+      limit: {
+        context: 3e5,
+        output: 8192
+      }
+    },
+    "amazon/nova-pro": {
+      id: "amazon/nova-pro",
+      name: "Nova Pro",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2024-12-03",
+      last_updated: "2024-12-03",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 3.2,
+        cache_read: 0.2
+      },
+      limit: {
+        context: 3e5,
+        output: 8192
+      }
+    },
+    "morph/morph-v3-large": {
+      id: "morph/morph-v3-large",
+      name: "Morph v3 Large",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.9,
+        output: 1.9
+      },
+      limit: {
+        context: 32e3,
+        output: 32e3
+      }
+    },
+    "morph/morph-v3-fast": {
+      id: "morph/morph-v3-fast",
+      name: "Morph v3 Fast",
+      attachment: false,
+      reasoning: false,
+      temperature: false,
+      tool_call: false,
+      release_date: "2024-08-15",
+      last_updated: "2024-08-15",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.8,
+        output: 1.2
+      },
+      limit: {
+        context: 16e3,
+        output: 16e3
+      }
+    },
+    "moonshotai/kimi-k2": {
+      id: "moonshotai/kimi-k2",
+      name: "Kimi K2 Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 3
+      },
+      limit: {
+        context: 131072,
+        output: 16384
+      }
+    }
+  }
+};
+var vercel_default = vercelModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/wandb.js
+var wandbModels = {
+  id: "wandb",
+  name: "Weights & Biases",
+  api: "https://api.inference.wandb.ai/v1",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://weave-docs.wandb.ai/guides/integrations/inference/",
+  env: ["WANDB_API_KEY"],
+  models: {
+    "deepseek-ai/DeepSeek-V3-0324": {
+      id: "deepseek-ai/DeepSeek-V3-0324",
+      name: "DeepSeek-V3-0324",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-03-24",
+      last_updated: "2025-03-24",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.14,
+        output: 2.75
+      },
+      limit: {
+        context: 161e3,
+        output: 8192
+      }
+    },
+    "deepseek-ai/DeepSeek-R1-0528": {
+      id: "deepseek-ai/DeepSeek-R1-0528",
+      name: "DeepSeek-R1-0528",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-05",
+      release_date: "2025-05-28",
+      last_updated: "2025-05-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.35,
+        output: 5.4
+      },
+      limit: {
+        context: 161e3,
+        output: 163840
+      }
+    },
+    "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      id: "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      name: "Qwen3-Coder-480B-A35B-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-23",
+      last_updated: "2025-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1,
+        output: 1.5
+      },
+      limit: {
+        context: 262144,
+        output: 66536
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      name: "Qwen3-235B-A22B-Thinking-2507",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-25",
+      last_updated: "2025-07-25",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      id: "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      name: "Qwen3 235B A22B Instruct 2507",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-04-28",
+      last_updated: "2025-07-21",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.1,
+        output: 0.1
+      },
+      limit: {
+        context: 262144,
+        output: 131072
+      }
+    },
+    "meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+      id: "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      name: "Llama 4 Scout 17B 16E Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-12",
+      release_date: "2025-01-31",
+      last_updated: "2025-01-31",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.17,
+        output: 0.66
+      },
+      limit: {
+        context: 64e3,
+        output: 8192
+      }
+    },
+    "meta-llama/Llama-3.3-70B-Instruct": {
+      id: "meta-llama/Llama-3.3-70B-Instruct",
+      name: "Llama-3.3-70B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-12-06",
+      last_updated: "2024-12-06",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.71,
+        output: 0.71
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "meta-llama/Llama-3.1-8B-Instruct": {
+      id: "meta-llama/Llama-3.1-8B-Instruct",
+      name: "Meta-Llama-3.1-8B-Instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-12",
+      release_date: "2024-07-23",
+      last_updated: "2024-07-23",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.22,
+        output: 0.22
+      },
+      limit: {
+        context: 128e3,
+        output: 32768
+      }
+    },
+    "microsoft/Phi-4-mini-instruct": {
+      id: "microsoft/Phi-4-mini-instruct",
+      name: "Phi-4-mini-instruct",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2023-10",
+      release_date: "2024-12-11",
+      last_updated: "2024-12-11",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.08,
+        output: 0.35
+      },
+      limit: {
+        context: 128e3,
+        output: 4096
+      }
+    },
+    "moonshotai/Kimi-K2-Instruct": {
+      id: "moonshotai/Kimi-K2-Instruct",
+      name: "Kimi-K2-Instruct",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-10",
+      release_date: "2025-07-14",
+      last_updated: "2025-07-14",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 1.35,
+        output: 4
+      },
+      limit: {
+        context: 128e3,
+        output: 16384
+      }
+    }
+  }
+};
+var wandb_default = wandbModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/xai.js
+var xaiModels = {
+  id: "xai",
+  name: "xAI",
+  npm: "@ai-sdk/xai",
+  doc: "https://docs.x.ai/docs/models",
+  env: ["XAI_API_KEY"],
+  models: {
+    "grok-3-mini-fast-latest": {
+      id: "grok-3-mini-fast-latest",
+      name: "Grok 3 Mini Fast Latest",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.6,
+        output: 4,
+        reasoning: 4,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-3-mini-latest": {
+      id: "grok-3-mini-latest",
+      name: "Grok 3 Mini Latest",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 0.5,
+        reasoning: 0.5,
+        cache_read: 0.075
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-beta": {
+      id: "grok-beta",
+      name: "Grok Beta",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-01",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 5,
+        output: 15,
+        cache_read: 5
+      },
+      limit: {
+        context: 131072,
+        output: 4096
+      }
+    },
+    "grok-3-fast-latest": {
+      id: "grok-3-fast-latest",
+      name: "Grok 3 Fast Latest",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 5,
+        output: 25,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-3": {
+      id: "grok-3",
+      name: "Grok 3",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-3-mini": {
+      id: "grok-3-mini",
+      name: "Grok 3 Mini",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.3,
+        output: 0.5,
+        reasoning: 0.5,
+        cache_read: 0.075
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-2-vision-1212": {
+      id: "grok-2-vision-1212",
+      name: "Grok 2 Vision (1212)",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-12-12",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 8192,
+        output: 4096
+      }
+    },
+    "grok-2": {
+      id: "grok-2",
+      name: "Grok 2",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-2-vision-latest": {
+      id: "grok-2-vision-latest",
+      name: "Grok 2 Vision Latest",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-12-12",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 8192,
+        output: 4096
+      }
+    },
+    "grok-3-latest": {
+      id: "grok-3-latest",
+      name: "Grok 3 Latest",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        cache_read: 0.75
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-2-vision": {
+      id: "grok-2-vision",
+      name: "Grok 2 Vision",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-08-20",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 8192,
+        output: 4096
+      }
+    },
+    "grok-2-latest": {
+      id: "grok-2-latest",
+      name: "Grok 2 Latest",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-08-20",
+      last_updated: "2024-12-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-3-fast": {
+      id: "grok-3-fast",
+      name: "Grok 3 Fast",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 5,
+        output: 25,
+        cache_read: 1.25
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-2-1212": {
+      id: "grok-2-1212",
+      name: "Grok 2 (1212)",
+      attachment: false,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-12-12",
+      last_updated: "2024-12-12",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 2,
+        output: 10,
+        cache_read: 2
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    },
+    "grok-4": {
+      id: "grok-4",
+      name: "Grok 4",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-07",
+      release_date: "2025-07-09",
+      last_updated: "2025-07-09",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 3,
+        output: 15,
+        reasoning: 15,
+        cache_read: 0.75
+      },
+      limit: {
+        context: 256e3,
+        output: 64e3
+      }
+    },
+    "grok-vision-beta": {
+      id: "grok-vision-beta",
+      name: "Grok Vision Beta",
+      attachment: true,
+      reasoning: false,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-08",
+      release_date: "2024-11-01",
+      last_updated: "2024-11-01",
+      modalities: {
+        input: ["text", "image"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 5,
+        output: 15,
+        cache_read: 5
+      },
+      limit: {
+        context: 8192,
+        output: 4096
+      }
+    },
+    "grok-3-mini-fast": {
+      id: "grok-3-mini-fast",
+      name: "Grok 3 Mini Fast",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2024-11",
+      release_date: "2025-02-17",
+      last_updated: "2025-02-17",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: false,
+      cost: {
+        input: 0.6,
+        output: 4,
+        reasoning: 4,
+        cache_read: 0.15
+      },
+      limit: {
+        context: 131072,
+        output: 8192
+      }
+    }
+  }
+};
+var xai_default = xaiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/zai.js
+var zaiModels = {
+  id: "zai",
+  name: "Z.AI",
+  api: "https://api.z.ai/api/paas/v4",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.z.ai/guides/overview/pricing",
+  env: ["ZHIPU_API_KEY"],
+  models: {
+    "glm-4.5-air": {
+      id: "glm-4.5-air",
+      name: "GLM-4.5-Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 1.1,
+        cache_read: 0.03,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5v": {
+      id: "glm-4.5v",
+      name: "GLM 4.5V",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-08-11",
+      last_updated: "2025-08-11",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 1.8
+      },
+      limit: {
+        context: 64e3,
+        output: 16384
+      }
+    },
+    "glm-4.5-flash": {
+      id: "glm-4.5-flash",
+      name: "GLM-4.5-Flash",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5": {
+      id: "glm-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.2,
+        cache_read: 0.11,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    }
+  }
+};
+var zai_default = zaiModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/zai-coding-plan.js
+var zai_coding_planModels = {
+  id: "zai-coding-plan",
+  name: "Z.AI Coding Plan",
+  api: "https://api.z.ai/api/coding/paas/v4",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.z.ai/devpack/overview",
+  env: ["ZHIPU_API_KEY"],
+  models: {
+    "glm-4.5-air": {
+      id: "glm-4.5-air",
+      name: "GLM-4.5-Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5v": {
+      id: "glm-4.5v",
+      name: "GLM 4.5V",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-08-11",
+      last_updated: "2025-08-11",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0
+      },
+      limit: {
+        context: 64e3,
+        output: 16384
+      }
+    },
+    "glm-4.5-flash": {
+      id: "glm-4.5-flash",
+      name: "GLM-4.5-Flash",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5": {
+      id: "glm-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    }
+  }
+};
+var zai_coding_plan_default = zai_coding_planModels;
+
+// ../../node_modules/@tokenlens/models/dist/providers/zhipuai.js
+var zhipuaiModels = {
+  id: "zhipuai",
+  name: "Zhipu AI",
+  api: "https://open.bigmodel.cn/api/paas/v4",
+  npm: "@ai-sdk/openai-compatible",
+  doc: "https://docs.z.ai/guides/overview/pricing",
+  env: ["ZHIPU_API_KEY"],
+  models: {
+    "glm-4.5": {
+      id: "glm-4.5",
+      name: "GLM-4.5",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 2.2,
+        cache_read: 0.11,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5-flash": {
+      id: "glm-4.5-flash",
+      name: "GLM-4.5-Flash",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0,
+        output: 0,
+        cache_read: 0,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    },
+    "glm-4.5v": {
+      id: "glm-4.5v",
+      name: "GLM 4.5V",
+      attachment: true,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-08-11",
+      last_updated: "2025-08-11",
+      modalities: {
+        input: ["text", "image", "video"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.6,
+        output: 1.8
+      },
+      limit: {
+        context: 64e3,
+        output: 16384
+      }
+    },
+    "glm-4.5-air": {
+      id: "glm-4.5-air",
+      name: "GLM-4.5-Air",
+      attachment: false,
+      reasoning: true,
+      temperature: true,
+      tool_call: true,
+      knowledge: "2025-04",
+      release_date: "2025-07-28",
+      last_updated: "2025-07-28",
+      modalities: {
+        input: ["text"],
+        output: ["text"]
+      },
+      open_weights: true,
+      cost: {
+        input: 0.2,
+        output: 1.1,
+        cache_read: 0.03,
+        cache_write: 0
+      },
+      limit: {
+        context: 131072,
+        output: 98304
+      }
+    }
+  }
+};
+var zhipuai_default = zhipuaiModels;
+
+// ../../node_modules/@tokenlens/models/dist/index.js
+var providersCatalog = {
+  alibaba: alibaba_default,
+  "alibaba-cn": alibaba_cn_default,
+  "amazon-bedrock": amazon_bedrock_default,
+  anthropic: anthropic_default,
+  azure: azure_default,
+  baseten: baseten_default,
+  cerebras: cerebras_default,
+  chutes: chutes_default,
+  "cloudflare-workers-ai": cloudflare_workers_ai_default,
+  deepinfra: deepinfra_default,
+  deepseek: deepseek_default,
+  fastrouter: fastrouter_default,
+  "fireworks-ai": fireworks_ai_default,
+  "github-copilot": github_copilot_default,
+  "github-models": github_models_default,
+  google: google_default,
+  "google-vertex": google_vertex_default,
+  "google-vertex-anthropic": google_vertex_anthropic_default,
+  groq: groq_default,
+  huggingface: huggingface_default,
+  inception: inception_default,
+  inference: inference_default,
+  llama: llama_default,
+  lmstudio: lmstudio_default,
+  mistral: mistral_default,
+  modelscope: modelscope_default,
+  moonshotai: moonshotai_default,
+  "moonshotai-cn": moonshotai_cn_default,
+  morph: morph_default,
+  nvidia: nvidia_default,
+  openai: openai_default,
+  opencode: opencode_default,
+  openrouter: openrouter_default,
+  perplexity: perplexity_default,
+  requesty: requesty_default,
+  submodel: submodel_default,
+  synthetic: synthetic_default,
+  togetherai: togetherai_default,
+  upstage: upstage_default,
+  v0: v0_default,
+  venice: venice_default,
+  vercel: vercel_default,
+  wandb: wandb_default,
+  xai: xai_default,
+  zai: zai_default,
+  "zai-coding-plan": zai_coding_plan_default,
+  zhipuai: zhipuai_default
+};
+function getModels() {
+  return providersCatalog;
+}
+
+// ../../node_modules/tokenlens/dist/source.js
+var defaultCatalog = getModels();
+
+// ../../node_modules/tokenlens/dist/context.js
+function getTokenCosts2(args) {
+  return getTokenCosts({
+    modelId: args.modelId,
+    usage: args.usage,
+    providers: args.providers ?? defaultCatalog
+  });
+}
+function getContext2(args) {
+  return getContext({
+    modelId: args.modelId,
+    providers: args.providers ?? defaultCatalog
+  });
+}
+
 // ../core/dist/rates.js
-var RATES = {
-  "claude-haiku-4-5": { cachedInputPer1k: 1e-4, inputPer1k: 1e-3, outputPer1k: 5e-3 },
-  "claude-opus-4-7": { cachedInputPer1k: 15e-4, inputPer1k: 0.015, outputPer1k: 0.075 },
-  "claude-sonnet-4-6": { cachedInputPer1k: 3e-4, inputPer1k: 3e-3, outputPer1k: 0.015 },
-  "gemini-2.5-flash": { inputPer1k: 75e-6, outputPer1k: 3e-4 },
-  "gemini-2.5-pro": { inputPer1k: 125e-5, outputPer1k: 5e-3 },
-  "gpt-4o": { inputPer1k: 25e-4, outputPer1k: 0.01 },
-  "gpt-4o-mini": { inputPer1k: 15e-5, outputPer1k: 6e-4 }
+var CATALOG = {
+  anthropic: anthropic_default,
+  google: google_default,
+  openai: openai_default
 };
-var MODELS = {
-  "claude-haiku-4-5": { id: "claude-haiku-4-5", provider: "anthropic" },
-  "claude-opus-4-7": { id: "claude-opus-4-7", provider: "anthropic" },
-  "claude-sonnet-4-6": { id: "claude-sonnet-4-6", provider: "anthropic" },
-  "gemini-2.5-flash": { id: "gemini-2.5-flash", provider: "google" },
-  "gemini-2.5-pro": { id: "gemini-2.5-pro", provider: "google" },
-  "gpt-4o": { id: "gpt-4o", provider: "openai" },
-  "gpt-4o-mini": { id: "gpt-4o-mini", provider: "openai" }
+var PROVIDERS = ["anthropic", "google", "openai"];
+var LOCAL_OVERRIDES = {
+  "claude-haiku-4-5": {
+    rate: { cachedInputPer1k: 1e-4, inputPer1k: 1e-3, outputPer1k: 5e-3 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-haiku-4-5",
+      maxOutputTokens: 64e3,
+      pricingSource: "local",
+      provider: "anthropic"
+    }
+  },
+  "claude-opus-4-7": {
+    rate: { cachedInputPer1k: 15e-4, inputPer1k: 0.015, outputPer1k: 0.075 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-opus-4-7",
+      maxOutputTokens: 32e3,
+      pricingSource: "local",
+      provider: "anthropic"
+    }
+  },
+  "claude-sonnet-4-6": {
+    rate: { cachedInputPer1k: 3e-4, inputPer1k: 3e-3, outputPer1k: 0.015 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-sonnet-4-6",
+      maxOutputTokens: 64e3,
+      pricingSource: "local",
+      provider: "anthropic"
+    }
+  }
 };
-var KNOWN_MODELS = Object.keys(MODELS);
+var PREVIEW_ID_PATTERN = /(^|-)preview(-|$)/i;
+var buildFromTokenlens = () => {
+  const out = {};
+  for (const provider of PROVIDERS) {
+    const providerInfo = CATALOG[provider];
+    if (!providerInfo)
+      continue;
+    for (const bareId of Object.keys(providerInfo.models)) {
+      if (PREVIEW_ID_PATTERN.test(bareId))
+        continue;
+      const namespacedId = `${provider}:${bareId}`;
+      const cost = getTokenCosts2({
+        modelId: namespacedId,
+        providers: CATALOG,
+        usage: { input: 1e3, output: 1e3 }
+      });
+      if (!cost.inputUSD || !cost.outputUSD)
+        continue;
+      const ctx = getContext2({ modelId: namespacedId, providers: CATALOG });
+      const contextWindow = ctx.combinedMax ?? ctx.maxTotal ?? ctx.inputMax;
+      const maxOutputTokens = ctx.outputMax ?? ctx.maxOutput;
+      const rate = {
+        inputPer1k: cost.inputUSD,
+        outputPer1k: cost.outputUSD,
+        ...cost.cacheReadUSD ? { cachedInputPer1k: cost.cacheReadUSD } : {}
+      };
+      const descriptor = {
+        id: bareId,
+        pricingSource: "tokenlens",
+        provider,
+        ...contextWindow ? { contextWindow } : {},
+        ...maxOutputTokens ? { maxOutputTokens } : {}
+      };
+      const existing = out[bareId];
+      if (existing && existing.descriptor.provider !== provider) {
+        console.warn(`[tokenometer] bare id collision for "${bareId}": ${existing.descriptor.provider} vs ${provider}; keeping ${existing.descriptor.provider}.`);
+        continue;
+      }
+      out[bareId] = { descriptor, rate };
+    }
+  }
+  return out;
+};
+var REGISTRY = (() => {
+  const out = buildFromTokenlens();
+  for (const [id, entry] of Object.entries(LOCAL_OVERRIDES)) {
+    out[id] = entry;
+  }
+  return out;
+})();
+var RATES = Object.fromEntries(Object.entries(REGISTRY).map(([id, e]) => [id, e.rate]));
+var MODELS = Object.fromEntries(Object.entries(REGISTRY).map(([id, e]) => [id, e.descriptor]));
+var KNOWN_MODELS = Object.keys(REGISTRY).sort();
 var getRate = (modelId) => {
-  const rate = RATES[modelId];
-  if (!rate) {
+  const entry = REGISTRY[modelId];
+  if (!entry) {
     throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
   }
-  return rate;
+  return entry.rate;
 };
 var getModel = (modelId) => {
-  const model = MODELS[modelId];
-  if (!model) {
+  const entry = REGISTRY[modelId];
+  if (!entry) {
     throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
   }
-  return model;
+  return entry.descriptor;
 };
 
 // ../../node_modules/gpt-tokenizer/esm/bpeRanks/cl100k_base.js
@@ -41219,7 +58754,7 @@ var cl100k_base_default = bpe2;
 
 // ../../node_modules/gpt-tokenizer/esm/encoding/cl100k_base.js
 var api2 = GptEncoding.getEncodingApi("cl100k_base", () => cl100k_base_default);
-var { decode: decode2, decodeAsyncGenerator: decodeAsyncGenerator2, decodeGenerator: decodeGenerator2, encode: encode3, encodeGenerator: encodeGenerator2, isWithinTokenLimit: isWithinTokenLimit2, countTokens: countTokens2, encodeChat: encodeChat2, encodeChatGenerator: encodeChatGenerator2, vocabularySize: vocabularySize2, setMergeCacheSize: setMergeCacheSize2, clearMergeCache: clearMergeCache2, estimateCost: estimateCost2 } = api2;
+var { decode: decode2, decodeAsyncGenerator: decodeAsyncGenerator2, decodeGenerator: decodeGenerator2, encode: encode3, encodeGenerator: encodeGenerator2, isWithinTokenLimit: isWithinTokenLimit2, countTokens: countTokens2, encodeChat: encodeChat2, encodeChatGenerator: encodeChatGenerator2, vocabularySize: vocabularySize2, setMergeCacheSize: setMergeCacheSize2, clearMergeCache: clearMergeCache2, estimateCost: estimateCost3 } = api2;
 
 // ../core/dist/tokenize.js
 var HEURISTIC_CHARS_PER_TOKEN = {
@@ -43146,6 +60681,11 @@ var measure = (prompt, modelIds, formats) => {
   return out;
 };
 var sumCost = (cells) => cells.reduce((acc, c) => acc + c.cost, 0);
+var formatTokenCount = (n) => {
+  if (n >= 1e6) return `${(n / 1e6).toFixed(n % 1e6 === 0 ? 0 : 1)}M`;
+  if (n >= 1e3) return `${Math.round(n / 1e3)}k`;
+  return `${n}`;
+};
 var formatCost = (usd) => {
   if (Math.abs(usd) >= 0.01) return `$${usd.toFixed(4)}`;
   if (Math.abs(usd) >= 1e-6) return `$${usd.toFixed(6)}`;
@@ -43165,6 +60705,17 @@ var renderMarkdown = (marker, results, models, formats, budget) => {
   lines.push("## tokenometer \xB7 prompt cost diff");
   lines.push("");
   lines.push(`Models: \`${models.join("`, `")}\`. Formats: \`${formats.join("`, `")}\`.`);
+  const modelLimits = models.map((id) => {
+    const m = getModel(id);
+    if (!m.contextWindow && !m.maxOutputTokens) return null;
+    const ctx = m.contextWindow ? `ctx ${formatTokenCount(m.contextWindow)}` : "";
+    const out = m.maxOutputTokens ? `out ${formatTokenCount(m.maxOutputTokens)}` : "";
+    return `\`${id}\` (${[ctx, out].filter(Boolean).join(" \xB7 ")})`;
+  }).filter((s) => s !== null);
+  if (modelLimits.length > 0) {
+    lines.push("");
+    lines.push(`Limits: ${modelLimits.join(" \xB7 ")}`);
+  }
   lines.push("");
   if (results.length === 0) {
     lines.push("No matching prompt files changed in this PR.");

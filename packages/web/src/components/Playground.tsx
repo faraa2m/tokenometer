@@ -1,15 +1,23 @@
 import {
   KNOWN_MODELS,
   allFormats,
+  getModel,
   tokenizeMatrix,
   tokenizeMatrixEmpirical,
 } from '@tokenometer/core';
-import type { Format, TokenizeResult } from '@tokenometer/core';
-import { useState } from 'react';
+import type { Format, Provider, TokenizeResult } from '@tokenometer/core';
+import { useMemo, useState } from 'react';
 import { ResultsMatrix } from './ResultsMatrix.js';
 
 const DEFAULT_MODELS = ['claude-opus-4-7', 'claude-sonnet-4-6', 'gpt-4o'] as const;
 const ALL_FORMATS: readonly Format[] = allFormats();
+const PROVIDER_ORDER: readonly Provider[] = ['anthropic', 'openai', 'google'];
+
+const formatContextWindow = (n: number): string => {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`;
+  if (n >= 1000) return `${Math.round(n / 1000)}k`;
+  return `${n}`;
+};
 
 interface PlaygroundProps {
   initialPrompt: string;
@@ -45,8 +53,27 @@ const Field = ({ children, label }: { children: React.ReactNode; label: string }
   </div>
 );
 
+interface ModelOption {
+  id: string;
+  label: string;
+}
+
+const buildModelGroups = (): { provider: Provider; models: ModelOption[] }[] => {
+  const grouped: Record<Provider, ModelOption[]> = { anthropic: [], google: [], openai: [] };
+  for (const id of KNOWN_MODELS) {
+    const m = getModel(id);
+    const ctx = m.contextWindow ? ` · ${formatContextWindow(m.contextWindow)}` : '';
+    grouped[m.provider].push({ id, label: `${id}${ctx}` });
+  }
+  return PROVIDER_ORDER.filter((p) => grouped[p].length > 0).map((provider) => ({
+    models: grouped[provider],
+    provider,
+  }));
+};
+
 export const Playground = ({ initialPrompt }: PlaygroundProps) => {
   const [prompt, setPrompt] = useState(initialPrompt);
+  const modelGroups = useMemo(() => buildModelGroups(), []);
   const [selectedModels, setSelectedModels] = useState<string[]>([...DEFAULT_MODELS]);
   const [selectedFormats, setSelectedFormats] = useState<Format[]>([...ALL_FORMATS]);
   const [empirical, setEmpirical] = useState(false);
@@ -111,14 +138,23 @@ export const Playground = ({ initialPrompt }: PlaygroundProps) => {
 
       <div className="col-span-12 lg:col-span-4 space-y-6">
         <Field label="02 ›models">
-          <div className="flex flex-wrap gap-2">
-            {KNOWN_MODELS.map((id) => (
-              <Selector
-                key={id}
-                active={selectedModels.includes(id)}
-                label={id}
-                onToggle={() => toggleModel(id)}
-              />
+          <div className="space-y-3">
+            {modelGroups.map(({ provider, models }) => (
+              <div key={provider}>
+                <p className="mb-1.5 text-[9.5px] uppercase tracking-[0.28em] text-[var(--tk-dim)]">
+                  {provider}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {models.map(({ id, label }) => (
+                    <Selector
+                      key={id}
+                      active={selectedModels.includes(id)}
+                      label={label}
+                      onToggle={() => toggleModel(id)}
+                    />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </Field>

@@ -3,7 +3,14 @@ import { resolve } from 'node:path';
 import * as core from '@actions/core';
 import { exec } from '@actions/exec';
 import * as github from '@actions/github';
-import { type Format, KNOWN_MODELS, allFormats, isFormat, tokenize } from '@tokenometer/core';
+import {
+  type Format,
+  KNOWN_MODELS,
+  allFormats,
+  getModel,
+  isFormat,
+  tokenize,
+} from '@tokenometer/core';
 import { minimatch } from 'minimatch';
 
 interface Inputs {
@@ -143,6 +150,12 @@ const measure = (
 
 const sumCost = (cells: readonly FileCost[]): number => cells.reduce((acc, c) => acc + c.cost, 0);
 
+const formatTokenCount = (n: number): string => {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`;
+  if (n >= 1000) return `${Math.round(n / 1000)}k`;
+  return `${n}`;
+};
+
 const formatCost = (usd: number): string => {
   if (Math.abs(usd) >= 0.01) return `$${usd.toFixed(4)}`;
   if (Math.abs(usd) >= 0.000001) return `$${usd.toFixed(6)}`;
@@ -171,6 +184,20 @@ const renderMarkdown = (
   lines.push('## tokenometer · prompt cost diff');
   lines.push('');
   lines.push(`Models: \`${models.join('`, `')}\`. Formats: \`${formats.join('`, `')}\`.`);
+
+  const modelLimits = models
+    .map((id) => {
+      const m = getModel(id);
+      if (!m.contextWindow && !m.maxOutputTokens) return null;
+      const ctx = m.contextWindow ? `ctx ${formatTokenCount(m.contextWindow)}` : '';
+      const out = m.maxOutputTokens ? `out ${formatTokenCount(m.maxOutputTokens)}` : '';
+      return `\`${id}\` (${[ctx, out].filter(Boolean).join(' · ')})`;
+    })
+    .filter((s): s is string => s !== null);
+  if (modelLimits.length > 0) {
+    lines.push('');
+    lines.push(`Limits: ${modelLimits.join(' · ')}`);
+  }
   lines.push('');
 
   if (results.length === 0) {

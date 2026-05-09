@@ -1,3 +1,4 @@
+import { getModel } from '@tokenometer/core';
 import type { TokenizeResult } from '@tokenometer/core';
 
 const padRight = (value: string, width: number): string =>
@@ -42,6 +43,30 @@ export const renderTable = (results: readonly TokenizeResult[]): string => {
   );
 
   return [headerLine, separator, ...dataLines].join('\n');
+};
+
+const formatTokenCount = (n: number): string => {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`;
+  if (n >= 1000) return `${Math.round(n / 1000)}k`;
+  return `${n}`;
+};
+
+export const renderModelLimits = (results: readonly TokenizeResult[]): string => {
+  if (results.length === 0) return '';
+  const seen = new Set<string>();
+  const lines: string[] = [];
+  for (const r of results) {
+    if (seen.has(r.model)) continue;
+    seen.add(r.model);
+    const m = getModel(r.model);
+    if (!m.contextWindow && !m.maxOutputTokens) continue;
+    const parts: string[] = [];
+    if (m.contextWindow) parts.push(`ctx ${formatTokenCount(m.contextWindow)}`);
+    if (m.maxOutputTokens) parts.push(`out ${formatTokenCount(m.maxOutputTokens)}`);
+    lines.push(`  ${r.model.padEnd(28)} ${parts.join(' · ')}`);
+  }
+  if (lines.length === 0) return '';
+  return `\nLimits:\n${lines.join('\n')}`;
 };
 
 export const renderSummary = (results: readonly TokenizeResult[]): string => {

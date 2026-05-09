@@ -23,14 +23,20 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
       - run: npm ci
 
+      - run: npm run build
+      - run: npm test
+      - run: npm run benchmarks
+
       - name: Bump versions (if requested)
         if: ${{ inputs.version != '' }}
         run: |
           npm version ${{ inputs.version }} --no-git-tag-version --workspaces
 
-      - run: npm run build
-      - run: npm test
-      - run: npm run benchmarks
+      - name: Sync cross-package deps to bumped version
+        if: ${{ inputs.version != '' }}
+        run: |
+          npm pkg set 'dependencies.@tokenometer/core'="${{ inputs.version }}" --workspace=packages/cli
+          npm pkg set 'dependencies.@tokenometer/core'="${{ inputs.version }}" --workspace=packages/action
 
       - name: Publish @tokenometer/core
         working-directory: packages/core

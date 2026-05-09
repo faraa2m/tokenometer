@@ -28,16 +28,26 @@ Tokenometer is dev-time, multi-provider, multi-format, optionally empirical, and
 
 ## Install
 
+One-shot:
+
 ```bash
 npx tokenometer ./prompt.md --model claude-opus-4-7
 ```
 
-Or:
+Global:
 
 ```bash
 npm i -g tokenometer
-tokenometer ./prompt.md --format yaml,json,xml,md --model claude-opus-4-7,gpt-4o,gemini-2.5-pro
+tokenometer ./prompt.md --format yaml,json,xml,markdown,text --model claude-opus-4-7,gpt-4o
 ```
+
+Stdin works too:
+
+```bash
+echo "prompt body" | tokenometer - --model claude-sonnet-4-6
+```
+
+Run `tokenometer --help` for the full flag list and the current set of known model ids.
 
 ## Three-line use
 
@@ -47,38 +57,46 @@ tokenometer ./prompt.md --format yaml,json,xml,md --model claude-opus-4-7,gpt-4o
 tokenometer ./prompt.md --model claude-opus-4-7
 ```
 
-Prints estimated cost across all formats × the chosen model.
+Prints estimated tokens + USD across each format × the chosen model(s). Default model is `claude-opus-4-7`; default formats are all of `json,markdown,text,xml,yaml`.
 
-### 2. Empirical mode (real API calls, cache-aware, with a hard ceiling)
+### 2. Empirical mode (real provider `countTokens`, with a hard ceiling)
 
 ```bash
 ANTHROPIC_API_KEY=… tokenometer ./prompt.md --empirical --max-spend 0.05
 ```
 
-Sends one minimal call per (provider × format), records `usage.input_tokens` and `cache_read_input_tokens`, prints empirical $ next to estimated.
+For each `(model × format)` cell, calls the provider's exact token-count API:
 
-### 3. CI guardrail
+- Anthropic → `messages.countTokens` (free)
+- Google → `model.countTokens` (free)
+- OpenAI → tiktoken `o200k_base` (matches OpenAI's production count exactly, no API call)
+
+Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini models. `--offline` forces the offline path even if `--empirical` is also passed.
+
+### 3. CI guardrail (GitHub Action)
 
 ```yaml
-- uses: faraa2m/tokenometer-action@v1
+- uses: faraa2m/tokenometer@v0
   with:
-    paths: prompts/**/*.md
-    budget: 0.50
+    paths: prompts/**/*.md,prompts/**/*.json
+    models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o
+    formats: json,yaml,markdown
+    budget: '0.50'   # USD; omit to disable the gate
 ```
 
-Posts a sticky PR comment with the cost diff vs the base branch. Fails the check if the diff exceeds `budget`.
+Posts a sticky PR comment with the cost diff vs the base branch. Fails the check when the total Δ exceeds `budget`. See [`packages/action/README.md`](packages/action/README.md) for all inputs and outputs.
 
 ## Methodology
 
-Tokenometer chooses a tokenizer per provider and tells you when the count is approximate (rendered with a leading `~` and `approximate: true` in the API):
+Tokenometer picks a tokenizer per provider and flags the count as approximate (`approximate: true` in the API result) when the offline path is a proxy:
 
-| Provider  | Offline tokenizer            | Exactness   | Notes                                                                 |
-|-----------|------------------------------|-------------|-----------------------------------------------------------------------|
-| OpenAI    | `gpt-tokenizer` `o200k_base` | exact       | Same encoding GPT-4o / 4o-mini use in production.                      |
-| Anthropic | `gpt-tokenizer` `cl100k_base`| approximate | Anthropic does not publish a Claude 3+ tokenizer. cl100k is a close proxy; empirical mode (planned) will call Anthropic for the real number. |
-| Google    | `chars / 4` heuristic        | approximate | Gemini token counting is API-only. Empirical mode (planned) will call `countTokens` for the real number. |
+| Provider  | Offline tokenizer            | Exactness   | Empirical (`--empirical`)        |
+|-----------|------------------------------|-------------|----------------------------------|
+| OpenAI    | `gpt-tokenizer` `o200k_base` | exact       | same `o200k_base` (matches OpenAI production count) |
+| Anthropic | `gpt-tokenizer` `cl100k_base`| approximate | `messages.countTokens` (exact, free) |
+| Google    | `chars / 4` heuristic        | approximate | `model.countTokens` (exact, free) |
 
-Cost = `tokens / 1000 × per-1k input rate`. Rate table is versioned (`RATES_VERSION`) and lives in [`packages/core/src/rates.ts`](packages/core/src/rates.ts).
+Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
 
 ## Status
 

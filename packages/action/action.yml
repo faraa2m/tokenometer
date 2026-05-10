@@ -29,6 +29,10 @@ inputs:
     description: 'HTML marker for the sticky comment.'
     required: false
     default: '<!-- tokenometer-cost-diff -->'
+  top-n-files:
+    description: 'Top-N changed files to show in the per-file diff table (1-20).'
+    required: false
+    default: '5'
   github-token:
     description: 'GITHUB_TOKEN with `pull-requests: write`.'
     required: false

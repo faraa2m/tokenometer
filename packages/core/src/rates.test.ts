@@ -22,8 +22,27 @@ describe('rates', () => {
 
   it('every model carries a provider', () => {
     for (const modelId of KNOWN_MODELS) {
-      expect(MODELS[modelId]?.provider).toMatch(/^(anthropic|google|openai)$/);
+      expect(MODELS[modelId]?.provider).toMatch(/^(anthropic|cohere|google|mistral|openai)$/);
     }
+  });
+
+  it('catalog includes Mistral models from tokenlens', () => {
+    // open-mistral-7b is a stable id Mistral has shipped since 2023.
+    expect(KNOWN_MODELS).toContain('open-mistral-7b');
+    expect(MODELS['open-mistral-7b']?.provider).toBe('mistral');
+    // mistral-nemo is the canary Tekken-family model.
+    expect(KNOWN_MODELS).toContain('mistral-nemo');
+    expect(MODELS['mistral-nemo']?.provider).toBe('mistral');
+  });
+
+  it('catalog includes Cohere models via local overrides', () => {
+    // tokenlens does not ship a Cohere catalog at v1.3.0 — these come from
+    // LOCAL_OVERRIDES. Update once tokenlens adds Cohere upstream.
+    expect(KNOWN_MODELS).toContain('command-r-plus');
+    expect(MODELS['command-r-plus']?.provider).toBe('cohere');
+    expect(MODELS['command-r-plus']?.pricingSource).toBe('local');
+    expect(KNOWN_MODELS).toContain('command-r');
+    expect(MODELS['command-r']?.provider).toBe('cohere');
   });
 
   it('canary pricing for stable upstream models matches expected dollars', () => {

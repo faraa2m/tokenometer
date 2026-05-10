@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T03:19:56.336Z",
+  "generatedAt": "2026-05-10T03:47:29.144Z",
   "models": [
     {
       "id": "claude-3-5-haiku-20241022",
@@ -132,6 +132,16 @@
       "cachedInputPer1k": 0.0003
     },
     {
+      "id": "codestral-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 256000,
+      "maxOutputTokens": 4096,
+      "inputPer1k": 0.0003,
+      "outputPer1k": 0.0009000000000000001,
+      "cachedInputPer1k": null
+    },
+    {
       "id": "codex-mini-latest",
       "provider": "openai",
       "pricingSource": "tokenlens",
@@ -139,6 +149,56 @@
       "maxOutputTokens": 100000,
       "inputPer1k": 0.0015,
       "outputPer1k": 0.006,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "command-r",
+      "provider": "cohere",
+      "pricingSource": "local",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "inputPer1k": 0.00015,
+      "outputPer1k": 0.0006,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "command-r-plus",
+      "provider": "cohere",
+      "pricingSource": "local",
+      "contextWindow": 128000,
+      "maxOutputTokens": 4096,
+      "inputPer1k": 0.0025,
+      "outputPer1k": 0.01,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "devstral-medium-2507",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0004,
+      "outputPer1k": 0.002,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "devstral-small-2505",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0001,
+      "outputPer1k": 0.0003,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "devstral-small-2507",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0001,
+      "outputPer1k": 0.0003,
       "cachedInputPer1k": null
     },
     {
@@ -332,6 +392,106 @@
       "cachedInputPer1k": null
     },
     {
+      "id": "magistral-medium-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "inputPer1k": 0.002,
+      "outputPer1k": 0.005,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "magistral-small",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0005,
+      "outputPer1k": 0.0015,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "ministral-3b-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.00004,
+      "outputPer1k": 0.00004,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "ministral-8b-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0001,
+      "outputPer1k": 0.0001,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-large-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 131072,
+      "maxOutputTokens": 16384,
+      "inputPer1k": 0.002,
+      "outputPer1k": 0.006,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-medium-2505",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 131072,
+      "maxOutputTokens": 131072,
+      "inputPer1k": 0.0004,
+      "outputPer1k": 0.002,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-medium-2508",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 262144,
+      "maxOutputTokens": 262144,
+      "inputPer1k": 0.0004,
+      "outputPer1k": 0.002,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-medium-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "inputPer1k": 0.0004,
+      "outputPer1k": 0.002,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-nemo",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.00015,
+      "outputPer1k": 0.00015,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "mistral-small-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 16384,
+      "inputPer1k": 0.0001,
+      "outputPer1k": 0.0003,
+      "cachedInputPer1k": null
+    },
+    {
       "id": "o1",
       "provider": "openai",
       "pricingSource": "tokenlens",
@@ -419,6 +579,56 @@
       "maxOutputTokens": 100000,
       "inputPer1k": 0.002,
       "outputPer1k": 0.008,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "open-mistral-7b",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 8000,
+      "maxOutputTokens": 8000,
+      "inputPer1k": 0.00025,
+      "outputPer1k": 0.00025,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "open-mixtral-8x22b",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 64000,
+      "maxOutputTokens": 64000,
+      "inputPer1k": 0.002,
+      "outputPer1k": 0.006,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "open-mixtral-8x7b",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 32000,
+      "maxOutputTokens": 32000,
+      "inputPer1k": 0.0007,
+      "outputPer1k": 0.0007,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "pixtral-12b",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.00015,
+      "outputPer1k": 0.00015,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "pixtral-large-latest",
+      "provider": "mistral",
+      "pricingSource": "tokenlens",
+      "contextWindow": 128000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.002,
+      "outputPer1k": 0.006,
       "cachedInputPer1k": null
     }
   ]

@@ -13,16 +13,38 @@ const formatCost = (usd: number): string => {
   return `$${usd.toExponential(2)}`;
 };
 
+const formatMs = (ms: number): string => `${Math.round(ms)}`;
+
+const formatTps = (tps: number): string =>
+  tps >= 100 ? Math.round(tps).toString() : tps.toFixed(1);
+
 export const renderTable = (results: readonly TokenizeResult[]): string => {
   if (results.length === 0) return '(no results)';
 
-  const headers = ['model', 'format', 'tokens', 'est. cost'] as const;
-  const rows: string[][] = results.map((r) => [
-    r.model,
-    r.format,
-    `${r.approximate ? '~' : ' '}${r.inputTokens.toLocaleString()}`,
-    formatCost(r.inputCost),
-  ]);
+  // Latency columns are only added when at least one cell has latency data.
+  const hasLatency = results.some((r) => r.latency !== undefined);
+
+  const headers = hasLatency
+    ? (['model', 'format', 'tokens', 'est. cost', 'p50 ttft', 'p50 total', 'tokens/s'] as const)
+    : (['model', 'format', 'tokens', 'est. cost'] as const);
+  const rows: string[][] = results.map((r) => {
+    const base = [
+      r.model,
+      r.format,
+      `${r.approximate ? '~' : ' '}${r.inputTokens.toLocaleString()}`,
+      formatCost(r.inputCost),
+    ];
+    if (!hasLatency) return base;
+    if (r.latency) {
+      return [
+        ...base,
+        `${formatMs(r.latency.p50.ttftMs)} ms`,
+        `${formatMs(r.latency.p50.totalMs)} ms`,
+        formatTps(r.latency.p50.tokensPerSec),
+      ];
+    }
+    return [...base, '-', '-', '-'];
+  });
 
   const widths = headers.map((h, colIdx) => {
     const maxRowWidth = rows.reduce((acc, row) => Math.max(acc, row[colIdx]?.length ?? 0), 0);

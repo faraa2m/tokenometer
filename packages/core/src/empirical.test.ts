@@ -83,6 +83,55 @@ describe('tokenizeEmpirical', () => {
       }),
     ).rejects.toThrow(/GOOGLE_API_KEY/);
   });
+
+  it('throws on Mistral empirical mode (no public token-count endpoint)', async () => {
+    await expect(
+      tokenizeEmpirical({
+        env: {},
+        format: 'text',
+        modelId: 'open-mistral-7b',
+        prompt: 'hi',
+      }),
+    ).rejects.toThrow(/Mistral does not expose a public token-count API/);
+  });
+
+  it('hits Cohere /v1/tokenize when key is provided (mocked fetch)', async () => {
+    const originalFetch = globalThis.fetch;
+    const fetchMock = vi.fn(
+      async () =>
+        new Response(JSON.stringify({ tokens: [10, 20, 30] }), {
+          headers: { 'Content-Type': 'application/json' },
+          status: 200,
+        }),
+    ) as unknown as typeof fetch;
+    globalThis.fetch = fetchMock;
+    try {
+      const result = await tokenizeEmpirical({
+        env: { cohereApiKey: 'co-test' },
+        format: 'text',
+        modelId: 'command-r-plus',
+        prompt: 'hello',
+      });
+      expect(result.approximate).toBe(false);
+      expect(result.inputTokens).toBe(3);
+      expect(result.inputCost).toBeGreaterThan(0);
+      expect(result.provider).toBe('cohere');
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('throws a clear error when Cohere key is missing', async () => {
+    await expect(
+      tokenizeEmpirical({
+        env: {},
+        format: 'text',
+        modelId: 'command-r-plus',
+        prompt: 'hi',
+      }),
+    ).rejects.toThrow(/COHERE_API_KEY/);
+  });
 });
 
 describe('tokenizeMatrixEmpirical', () => {

@@ -222,4 +222,69 @@ describe('main (integration)', () => {
     expect(code).toBe(1);
     expect(stderr.text()).toMatch(/No input files/);
   });
+
+  it('--latency populates per-cell latency block in JSON output', async () => {
+    const file = writePrompt(tmpRoot, 'p.md', 'hello world');
+    const { stdout, stderr } = makeStreams();
+    const measureLatencyFn = async () => ({
+      trials: [{ ttftMs: 100, totalMs: 500, outputTokens: 50, tokensPerSec: 125 }],
+      p50: { ttftMs: 100, totalMs: 500, tokensPerSec: 125 },
+      p95: { ttftMs: 100, totalMs: 500, tokensPerSec: 125 },
+      mean: { ttftMs: 100, totalMs: 500, tokensPerSec: 125 },
+    });
+    // gpt-4o is the fast path: empirical mode uses tiktoken locally so we
+    // don't need any provider API keys for the empirical tokenize step.
+    const code = await main(
+      [
+        file,
+        '--latency',
+        '--latency-trials',
+        '1',
+        '--model',
+        'gpt-4o',
+        '--output',
+        'json',
+        '--no-config',
+      ],
+      {
+        measureLatencyFn,
+        stderr: stderr as unknown as NodeJS.WriteStream,
+        stdout: stdout as unknown as NodeJS.WriteStream,
+      },
+    );
+    expect(code).toBe(0);
+    const parsed = JSON.parse(stdout.text());
+    const cell = parsed.files[0].results[0];
+    expect(cell.latency).toBeDefined();
+    expect(cell.latency.p50.ttftMs).toBe(100);
+    expect(cell.latency.p50.totalMs).toBe(500);
+    expect(cell.latency.trials).toHaveLength(1);
+  });
+
+  it('--latency renders latency columns in the table output', async () => {
+    const file = writePrompt(tmpRoot, 'p.md', 'hello world');
+    const { stdout, stderr } = makeStreams();
+    const measureLatencyFn = async () => ({
+      trials: [{ ttftMs: 250, totalMs: 1500, outputTokens: 200, tokensPerSec: 160 }],
+      p50: { ttftMs: 250, totalMs: 1500, tokensPerSec: 160 },
+      p95: { ttftMs: 250, totalMs: 1500, tokensPerSec: 160 },
+      mean: { ttftMs: 250, totalMs: 1500, tokensPerSec: 160 },
+    });
+    const code = await main(
+      [file, '--latency', '--latency-trials', '1', '--model', 'gpt-4o', '--no-config'],
+      {
+        measureLatencyFn,
+        stderr: stderr as unknown as NodeJS.WriteStream,
+        stdout: stdout as unknown as NodeJS.WriteStream,
+      },
+    );
+    expect(code).toBe(0);
+    const out = stdout.text();
+    expect(out).toContain('p50 ttft');
+    expect(out).toContain('p50 total');
+    expect(out).toContain('tokens/s');
+    expect(out).toContain('250 ms');
+    expect(out).toContain('1500 ms');
+    expect(out).toContain('latency:');
+  });
 });

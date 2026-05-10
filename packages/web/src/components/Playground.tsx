@@ -11,6 +11,7 @@ import { ResultsMatrix } from './ResultsMatrix.js';
 
 const DEFAULT_MODELS = ['claude-opus-4-7', 'claude-sonnet-4-6', 'gpt-4o'] as const;
 const ALL_FORMATS: readonly Format[] = allFormats();
+// Listed providers come first; any extras (e.g. mistral, cohere) are appended.
 const PROVIDER_ORDER: readonly Provider[] = ['anthropic', 'openai', 'google'];
 
 const formatContextWindow = (n: number): string => {
@@ -59,14 +60,19 @@ interface ModelOption {
 }
 
 const buildModelGroups = (): { provider: Provider; models: ModelOption[] }[] => {
-  const grouped: Record<Provider, ModelOption[]> = { anthropic: [], google: [], openai: [] };
+  const grouped = new Map<Provider, ModelOption[]>();
   for (const id of KNOWN_MODELS) {
     const m = getModel(id);
     const ctx = m.contextWindow ? ` · ${formatContextWindow(m.contextWindow)}` : '';
-    grouped[m.provider].push({ id, label: `${id}${ctx}` });
+    const list = grouped.get(m.provider) ?? [];
+    list.push({ id, label: `${id}${ctx}` });
+    grouped.set(m.provider, list);
   }
-  return PROVIDER_ORDER.filter((p) => grouped[p].length > 0).map((provider) => ({
-    models: grouped[provider],
+  // Sort listed providers in PROVIDER_ORDER first, then append any unlisted ones.
+  const listed = PROVIDER_ORDER.filter((p) => grouped.has(p));
+  const extras = [...grouped.keys()].filter((p) => !PROVIDER_ORDER.includes(p)).sort();
+  return [...listed, ...extras].map((provider) => ({
+    models: grouped.get(provider) ?? [],
     provider,
   }));
 };

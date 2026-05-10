@@ -47,8 +47,12 @@ export const computeVisionTokens = (
       return openaiVisionTokens(dim);
     case 'google':
       return googleVisionTokens(dim);
+    case 'mistral':
+    case 'cohere':
+      throw new Error(
+        `Vision tokens for provider "${provider}" are not yet supported (model "${modelId}", image "${imagePath}"). Use Claude, GPT-4o, or Gemini for image cost estimation.`,
+      );
     default: {
-      // Exhaustiveness — once we add Mistral / Cohere this surfaces a clear error.
       const exhaustiveCheck: never = provider;
       throw new Error(
         `Vision tokens are not supported for provider "${exhaustiveCheck}" (model "${modelId}", image "${imagePath}").`,

@@ -8,11 +8,18 @@ import {
   getModel,
   getRate,
   loadConfig,
+  measureLatency,
   toSarif,
   tokenizeMatrix,
   tokenizeMatrixEmpirical,
 } from '@tokenometer/core';
-import type { EmpiricalEnv, Format, TokenizeResult } from '@tokenometer/core';
+import type {
+  EmpiricalEnv,
+  Format,
+  LatencyResult,
+  MeasureLatencyOptions,
+  TokenizeResult,
+} from '@tokenometer/core';
 import { HELP_TEXT, type ParsedArgs, parseArgs } from './args.js';
 import { autoDetectDefaultModel } from './auto-detect.js';
 import { applyConfig, loadConfigFromPath } from './config-merge.js';
@@ -28,10 +35,20 @@ const VERSION = '0.0.2';
 
 const readEnv = (): EmpiricalEnv => {
   const env: EmpiricalEnv = {};
-  const { ANTHROPIC_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY } = process.env;
+  const {
+    ANTHROPIC_API_KEY,
+    COHERE_API_KEY,
+    GEMINI_API_KEY,
+    GOOGLE_API_KEY,
+    MISTRAL_API_KEY,
+    OPENAI_API_KEY,
+  } = process.env;
   if (ANTHROPIC_API_KEY) env.anthropicApiKey = ANTHROPIC_API_KEY;
+  if (COHERE_API_KEY) env.cohereApiKey = COHERE_API_KEY;
   const googleKey = GOOGLE_API_KEY ?? GEMINI_API_KEY;
   if (googleKey) env.googleApiKey = googleKey;
+  if (MISTRAL_API_KEY) env.mistralApiKey = MISTRAL_API_KEY;
+  if (OPENAI_API_KEY) env.openaiApiKey = OPENAI_API_KEY;
   return env;
 };
 
@@ -66,15 +83,43 @@ const readPerFilePrompts = async (
   );
 };
 
+/** Test seam for `measureLatency`; production code uses the SDK-backed default. */
+export type MeasureLatencyFn = (options: MeasureLatencyOptions) => Promise<LatencyResult>;
+
 interface RunDeps {
   imageSizeReader?: ImageSizeReader;
+  measureLatencyFn?: MeasureLatencyFn;
   stderr?: NodeJS.WriteStream;
   stdout?: NodeJS.WriteStream;
 }
 
+/**
+ * For each cell, run a real streaming generation and attach the resulting
+ * `LatencyResult` in-place. Skips cells whose provider doesn't yet support
+ * the latency path (currently: none — all 5 do).
+ */
+const augmentWithLatency = async (
+  cells: TokenizeResult[],
+  prompt: string,
+  parsed: ParsedArgs,
+  measure: MeasureLatencyFn,
+): Promise<void> => {
+  // Sequential (not parallel) so we don't slam a single provider with N
+  // concurrent metered requests; rate-limits are real.
+  for (const cell of cells) {
+    cell.latency = await measure({
+      env: readEnv(),
+      modelId: cell.model,
+      prompt,
+      trials: parsed.latencyTrials,
+    });
+  }
+};
+
 const buildPerFileResults = async (
   parsed: ParsedArgs,
   useEmpirical: boolean,
+  measureLatencyFn: MeasureLatencyFn | undefined,
 ): Promise<TokenometerFileResult[]> => {
   const inputs = await readPerFilePrompts(parsed.inputPaths);
   const out: TokenometerFileResult[] = [];
@@ -92,6 +137,9 @@ const buildPerFileResults = async (
           modelIds: parsed.modelIds,
           prompt,
         });
+    if (parsed.latency) {
+      await augmentWithLatency(cells, prompt, parsed, measureLatencyFn ?? measureLatency);
+    }
     out.push({ path, results: cells });
   }
   return out;
@@ -190,7 +238,9 @@ export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise
   // Otherwise the existing joined-prompt path is used.
   if (parsed.output === 'json' || parsed.output === 'sarif') {
     const fileResults =
-      parsed.inputPaths.length > 0 ? await buildPerFileResults(parsed, useEmpirical) : [];
+      parsed.inputPaths.length > 0
+        ? await buildPerFileResults(parsed, useEmpirical, deps.measureLatencyFn)
+        : [];
     const imageResults = await buildImageResults(parsed, reader);
     const result: TokenometerResult = { files: [...fileResults, ...imageResults] };
     if (result.files.length === 0) {
@@ -237,6 +287,14 @@ export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise
           modelIds: parsed.modelIds,
           prompt,
         });
+    if (parsed.latency) {
+      await augmentWithLatency(
+        mainResults,
+        prompt,
+        parsed,
+        deps.measureLatencyFn ?? measureLatency,
+      );
+    }
   }
 
   // Compute image rows up front (needed for main table appendage and by-file).
@@ -253,7 +311,9 @@ export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise
   // by-file table requires per-file results from prompt files plus image virtual files.
   if (parsed.byFile) {
     const perFile =
-      parsed.inputPaths.length > 0 ? await buildPerFileResults(parsed, useEmpirical) : [];
+      parsed.inputPaths.length > 0
+        ? await buildPerFileResults(parsed, useEmpirical, deps.measureLatencyFn)
+        : [];
     const allFiles = [...perFile, ...imageFileResults];
     const byFile = renderByFile(allFiles);
     if (byFile) stdout.write(`${byFile}\n`);
@@ -262,6 +322,11 @@ export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise
   if (useEmpirical) {
     stdout.write(
       '\n(empirical: Anthropic / Google counts via provider countTokens API; OpenAI via tiktoken o200k_base)\n',
+    );
+  }
+  if (parsed.latency) {
+    stdout.write(
+      `(latency: ${parsed.latencyTrials} streaming generation${parsed.latencyTrials === 1 ? '' : 's'} per cell, max_tokens=200; p50/p95/mean over trials)\n`,
     );
   }
   return 0;

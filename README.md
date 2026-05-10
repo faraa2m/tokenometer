@@ -7,26 +7,32 @@
 [![GitHub stars](https://img.shields.io/github/stars/faraa2m/tokenometer.svg?style=social)](https://github.com/faraa2m/tokenometer/stargazers)
 <!-- TODO: add marketplace badge after v1.0.0 publish -->
 
-> Tokenometer — LLM cost calculator, token counter, and CI cost-guardrail Action for Claude, GPT-4o, Gemini.
+> Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost-guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
 > **Live: https://tokenometer.vercel.app**
 
-Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, and Gemini?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). This is the tool anyone can run — offline, empirically, or as a PR guardrail.
+Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, Gemini, Mistral, and Cohere — and how fast does each provider actually respond?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). Today it's the only LLM cost CLI that also tells you latency, ships a PR-blocking GitHub Action, lights up your editor's status bar, and teaches Claude Code agents to think in dollars.
 
 ## Why Tokenometer vs alternatives
 
 |                                       | Tokenometer | [tokencost](https://github.com/AgentOps-AI/tokencost) (AgentOps) | [tiktoken](https://github.com/openai/tiktoken) (OpenAI) | [gpt-tokenizer](https://github.com/niieani/gpt-tokenizer) | [promptfoo](https://github.com/promptfoo/promptfoo) | gpt-token-counter-live (VS Code) |
 |---------------------------------------|:-----------:|:--------:|:--------:|:--------:|:--------:|:--------:|
 | Multi-provider (Anthropic / OpenAI / Google) | ✓ | ✓ | – | – | ✓ | – |
+| Mistral support                       | ✓ | – | – | – | partial | – |
+| Cohere support                        | ✓ | – | – | – | partial | – |
 | Multi-format compare (JSON / YAML / XML / MD / text) | ✓ | – | – | – | – | – |
 | Empirical mode (real provider `countTokens`) | ✓ | – | – | – | partial | – |
-| CLI                                   | ✓ | ✓ | – | – | ✓ | – |
-| GitHub Action (PR cost-diff guardrail) | ✓ | – | – | – | partial | – |
-| VS Code / Cursor extension            | – (planned) | – | – | – | – | ✓ |
+| Latency (TTFT + tokens/sec, p50/p95)  | ✓ | – | – | – | partial | – |
+| Vision-token cost (image inputs)      | ✓ | – | – | – | – | – |
 | Cost (USD), not just tokens           | ✓ | ✓ | – | – | partial | – |
 | Honest "approximate" flag when offline is a proxy | ✓ | – | – | – | – | – |
+| CLI                                   | ✓ | ✓ | – | – | ✓ | – |
+| GitHub Action (PR cost-diff guardrail) | ✓ | – | – | – | partial | – |
 | Per-file attribution in CI            | ✓ | – | – | – | – | – |
+| SARIF output (GitHub code scanning)   | ✓ | – | – | – | – | – |
+| VS Code / Cursor extension            | ✓ | – | – | – | – | ✓ |
+| Claude Code skill                     | ✓ | – | – | – | – | – |
 
-Tokenometer is the only tool in this list that combines **multi-provider + multi-format + empirical mode + USD cost + a PR-blocking GitHub Action + an honest approximate-vs-exact flag**. tokencost is the closest match for cost-in-USD across providers, but it doesn't compare formats or run as a CI guardrail. tiktoken and gpt-tokenizer are great single-provider primitives — Tokenometer uses gpt-tokenizer under the hood for the offline path. promptfoo is the broadest evaluator overall, but cost is one input among many; it isn't a dedicated cost-guardrail. The VS Code extension is real-time-in-editor only.
+Tokenometer is the only tool in this list that combines **multi-provider (5 providers, 63 models) + multi-format + empirical mode + latency benchmarking + USD cost + a PR-blocking GitHub Action + an editor extension + a Claude Code skill + an honest approximate-vs-exact flag**. tokencost is the closest match for cost-in-USD across providers, but it doesn't compare formats, measure latency, or run as a CI guardrail. tiktoken and gpt-tokenizer are great single-provider primitives — Tokenometer uses gpt-tokenizer under the hood for the offline path. promptfoo is the broadest evaluator overall, but cost is one input among many; it isn't a dedicated cost-guardrail. The VS Code extension is real-time-in-editor only.
 
 ## Findings (Anthropic, n=150 cells across 10 prompt shapes)
 
@@ -52,7 +58,7 @@ $ tokenometer ./prompt.md --model claude-opus-4-7 --format json,yaml,markdown
   Priciest: claude-opus-4-7 as json     ($0.0186, 1.08x more)
 ```
 
-The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google offline) and is empty when it's an exact match (OpenAI offline, or any provider with `--empirical`).
+The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google / Mistral-Tekken / Cohere offline) and is empty when it's an exact match (OpenAI offline, Mistral SentencePiece-family offline, or any provider with `--empirical`).
 
 > Real demo (with empirical mode + GIF) at **https://tokenometer.vercel.app**.
 
@@ -60,13 +66,14 @@ The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google of
 
 **Cost AND latency in one CLI — the only tool that does both.** `tiktoken` and `@anthropic-ai/tokenizer` give you a token count for one provider. They don't tell you:
 
-- What the same prompt costs across **multiple providers and models**
-- How **fast** each provider actually responds (TTFT + tokens/sec) — a real generation, not a synthetic benchmark
+- What the same prompt costs across **multiple providers and models** (Claude, GPT-4o, Gemini, Mistral, Cohere)
+- How **fast** each provider actually responds (TTFT + tokens/sec, p50/p95/mean) — a real generation, not a synthetic benchmark
 - Whether **format conversion** (YAML ↔ JSON ↔ XML ↔ MD) actually moves the needle
 - The **empirical** cost — what your provider actually charged on a real call, after prompt caching
 - Whether a PR introduced a **prompt-cost regression**
+- The **vision-token** cost when your prompt includes images
 
-Tokenometer is dev-time, multi-provider, multi-format, optionally empirical, latency-aware, and CI-native.
+Tokenometer is dev-time, multi-provider, multi-format, optionally empirical, latency-aware, vision-aware, and CI-native. And the same core powers the CLI, the GitHub Action, the VS Code / Cursor status bar, and the Claude Code skill — counts, pricing, and tokenizer choices stay identical across surfaces.
 
 ## Install
 
@@ -80,7 +87,7 @@ Global:
 
 ```bash
 npm i -g tokenometer
-tokenometer ./prompt.md --format yaml,json,xml,markdown,text --model claude-opus-4-7,gpt-4o
+tokenometer ./prompt.md --format yaml,json,xml,markdown,text --model claude-opus-4-7,gpt-4o,mistral-large-latest,command-r-plus
 ```
 
 Stdin works too:
@@ -89,9 +96,9 @@ Stdin works too:
 echo "prompt body" | tokenometer - --model claude-sonnet-4-6
 ```
 
-Run `tokenometer --help` for the full flag list and the current set of known model ids.
+Run `tokenometer --help` for the full flag list and the current set of known model ids (63 across 5 providers).
 
-## Three-line use
+## Five-line use
 
 ### 1. Compare formats for a single prompt (offline, no API key)
 
@@ -99,7 +106,7 @@ Run `tokenometer --help` for the full flag list and the current set of known mod
 tokenometer ./prompt.md --model claude-opus-4-7
 ```
 
-Prints estimated tokens + USD across each format × the chosen model(s). Default model is `claude-opus-4-7`; default formats are all of `json,markdown,text,xml,yaml`.
+Prints estimated tokens + USD across each format × the chosen model(s). Default model is `claude-opus-4-7` (or auto-detected from `*_API_KEY` env vars); default formats are all of `json,markdown,text,xml,yaml`.
 
 ### 2. Empirical mode (real provider `countTokens`, with a hard ceiling)
 
@@ -112,8 +119,10 @@ For each `(model × format)` cell, calls the provider's exact token-count API:
 - Anthropic → `messages.countTokens` (free)
 - Google → `model.countTokens` (free)
 - OpenAI → tiktoken `o200k_base` (matches OpenAI's production count exactly, no API call)
+- Cohere → `POST /v1/tokenize` (free, requires `COHERE_API_KEY`)
+- Mistral → unsupported (no public token-count endpoint); offline `mistral-tokenizer-js` is exact for SentencePiece-family models, approximate (chars/4) for Tekken-family models.
 
-Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini models. `--offline` forces the offline path even if `--empirical` is also passed.
+Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini, `MISTRAL_API_KEY` for Mistral, `COHERE_API_KEY` for Cohere. `--offline` forces the offline path even if `--empirical` is also passed.
 
 ### 3. CI guardrail (GitHub Action)
 
@@ -123,14 +132,27 @@ Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini models. `--offline` forces
     paths: prompts/**/*.md,prompts/**/*.json
     models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o
     formats: json,yaml,markdown
-    budget: '0.50'   # USD; omit to disable the gate
+    budget: '0.50'      # USD; omit to disable the gate
+    top-n-files: 5      # rows shown in the per-file Δ table; the rest fold into <details>
 ```
 
-Posts a sticky PR comment with the cost diff vs the base branch. Fails the check when the total Δ exceeds `budget`. See [`packages/action/README.md`](packages/action/README.md) for all inputs and outputs.
+Posts a sticky PR comment with the cost diff vs the base branch, including a per-file Δ table and a collapsible "all files" block. Fails the check when the total Δ exceeds `budget`. See [`packages/action/README.md`](packages/action/README.md) for all inputs and outputs.
 
-### More flags
+### 4. Live cost in your editor (VS Code / Cursor)
 
-The CLI also supports `--output json|sarif` for machine-readable output, `--by-file` for per-file attribution, `--image <path>` for vision-token cost on Claude / GPT-4o / Gemini, and `.tokenometer.yml` config files (auto-discovered, walk-up). See [`packages/cli/README.md`](packages/cli/README.md) for the full list.
+```
+ext install faraa2m.tokenometer-vscode   # marketplace listing arrives with v1.0.0
+```
+
+Status bar shows `model · tokens · USD` for the active prompt file, updates on every keystroke (debounced), and turns warning-colored when you exceed `tokenometer.warnOnCostAbove`. Same `@tokenometer/core` as the CLI — what you see in the editor matches what CI computes. See [`packages/vscode/README.md`](packages/vscode/README.md).
+
+### 5. Claude Code skill (agentic prompt-cost awareness)
+
+```bash
+cp -R packages/claude-code-skill ~/.claude/skills/tokenometer
+```
+
+Installs the `tokenometer-cost-check` skill so Claude Code agents can answer "what does this prompt cost?" with a real number — they shell out to `npx tokenometer` instead of guessing from `tiktoken`. See [`packages/claude-code-skill/README.md`](packages/claude-code-skill/README.md).
 
 ## Methodology
 
@@ -141,10 +163,34 @@ Tokenometer picks a tokenizer per provider and flags the count as approximate (`
 | OpenAI    | `gpt-tokenizer` `o200k_base`                   | exact       | same `o200k_base` (matches OpenAI production count) |
 | Anthropic | `gpt-tokenizer` `cl100k_base`                  | approximate | `messages.countTokens` (exact, free) |
 | Google    | `chars / 4` heuristic                          | approximate | `model.countTokens` (exact, free) |
-| Mistral   | `mistral-tokenizer-js` (V1/V2/V3) · `chars/4` for Tekken | approximate | unsupported (no public token-count endpoint) |
+| Mistral   | `mistral-tokenizer-js` (V1/V2/V3) · `chars/4` for Tekken family | exact for SP-family · approximate for Tekken | unsupported (no public token-count endpoint) |
 | Cohere    | `chars / 4` heuristic                          | approximate | `POST /v1/tokenize` (exact, free, requires `COHERE_API_KEY`) |
 
-Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
+Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet (and the full Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0) — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
+
+## Output formats
+
+The CLI is multi-surface by design:
+
+- **`--output table`** (default) — human-readable per-cell table.
+- **`--output json`** — emits a `TokenometerResult` shape (`{ files: [{ path, results: [...] }] }`); pipe to `jq`.
+- **`--output sarif`** — emits SARIF 2.1.0; drop into GitHub Code Scanning or any SARIF viewer.
+- **`--by-file`** — appends a per-file token + USD summary table for multi-file inputs.
+- **`--image <path>`** (repeatable) — adds vision-token cost for Claude / GPT-4o / Gemini.
+- **`--latency`** — measures real generation latency (TTFT + total ms + tokens/sec, p50/p95/mean over `n` trials, default 3). Implies `--empirical`. Supported on Anthropic, OpenAI, Google, Cohere, and Mistral.
+
+```bash
+npx tokenometer ./prompt.md --output sarif > tokenometer.sarif
+npx tokenometer ./prompts/*.md --by-file --output json | jq '.files[].results | map(.inputCost) | add'
+ANTHROPIC_API_KEY=… OPENAI_API_KEY=… npx tokenometer ./prompt.md --latency --model claude-opus-4-7,gpt-4o
+```
+
+Full flag reference: [`packages/cli/README.md`](packages/cli/README.md).
+
+## Editor + Claude Code
+
+- **VS Code / Cursor** — [`@tokenometer/vscode`](packages/vscode/README.md). Status bar with live token count + USD cost; settings for model, format, and a warn-above-USD threshold; `Tokenometer: Switch model` and `Tokenometer: Show details` commands.
+- **Claude Code skill** — [`@tokenometer/claude-code-skill`](packages/claude-code-skill/README.md). Drop in `~/.claude/skills/tokenometer/SKILL.md` and Claude Code agents will reach for `npx tokenometer …` when you ask them anything cost-shaped.
 
 ## Project health
 
@@ -156,7 +202,7 @@ Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sou
 
 ## Status
 
-Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones). Roadmap to v1.0.0 in progress: VS Code extension, Claude Code skill, vision-token cost.
+Approaching v1.0.0. See [milestones](https://github.com/faraa2m/tokenometer/milestones) for what's left in Phase I (marketplace publish, smoke tests, release pipeline) before the v1 cut.
 
 ## License
 

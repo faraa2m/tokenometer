@@ -1,7 +1,7 @@
 {
   "name": "@tokenometer/claude-code-skill",
   "version": "0.0.2",
-  "description": "Claude Code skill that wraps the tokenometer CLI.",
+  "description": "Claude Code skill that wraps the tokenometer CLI for prompt-cost-aware agents.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
   "homepage": "https://tokenometer.vercel.app",
@@ -15,13 +15,23 @@
   },
   "private": true,
   "keywords": [
+    "anthropic",
     "claude",
     "claude-code",
     "claude-code-skill",
+    "cohere",
+    "gemini",
+    "gpt-4o",
+    "latency",
+    "llm",
     "llm-cost",
+    "mistral",
+    "openai",
     "prompt-cost",
+    "prompt-engineering",
     "skill",
-    "tokenometer"
+    "tokenometer",
+    "vision-tokens"
   ],
   "files": ["SKILL.md", "README.md", "install.sh"],
   "scripts": {

@@ -3,5 +3,8 @@
   "framework": "vite",
   "installCommand": "npm install",
   "buildCommand": "npm run build && npm run build -w @tokenometer/web",
-  "outputDirectory": "packages/web/dist"
+  "outputDirectory": "packages/web/dist",
+  "rewrites": [
+    { "source": "/:path((?!assets/|robots.txt|sitemap.xml).*)", "destination": "/index.html" }
+  ]
 }

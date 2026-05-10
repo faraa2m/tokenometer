@@ -76,6 +76,7 @@
   },
   "scripts": {
     "build": "tsc -b && chmod +x dist/index.js",
+    "prepack": "chmod +x dist/index.js",
     "clean": "rm -rf dist"
   },
   "dependencies": {

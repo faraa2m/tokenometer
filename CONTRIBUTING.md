@@ -25,8 +25,9 @@ Node ≥20 required.
 | Build all packages | `npm run build` |
 | Run benchmarks (offline) | `npm run benchmarks` |
 | Run benchmarks (empirical, needs `ANTHROPIC_API_KEY`) | `npm run benchmarks:empirical` |
+| Full local pre-release smoke | `npm run smoke` |
 
-Before opening a PR: `npm run lint && npm run typecheck && npm test && npm run build`. CI runs the same steps.
+Before opening a PR: `npm run lint && npm run typecheck && npm test && npm run build`. CI runs the same steps. For a release-readiness check, `npm run smoke` runs the full sweep (lint, typecheck, test, build, web build, benchmarks, plus CLI smoke checks against the built `dist/` — SARIF, `--by-file`, auto-detect, Action bundle present, VS Code extension dist present).
 
 ## Code style
 
@@ -92,13 +93,25 @@ Pick the affected packages, the bump type (`patch` / `minor` / `major`), and wri
 
 ## Releasing
 
-Pushes to `main` trigger `.github/workflows/release.yml`:
+The release pipeline is **fully unified** — one merge of the Version Packages PR ships everything. Pushes to `main` trigger `.github/workflows/release.yml`:
 
 1. If `.changeset/` has any pending changesets, the workflow opens (or updates) a **Version Packages** PR that auto-bumps `package.json` versions and auto-generates `CHANGELOG.md` entries.
-2. Merging that PR triggers the same workflow to publish the bumped versions to npm with provenance.
-3. A GitHub Release is created on the new tag — the GitHub Marketplace listens to that for the Action's update.
+2. Merging that PR triggers the same workflow to:
+   - Publish `tokenometer` + `@tokenometer/core` to npm with provenance.
+   - Create a GitHub Release on the new tag (GitHub Marketplace listens to that and republishes the Action's listing).
+   - Build a fresh `.vsix` and publish the VS Code extension to the **VS Code Marketplace** (`vsce`) and **Open VSX** (`ovsx`, the registry Cursor + VSCodium read from).
+   - HTTP-verify the GitHub Marketplace listing (best-effort — propagation can take a few minutes).
+   - Trigger the **Vercel deploy hook** so the playground rebuilds against the new published packages.
+3. A separate `smoke-test` job then runs on a fresh runner against the **just-published** npm versions (`npx tokenometer@<new-version>`) so a broken publish surfaces in CI rather than user reports.
 
-Phase I (Wave 4) extends this to also publish the VS Code extension to the Marketplace + Open VSX, run a post-publish smoke test, and trigger a Vercel deploy.
+Before merging the Version Packages PR, you can sanity-check the build locally with `npm run smoke` — same gates the workflow runs, plus CLI smoke against the local `dist/`.
+
+Required secrets in repo settings → Secrets and variables → Actions:
+
+- `NPM_TOKEN` — npm automation token.
+- `VSCE_PAT` — Personal Access Token from https://dev.azure.com (Marketplace publisher → Manage Tokens, scope: Marketplace → Acquire + Manage). If absent, the VS Code Marketplace step is skipped with a clear notice.
+- `OVSX_PAT` — Personal Access Token from https://open-vsx.org (User Settings → Access Tokens). If absent, the Open VSX step is skipped.
+- `VERCEL_DEPLOY_HOOK` — Deploy hook URL from Vercel project settings (optional; the playground also rebuilds automatically on every push to main).
 
 ## Questions
 

@@ -102,7 +102,7 @@
     "lint": "biome check .",
     "typecheck": "tsc -b",
     "test": "vitest run",
-    "package:vsix": "vsce package --no-dependencies"
+    "package:vsix": "npm run build && vsce package --no-dependencies"
   },
   "dependencies": {
     "@tokenometer/core": "0.0.2"
@@ -112,6 +112,7 @@
     "@types/vscode": "^1.85.0",
     "@vscode/vsce": "^3.2.1",
     "esbuild": "^0.24.0",
+    "ovsx": "^0.10.1",
     "typescript": "^5.7.2"
   }
 }

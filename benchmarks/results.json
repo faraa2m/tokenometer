@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T03:22:44.977Z",
+  "generatedAt": "2026-05-10T04:07:57.509Z",
   "formats": [
     "json",
     "markdown",
@@ -21,7 +21,13 @@
     "claude-opus-4-7",
     "claude-sonnet-4-20250514",
     "claude-sonnet-4-6",
+    "codestral-latest",
     "codex-mini-latest",
+    "command-r",
+    "command-r-plus",
+    "devstral-medium-2507",
+    "devstral-small-2505",
+    "devstral-small-2507",
     "gemini-1.5-flash",
     "gemini-1.5-flash-8b",
     "gemini-1.5-pro",
@@ -41,6 +47,16 @@
     "gpt-5-chat-latest",
     "gpt-5-mini",
     "gpt-5-nano",
+    "magistral-medium-latest",
+    "magistral-small",
+    "ministral-3b-latest",
+    "ministral-8b-latest",
+    "mistral-large-latest",
+    "mistral-medium-2505",
+    "mistral-medium-2508",
+    "mistral-medium-latest",
+    "mistral-nemo",
+    "mistral-small-latest",
     "o1",
     "o1-mini",
     "o1-pro",
@@ -49,7 +65,12 @@
     "o3-mini",
     "o3-pro",
     "o4-mini",
-    "o4-mini-deep-research"
+    "o4-mini-deep-research",
+    "open-mistral-7b",
+    "open-mixtral-8x22b",
+    "open-mixtral-8x7b",
+    "pixtral-12b",
+    "pixtral-large-latest"
   ],
   "prompts": {
     "01-tiny-json-config.json": {
@@ -469,6 +490,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000285,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000315,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000336,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000351,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000291,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -499,6 +552,166 @@
           "inputCost": 0.0001245,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000205,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000255,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001975,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -1109,6 +1322,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000164,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000166,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000182,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000204,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000158,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000041,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000415,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000455,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000051,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000395,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00019,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00021,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000234,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000194,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -1395,6 +1928,166 @@
           "inputCost": 0.000166,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00002375,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00002625,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000028,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00002925,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00002425,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00019,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00021,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000234,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000194,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000665,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000735,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000784,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000819,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000679,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000164,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000166,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000182,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000204,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000158,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -1815,6 +2508,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000285,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000315,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000336,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000351,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000291,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -1845,6 +2570,166 @@
           "inputCost": 0.0001245,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000205,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000255,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001975,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -2455,6 +3340,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000164,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000166,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000182,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000204,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000158,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000041,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000415,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000455,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000051,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000395,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00019,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00021,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000234,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000194,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000328,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000332,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000364,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000408,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000316,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000082,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000083,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000091,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000102,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000079,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -2741,6 +3946,166 @@
           "inputCost": 0.000166,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00002375,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00002625,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000028,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00002925,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00002425,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00019,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00021,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000234,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000194,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000665,
+          "inputTokens": 95,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000735,
+          "inputTokens": 105,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000784,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000819,
+          "inputTokens": 117,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000679,
+          "inputTokens": 97,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000123,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001245,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001365,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000153,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001185,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000164,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000166,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000182,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000204,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000158,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -3161,6 +4526,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000567,
+          "inputTokens": 189,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000561,
+          "inputTokens": 187,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000558,
+          "inputTokens": 186,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001302,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000597,
+          "inputTokens": 199,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -3191,6 +4588,166 @@
           "inputCost": 0.000273,
           "inputTokens": 182,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003345,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000333,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003315,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004965,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003375,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0005575,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000555,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0005525,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0008275,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0005625,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000892,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000888,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000884,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001324,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00009,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000223,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000222,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000221,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000331,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000225,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000223,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000222,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000221,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000331,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000225,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -3801,6 +5358,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000446,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000444,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000442,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000662,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00045,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001115,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000111,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001105,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001655,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001125,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00000892,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00000888,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00000884,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00001324,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000009,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000223,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000222,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000221,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000331,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000225,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000378,
+          "inputTokens": 189,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000374,
+          "inputTokens": 187,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000372,
+          "inputTokens": 186,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000398,
+          "inputTokens": 199,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000892,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000888,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000884,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001324,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00009,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000892,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000888,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000884,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001324,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00009,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000892,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000888,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000884,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001324,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00009,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003345,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000333,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003315,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004965,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003375,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000223,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000222,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000221,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000331,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000225,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -4087,6 +5964,166 @@
           "inputCost": 0.000364,
           "inputTokens": 182,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00004725,
+          "inputTokens": 189,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00004675,
+          "inputTokens": 187,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000465,
+          "inputTokens": 186,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001085,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00004975,
+          "inputTokens": 199,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000378,
+          "inputTokens": 189,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000374,
+          "inputTokens": 187,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000372,
+          "inputTokens": 186,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000398,
+          "inputTokens": 199,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001323,
+          "inputTokens": 189,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001309,
+          "inputTokens": 187,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001302,
+          "inputTokens": 186,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003038,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001393,
+          "inputTokens": 199,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003345,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000333,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003315,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004965,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003375,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000446,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000444,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000442,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000662,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00045,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -4507,6 +6544,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001137,
+          "inputTokens": 379,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000105,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000105,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001122,
+          "inputTokens": 374,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001056,
+          "inputTokens": 352,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -4537,6 +6606,166 @@
           "inputCost": 0.0004125,
           "inputTokens": 275,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000426,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004245,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00004125,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00071,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0007075,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0006875,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001136,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001132,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00011,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000284,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000283,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000275,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000284,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000283,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000275,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -5147,6 +7376,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000568,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000548,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000548,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000566,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00055,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000142,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000137,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000137,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001415,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001375,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00001136,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00001132,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000011,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000284,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000283,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000275,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000758,
+          "inputTokens": 379,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0007,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0007,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000748,
+          "inputTokens": 374,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000704,
+          "inputTokens": 352,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001136,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001132,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00011,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001136,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001132,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00011,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001136,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001096,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001132,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00011,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000426,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004245,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00004125,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000284,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000274,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000283,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000275,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -5433,6 +7982,166 @@
           "inputCost": 0.00055,
           "inputTokens": 275,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00009475,
+          "inputTokens": 379,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000875,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000875,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000935,
+          "inputTokens": 374,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000088,
+          "inputTokens": 352,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000758,
+          "inputTokens": 379,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0007,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0007,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000748,
+          "inputTokens": 374,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000704,
+          "inputTokens": 352,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0002653,
+          "inputTokens": 379,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000245,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000245,
+          "inputTokens": 350,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0002618,
+          "inputTokens": 374,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0002464,
+          "inputTokens": 352,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000426,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000411,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00004245,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00004125,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000568,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000548,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000548,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000566,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00055,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -5853,6 +8562,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001428,
+          "inputTokens": 476,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001326,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001326,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001431,
+          "inputTokens": 477,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001332,
+          "inputTokens": 444,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -5883,6 +8624,166 @@
           "inputCost": 0.0005115,
           "inputTokens": 341,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00005715,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000576,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0009525,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00096,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001524,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001536,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000381,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000384,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000381,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000384,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -6493,6 +9394,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000762,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000768,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001905,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001835,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001835,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000192,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001835,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00001524,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00001536,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000381,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000384,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000952,
+          "inputTokens": 476,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000884,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000884,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000954,
+          "inputTokens": 477,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000888,
+          "inputTokens": 444,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001524,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001536,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001524,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001536,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001524,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001536,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001468,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00005715,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000576,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000381,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000384,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000367,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -6779,6 +10000,166 @@
           "inputCost": 0.000682,
           "inputTokens": 341,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000119,
+          "inputTokens": 476,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001105,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001105,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00011925,
+          "inputTokens": 477,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000111,
+          "inputTokens": 444,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000952,
+          "inputTokens": 476,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000884,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000884,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000954,
+          "inputTokens": 477,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000888,
+          "inputTokens": 444,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003332,
+          "inputTokens": 476,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0003094,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003094,
+          "inputTokens": 442,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003339,
+          "inputTokens": 477,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003108,
+          "inputTokens": 444,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00005715,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000576,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00005505,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000762,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000768,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000734,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -7199,6 +10580,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000714,
+          "inputTokens": 238,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000789,
+          "inputTokens": 263,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001014,
+          "inputTokens": 338,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000087,
+          "inputTokens": 290,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000813,
+          "inputTokens": 271,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -7229,6 +10642,166 @@
           "inputCost": 0.000333,
           "inputTokens": 222,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000312,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00004395,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000375,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003555,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00052,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0005375,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0007325,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000625,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0005925,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000832,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001172,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000948,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000208,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000293,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000025,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000237,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000208,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000293,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000025,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000237,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -7839,6 +11412,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000416,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00043,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000586,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0005,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000474,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000104,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001075,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001465,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000125,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001185,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00000832,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001172,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00001,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00000948,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000208,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000293,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000025,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000237,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000476,
+          "inputTokens": 238,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000526,
+          "inputTokens": 263,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000676,
+          "inputTokens": 338,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00058,
+          "inputTokens": 290,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000542,
+          "inputTokens": 271,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000832,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001172,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000948,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000832,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001172,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000948,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000832,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001172,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000948,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000312,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00004395,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000375,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003555,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000208,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000293,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000025,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000237,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -8125,6 +12018,166 @@
           "inputCost": 0.000444,
           "inputTokens": 222,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000595,
+          "inputTokens": 238,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00006575,
+          "inputTokens": 263,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000845,
+          "inputTokens": 338,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000725,
+          "inputTokens": 290,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00006775,
+          "inputTokens": 271,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000476,
+          "inputTokens": 238,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000526,
+          "inputTokens": 263,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000676,
+          "inputTokens": 338,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00058,
+          "inputTokens": 290,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000542,
+          "inputTokens": 271,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001666,
+          "inputTokens": 238,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001841,
+          "inputTokens": 263,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002366,
+          "inputTokens": 338,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000203,
+          "inputTokens": 290,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001897,
+          "inputTokens": 271,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000312,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00004395,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000375,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003555,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000416,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00043,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000586,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0005,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000474,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -8545,6 +12598,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0002514,
+          "inputTokens": 838,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002436,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002436,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0002547,
+          "inputTokens": 849,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0002619,
+          "inputTokens": 873,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -8575,6 +12660,166 @@
           "inputCost": 0.001107,
           "inputTokens": 738,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00012615,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001278,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001251,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0021025,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0020775,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0020775,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00213,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.002085,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003364,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003408,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003336,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000841,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000834,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000841,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000834,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -9185,6 +13430,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001682,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001662,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001662,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001704,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001668,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0004205,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0004155,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0004155,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000426,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000417,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003364,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00003408,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00003336,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000841,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000834,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001676,
+          "inputTokens": 838,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001624,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001624,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001698,
+          "inputTokens": 849,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001746,
+          "inputTokens": 873,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003364,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003408,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003336,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003364,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003408,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003336,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003364,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003324,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003408,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003336,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00012615,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001278,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001251,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000841,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000831,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000834,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -9471,6 +14036,166 @@
           "inputCost": 0.001476,
           "inputTokens": 738,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0002095,
+          "inputTokens": 838,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000203,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000203,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00021225,
+          "inputTokens": 849,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00021825,
+          "inputTokens": 873,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001676,
+          "inputTokens": 838,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001624,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001624,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001698,
+          "inputTokens": 849,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001746,
+          "inputTokens": 873,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0005866,
+          "inputTokens": 838,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0005684,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0005684,
+          "inputTokens": 812,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0005943,
+          "inputTokens": 849,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0006111,
+          "inputTokens": 873,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00012615,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00012465,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001278,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001251,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001682,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001662,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001662,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001704,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001668,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -9891,6 +14616,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000804,
+          "inputTokens": 268,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000738,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000738,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000768,
+          "inputTokens": 256,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000801,
+          "inputTokens": 267,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -9921,6 +14678,166 @@
           "inputCost": 0.0002895,
           "inputTokens": 193,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00003195,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000318,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0005375,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0005175,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0005175,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0005325,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00053,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000848,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000213,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000212,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000213,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000212,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -10531,6 +15448,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00043,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000414,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000414,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000426,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000424,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001075,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001035,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001035,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001065,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000106,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00000852,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00000848,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000213,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000212,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000536,
+          "inputTokens": 268,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000492,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000492,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000512,
+          "inputTokens": 256,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000534,
+          "inputTokens": 267,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000848,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000848,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000086,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000828,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000852,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000848,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00003195,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000318,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000215,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000207,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000213,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000212,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -10817,6 +16054,166 @@
           "inputCost": 0.000386,
           "inputTokens": 193,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000067,
+          "inputTokens": 268,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000615,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000615,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000064,
+          "inputTokens": 256,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00006675,
+          "inputTokens": 267,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000536,
+          "inputTokens": 268,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000492,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000492,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000512,
+          "inputTokens": 256,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000534,
+          "inputTokens": 267,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001876,
+          "inputTokens": 268,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001722,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001722,
+          "inputTokens": 246,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001792,
+          "inputTokens": 256,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001869,
+          "inputTokens": 267,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00003225,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003105,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00003195,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000318,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00043,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000414,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000414,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000426,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000424,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -11237,6 +16634,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001323,
+          "inputTokens": 441,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001272,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001272,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001302,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001386,
+          "inputTokens": 462,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -11267,6 +16696,166 @@
           "inputCost": 0.0005655,
           "inputTokens": 377,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00006645,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0011075,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001085,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001085,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0010975,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0010975,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001772,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000443,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000443,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -11877,6 +17466,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000886,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000878,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000878,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0002215,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000217,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000217,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0002195,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0002195,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00001772,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000443,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000882,
+          "inputTokens": 441,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000848,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000848,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000924,
+          "inputTokens": 462,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001772,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001772,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001772,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001736,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001756,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00006645,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000443,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000434,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000439,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -12163,6 +18072,166 @@
           "inputCost": 0.000754,
           "inputTokens": 377,
           "tokenizer": "o200k_base"
+        }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00011025,
+          "inputTokens": 441,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000106,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000106,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001085,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001155,
+          "inputTokens": 462,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000882,
+          "inputTokens": 441,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000848,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000848,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000924,
+          "inputTokens": 462,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0003087,
+          "inputTokens": 441,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002968,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002968,
+          "inputTokens": 424,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003038,
+          "inputTokens": 434,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003234,
+          "inputTokens": 462,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00006645,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000651,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00006585,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000886,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000868,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000878,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000878,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
         }
       }
     },
@@ -12583,6 +18652,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "codestral-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001128,
+          "inputTokens": 376,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000336,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002841,
+          "inputTokens": 947,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0001536,
+          "inputTokens": 512,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001368,
+          "inputTokens": 456,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
       "codex-mini-latest": {
         "json": {
           "approximate": false,
@@ -12613,6 +18714,166 @@
           "inputCost": 0.0005835,
           "inputTokens": 389,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-r": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000522,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001665,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001209,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000705,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00007455,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "command-r-plus": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00087,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002775,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.002015,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001175,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0012425,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-medium-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001392,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000444,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003224,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000188,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001988,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000348,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000111,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000806,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000047,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000497,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "devstral-small-2507": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000348,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000111,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000806,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000047,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000497,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
         }
       },
       "gemini-1.5-flash": {
@@ -13223,6 +19484,326 @@
           "tokenizer": "o200k_base"
         }
       },
+      "magistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000696,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000222,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001612,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00094,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000994,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "magistral-small": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000174,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000555,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000403,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000235,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0002485,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-3b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00001392,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00000444,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00003224,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000188,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00001988,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "ministral-8b-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000348,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000111,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000806,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000047,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000497,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000752,
+          "inputTokens": 376,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001894,
+          "inputTokens": 947,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001024,
+          "inputTokens": 512,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000912,
+          "inputTokens": 456,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "mistral-medium-2505": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001392,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000444,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003224,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000188,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001988,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-2508": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001392,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000444,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003224,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000188,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001988,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-medium-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0001392,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000444,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0003224,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000188,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001988,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-nemo": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000522,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001665,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001209,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000705,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00007455,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "mistral-small-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000348,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000111,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0000806,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000047,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0000497,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
       "o1": {
         "json": {
           "approximate": false,
@@ -13510,9 +20091,169 @@
           "inputTokens": 389,
           "tokenizer": "o200k_base"
         }
+      },
+      "open-mistral-7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000094,
+          "inputTokens": 376,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000028,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00023675,
+          "inputTokens": 947,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000128,
+          "inputTokens": 512,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000114,
+          "inputTokens": 456,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x22b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000752,
+          "inputTokens": 376,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000224,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001894,
+          "inputTokens": 947,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001024,
+          "inputTokens": 512,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000912,
+          "inputTokens": 456,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "open-mixtral-8x7b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0002632,
+          "inputTokens": 376,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0000784,
+          "inputTokens": 112,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0006629,
+          "inputTokens": 947,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0003584,
+          "inputTokens": 512,
+          "tokenizer": "mistral_v1_v3"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0003192,
+          "inputTokens": 456,
+          "tokenizer": "mistral_v1_v3"
+        }
+      },
+      "pixtral-12b": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0000522,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00001665,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0001209,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0000705,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00007455,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
+      },
+      "pixtral-large-latest": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000696,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000222,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001612,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00094,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000994,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
+        }
       }
     }
   },
-  "ratesVersion": "2026-05-08",
+  "ratesVersion": "2026-05-09",
   "schemaVersion": 1
 }

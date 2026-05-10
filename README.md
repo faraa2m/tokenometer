@@ -2,10 +2,11 @@
 
 [![npm tokenometer](https://img.shields.io/npm/v/tokenometer.svg?label=tokenometer)](https://www.npmjs.com/package/tokenometer)
 [![npm @tokenometer/core](https://img.shields.io/npm/v/@tokenometer/core.svg?label=@tokenometer/core)](https://www.npmjs.com/package/@tokenometer/core)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/faraa2m.tokenometer-vscode?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode)
+[![Open VSX](https://img.shields.io/open-vsx/v/faraa2m/tokenometer-vscode?label=Open%20VSX)](https://open-vsx.org/extension/faraa2m/tokenometer-vscode)
 [![CI](https://github.com/faraa2m/tokenometer/actions/workflows/ci.yml/badge.svg)](https://github.com/faraa2m/tokenometer/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/faraa2m/tokenometer.svg?style=social)](https://github.com/faraa2m/tokenometer/stargazers)
-<!-- TODO: add marketplace badge after v1.0.0 publish -->
 
 > Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost-guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
 > **Live: https://tokenometer.vercel.app**
@@ -127,7 +128,7 @@ Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini, `MISTRAL_API_KEY` for Mis
 ### 3. CI guardrail (GitHub Action)
 
 ```yaml
-- uses: faraa2m/tokenometer@v0
+- uses: faraa2m/tokenometer/packages/action@v1
   with:
     paths: prompts/**/*.md,prompts/**/*.json
     models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o
@@ -141,8 +142,10 @@ Posts a sticky PR comment with the cost diff vs the base branch, including a per
 ### 4. Live cost in your editor (VS Code / Cursor)
 
 ```
-ext install faraa2m.tokenometer-vscode   # marketplace listing arrives with v1.0.0
+ext install faraa2m.tokenometer-vscode
 ```
+
+Or install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode) or [Open VSX](https://open-vsx.org/extension/faraa2m/tokenometer-vscode) (Cursor / VSCodium).
 
 Status bar shows `model · tokens · USD` for the active prompt file, updates on every keystroke (debounced), and turns warning-colored when you exceed `tokenometer.warnOnCostAbove`. Same `@tokenometer/core` as the CLI — what you see in the editor matches what CI computes. See [`packages/vscode/README.md`](packages/vscode/README.md).
 
@@ -202,7 +205,7 @@ Full flag reference: [`packages/cli/README.md`](packages/cli/README.md).
 
 ## Status
 
-Approaching v1.0.0. See [milestones](https://github.com/faraa2m/tokenometer/milestones) for what's left in Phase I (marketplace publish, smoke tests, release pipeline) before the v1 cut.
+**v1.0.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.vercel.app](https://tokenometer.vercel.app). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
 
 ## License
 

@@ -1,8 +1,10 @@
 # Tokenometer for VS Code & Cursor
 
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/faraa2m.tokenometer-vscode?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode)
+[![Open VSX](https://img.shields.io/open-vsx/v/faraa2m/tokenometer-vscode?label=Open%20VSX)](https://open-vsx.org/extension/faraa2m/tokenometer-vscode)
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
 
-> Live token count **and USD cost** for the active prompt file, right in the status bar — across Claude, GPT-4o, and Gemini.
+> Live token count **and USD cost** for the active prompt file, right in the status bar — across Claude, GPT-4o, Gemini, Mistral, and Cohere.
 
 Most "token counter" extensions stop at counts. Tokenometer adds the dollar value, using the same pricing the [`tokenometer` CLI](https://www.npmjs.com/package/tokenometer) and GitHub Action use, so what you see in the editor matches what you'd see in CI and on the npm side.
 
@@ -10,16 +12,12 @@ Most "token counter" extensions stop at counts. Tokenometer adds the dollar valu
 
 ## Install
 
-### Marketplace (coming with v1.0.0)
+- **VS Code:** [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode) — or run `ext install faraa2m.tokenometer-vscode` from the command palette.
+- **Cursor / VSCodium:** [Open VSX listing](https://open-vsx.org/extension/faraa2m/tokenometer-vscode).
 
-The Marketplace install button arrives with the v1.0.0 cut — Phase I owns that publish step. Track it on the [milestones page](https://github.com/faraa2m/tokenometer/milestones).
+### Build locally (`.vsix`)
 
-- **VS Code Marketplace:** _coming with v1.0.0_
-- **Open VSX (Cursor / VSCodium):** _coming with v1.0.0_
-
-### Build locally now (`.vsix`)
-
-While the Marketplace listing is in flight, build a `.vsix` from this repo and side-load it:
+To side-load a development build:
 
 ```bash
 npm install

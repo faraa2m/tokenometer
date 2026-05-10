@@ -1,6 +1,6 @@
 ---
 name: tokenometer-cost-check
-description: Use when measuring or comparing token cost of prompts across LLM providers (Claude, GPT-4o, Gemini), estimating cost of agent system prompts before deploy, validating that a code change doesn't increase prompt-cost, or picking the cheapest model for a given prompt shape. Wraps the `tokenometer` CLI.
+description: Use when measuring or comparing token cost of prompts across LLM providers (Claude, GPT-4o, Gemini, Mistral, Cohere), estimating cost of agent system prompts before deploy, validating that a code change doesn't increase prompt-cost, or picking the cheapest model for a given prompt shape. Wraps the `tokenometer` CLI.
 ---
 
 # Tokenometer cost check
@@ -10,13 +10,15 @@ description: Use when measuring or comparing token cost of prompts across LLM pr
 This skill teaches you to invoke `npx tokenometer` for empirical token-cost
 measurement. Given a prompt file (or stdin), `tokenometer` reports the token
 count and USD cost across one or more LLM providers (Anthropic Claude,
-OpenAI GPT-4o, Google Gemini) and one or more serialization formats
-(JSON / YAML / XML / Markdown / text). Counts can be offline (proxy
-tokenizers) or empirical (provider `countTokens` APIs — both Anthropic and
-Google offer this for free; OpenAI's `o200k_base` matches production
-exactly). USD cost is sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens)
-pricing registry. Use this skill any time the user asks "what does this
-prompt cost" or anything adjacent.
+OpenAI GPT-4o, Google Gemini, Mistral, and Cohere) and one or more
+serialization formats (JSON / YAML / XML / Markdown / text). Counts can be
+offline (proxy tokenizers) or empirical (provider `countTokens` APIs —
+Anthropic, Google, and Cohere offer this for free; OpenAI's `o200k_base`
+matches production exactly; Mistral has no public token-count endpoint, so
+the offline SentencePiece tokenizer is used). USD cost is sourced from the
+[`tokenlens`](https://www.npmjs.com/package/tokenlens) pricing registry.
+Use this skill any time the user asks "what does this prompt cost" or
+anything adjacent.
 
 ## When to invoke
 

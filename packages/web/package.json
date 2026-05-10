@@ -1,7 +1,7 @@
 {
   "name": "@tokenometer/web",
   "version": "0.0.2",
-  "description": "Tokenometer playground — calculator, vision-cost, prompt-diff, model atlas.",
+  "description": "Tokenometer playground — calculator, vision-token cost, prompt diff, SARIF, model atlas, init wizard.",
   "license": "MIT",
   "private": true,
   "type": "module",

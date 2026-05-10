@@ -1,10 +1,26 @@
 {
   "name": "@tokenometer/action",
   "version": "0.0.2",
-  "description": "Tokenometer GitHub Action — sticky PR comment with prompt-cost diff and budget gate.",
+  "description": "Tokenometer GitHub Action — sticky PR comment with prompt-cost diff, per-file attribution, and budget gate.",
   "license": "MIT",
   "private": true,
-  "keywords": ["ci", "code-quality", "github-action", "llm-cost", "prompt-cost"],
+  "keywords": [
+    "anthropic",
+    "ci",
+    "ci-cd",
+    "claude",
+    "code-quality",
+    "code-scanning",
+    "cohere",
+    "github-action",
+    "gpt-4o",
+    "llm-cost",
+    "mistral",
+    "openai",
+    "prompt-cost",
+    "prompt-cost-regression",
+    "sarif"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {

@@ -22,5 +22,5 @@ Awesome-llm-apps already curates apps and tooling that help builders ship with L
 ## Markdown line for the list
 
 ```
-- [Tokenometer](https://github.com/faraa2m/tokenometer) — LLM token cost CLI + GitHub Action. Multi-provider, empirical, CI-native.
+- [Tokenometer](https://github.com/faraa2m/tokenometer) — LLM token cost + latency CLI + GitHub Action + VS Code extension + Claude Code skill. 63 models across Claude, GPT-4o, Gemini, Mistral, Cohere. Empirical mode, CI-native cost guardrail.
 ```

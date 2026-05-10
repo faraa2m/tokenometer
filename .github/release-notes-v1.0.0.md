@@ -1,43 +1,83 @@
-# Tokenometer v1.0.0 — Production-ready LLM cost calculator and CI guardrail.
+# Tokenometer v1.0.0 — Production-ready LLM cost calculator, latency benchmark, and CI guardrail.
 
-> Note: this is a **DRAFT**. Some items below are marked `[planned]` because the
-> phase has not yet landed on `main`. Edit before publishing the GitHub Release.
+> Note: this is a **DRAFT**. Edit before publishing the GitHub Release. All
+> items below have already landed on `main` (Waves 2 + 3); the only items
+> still in-flight at the time this draft was written are the marketplace
+> publish, smoke tests, and release pipeline polish (Phase I).
 
 ## Highlights
 
-- **CLI + GitHub Action shipped** — `npx tokenometer` and the marketplace action
-  share a single core, so local results match CI results.
-- **Multi-provider** — Claude (Opus / Sonnet / Haiku), OpenAI GPT-4o family, and
-  Google Gemini all run through the same interface.
-- **Empirical mode** — real `countTokens` API calls (free for Anthropic and
-  Google) instead of ad-hoc heuristics; falls back to `approximate` only when
-  the user opts out or no key is configured.
-- **CI cost-guardrail** — sticky PR comment with a per-model diff, plus a
-  `budget` input that fails the run when the head delta exceeds your USD cap.
-- **Auto-updating prices** — pricing and context limits are sourced from the
-  `tokenlens` registry, not a hand-maintained table.
-- **Honest `approximate` flag** — every output row is tagged so you always know
-  whether a number came from a real tokenizer or an estimate.
-- **Vision-token cost** `[planned — Phase D]` — image-aware token accounting
-  for multi-modal prompts.
-- **Per-file attribution** `[planned — Phase C.4]` — costs broken down by source
-  file in PR comments.
-- **SARIF output** `[planned — Phase C.5]` — lets cost regressions surface in
-  GitHub code scanning.
-- **Auto provider detection** `[planned — Phase C.1]` — infer the provider from
-  the model id without an extra flag.
-- **`.tokenometer.yml` config** `[planned — Phase C.2]` — repo-level defaults
-  for paths, models, and budgets.
-- **VS Code / Cursor extension** `[planned — Phase E.1]` — inline cost lens for
-  prompt files in the editor.
-- **Claude Code skill** `[planned — Phase E.2]` — first-class skill so Claude
-  Code can call Tokenometer when iterating on prompts.
-- **Mistral + Cohere providers** `[planned — Phase H]` — additional model
-  families behind the same CLI surface.
-- **Latency mode** `[planned]` — `--latency` flag to surface per-model latency
-  alongside cost.
-- **Unified release pipeline** — one workflow publishes both `tokenometer` and
-  `@tokenometer/core` so the CLI and library never drift.
+- **CLI + GitHub Action + VS Code extension + Claude Code skill — one core.**
+  `npx tokenometer`, the marketplace Action, the editor status bar, and the
+  Claude Code skill all share `@tokenometer/core`, so local results match CI
+  results match what's on screen in the editor match what an agent reports.
+- **Multi-provider** — Claude (Opus / Sonnet / Haiku, Claude 3.x), OpenAI
+  GPT-4o family + o1, Google Gemini 2.5 / 1.5, Mistral (19 models — open
+  weights, large, codestral, NeMo, Pixtral, Magistral, Ministral, Devstral,
+  Mistral Medium 2505), and Cohere (command-r, command-r-plus). 63 models
+  total.
+- **Empirical mode** — real `countTokens` API calls (free for Anthropic,
+  Google, and Cohere; tiktoken-anchored for OpenAI) instead of ad-hoc
+  heuristics; falls back to `approximate` only when the user opts out or
+  no key is configured. Mistral has no public token-count endpoint —
+  offline `mistral-tokenizer-js` is exact for SentencePiece-family models
+  and `chars/4` for Tekken-family models.
+- **Latency benchmarking (`--latency`)** — TTFT, total ms, and tokens/sec
+  reported as p50 / p95 / mean over `n` real generations (default `n=3`,
+  configurable with `--latency-trials 1..10`). Supported on Anthropic,
+  OpenAI, Google, Cohere, and Mistral. The default `--max-spend` is
+  bumped from `$0.05` to `$0.25` when `--latency` is set.
+- **CI cost-guardrail** — sticky PR comment with a per-model summary and a
+  per-file Δ table (configurable via `top-n-files`, with the rest folded
+  into a `<details>` block). The `budget` input fails the run when the
+  head delta exceeds your USD cap.
+- **Per-file attribution** (`--by-file` in the CLI; per-file Δ in the
+  Action comment) so you know which prompt files dominate cost.
+- **SARIF output** (`--output sarif`) — drop the file into GitHub Code
+  Scanning or any SARIF viewer to surface cost regressions next to lint
+  findings.
+- **Vision-token cost** (`--image <path>`) — image-aware accounting for
+  Claude (`(w*h)/750`, capped at 1600), GPT-4o (high-detail tile cost),
+  and Gemini (`258 × ⌈w/768⌉ × ⌈h/768⌉`).
+- **Auto provider detection** — infer the default model from whichever
+  `*_API_KEY` env var is set. No flag needed for the common case.
+- **`.tokenometer.yml` config** — repo-level defaults for paths, models,
+  formats, and budgets. Walks up from cwd, stopping at `.git`. CLI
+  flags always win.
+- **VS Code / Cursor extension** — status bar shows live `model · tokens
+  · USD` for the active prompt file. Settings: `tokenometer.model`,
+  `tokenometer.format`, `tokenometer.warnOnCostAbove`. Commands:
+  *Tokenometer: Switch model*, *Tokenometer: Show details*. Marketplace
+  listing arrives with this release; until then, `npm run package:vsix
+  --workspace=@tokenometer/vscode` builds a side-loadable `.vsix`.
+- **Claude Code skill** (`tokenometer-cost-check`) — drop into
+  `~/.claude/skills/tokenometer/SKILL.md` and Claude Code agents will
+  reach for `npx tokenometer` when asked anything cost- or latency-shaped.
+- **Auto-updating prices** — pricing and context limits are sourced from
+  the `tokenlens` registry, not a hand-maintained table. A small
+  `LOCAL_OVERRIDES` map covers bleeding-edge models (and the entire
+  Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0).
+- **Honest `approximate` flag** — every output row is tagged so you
+  always know whether a number came from a real tokenizer or an estimate.
+- **Unified release pipeline** — one workflow publishes both
+  `tokenometer` and `@tokenometer/core` so the CLI and library never
+  drift.
+
+## v1.0.0 launch surface
+
+| Surface | Where | Notes |
+|---|---|---|
+| CLI | `npx tokenometer` / `npm i -g tokenometer` | All flags above |
+| GitHub Action | `faraa2m/tokenometer@v1` (Marketplace) | Sticky PR comment with per-file Δ + budget gate |
+| VS Code extension | Marketplace + Open VSX (Cursor / VSCodium) | Status bar live cost |
+| Claude Code skill | `~/.claude/skills/tokenometer/SKILL.md` | Agentic prompt-cost awareness |
+| Web playground | https://tokenometer.vercel.app | Calculator, diff, by-file, SARIF, vision, config builder, init wizard, Cost Atlas |
+| Library | `@tokenometer/core` on npm | Engine for everything above |
+
+**Providers (5):** Anthropic, OpenAI, Google, Mistral, Cohere
+**Models (63):** Claude 4.x + 3.x, GPT-4o family + o1, Gemini 2.5 + 1.5, Mistral 19-model catalog, Cohere command-r family
+**Output formats:** table, JSON, SARIF
+**Latency providers:** Anthropic, OpenAI, Google, Cohere, Mistral
 
 ## Empirical findings
 
@@ -61,6 +101,19 @@ GitHub Action:
       prompts/**/*.md
     models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o
     budget: '0.50'
+    top-n-files: 5
+```
+
+VS Code / Cursor:
+
+```
+ext install faraa2m.tokenometer-vscode
+```
+
+Claude Code skill:
+
+```
+cp -R packages/claude-code-skill ~/.claude/skills/tokenometer
 ```
 
 ## What's next

@@ -3,31 +3,80 @@
 [![npm @tokenometer/core](https://img.shields.io/npm/v/@tokenometer/core.svg?label=@tokenometer/core)](https://www.npmjs.com/package/@tokenometer/core)
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
 
-> Core library powering [tokenometer](https://www.npmjs.com/package/tokenometer): tokenizer dispatch, format converters, versioned cost rate matrix, and an empirical-mode `countTokens` adapter for Anthropic, OpenAI, and Google.
+> Core library powering [tokenometer](https://www.npmjs.com/package/tokenometer): tokenizer dispatch, format converters, versioned cost rate matrix, vision-token estimators, latency measurement, SARIF emitter, config loader, and an empirical-mode `countTokens` adapter for Anthropic, OpenAI, Google, Mistral, and Cohere.
 
 See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
 [**Live playground**](https://tokenometer.vercel.app) · [Source](https://github.com/faraa2m/tokenometer) · MIT
 
-If you just want a CLI, `npm install -g tokenometer`. This package is for programmatic use.
+If you just want a CLI, `npm install -g tokenometer`. This package is for programmatic use — it's the engine the CLI, the GitHub Action, the VS Code / Cursor extension, and the playground all share, so counts and pricing stay identical across every surface.
 
 ## API
 
 ```ts
 import {
+  // Core tokenization
   tokenize,
   tokenizeMatrix,
+  countTokens,
+  // Empirical (real provider countTokens / tokenize endpoints)
   tokenizeEmpirical,
   tokenizeMatrixEmpirical,
-  countTokens,
+  // Latency benchmarking
+  measureLatency,
+  nthPercentile,
+  // Format conversion
   toFormat,
   isFormat,
   allFormats,
+  // Config (.tokenometer.yml)
+  loadConfig,
+  parseConfig,
+  // SARIF + JSON emitter
+  toSarif,
+  // Vision-token estimators
+  anthropicVisionTokens,
+  openaiVisionTokens,
+  googleVisionTokens,
+  // Pricing / model registry
   KNOWN_MODELS,
+  MODELS,
   RATES,
   RATES_VERSION,
   getModel,
   getRate,
+} from '@tokenometer/core';
+
+import type {
+  // Token results
+  CountResult,
+  TokenizeResult,
+  EmpiricalResult,
+  EmpiricalCountResult,
+  EmpiricalEnv,
+  // Latency
+  LatencyResult,
+  LatencyTrial,
+  LatencyStats,
+  LatencyDeps,
+  MeasureLatencyOptions,
+  // Aggregates / formatters
+  TokenometerResult,
+  TokenometerFileResult,
+  ToSarifOptions,
+  // Config
+  TokenometerConfig,
+  ConfigFormat,
+  // Vision input shapes
+  AnthropicVisionInput,
+  OpenAIVisionInput,
+  GoogleVisionInput,
+  // Registry
+  ModelDescriptor,
+  Provider,
+  RateEntry,
+  Format,
+  TokenizerKind,
 } from '@tokenometer/core';
 ```
 
@@ -62,9 +111,54 @@ const result = await tokenizeEmpirical({
 // approximate: false  ← uses Anthropic's messages.countTokens
 ```
 
+### Latency benchmarking
+
+```ts
+const stats = await measureLatency({
+  modelId: 'claude-opus-4-7',
+  prompt: 'Write a haiku about CI.',
+  trials: 3,
+  env: { anthropicApiKey: process.env.ANTHROPIC_API_KEY! },
+});
+// LatencyResult: { trials: LatencyTrial[], stats: { ttftMs, totalMs, tokensPerSec } }
+// Each stat is { p50, p95, mean }.
+```
+
+Supported providers: Anthropic (`messages.stream`), OpenAI (`/v1/chat/completions` SSE), Google (`generateContentStream`), Cohere (`/v1/chat` NDJSON), Mistral (`/v1/chat/completions` SSE). Each call is capped at `max_tokens=200`; trials retry once on transient failures.
+
+### Vision tokens
+
+```ts
+const tokens = anthropicVisionTokens({ width: 1280, height: 720 });
+// 1228 (capped at 1600 for very large images)
+```
+
+The `openaiVisionTokens` and `googleVisionTokens` exports are formula-equivalent to the OpenAI high-detail tile cost and Gemini's 258-per-768²-tile cost respectively.
+
+### SARIF + JSON output
+
+```ts
+const sarif = toSarif({ files: [{ path: 'prompt.md', results: [...] }] });
+// SARIF 2.1.0 — drop into GitHub Code Scanning or any SARIF viewer.
+```
+
 ### Rate table
 
-`RATES` is a `Record<modelId, { inputPer1k, outputPer1k, cachedInputPer1k? }>`. `RATES_VERSION` ships as a date string so consumers can pin or audit.
+`RATES` is a `Record<modelId, { inputPer1k, outputPer1k, cachedInputPer1k? }>`. `RATES_VERSION` ships as a date string so consumers can pin or audit. `KNOWN_MODELS` is the union (currently 63 across 5 providers).
+
+## Providers
+
+| Provider  | Models | Offline tokenizer | Exactness | Empirical (`tokenizeEmpirical`) |
+|-----------|--------|-------------------|-----------|----------------------------------|
+| OpenAI    | `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-3.5-turbo`, `o1` family | `gpt-tokenizer` `o200k_base` | exact | same `o200k_base` (matches production) |
+| Anthropic | `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5`, Claude 3.x family | `gpt-tokenizer` `cl100k_base` | approximate | `messages.countTokens` (free, exact) |
+| Google    | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-1.5-pro`, `gemini-1.5-flash` | `chars / 4` heuristic | approximate | `model.countTokens` (free, exact) |
+| Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` (V1/V2/V3 SentencePiece); `chars/4` for Tekken family (NeMo, Pixtral, Mistral Small 2409+, Devstral, Mistral Medium 2505+, Magistral, Ministral) | exact for SentencePiece · approximate for Tekken | unsupported (no public token-count endpoint) |
+| Cohere    | `command-r`, `command-r-plus` | `chars / 4` heuristic | approximate | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
+
+Pricing comes from `@tokenlens/models` plus a small `LOCAL_OVERRIDES` map for bleeding-edge models the registry hasn't picked up yet. Cohere lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0; pull from `cohere.com/pricing` whenever `RATES_VERSION` bumps.
+
+Internally the dispatch helpers `mistralCount`, `cohereCount`, `cohereTokenizeApi`, and `isTekken` (in `tokenize-mistral.ts` / `tokenize-cohere.ts`) are not part of the public API — they're called from `tokenize` / `tokenizeEmpirical`. If you need them, import the files directly; they may move.
 
 ## License
 

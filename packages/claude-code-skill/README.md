@@ -38,11 +38,12 @@ discoverable.
 ## What's it do
 
 The skill registers trigger phrases like "what does this prompt cost",
-"is this cheaper as JSON or YAML", and "did my change increase prompt
-cost". When matched, Claude Code knows to shell out to
-`npx tokenometer …` instead of guessing — then surfaces real token
-counts and USD cost across Claude / GPT-4o / Gemini, with an
-honesty flag for approximate vs exact counts.
+"is this cheaper as JSON or YAML", "is GPT-4o or Claude faster on this
+prompt", and "did my change increase prompt cost". When matched, Claude
+Code knows to shell out to `npx tokenometer …` instead of guessing —
+then surfaces real token counts, USD cost, and (with `--latency`) TTFT
++ tokens/sec across Claude, GPT-4o, Gemini, Mistral, and Cohere, with
+an honesty flag for approximate vs exact counts.
 
 See [`SKILL.md`](./SKILL.md) for the full skill content (trigger
 phrases, invocation patterns, output handling, and the empirical

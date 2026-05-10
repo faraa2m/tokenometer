@@ -1,7 +1,7 @@
 # Tokenometer GitHub Action
 
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
-<!-- TODO: add marketplace badge after v1.0.0 publish -->
+[![GitHub release](https://img.shields.io/github/v/release/faraa2m/tokenometer?label=release)](https://github.com/faraa2m/tokenometer/releases/latest)
 
 Posts a sticky PR comment with the prompt-cost diff between your branch and its base, including a per-file Δ table. Fails the check when the delta exceeds a budget.
 
@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: faraa2m/tokenometer@v0
+      - uses: faraa2m/tokenometer/packages/action@v1
         with:
           paths: prompts/**/*.md,prompts/**/*.json
           models: claude-opus-4-7,claude-sonnet-4-6,gpt-4o

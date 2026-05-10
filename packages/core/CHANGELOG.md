@@ -1,5 +1,15 @@
 # @tokenometer/core
 
+## 1.0.1
+
+### Patch Changes
+
+- [#32](https://github.com/faraa2m/tokenometer/pull/32) [`c1b608b`](https://github.com/faraa2m/tokenometer/commit/c1b608bcce9df8d1a6d3dd51132554fa6f5318fd) Thanks [@faraa2m](https://github.com/faraa2m)! - CLI error UX polish: known user errors (missing API key, unknown model, unknown format) now print a clean one-line `tokenometer: <message>` instead of dumping a Node stack trace under "Unexpected error:". Bad flag / format / output errors now print a short `Run 'tokenometer --help' for usage.` hint instead of dumping the full help body.
+
+  - New `UserFacingError` class in `@tokenometer/core` (exported); thrown by `getModel` / `getRate` for unknown ids and by empirical / latency `requireKey` for missing provider keys.
+  - CLI catches `UserFacingError` at both `main()` and the IIFE entry point, so programmatic callers also get a clean exit code (1) instead of a rejected promise.
+  - Existing exit-code semantics preserved: `2` for argv parse errors (bad flag / format / output), `1` for runtime user errors (unknown model, missing key, missing file, config error).
+
 ## 1.0.0
 
 ### Major Changes

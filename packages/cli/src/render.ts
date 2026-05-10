@@ -1,5 +1,5 @@
 import { getModel } from '@tokenometer/core';
-import type { TokenizeResult } from '@tokenometer/core';
+import type { TokenizeResult, TokenometerFileResult } from '@tokenometer/core';
 
 const padRight = (value: string, width: number): string =>
   value.length >= width ? value : value + ' '.repeat(width - value.length);
@@ -76,4 +76,37 @@ export const renderSummary = (results: readonly TokenizeResult[]): string => {
   if (!cheapest || !priciest || cheapest === priciest) return '';
   const ratio = priciest.inputCost / Math.max(cheapest.inputCost, Number.EPSILON);
   return `\nCheapest: ${cheapest.model} as ${cheapest.format} (${formatCost(cheapest.inputCost)})\nPriciest: ${priciest.model} as ${priciest.format} (${formatCost(priciest.inputCost)}, ${ratio.toFixed(2)}x more)`;
+};
+
+/**
+ * Per-file token + cost summary table. One row per input file (or virtual
+ * file for `--image` entries). No-op when there's only one file.
+ */
+export const renderByFile = (files: readonly TokenometerFileResult[]): string => {
+  if (files.length <= 1) return '';
+  const headers = ['File', 'Tokens', 'USD'] as const;
+  const rows: string[][] = files.map((f) => {
+    const tokens = f.results.reduce((acc, r) => acc + r.inputTokens, 0);
+    const cost = f.results.reduce((acc, r) => acc + r.inputCost, 0);
+    return [f.path, tokens.toLocaleString(), formatCost(cost)];
+  });
+  const widths = headers.map((h, colIdx) => {
+    const maxRowWidth = rows.reduce((acc, row) => Math.max(acc, row[colIdx]?.length ?? 0), 0);
+    return Math.max(h.length, maxRowWidth);
+  });
+  const sep = headers.map((_, i) => '─'.repeat(widths[i] ?? 0)).join('  ');
+  const headerLine = headers.map((h, i) => padRight(h, widths[i] ?? h.length)).join('  ');
+  const dataLines = rows.map((row) =>
+    row
+      .map((cell, i) => {
+        const isNumeric = i >= 1;
+        return isNumeric
+          ? padLeft(cell, widths[i] ?? cell.length)
+          : padRight(cell, widths[i] ?? cell.length);
+      })
+      .join('  '),
+  );
+  return ['\nBy file:', `  ${headerLine}`, `  ${sep}`, ...dataLines.map((l) => `  ${l}`)].join(
+    '\n',
+  );
 };

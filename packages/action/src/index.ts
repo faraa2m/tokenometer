@@ -12,6 +12,7 @@ import {
   tokenize,
 } from '@tokenometer/core';
 import { minimatch } from 'minimatch';
+import { aggregatePerFileDiff, renderPerFileMarkdown } from './per-file-diff.js';
 
 interface Inputs {
   baseRef: string;
@@ -21,6 +22,7 @@ interface Inputs {
   githubToken: string;
   modelIds: string[];
   paths: string[];
+  topNFiles: number;
 }
 
 interface FileCost {
@@ -67,6 +69,12 @@ const readInputs = (): Inputs => {
   if (budget !== null && (!Number.isFinite(budget) || budget < 0)) {
     throw new Error(`budget must be a non-negative number, got "${budgetRaw}"`);
   }
+  const topNRaw = core.getInput('top-n-files').trim();
+  const topNParsed = topNRaw === '' ? 5 : Number.parseInt(topNRaw, 10);
+  if (!Number.isFinite(topNParsed)) {
+    throw new Error(`top-n-files must be an integer 1-20, got "${topNRaw}"`);
+  }
+  const topNFiles = Math.max(1, Math.min(20, topNParsed));
   return {
     baseRef: core.getInput('base-ref').trim(),
     budget,
@@ -75,6 +83,7 @@ const readInputs = (): Inputs => {
     githubToken: core.getInput('github-token'),
     modelIds,
     paths,
+    topNFiles,
   };
 };
 
@@ -174,6 +183,7 @@ const renderMarkdown = (
   models: readonly string[],
   formats: readonly Format[],
   budget: number | null,
+  topNFiles: number,
 ): { body: string; totalDelta: number } => {
   const totalHead = results.reduce((acc, r) => acc + sumCost(r.head), 0);
   const totalBase = results.reduce((acc, r) => acc + (r.base ? sumCost(r.base) : 0), 0);
@@ -218,6 +228,16 @@ const renderMarkdown = (
     lines.push(
       `**Total cost (head):** ${formatCost(totalHead)} · **Δ vs base:** ${formatDelta(totalDelta)}`,
     );
+
+    const perFile = aggregatePerFileDiff(
+      results.map((r) => ({ base: r.base, head: r.head, path: r.path })),
+      { topN: topNFiles },
+    );
+    const perFileMd = renderPerFileMarkdown(perFile);
+    if (perFileMd) {
+      lines.push('');
+      lines.push(perFileMd);
+    }
   }
 
   if (budget !== null) {
@@ -305,6 +325,7 @@ const run = async (): Promise<void> => {
       inputs.modelIds,
       inputs.formats,
       inputs.budget,
+      inputs.topNFiles,
     );
 
     const commentUrl = await upsertStickyComment(inputs.githubToken, inputs.commentMarker, body);

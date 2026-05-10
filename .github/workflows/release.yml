@@ -43,12 +43,16 @@ jobs:
       # are present in `.changeset/`. When that PR is merged, this same workflow
       # auto-bumps versions in package.json, auto-generates CHANGELOG.md entries
       # from the changeset summaries, then publishes to npm.
+      # Note the chained `npm run lint:fix` after `changeset version`. Changesets
+      # rewrites package.json when bumping versions and produces multi-line arrays,
+      # but Biome wants compact arrays — without the lint:fix the version PR's CI
+      # fails immediately. Running lint:fix re-formats the bumped files in place.
       - name: Changesets — version PR or publish
         if: ${{ inputs.dry-run != 'true' }}
         id: changesets
         uses: changesets/action@v1
         with:
-          version: npx changeset version
+          version: npx changeset version && npm run lint:fix
           publish: npx changeset publish
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'

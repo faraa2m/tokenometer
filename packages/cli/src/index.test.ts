@@ -142,14 +142,57 @@ describe('main (integration)', () => {
     expect(paths).toContain('shot.png [vision]');
   });
 
-  it('rejects unknown flags with exit 2 and a stderr message', async () => {
+  it('rejects unknown flags with exit 2 and a short usage hint (not the full help)', async () => {
     const { stdout, stderr } = makeStreams();
     const code = await main(['--unknown'], {
       stderr: stderr as unknown as NodeJS.WriteStream,
       stdout: stdout as unknown as NodeJS.WriteStream,
     });
     expect(code).toBe(2);
-    expect(stderr.text()).toMatch(/Unknown flag/);
+    const err = stderr.text();
+    expect(err).toMatch(/Unknown flag/);
+    expect(err).toMatch(/Run 'tokenometer --help'/);
+    // Short hint only — no full HELP_TEXT body, which would dump every model id.
+    expect(err).not.toContain('USAGE');
+    expect(err).not.toContain('EXAMPLES');
+  });
+
+  it('unknown model exits 1 with a clean message (no stack trace)', async () => {
+    const file = writePrompt(tmpRoot, 'p.md', 'hello');
+    const { stdout, stderr } = makeStreams();
+    const code = await main([file, '--model', 'not-a-real-model', '--no-config'], {
+      stderr: stderr as unknown as NodeJS.WriteStream,
+      stdout: stdout as unknown as NodeJS.WriteStream,
+    });
+    expect(code).toBe(1);
+    const err = stderr.text();
+    expect(err).toMatch(/^tokenometer: /);
+    expect(err).toMatch(/Unknown model "not-a-real-model"/);
+    // No stack frames in user-facing errors.
+    expect(err).not.toMatch(/\bat \w/);
+  });
+
+  it('--empirical without the matching API key exits 1 with a clean message (no stack trace)', async () => {
+    const file = writePrompt(tmpRoot, 'p.md', 'hello');
+    const original = process.env.ANTHROPIC_API_KEY;
+    Reflect.deleteProperty(process.env, 'ANTHROPIC_API_KEY');
+    try {
+      const { stdout, stderr } = makeStreams();
+      const code = await main(
+        [file, '--empirical', '--max-spend', '0.01', '--model', 'claude-opus-4-7', '--no-config'],
+        {
+          stderr: stderr as unknown as NodeJS.WriteStream,
+          stdout: stdout as unknown as NodeJS.WriteStream,
+        },
+      );
+      expect(code).toBe(1);
+      const err = stderr.text();
+      expect(err).toMatch(/^tokenometer: /);
+      expect(err).toMatch(/anthropic empirical mode requires ANTHROPIC_API_KEY/);
+      expect(err).not.toMatch(/\bat \w/);
+    } finally {
+      if (original !== undefined) process.env.ANTHROPIC_API_KEY = original;
+    }
   });
 
   it('--config <path> loads the named config and applies its models', async () => {

@@ -16,6 +16,7 @@ vi.mock('@google/generative-ai', () => ({
 }));
 
 const { tokenizeEmpirical, tokenizeMatrixEmpirical } = await import('./empirical.js');
+const { UserFacingError } = await import('./errors.js');
 
 describe('tokenizeEmpirical', () => {
   beforeEach(() => {
@@ -62,7 +63,15 @@ describe('tokenizeEmpirical', () => {
     expect(result.inputTokens).toBeGreaterThan(0);
   });
 
-  it('throws a clear error when Anthropic key is missing', async () => {
+  it('throws a UserFacingError when Anthropic key is missing', async () => {
+    await expect(
+      tokenizeEmpirical({
+        env: {},
+        format: 'json',
+        modelId: 'claude-opus-4-7',
+        prompt: 'hi',
+      }),
+    ).rejects.toThrow(UserFacingError);
     await expect(
       tokenizeEmpirical({
         env: {},

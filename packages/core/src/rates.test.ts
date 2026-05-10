@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { UserFacingError } from './errors.js';
 import { KNOWN_MODELS, MODELS, RATES, getModel, getRate } from './rates.js';
 
 describe('rates', () => {
@@ -68,11 +69,13 @@ describe('rates', () => {
     expect(gpt4o.pricingSource).toBe('tokenlens');
   });
 
-  it('getRate throws on unknown model', () => {
+  it('getRate throws UserFacingError on unknown model', () => {
+    expect(() => getRate('not-a-model')).toThrow(UserFacingError);
     expect(() => getRate('not-a-model')).toThrow(/Unknown model/);
   });
 
-  it('getModel throws on unknown model', () => {
+  it('getModel throws UserFacingError on unknown model', () => {
+    expect(() => getModel('not-a-model')).toThrow(UserFacingError);
     expect(() => getModel('not-a-model')).toThrow(/Unknown model/);
   });
 

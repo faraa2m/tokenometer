@@ -1,6 +1,7 @@
 export { loadConfig, parseConfig } from './config.js';
 export type { ConfigFormat, TokenometerConfig } from './config.js';
 export { allFormats, isFormat, toFormat } from './convert.js';
+export { UserFacingError } from './errors.js';
 export { tokenizeEmpirical, tokenizeMatrixEmpirical } from './empirical.js';
 export type { EmpiricalCountResult, EmpiricalEnv } from './empirical.js';
 export { toSarif } from './format-sarif.js';

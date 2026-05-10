@@ -36,7 +36,8 @@
       "**/coverage",
       "benchmarks/prompts/**",
       "benchmarks/results.json",
-      "packages/web/index.html"
+      "packages/web/index.html",
+      ".claude/**"
     ]
   }
 }

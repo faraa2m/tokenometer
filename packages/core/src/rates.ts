@@ -4,6 +4,7 @@ import googleProvider from '@tokenlens/models/google';
 import mistralProvider from '@tokenlens/models/mistral';
 import openaiProvider from '@tokenlens/models/openai';
 import { getContext, getTokenCosts } from 'tokenlens';
+import { UserFacingError } from './errors.js';
 import type { ModelDescriptor, Provider, RateEntry } from './types.js';
 
 export const RATES_VERSION = '2026-05-09';
@@ -162,7 +163,9 @@ export const KNOWN_MODELS: readonly string[] = Object.keys(REGISTRY).sort();
 export const getRate = (modelId: string): RateEntry => {
   const entry = REGISTRY[modelId];
   if (!entry) {
-    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
+    throw new UserFacingError(
+      `Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`,
+    );
   }
   return entry.rate;
 };
@@ -170,7 +173,9 @@ export const getRate = (modelId: string): RateEntry => {
 export const getModel = (modelId: string): ModelDescriptor => {
   const entry = REGISTRY[modelId];
   if (!entry) {
-    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`);
+    throw new UserFacingError(
+      `Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(', ')}.`,
+    );
   }
   return entry.descriptor;
 };

@@ -307,7 +307,25 @@ jobs:
         run: |
           VERSION="${{ needs.release.outputs.version }}"
           echo "Smoke-testing tokenometer@$VERSION"
-          npx --yes tokenometer@$VERSION --version
-          echo "test prompt" > /tmp/smoke.md
-          npx --yes tokenometer@$VERSION /tmp/smoke.md --model claude-opus-4-7 --output sarif | jq -e '.version == "2.1.0"' >/dev/null
+          # Wait for npm registry to propagate the new version (some CDN edges
+          # take 30-60s after a successful publish). Retry the install for up
+          # to 3 minutes before giving up.
+          mkdir -p /tmp/smoke && cd /tmp/smoke
+          npm init -y >/dev/null
+          for i in 1 2 3 4 5 6; do
+            if npm install --no-save "tokenometer@$VERSION" >/dev/null 2>&1; then
+              echo "  installed on attempt $i"
+              break
+            fi
+            echo "  attempt $i: waiting 30s for registry propagation..."
+            sleep 30
+          done
+          # Direct node invocation — bypasses npx bin-resolution differences
+          # across runners and works regardless of whether the .bin symlink
+          # got the executable bit honored on this filesystem.
+          ENTRY="node_modules/tokenometer/dist/index.js"
+          test -f "$ENTRY" || { echo "ERROR: $ENTRY missing after install"; ls -la node_modules/tokenometer/dist/ || true; exit 1; }
+          node "$ENTRY" --version
+          echo "test prompt" > smoke.md
+          node "$ENTRY" smoke.md --model claude-opus-4-7 --output sarif | jq -e '.version == "2.1.0"' >/dev/null
           echo "✓ tokenometer@$VERSION CLI smoke passed" >> $GITHUB_STEP_SUMMARY

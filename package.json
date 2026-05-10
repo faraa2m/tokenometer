@@ -29,7 +29,8 @@
     "benchmarks": "node benchmarks/run.mjs",
     "benchmarks:empirical": "node benchmarks/run.mjs --empirical",
     "benchmarks:regenerate": "node benchmarks/run.mjs --regenerate",
-    "smoke": "bash scripts/smoke.sh"
+    "smoke": "bash scripts/smoke.sh",
+    "changeset:version": "changeset version && npm run lint:fix"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -1,6 +1,11 @@
 # Tokenometer GitHub Action
 
+[![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
+<!-- TODO: add marketplace badge after v1.0.0 publish -->
+
 Posts a sticky PR comment with the prompt-cost diff between your branch and its base. Fails the check when the delta exceeds a budget.
+
+See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
 ## Usage
 

@@ -2,7 +2,7 @@
   "name": "tokenometer-monorepo",
   "private": true,
   "version": "0.0.0",
-  "description": "Empirical token-cost benchmarking for LLM prompts.",
+  "description": "Tokenometer — LLM cost calculator, token counter, and CI cost-guardrail Action for Claude, GPT-4o, Gemini.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
   "homepage": "https://github.com/faraa2m/tokenometer",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.27.11",
     "@types/node": "^22.10.5",
     "typescript": "^5.7.2",

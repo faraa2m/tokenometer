@@ -1,7 +1,7 @@
 {
   "name": "@tokenometer/web",
   "version": "0.0.2",
-  "description": "Browser playground for paste-and-compare prompt cost analysis.",
+  "description": "Tokenometer playground — calculator, vision-cost, prompt-diff, model atlas.",
   "license": "MIT",
   "private": true,
   "type": "module",

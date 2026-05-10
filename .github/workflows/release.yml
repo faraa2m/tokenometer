@@ -117,6 +117,7 @@ jobs:
           echo "needs_publish=$NEEDS_PUBLISH" >> $GITHUB_OUTPUT
 
       - name: Publish @tokenometer/core
+        id: publish_core
         if: ${{ steps.detect.outputs.needs_publish == 'true' }}
         working-directory: packages/core
         continue-on-error: true
@@ -125,6 +126,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish tokenometer (CLI)
+        id: publish_cli
         if: ${{ steps.detect.outputs.needs_publish == 'true' }}
         working-directory: packages/cli
         continue-on-error: true
@@ -132,25 +134,36 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Set the `published` output by re-checking the registry. This way
-      # downstream steps and the smoke-test job gate correctly even if one
-      # of the publish steps was already skipped (idempotent re-runs).
+      # Set `published` based on step outcomes, NOT registry re-check.
+      # npm registry has propagation lag (1-30s), so re-querying right after
+      # a successful publish would intermittently return "not found" and
+      # cause the gate to fail even when packages went up cleanly. Two cases:
+      #   - needs_publish == 'false' → packages already on npm → published=true
+      #     (idempotent re-runs, e.g. after a partial Phase I rerun)
+      #   - both publish steps succeeded → published=true
+      # Anything else → published=false; downstream steps skip.
       - name: Set publish status
         id: publish
         if: ${{ inputs.dry-run != 'true' && steps.changesets.outputs.hasChangesets != 'true' }}
         run: |
-          CORE_VERSION="${{ steps.detect.outputs.core_version }}"
           CLI_VERSION="${{ steps.detect.outputs.cli_version }}"
-          PUBLISHED=true
-          if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
+          NEEDS_PUBLISH="${{ steps.detect.outputs.needs_publish }}"
+          CORE_OUTCOME="${{ steps.publish_core.outcome }}"
+          CLI_OUTCOME="${{ steps.publish_cli.outcome }}"
+
+          if [ "$NEEDS_PUBLISH" = "false" ]; then
+            PUBLISHED=true
+            echo "Both packages already on npm → published=true (idempotent path)"
+          elif [ "$CORE_OUTCOME" = "success" ] && [ "$CLI_OUTCOME" = "success" ]; then
+            PUBLISHED=true
+            echo "Both publish steps succeeded → published=true"
+          else
             PUBLISHED=false
+            echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME"
           fi
-          if ! npm view "tokenometer@$CLI_VERSION" version >/dev/null 2>&1; then
-            PUBLISHED=false
-          fi
+
           echo "published=$PUBLISHED" >> $GITHUB_OUTPUT
           echo "version=$CLI_VERSION" >> $GITHUB_OUTPUT
-          echo "Final publish status: $PUBLISHED (version $CLI_VERSION)"
 
       # Create GitHub Release on the new tag. Marketplace re-publishes the
       # Action listing automatically when a Release is created from a tag.

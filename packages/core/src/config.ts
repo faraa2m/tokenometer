@@ -1,6 +1,3 @@
-import { existsSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
-import { dirname, join, parse as parsePath } from 'node:path';
 import { parse as yamlParse } from 'yaml';
 import { KNOWN_MODELS } from './rates.js';
 
@@ -104,33 +101,38 @@ export const parseConfig = (yamlText: string): TokenometerConfig => {
   return out;
 };
 
-const findConfigFile = (startDir: string): string | null => {
-  let dir = startDir;
-  // Walk up to filesystem root or until we hit a .git directory (inclusive).
-  // The directory containing .git is still searched; we stop after.
-  while (true) {
-    for (const name of CONFIG_FILENAMES) {
-      const candidate = join(dir, name);
-      if (existsSync(candidate)) return candidate;
-    }
-    const isGitRoot = existsSync(join(dir, '.git'));
-    const parent = dirname(dir);
-    if (isGitRoot) return null;
-    if (parent === dir || parent === parsePath(dir).root) {
-      // Last chance: check the root itself
-      if (parent !== dir) {
-        for (const name of CONFIG_FILENAMES) {
-          const candidate = join(parent, name);
-          if (existsSync(candidate)) return candidate;
-        }
-      }
-      return null;
-    }
-    dir = parent;
-  }
-};
-
+// loadConfig touches the filesystem. Imports are deferred via dynamic import so
+// browser bundlers (Vite for the web playground) don't statically trace
+// `node:fs` and friends — externalized stubs would fail to expose named members
+// like `join`, breaking the build. Node still resolves them normally at runtime.
 export const loadConfig = async (cwd?: string): Promise<TokenometerConfig | null> => {
+  const { existsSync } = await import('node:fs');
+  const { readFile } = await import('node:fs/promises');
+  const { dirname, join, parse: parsePath } = await import('node:path');
+
+  const findConfigFile = (startDir: string): string | null => {
+    let dir = startDir;
+    while (true) {
+      for (const name of CONFIG_FILENAMES) {
+        const candidate = join(dir, name);
+        if (existsSync(candidate)) return candidate;
+      }
+      const isGitRoot = existsSync(join(dir, '.git'));
+      const parent = dirname(dir);
+      if (isGitRoot) return null;
+      if (parent === dir || parent === parsePath(dir).root) {
+        if (parent !== dir) {
+          for (const name of CONFIG_FILENAMES) {
+            const candidate = join(parent, name);
+            if (existsSync(candidate)) return candidate;
+          }
+        }
+        return null;
+      }
+      dir = parent;
+    }
+  };
+
   const start = cwd ?? process.cwd();
   const file = findConfigFile(start);
   if (!file) return null;

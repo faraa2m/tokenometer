@@ -1,5 +1,14 @@
 # @tokenometer/core
 
+## 0.1.1
+
+### Patch Changes
+
+- [#23](https://github.com/faraa2m/tokenometer/pull/23) [`776191c`](https://github.com/faraa2m/tokenometer/commit/776191c9f5b24c5978e26a8fe37af6678894297f) Thanks [@faraa2m](https://github.com/faraa2m)! - Fix `tokenometer` CLI not invokable via `npx` on Linux. The published
+  `dist/index.js` had no execute bit, so `npx --yes tokenometer@<v>` on
+  Linux runners failed with `sh: 1: tokenometer: not found`. Build script
+  now chmods +x after tsc emit.
+
 ## 0.1.0
 
 ### Minor Changes

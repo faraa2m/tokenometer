@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import {
   type TokenometerFileResult,
   type TokenometerResult,
+  UserFacingError,
   getModel,
   getRate,
   loadConfig,
@@ -194,6 +195,19 @@ const makeVisionCell = (modelId: string, tokens: number): TokenizeResult => {
 };
 
 export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise<number> => {
+  try {
+    return await mainImpl(argv, deps);
+  } catch (err) {
+    if (err instanceof UserFacingError) {
+      const stderr = deps.stderr ?? process.stderr;
+      stderr.write(`tokenometer: ${err.message}\n`);
+      return 1;
+    }
+    throw err;
+  }
+};
+
+const mainImpl = async (argv: readonly string[], deps: RunDeps): Promise<number> => {
   const stdout = deps.stdout ?? process.stdout;
   const stderr = deps.stderr ?? process.stderr;
   const reader = deps.imageSizeReader ?? defaultImageSizeReader;
@@ -202,7 +216,7 @@ export const main = async (argv: readonly string[], deps: RunDeps = {}): Promise
   try {
     parsed = parseArgs(argv);
   } catch (err) {
-    stderr.write(`${(err as Error).message}\n\n${HELP_TEXT}`);
+    stderr.write(`${(err as Error).message}\nRun 'tokenometer --help' for usage.\n`);
     return 2;
   }
 
@@ -361,7 +375,11 @@ if (isInvokedAsScript()) {
   main(process.argv.slice(2)).then(
     (code) => process.exit(code),
     (err: unknown) => {
-      process.stderr.write(`Unexpected error: ${(err as Error).stack ?? String(err)}\n`);
+      if (err instanceof UserFacingError) {
+        process.stderr.write(`tokenometer: ${err.message}\n`);
+      } else {
+        process.stderr.write(`Unexpected error: ${(err as Error).stack ?? String(err)}\n`);
+      }
       process.exit(1);
     },
   );

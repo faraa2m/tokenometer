@@ -12,6 +12,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import type { EmpiricalEnv } from './empirical.js';
+import { UserFacingError } from './errors.js';
 import { getModel } from './rates.js';
 import type { LatencyResult, LatencyStats, LatencyTrial, Provider } from './types.js';
 
@@ -40,7 +41,7 @@ const requireKey = (env: EmpiricalEnv, key: keyof EmpiricalEnv, provider: Provid
   if (!value) {
     const envName =
       key === 'googleApiKey' ? `${ENV_VAR_NAME[key]} (or GEMINI_API_KEY)` : ENV_VAR_NAME[key];
-    throw new Error(`${provider} latency mode requires ${envName}`);
+    throw new UserFacingError(`${provider} latency mode requires ${envName}`);
   }
   return value;
 };

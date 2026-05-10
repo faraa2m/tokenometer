@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { encode as encodeO200k } from 'gpt-tokenizer/encoding/o200k_base';
 import { toFormat } from './convert.js';
+import { UserFacingError } from './errors.js';
 import { getModel, getRate } from './rates.js';
 import { cohereTokenizeApi } from './tokenize-cohere.js';
 import type { Format, Provider, TokenizeResult } from './types.js';
@@ -35,7 +36,7 @@ const requireKey = (env: EmpiricalEnv, key: keyof EmpiricalEnv, provider: Provid
   if (!value) {
     const envName =
       key === 'googleApiKey' ? `${ENV_VAR_NAME[key]} (or GEMINI_API_KEY)` : ENV_VAR_NAME[key];
-    throw new Error(`${provider} empirical mode requires ${envName}`);
+    throw new UserFacingError(`${provider} empirical mode requires ${envName}`);
   }
   return value;
 };

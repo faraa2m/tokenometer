@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tokenometer core library — multi-provider LLM token cost, latency, and vision-token estimation with empirical countTokens fallback (Anthropic, OpenAI, Google, Mistral, Cohere).",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",

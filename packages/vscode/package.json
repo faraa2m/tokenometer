@@ -1,5 +1,5 @@
 {
-  "name": "@tokenometer/vscode",
+  "name": "tokenometer-vscode",
   "version": "0.0.3",
   "displayName": "Tokenometer",
   "description": "Tokenometer for VS Code / Cursor — live token count and USD cost in the status bar for LLM prompts (Claude, GPT-4o, Gemini, Mistral, Cohere).",

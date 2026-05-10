@@ -127,6 +127,10 @@ Set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) for Gemini models. `--offline` forces
 
 Posts a sticky PR comment with the cost diff vs the base branch. Fails the check when the total Δ exceeds `budget`. See [`packages/action/README.md`](packages/action/README.md) for all inputs and outputs.
 
+### More flags
+
+The CLI also supports `--output json|sarif` for machine-readable output, `--by-file` for per-file attribution, `--image <path>` for vision-token cost on Claude / GPT-4o / Gemini, and `.tokenometer.yml` config files (auto-discovered, walk-up). See [`packages/cli/README.md`](packages/cli/README.md) for the full list.
+
 ## Methodology
 
 Tokenometer picks a tokenizer per provider and flags the count as approximate (`approximate: true` in the API result) when the offline path is a proxy:

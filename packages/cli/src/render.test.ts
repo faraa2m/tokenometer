@@ -1,6 +1,6 @@
-import type { TokenizeResult } from '@tokenometer/core';
+import type { TokenizeResult, TokenometerFileResult } from '@tokenometer/core';
 import { describe, expect, it } from 'vitest';
-import { renderModelLimits, renderSummary, renderTable } from './render.js';
+import { renderByFile, renderModelLimits, renderSummary, renderTable } from './render.js';
 
 const sample: TokenizeResult[] = [
   {
@@ -74,5 +74,85 @@ describe('renderSummary', () => {
 
   it('returns empty string for a single-result list', () => {
     expect(renderSummary([sample[0] as TokenizeResult])).toBe('');
+  });
+});
+
+describe('renderByFile', () => {
+  const file1: TokenometerFileResult = {
+    path: 'prompts/agent.md',
+    results: [
+      {
+        approximate: false,
+        format: 'json',
+        inputCost: 0.0186,
+        inputTokens: 1243,
+        model: 'gpt-4o',
+        provider: 'openai',
+        tokenizer: 'o200k_base',
+      },
+    ],
+  };
+  const file2: TokenometerFileResult = {
+    path: 'prompts/router.md',
+    results: [
+      {
+        approximate: false,
+        format: 'json',
+        inputCost: 0.0131,
+        inputTokens: 872,
+        model: 'gpt-4o',
+        provider: 'openai',
+        tokenizer: 'o200k_base',
+      },
+    ],
+  };
+
+  it('returns empty for a single-file input (no-op)', () => {
+    expect(renderByFile([file1])).toBe('');
+  });
+
+  it('returns empty when no files are provided', () => {
+    expect(renderByFile([])).toBe('');
+  });
+
+  it('renders a per-file table for multiple files', () => {
+    const out = renderByFile([file1, file2]);
+    expect(out).toContain('By file:');
+    expect(out).toContain('File');
+    expect(out).toContain('Tokens');
+    expect(out).toContain('USD');
+    expect(out).toContain('prompts/agent.md');
+    expect(out).toContain('prompts/router.md');
+    // 1,243 with comma
+    expect(out).toContain('1,243');
+    expect(out).toContain('872');
+  });
+
+  it('sums tokens and cost across the cells of each file', () => {
+    const file: TokenometerFileResult = {
+      path: 'p.md',
+      results: [
+        {
+          approximate: false,
+          format: 'json',
+          inputCost: 0.001,
+          inputTokens: 100,
+          model: 'gpt-4o',
+          provider: 'openai',
+          tokenizer: 'o200k_base',
+        },
+        {
+          approximate: false,
+          format: 'yaml',
+          inputCost: 0.002,
+          inputTokens: 200,
+          model: 'gpt-4o',
+          provider: 'openai',
+          tokenizer: 'o200k_base',
+        },
+      ],
+    };
+    const out = renderByFile([file, file2]);
+    expect(out).toContain('300'); // 100+200 sum
   });
 });

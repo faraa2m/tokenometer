@@ -59,7 +59,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@tokenometer/core": "0.0.2"
+    "@tokenometer/core": "0.0.2",
+    "image-size": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

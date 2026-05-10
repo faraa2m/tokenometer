@@ -1,9 +1,10 @@
 {
   "name": "@tokenometer/action",
   "version": "0.0.2",
-  "description": "GitHub Action that posts a sticky PR comment with prompt-cost diff.",
+  "description": "Tokenometer GitHub Action — sticky PR comment with prompt-cost diff and budget gate.",
   "license": "MIT",
   "private": true,
+  "keywords": ["ci", "code-quality", "github-action", "llm-cost", "prompt-cost"],
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {

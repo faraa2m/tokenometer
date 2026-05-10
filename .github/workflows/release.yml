@@ -1,57 +1,82 @@
 name: release
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version to bump to (e.g. 0.0.2). Leave empty to keep current package.json version.'
+      dry-run:
+        description: 'Dry run (skip npm publish, skip GitHub Release).'
         required: false
-        default: ''
+        default: 'false'
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   id-token: write
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
+
       - run: npm ci
 
-      - run: npm run build
+      - run: npm run lint
+      - run: npm run typecheck
       - run: npm test
-      - run: npm run benchmarks
+      - run: npm run build
 
-      - name: Bump versions (if requested)
-        if: ${{ inputs.version != '' }}
-        run: |
-          npm version ${{ inputs.version }} --no-git-tag-version --workspaces
-
-      - name: Sync cross-package deps to bumped version
-        if: ${{ inputs.version != '' }}
-        run: |
-          npm pkg set 'dependencies.@tokenometer/core'="${{ inputs.version }}" --workspace=packages/cli
-          npm pkg set 'dependencies.@tokenometer/core'="${{ inputs.version }}" --workspace=packages/action
-
-      - name: Publish @tokenometer/core
-        working-directory: packages/core
-        run: npm publish --provenance --access public
+      # Changesets opens (or updates) a "Version Packages" PR when changeset files
+      # are present in `.changeset/`. When that PR is merged, this same workflow
+      # auto-bumps versions in package.json, auto-generates CHANGELOG.md entries
+      # from the changeset summaries, then publishes to npm.
+      - name: Changesets — version PR or publish
+        if: ${{ inputs.dry-run != 'true' }}
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npx changeset publish
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
+          createGithubReleases: true
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish tokenometer (CLI)
-        working-directory: packages/cli
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Sync cross-package deps after publish
+        if: ${{ steps.changesets.outputs.published == 'true' }}
+        run: |
+          PUBLISHED_VERSION=$(node -p "require('./packages/core/package.json').version")
+          npm pkg set 'dependencies.@tokenometer/core'="$PUBLISHED_VERSION" --workspace=packages/cli
+          npm pkg set 'dependencies.@tokenometer/core'="$PUBLISHED_VERSION" --workspace=packages/action
 
+      # Phase I (Wave 4) will add: Marketplace verify, VS Code Marketplace publish,
+      # Open VSX publish, Vercel deploy hook, smoke test against published versions.
       - name: Summary
+        if: ${{ steps.changesets.outputs.published == 'true' }}
         run: |
           echo "### Published" >> $GITHUB_STEP_SUMMARY
           echo "- https://www.npmjs.com/package/@tokenometer/core" >> $GITHUB_STEP_SUMMARY
           echo "- https://www.npmjs.com/package/tokenometer" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "GitHub Release on the new tag triggers the Marketplace re-publish for the Action." >> $GITHUB_STEP_SUMMARY
+
+      - name: Dry run notice
+        if: ${{ inputs.dry-run == 'true' }}
+        run: |
+          echo "### Dry run" >> $GITHUB_STEP_SUMMARY
+          echo "Skipped Changesets publish step." >> $GITHUB_STEP_SUMMARY

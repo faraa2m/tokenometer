@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/vscode",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "Tokenometer",
   "description": "Tokenometer for VS Code / Cursor — live token count and USD cost in the status bar for LLM prompts (Claude, GPT-4o, Gemini, Mistral, Cohere).",
   "publisher": "faraa2m",
@@ -105,7 +105,7 @@
     "package:vsix": "npm run build && vsce package --no-dependencies"
   },
   "dependencies": {
-    "@tokenometer/core": "0.0.2"
+    "@tokenometer/core": "0.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

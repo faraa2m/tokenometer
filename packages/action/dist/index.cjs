@@ -49441,6 +49441,11 @@ function getContext2(args) {
   });
 }
 
+// ../core/dist/errors.js
+var UserFacingError = class extends Error {
+  name = "UserFacingError";
+};
+
 // ../core/dist/rates.js
 var CATALOG = {
   anthropic: anthropic_default,
@@ -49557,14 +49562,14 @@ var KNOWN_MODELS = Object.keys(REGISTRY).sort();
 var getRate = (modelId) => {
   const entry = REGISTRY[modelId];
   if (!entry) {
-    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
+    throw new UserFacingError(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
   }
   return entry.rate;
 };
 var getModel = (modelId) => {
   const entry = REGISTRY[modelId];
   if (!entry) {
-    throw new Error(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
+    throw new UserFacingError(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
   }
   return entry.descriptor;
 };

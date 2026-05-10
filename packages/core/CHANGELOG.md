@@ -1,5 +1,21 @@
 # @tokenometer/core
 
+## 0.1.3
+
+### Patch Changes
+
+- [#27](https://github.com/faraa2m/tokenometer/pull/27) [`16daecb`](https://github.com/faraa2m/tokenometer/commit/16daecb6b86b08b1b5656d2c47564f52c4533253) Thanks [@faraa2m](https://github.com/faraa2m)! - Fix `tokenometer --version` always printing `0.0.2` regardless of the
+  installed version. The CLI had a hardcoded `const VERSION = '0.0.2'`
+  left over from initial scaffolding. Now reads the version from the
+  package's own `package.json` at runtime via `import.meta.url`.
+
+  Also hardens the smoke-test job: switches from `npx --yes tokenometer@<v>`
+  (which hit `sh: 1: tokenometer: not found` flakiness on Linux runners
+  even when the published bin had the execute bit) to `npm install
+--no-save` + direct `node node_modules/tokenometer/dist/index.js`.
+  Adds a 6-attempt × 30s retry loop to absorb npm registry CDN
+  propagation lag right after publish.
+
 ## 0.1.2
 
 ### Patch Changes

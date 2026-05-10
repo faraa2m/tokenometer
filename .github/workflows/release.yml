@@ -91,7 +91,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: npx changeset version && npm run lint:fix
+          version: bash -c "npx changeset version && npm run lint:fix"
           publish: npx changeset publish
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'

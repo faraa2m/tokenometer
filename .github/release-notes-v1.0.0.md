@@ -1,9 +1,9 @@
 # Tokenometer v1.0.0 — Production-ready LLM cost calculator, latency benchmark, and CI guardrail.
 
-> Note: this is a **DRAFT**. Edit before publishing the GitHub Release. All
-> items below have already landed on `main` (Waves 2 + 3); the only items
-> still in-flight at the time this draft was written are the marketplace
-> publish, smoke tests, and release pipeline polish (Phase I).
+> Note: this is a **DRAFT**. Edit before publishing the GitHub Release.
+> All items below have landed on `main` (Waves 2 + 3 + 4 Phase I). The
+> release pipeline itself is now unified — one merge of the Version
+> Packages PR ships every artifact below in a single workflow run.
 
 ## Highlights
 
@@ -47,9 +47,9 @@
 - **VS Code / Cursor extension** — status bar shows live `model · tokens
   · USD` for the active prompt file. Settings: `tokenometer.model`,
   `tokenometer.format`, `tokenometer.warnOnCostAbove`. Commands:
-  *Tokenometer: Switch model*, *Tokenometer: Show details*. Marketplace
-  listing arrives with this release; until then, `npm run package:vsix
-  --workspace=@tokenometer/vscode` builds a side-loadable `.vsix`.
+  *Tokenometer: Switch model*, *Tokenometer: Show details*. Published
+  to the VS Code Marketplace and Open VSX (Cursor / VSCodium read from
+  Open VSX) by the unified release workflow.
 - **Claude Code skill** (`tokenometer-cost-check`) — drop into
   `~/.claude/skills/tokenometer/SKILL.md` and Claude Code agents will
   reach for `npx tokenometer` when asked anything cost- or latency-shaped.
@@ -59,9 +59,14 @@
   Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0).
 - **Honest `approximate` flag** — every output row is tagged so you
   always know whether a number came from a real tokenizer or an estimate.
-- **Unified release pipeline** — one workflow publishes both
-  `tokenometer` and `@tokenometer/core` so the CLI and library never
-  drift.
+- **Unified release pipeline** — one merge of the Version Packages PR
+  publishes `tokenometer` + `@tokenometer/core` to npm with provenance,
+  creates the GitHub Release (which republishes the Action to GitHub
+  Marketplace), publishes the VS Code extension to the VS Code Marketplace
+  + Open VSX, fires the Vercel deploy hook for the playground, and runs
+  a post-publish smoke test against the just-published npm versions —
+  all from one workflow run, so CLI / library / Action / extension /
+  playground never drift apart.
 
 ## v1.0.0 launch surface
 

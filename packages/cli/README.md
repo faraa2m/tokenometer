@@ -1,6 +1,11 @@
 # tokenometer
 
+[![npm tokenometer](https://img.shields.io/npm/v/tokenometer.svg?label=tokenometer)](https://www.npmjs.com/package/tokenometer)
+[![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
+
 > Empirical token-cost benchmarking for LLM prompts. Tells you what your prompt actually costs across Claude, GPT-4o, and Gemini, in every format.
+
+See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
 [**Live playground: tokenometer.vercel.app**](https://tokenometer.vercel.app) · [Source](https://github.com/faraa2m/tokenometer) · MIT
 

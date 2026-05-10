@@ -1,6 +1,11 @@
 # @tokenometer/core
 
+[![npm @tokenometer/core](https://img.shields.io/npm/v/@tokenometer/core.svg?label=@tokenometer/core)](https://www.npmjs.com/package/@tokenometer/core)
+[![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
+
 > Core library powering [tokenometer](https://www.npmjs.com/package/tokenometer): tokenizer dispatch, format converters, versioned cost rate matrix, and an empirical-mode `countTokens` adapter for Anthropic, OpenAI, and Google.
+
+See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
 [**Live playground**](https://tokenometer.vercel.app) · [Source](https://github.com/faraa2m/tokenometer) · MIT
 

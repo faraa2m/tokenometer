@@ -1,10 +1,32 @@
 # Tokenometer
 
-> Empirical token-cost benchmarking for LLM prompts. **Live: https://tokenometer.vercel.app**
+[![npm tokenometer](https://img.shields.io/npm/v/tokenometer.svg?label=tokenometer)](https://www.npmjs.com/package/tokenometer)
+[![npm @tokenometer/core](https://img.shields.io/npm/v/@tokenometer/core.svg?label=@tokenometer/core)](https://www.npmjs.com/package/@tokenometer/core)
+[![CI](https://github.com/faraa2m/tokenometer/actions/workflows/ci.yml/badge.svg)](https://github.com/faraa2m/tokenometer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/faraa2m/tokenometer.svg?style=social)](https://github.com/faraa2m/tokenometer/stargazers)
+<!-- TODO: add marketplace badge after v1.0.0 publish -->
 
-Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, and Gemini?**
+> Tokenometer — LLM cost calculator, token counter, and CI cost-guardrail Action for Claude, GPT-4o, Gemini.
+> **Live: https://tokenometer.vercel.app**
 
-It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). This is the tool anyone can run.
+Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, and Gemini?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). This is the tool anyone can run — offline, empirically, or as a PR guardrail.
+
+## Why Tokenometer vs alternatives
+
+|                                       | Tokenometer | [tokencost](https://github.com/AgentOps-AI/tokencost) (AgentOps) | [tiktoken](https://github.com/openai/tiktoken) (OpenAI) | [gpt-tokenizer](https://github.com/niieani/gpt-tokenizer) | [promptfoo](https://github.com/promptfoo/promptfoo) | gpt-token-counter-live (VS Code) |
+|---------------------------------------|:-----------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| Multi-provider (Anthropic / OpenAI / Google) | ✓ | ✓ | – | – | ✓ | – |
+| Multi-format compare (JSON / YAML / XML / MD / text) | ✓ | – | – | – | – | – |
+| Empirical mode (real provider `countTokens`) | ✓ | – | – | – | partial | – |
+| CLI                                   | ✓ | ✓ | – | – | ✓ | – |
+| GitHub Action (PR cost-diff guardrail) | ✓ | – | – | – | partial | – |
+| VS Code / Cursor extension            | – (planned) | – | – | – | – | ✓ |
+| Cost (USD), not just tokens           | ✓ | ✓ | – | – | partial | – |
+| Honest "approximate" flag when offline is a proxy | ✓ | – | – | – | – | – |
+| Per-file attribution in CI            | ✓ | – | – | – | – | – |
+
+Tokenometer is the only tool in this list that combines **multi-provider + multi-format + empirical mode + USD cost + a PR-blocking GitHub Action + an honest approximate-vs-exact flag**. tokencost is the closest match for cost-in-USD across providers, but it doesn't compare formats or run as a CI guardrail. tiktoken and gpt-tokenizer are great single-provider primitives — Tokenometer uses gpt-tokenizer under the hood for the offline path. promptfoo is the broadest evaluator overall, but cost is one input among many; it isn't a dedicated cost-guardrail. The VS Code extension is real-time-in-editor only.
 
 ## Findings (Anthropic, n=150 cells across 10 prompt shapes)
 
@@ -14,6 +36,25 @@ It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-y
 - `gpt-4o` empirical (Anthropic's countTokens equivalent for OpenAI: tiktoken `o200k_base`) matches the offline tokenometer counts on **100/100 cells, exactly**. Sanity anchor.
 
 Reproduce: `npm install && npm run benchmarks:empirical` with `ANTHROPIC_API_KEY` set. Full sweep is free (countTokens is free).
+
+## Demo
+
+```text
+$ tokenometer ./prompt.md --model claude-opus-4-7 --format json,yaml,markdown
+
+  Model              Format     Tokens   USD       Approx
+  ────────────────── ────────── ──────── ───────── ──────
+  claude-opus-4-7    json       1,243    $0.0186   ✓
+  claude-opus-4-7    yaml       1,189    $0.0178   ✓
+  claude-opus-4-7    markdown   1,156    $0.0173   ✓
+
+  Cheapest: claude-opus-4-7 as markdown ($0.0173)
+  Priciest: claude-opus-4-7 as json     ($0.0186, 1.08x more)
+```
+
+The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google offline) and is empty when it's an exact match (OpenAI offline, or any provider with `--empirical`).
+
+> Real demo (with empirical mode + GIF) at **https://tokenometer.vercel.app**.
 
 ## Why this exists
 
@@ -98,9 +139,17 @@ Tokenometer picks a tokenizer per provider and flags the count as approximate (`
 
 Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
 
+## Project health
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing guide](CONTRIBUTING.md)
+- [Security policy](SECURITY.md) — uses GitHub Private Vulnerability Reporting
+- [Changelog](CHANGELOG.md)
+- [Discussions](https://github.com/faraa2m/tokenometer/discussions)
+
 ## Status
 
-Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones).
+Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones). Roadmap to v1.0.0 in progress: VS Code extension, Claude Code skill, vision-token cost, Mistral + Cohere providers.
 
 ## License
 

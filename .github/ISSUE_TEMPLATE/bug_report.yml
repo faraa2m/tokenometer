@@ -1,0 +1,79 @@
+name: "Bug report"
+description: Report a measurement, pricing, or tooling bug in Tokenometer.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Please include enough detail for someone to reproduce the issue without follow-up questions.
+
+  - type: input
+    id: tokenometer-version
+    attributes:
+      label: Tokenometer version
+      description: Output of `tokenometer --version`.
+      placeholder: "e.g. 1.0.3"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+      placeholder: "e.g. v20.11.1"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "e.g. macOS 14.5, Ubuntu 22.04, Windows 11"
+    validations:
+      required: true
+
+  - type: input
+    id: model-flags
+    attributes:
+      label: Model and format flags
+      description: The exact `--model`, `--format`, and other flags you invoked.
+      placeholder: "e.g. --model claude-sonnet-4 --format json"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal commands or input to reproduce the issue.
+      placeholder: |
+        1. echo "hello" | tokenometer --model gpt-4o
+        2. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or output
+      description: |
+        Paste relevant output. **Redact any API keys, prompts containing private data, or other secrets before submitting** — issues are public.
+      render: shell
+    validations:
+      required: false

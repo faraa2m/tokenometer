@@ -58,14 +58,15 @@ The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google of
 
 ## Why this exists
 
-`tiktoken` and `@anthropic-ai/tokenizer` give you a token count for one provider. They don't tell you:
+**Cost AND latency in one CLI — the only tool that does both.** `tiktoken` and `@anthropic-ai/tokenizer` give you a token count for one provider. They don't tell you:
 
 - What the same prompt costs across **multiple providers and models**
+- How **fast** each provider actually responds (TTFT + tokens/sec) — a real generation, not a synthetic benchmark
 - Whether **format conversion** (YAML ↔ JSON ↔ XML ↔ MD) actually moves the needle
 - The **empirical** cost — what your provider actually charged on a real call, after prompt caching
 - Whether a PR introduced a **prompt-cost regression**
 
-Tokenometer is dev-time, multi-provider, multi-format, optionally empirical, and CI-native.
+Tokenometer is dev-time, multi-provider, multi-format, optionally empirical, latency-aware, and CI-native.
 
 ## Install
 
@@ -135,11 +136,13 @@ The CLI also supports `--output json|sarif` for machine-readable output, `--by-f
 
 Tokenometer picks a tokenizer per provider and flags the count as approximate (`approximate: true` in the API result) when the offline path is a proxy:
 
-| Provider  | Offline tokenizer            | Exactness   | Empirical (`--empirical`)        |
-|-----------|------------------------------|-------------|----------------------------------|
-| OpenAI    | `gpt-tokenizer` `o200k_base` | exact       | same `o200k_base` (matches OpenAI production count) |
-| Anthropic | `gpt-tokenizer` `cl100k_base`| approximate | `messages.countTokens` (exact, free) |
-| Google    | `chars / 4` heuristic        | approximate | `model.countTokens` (exact, free) |
+| Provider  | Offline tokenizer                              | Exactness   | Empirical (`--empirical`)        |
+|-----------|------------------------------------------------|-------------|----------------------------------|
+| OpenAI    | `gpt-tokenizer` `o200k_base`                   | exact       | same `o200k_base` (matches OpenAI production count) |
+| Anthropic | `gpt-tokenizer` `cl100k_base`                  | approximate | `messages.countTokens` (exact, free) |
+| Google    | `chars / 4` heuristic                          | approximate | `model.countTokens` (exact, free) |
+| Mistral   | `mistral-tokenizer-js` (V1/V2/V3) · `chars/4` for Tekken | approximate | unsupported (no public token-count endpoint) |
+| Cohere    | `chars / 4` heuristic                          | approximate | `POST /v1/tokenize` (exact, free, requires `COHERE_API_KEY`) |
 
 Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
 
@@ -153,7 +156,7 @@ Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sou
 
 ## Status
 
-Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones). Roadmap to v1.0.0 in progress: VS Code extension, Claude Code skill, vision-token cost, Mistral + Cohere providers.
+Early. v0.0.x — see [milestones](https://github.com/faraa2m/tokenometer/milestones). Roadmap to v1.0.0 in progress: VS Code extension, Claude Code skill, vision-token cost.
 
 ## License
 

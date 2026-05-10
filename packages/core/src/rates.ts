@@ -1,19 +1,24 @@
 import type { ProvidersCatalog } from '@tokenlens/core';
 import anthropicProvider from '@tokenlens/models/anthropic';
 import googleProvider from '@tokenlens/models/google';
+import mistralProvider from '@tokenlens/models/mistral';
 import openaiProvider from '@tokenlens/models/openai';
 import { getContext, getTokenCosts } from 'tokenlens';
 import type { ModelDescriptor, Provider, RateEntry } from './types.js';
 
-export const RATES_VERSION = '2026-05-08';
+export const RATES_VERSION = '2026-05-09';
 
+// `@tokenlens/models` does not yet ship a Cohere catalog (verified against
+// node_modules/@tokenlens/models/dist/providers/ at v1.3.0). When upstream
+// adds it, drop the Cohere LOCAL_OVERRIDES entry and add the import here.
 const CATALOG: ProvidersCatalog = {
   anthropic: anthropicProvider,
   google: googleProvider,
+  mistral: mistralProvider,
   openai: openaiProvider,
 };
 
-const PROVIDERS: readonly Provider[] = ['anthropic', 'google', 'openai'];
+const PROVIDERS: readonly Provider[] = ['anthropic', 'google', 'mistral', 'openai'];
 
 interface RegistryEntry {
   rate: RateEntry;
@@ -22,6 +27,10 @@ interface RegistryEntry {
 
 // Bleeding-edge models tokenlens hasn't picked up from upstream yet.
 // Remove an entry once `scripts/check-overrides.mjs` reports it landed.
+//
+// Cohere entries are also here because `@tokenlens/models` does not yet
+// ship a Cohere catalog at all (v1.3.0). Pricing pulled from the published
+// Cohere pricing page (cohere.com/pricing) at RATES_VERSION date.
 const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
   'claude-haiku-4-5': {
     rate: { cachedInputPer1k: 0.0001, inputPer1k: 0.001, outputPer1k: 0.005 },
@@ -51,6 +60,26 @@ const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
       maxOutputTokens: 64_000,
       pricingSource: 'local',
       provider: 'anthropic',
+    },
+  },
+  'command-r': {
+    rate: { inputPer1k: 0.00015, outputPer1k: 0.0006 },
+    descriptor: {
+      contextWindow: 128_000,
+      id: 'command-r',
+      maxOutputTokens: 4096,
+      pricingSource: 'local',
+      provider: 'cohere',
+    },
+  },
+  'command-r-plus': {
+    rate: { inputPer1k: 0.0025, outputPer1k: 0.01 },
+    descriptor: {
+      contextWindow: 128_000,
+      id: 'command-r-plus',
+      maxOutputTokens: 4096,
+      pricingSource: 'local',
+      provider: 'cohere',
     },
   },
 };

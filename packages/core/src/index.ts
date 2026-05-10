@@ -5,12 +5,17 @@ export { tokenizeEmpirical, tokenizeMatrixEmpirical } from './empirical.js';
 export type { EmpiricalCountResult, EmpiricalEnv } from './empirical.js';
 export { toSarif } from './format-sarif.js';
 export type { TokenometerFileResult, TokenometerResult, ToSarifOptions } from './format-sarif.js';
+export { measureLatency, nthPercentile } from './latency.js';
+export type { LatencyDeps, MeasureLatencyOptions } from './latency.js';
 export { KNOWN_MODELS, MODELS, RATES, RATES_VERSION, getModel, getRate } from './rates.js';
 export { countTokens, tokenize, tokenizeMatrix } from './tokenize.js';
 export type { CountResult } from './tokenize.js';
 export type {
   EmpiricalResult,
   Format,
+  LatencyResult,
+  LatencyStats,
+  LatencyTrial,
   ModelDescriptor,
   Provider,
   RateEntry,

@@ -1,4 +1,16 @@
 #!/usr/bin/env node
+//
+// Benchmark sweep modes:
+//
+//   node benchmarks/run.mjs                # offline drift check vs results.json
+//   node benchmarks/run.mjs --regenerate   # rewrite results.json from current code
+//   node benchmarks/run.mjs --empirical    # countTokens sweep (Anthropic / Google free), writes empirical.json
+//   node benchmarks/run.mjs --latency      # real generation sweep (METERED), writes latency-empirical.json
+//
+// `--latency` runs `--latency-trials` (default 3) streaming generations per
+// (model, format) cell with max_tokens=200. Cost scales linearly with the
+// number of cells; respect your `MAX_SPEND_USD` env or use `--filter`.
+
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -6,6 +18,7 @@ import {
   KNOWN_MODELS,
   RATES_VERSION,
   allFormats,
+  measureLatency,
   tokenize,
   tokenizeEmpirical,
 } from '@tokenometer/core';
@@ -14,6 +27,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const PROMPTS_DIR = join(HERE, 'prompts');
 const RESULTS_PATH = join(HERE, 'results.json');
 const EMPIRICAL_PATH = join(HERE, 'empirical.json');
+const LATENCY_PATH = join(HERE, 'latency-empirical.json');
 
 const loadPrompts = async () => {
   const files = (await readdir(PROMPTS_DIR)).filter((f) => !f.startsWith('.')).sort();
@@ -136,8 +150,11 @@ const compareResults = async (results) => {
 const readEnv = () => {
   const env = {};
   if (process.env.ANTHROPIC_API_KEY) env.anthropicApiKey = process.env.ANTHROPIC_API_KEY;
+  if (process.env.COHERE_API_KEY) env.cohereApiKey = process.env.COHERE_API_KEY;
   const googleKey = process.env.GOOGLE_API_KEY ?? process.env.GEMINI_API_KEY;
   if (googleKey) env.googleApiKey = googleKey;
+  if (process.env.MISTRAL_API_KEY) env.mistralApiKey = process.env.MISTRAL_API_KEY;
+  if (process.env.OPENAI_API_KEY) env.openaiApiKey = process.env.OPENAI_API_KEY;
   return env;
 };
 
@@ -225,16 +242,95 @@ const summarizeByProvider = (rows) => {
   return summary;
 };
 
+const parseLatencyTrials = (args) => {
+  const idx = args.indexOf('--latency-trials');
+  if (idx === -1 || !args[idx + 1]) return 3;
+  const n = Number.parseInt(args[idx + 1], 10);
+  if (!Number.isFinite(n) || n < 1 || n > 10) {
+    throw new Error(`--latency-trials must be 1..10, got "${args[idx + 1]}"`);
+  }
+  return n;
+};
+
+const runLatencySweep = async (prompts, env, models, trials) => {
+  const formats = [...allFormats()];
+  const out = {};
+  let totalTrials = 0;
+  for (const [name, prompt] of Object.entries(prompts).sort()) {
+    process.stderr.write(`${name} ... `);
+    const byModel = {};
+    for (const modelId of models) {
+      const byFormat = {};
+      for (const format of formats) {
+        try {
+          const result = await measureLatency({
+            env,
+            modelId,
+            prompt,
+            trials,
+          });
+          byFormat[format] = {
+            mean: result.mean,
+            p50: result.p50,
+            p95: result.p95,
+            trials: result.trials,
+          };
+          totalTrials += trials;
+        } catch (err) {
+          byFormat[format] = { error: err.message };
+        }
+      }
+      byModel[modelId] = byFormat;
+    }
+    out[name] = byModel;
+    process.stderr.write('done\n');
+  }
+  return {
+    formats,
+    generatedAt: new Date().toISOString(),
+    latency: out,
+    models,
+    schemaVersion: 1,
+    totalTrials,
+    trialsPerCell: trials,
+  };
+};
+
 const main = async () => {
   const args = process.argv.slice(2);
   const isRegenerate = args.includes('--regenerate');
   const isEmpirical = args.includes('--empirical');
+  const isLatency = args.includes('--latency');
   const filter = parseModelFilter(args);
   const models = selectModels(filter);
   if (filter) {
     console.error(`Filter active — sweeping ${models.length}/${KNOWN_MODELS.length} models.`);
   }
   const prompts = await loadPrompts();
+
+  if (isLatency) {
+    const env = readEnv();
+    const trials = parseLatencyTrials(args);
+    if (
+      !env.anthropicApiKey &&
+      !env.googleApiKey &&
+      !env.openaiApiKey &&
+      !env.cohereApiKey &&
+      !env.mistralApiKey
+    ) {
+      console.error(
+        'Latency sweep needs at least one of ANTHROPIC_API_KEY / OPENAI_API_KEY / GOOGLE_API_KEY (or GEMINI_API_KEY) / COHERE_API_KEY / MISTRAL_API_KEY.',
+      );
+      console.error(
+        'Each trial is a metered ~200-token chat completion — use --filter to narrow scope.',
+      );
+      return 1;
+    }
+    const result = await runLatencySweep(prompts, env, models, trials);
+    await writeFile(LATENCY_PATH, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+    console.log(`\nWrote ${LATENCY_PATH} (${result.totalTrials} trials, ${trials} per cell).`);
+    return 0;
+  }
 
   if (isEmpirical) {
     const env = readEnv();

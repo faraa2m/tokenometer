@@ -1,0 +1,30 @@
+{
+  "name": "@tokenometer/claude-code-skill",
+  "version": "0.0.2",
+  "description": "Claude Code skill that wraps the tokenometer CLI.",
+  "license": "MIT",
+  "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
+  "homepage": "https://tokenometer.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/tokenometer.git",
+    "directory": "packages/claude-code-skill"
+  },
+  "bugs": {
+    "url": "https://github.com/faraa2m/tokenometer/issues"
+  },
+  "private": true,
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-code-skill",
+    "llm-cost",
+    "prompt-cost",
+    "skill",
+    "tokenometer"
+  ],
+  "files": ["SKILL.md", "README.md", "install.sh"],
+  "scripts": {
+    "lint": "echo skipped"
+  }
+}

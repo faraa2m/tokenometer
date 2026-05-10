@@ -3,25 +3,39 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { encode as encodeO200k } from 'gpt-tokenizer/encoding/o200k_base';
 import { toFormat } from './convert.js';
 import { getModel, getRate } from './rates.js';
+import { cohereTokenizeApi } from './tokenize-cohere.js';
 import type { Format, Provider, TokenizeResult } from './types.js';
 
 export interface EmpiricalCountResult {
   count: number;
   exact: true;
-  source: 'anthropic-count' | 'gemini-count' | 'tiktoken-o200k';
+  source: 'anthropic-count' | 'cohere-tokenize' | 'gemini-count' | 'tiktoken-o200k';
 }
 
 export interface EmpiricalEnv {
   anthropicApiKey?: string;
+  cohereApiKey?: string;
   googleApiKey?: string;
+  // Used by `--latency` mode (see latency.ts). Not consumed by the
+  // countTokens-based empirical path.
+  mistralApiKey?: string;
+  openaiApiKey?: string;
 }
+
+const ENV_VAR_NAME: Record<keyof EmpiricalEnv, string> = {
+  anthropicApiKey: 'ANTHROPIC_API_KEY',
+  cohereApiKey: 'COHERE_API_KEY',
+  googleApiKey: 'GOOGLE_API_KEY',
+  mistralApiKey: 'MISTRAL_API_KEY',
+  openaiApiKey: 'OPENAI_API_KEY',
+};
 
 const requireKey = (env: EmpiricalEnv, key: keyof EmpiricalEnv, provider: Provider): string => {
   const value = env[key];
   if (!value) {
-    throw new Error(
-      `${provider} empirical mode requires ${key === 'anthropicApiKey' ? 'ANTHROPIC_API_KEY' : 'GOOGLE_API_KEY'} (or GEMINI_API_KEY)`,
-    );
+    const envName =
+      key === 'googleApiKey' ? `${ENV_VAR_NAME[key]} (or GEMINI_API_KEY)` : ENV_VAR_NAME[key];
+    throw new Error(`${provider} empirical mode requires ${envName}`);
   }
   return value;
 };
@@ -68,6 +82,16 @@ const countOpenAi = (text: string): EmpiricalCountResult => ({
   source: 'tiktoken-o200k',
 });
 
+const countCohere = async (
+  text: string,
+  modelId: string,
+  env: EmpiricalEnv,
+): Promise<EmpiricalCountResult> => {
+  const apiKey = requireKey(env, 'cohereApiKey', 'cohere');
+  const count = await cohereTokenizeApi(text, modelId, apiKey);
+  return { count, exact: true, source: 'cohere-tokenize' };
+};
+
 export interface TokenizeEmpiricalOptions {
   env: EmpiricalEnv;
   format: Format;
@@ -92,6 +116,20 @@ export const tokenizeEmpirical = async (
     case 'openai':
       result = countOpenAi(converted);
       break;
+    case 'cohere':
+      result = await countCohere(converted, model.id, options.env);
+      break;
+    case 'mistral':
+      // Mistral does not expose a public free token-count endpoint as of
+      // May 2026 (see local research notes). Refuse
+      // empirical mode rather than silently falling back to the offline
+      // path — that would violate the `--empirical` contract (count is
+      // exact). Users who want exact counts can call a metered chat
+      // completion and read back `usage.prompt_tokens` themselves.
+      throw new Error(
+        'Mistral does not expose a public token-count API; offline mode only. ' +
+          'For exact counts, send a chat completion to Mistral and read `usage.prompt_tokens`.',
+      );
   }
   return {
     approximate: false,

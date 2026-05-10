@@ -1,6 +1,6 @@
 {
   "name": "tokenometer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tokenometer CLI — LLM token cost + latency benchmarking across Claude, GPT-4o, Gemini, Mistral, and Cohere. Multi-format, empirical mode, vision tokens, SARIF output.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
@@ -80,7 +80,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@tokenometer/core": "1.0.0",
+    "@tokenometer/core": "1.0.1",
     "image-size": "^2.0.2"
   },
   "devDependencies": {

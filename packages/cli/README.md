@@ -3,7 +3,7 @@
 [![npm tokenometer](https://img.shields.io/npm/v/tokenometer.svg?label=tokenometer)](https://www.npmjs.com/package/tokenometer)
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](https://github.com/faraa2m/tokenometer/blob/main/LICENSE)
 
-> Empirical token-cost benchmarking for LLM prompts. Tells you what your prompt actually costs across Claude, GPT-4o, and Gemini, in every format.
+> Empirical token-cost + latency benchmarking for LLM prompts. Tells you what your prompt actually costs and how fast each provider responds across Claude, GPT-4o, Gemini, Mistral, and Cohere — in every format.
 
 See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
@@ -25,16 +25,56 @@ Cheapest: gpt-4o as json ($0.000192)
 Priciest: claude-opus-4-7 as yaml ($0.001260, 6.74x more)
 ```
 
-A leading `~` marks an approximate count (offline mode for Claude / Gemini, since neither vendor publishes a public tokenizer).
+A leading `~` marks an approximate count (offline mode for Claude / Gemini / Mistral-Tekken / Cohere, since none of those vendors publishes a public production tokenizer that ships in JS).
+
+## Flags
+
+| Flag | Default | Notes |
+|---|---|---|
+| `--model <id[,id…]>` | `claude-opus-4-7` (or auto-detected) | Any registered model id (63 across 5 providers). |
+| `--format <fmt[,fmt…]>` | `json,yaml,xml,markdown,text` | Subset of supported formats. |
+| `--output <fmt>` | `table` | `table` \| `json` \| `sarif`. |
+| `--by-file` | _off_ | Append a per-file token/USD table (multi-file only). |
+| `--image <path>` | _none_ | Add vision-token cost for the image (repeatable). |
+| `--config <path>` | _none_ | Load this exact config file (skips walk-up). |
+| `--no-config` | _off_ | Skip `.tokenometer.yml` loading entirely. |
+| `--empirical` | _off_ | Use provider `countTokens` APIs (free, exact). |
+| `--latency` | _off_ | Measure real generation latency (TTFT, total ms, tokens/sec). Implies `--empirical`. |
+| `--latency-trials <n>` | `3` | Trials per cell when `--latency` is set (1–10). |
+| `--max-spend <usd>` | `0.05` (or `0.25` with `--latency`) | Hard ceiling for empirical / latency mode. |
+| `--offline` | _off_ | Force offline path (overrides `--empirical`). |
+| `-h`, `--help` |  | Print help. |
+| `-v`, `--version` |  | Print version. |
+
+```
+tokenometer <file> [options]
+echo "prompt" | tokenometer - [options]
+```
+
+## Models supported
+
+63 models across 5 providers. Run `tokenometer --help` for the full list at runtime, or browse the [Cost Atlas](https://tokenometer.vercel.app/models) for sortable per-model pages.
+
+| Provider | Examples | Offline tokenizer | Empirical |
+|---|---|---|---|
+| Anthropic | `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5`, Claude 3.x family | `gpt-tokenizer` `cl100k_base` (approximate) | `messages.countTokens` (free, exact) |
+| OpenAI | `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-3.5-turbo`, `o1` family | `gpt-tokenizer` `o200k_base` (exact) | same `o200k_base` (matches production) |
+| Google | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-1.5-pro`, `gemini-1.5-flash` | `chars / 4` (approximate) | `model.countTokens` (free, exact) |
+| Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` for SentencePiece V1/V2/V3 (exact); `chars/4` for Tekken (approximate) | unsupported (no public token-count API) |
+| Cohere | `command-r`, `command-r-plus` | `chars / 4` (approximate) | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
+
+Pricing comes from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry with a small set of local overrides for bleeding-edge models. Cohere pricing lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` doesn't yet ship a Cohere catalog at v1.3.0.
 
 ## Empirical mode
 
-For exact, vendor-billed counts on Claude and Gemini, set the right env var and pass `--empirical`. The tool calls the providers' free `countTokens` endpoints — no charge.
+For exact, vendor-billed counts on Claude, Gemini, and Cohere, set the right env var and pass `--empirical`. The tool calls each provider's free `countTokens`-equivalent endpoint — no charge.
 
 ```bash
-ANTHROPIC_API_KEY=… GOOGLE_API_KEY=… \
-  npx tokenometer ./prompt.md --empirical
+ANTHROPIC_API_KEY=… GOOGLE_API_KEY=… COHERE_API_KEY=… \
+  npx tokenometer ./prompt.md --empirical --model claude-opus-4-7,gemini-2.5-pro,command-r-plus
 ```
+
+OpenAI's empirical path uses tiktoken `o200k_base` locally — that encoding matches OpenAI's production count exactly, so no API call is needed. Mistral has no public token-count endpoint; the offline `mistral-tokenizer-js` path is used regardless.
 
 ## Auto provider detection
 
@@ -43,6 +83,8 @@ When `--model` is omitted, tokenometer picks a default based on which provider k
 - `ANTHROPIC_API_KEY` only → `claude-opus-4-7`
 - `OPENAI_API_KEY` only → `gpt-4o`
 - `GOOGLE_API_KEY` / `GEMINI_API_KEY` only → first known `gemini-*` model (falls back to `gemini-2.5-pro`)
+- `MISTRAL_API_KEY` only → first known `mistral-*` model
+- `COHERE_API_KEY` only → `command-r-plus`
 - Multiple keys set → falls back to `claude-opus-4-7` and prints a stderr note. Pass `--model` to disambiguate.
 - No keys set → existing default (`claude-opus-4-7`).
 
@@ -53,7 +95,7 @@ This means `npx tokenometer prompt.md` does the right thing in any of those envi
 Drop a `.tokenometer.yml` (or `.yaml`) at the project root and tokenometer will pick it up automatically (walks up from the cwd, stopping at `.git`):
 
 ```yaml
-models: [claude-opus-4-7, gpt-4o]
+models: [claude-opus-4-7, gpt-4o, mistral-large-latest]
 formats: [json, yaml, markdown]
 paths: [prompts/**/*.md]
 budgets:
@@ -76,7 +118,7 @@ npx tokenometer ./prompt.md --output sarif > tokenometer.sarif
 npx tokenometer ./prompt.md --output json | jq '.files[].results | map(.inputCost) | add'
 ```
 
-### Latency
+## Latency
 
 `--latency` measures real generation latency in addition to token cost. For each `(model, format)` cell, tokenometer streams `n` real chat completions (default `n=3`, override with `--latency-trials 1..10`) capped at `max_tokens=200`, and reports:
 
@@ -107,7 +149,7 @@ By file:
   prompts/router.md   872    $0.0131
 ```
 
-Useful for figuring out which prompt files dominate the cost of a multi-file pipeline.
+Useful for figuring out which prompt files dominate the cost of a multi-file pipeline. The aggregator that produces this table is also what powers the GitHub Action's per-file Δ comment, and is unit-tested in [`packages/action`](https://github.com/faraa2m/tokenometer/tree/main/packages/action).
 
 ## Vision tokens
 
@@ -123,33 +165,11 @@ Each image's dimensions are read with `image-size` (no native deps), then dispat
 - GPT-4o → OpenAI's high-detail tiling: `85 + 170 × ceil(w/512) × ceil(h/512)` after the 2048/768 resize step.
 - Gemini → Google's `258 × ceil(w/768) × ceil(h/768)` (with a flat 258 for ≤384×384 images).
 
-Vision-token cells are always marked `approximate: true` since they're formula-derived. Each image also gets its own row in the `--by-file` table as a virtual file `<image-path> [vision]`.
+Mistral and Cohere don't have published vision-token formulas, so vision images are skipped for those providers (with a stderr note). Vision-token cells are always marked `approximate: true` since they're formula-derived. Each image also gets its own row in the `--by-file` table as a virtual file `<image-path> [vision]`.
 
 ## Why not just `tiktoken`?
 
 `tiktoken`'s `cl100k_base` (the encoding most "Claude tokenizer" libraries fall back on) **under-counts Opus 4.7 by a median of +62%** across a 10-prompt benchmark. Sonnet 4.6 and Haiku 4.5 are closer (~17%). Format choice is a wash. Model choice swings cost by 12×. See [README](https://github.com/faraa2m/tokenometer#findings-anthropic-n150-cells-across-10-prompt-shapes) for the dataset findings.
-
-## Flags
-
-```
-tokenometer <file> [options]
-echo "prompt" | tokenometer - [options]
-
---model <id[,id…]>     Default: claude-opus-4-7, or auto-detected from env
---format <fmt[,fmt…]>  Default: all (json,yaml,xml,markdown,text)
---output <fmt>         table (default) | json | sarif
---by-file              Append a per-file token/cost table (multi-file only)
---image <path>         Add vision-token cost for the image (repeatable)
---config <path>        Load this exact config file
---no-config            Skip .tokenometer.yml loading
---empirical            Use provider countTokens APIs (free, exact)
---latency              Measure real generation latency (TTFT, total ms, tokens/s)
---latency-trials <n>   Trials per cell when --latency is set (1-10, default 3)
---max-spend <usd>      Hard ceiling for empirical mode (default 0.05; with --latency, 0.25)
---offline              Force offline (overrides --empirical)
--h, --help
--v, --version
-```
 
 ## License
 

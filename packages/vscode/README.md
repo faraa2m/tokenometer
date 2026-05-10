@@ -10,12 +10,16 @@ Most "token counter" extensions stop at counts. Tokenometer adds the dollar valu
 
 ## Install
 
-Once published:
+### Marketplace (coming with v1.0.0)
 
-- **VS Code Marketplace:** _coming soon_
-- **Open VSX (Cursor / VSCodium):** _coming soon_
+The Marketplace install button arrives with the v1.0.0 cut — Phase I owns that publish step. Track it on the [milestones page](https://github.com/faraa2m/tokenometer/milestones).
 
-While you're waiting, you can build a `.vsix` locally from this repo:
+- **VS Code Marketplace:** _coming with v1.0.0_
+- **Open VSX (Cursor / VSCodium):** _coming with v1.0.0_
+
+### Build locally now (`.vsix`)
+
+While the Marketplace listing is in flight, build a `.vsix` from this repo and side-load it:
 
 ```bash
 npm install
@@ -23,6 +27,8 @@ npm run build --workspace=@tokenometer/vscode
 npm run package:vsix --workspace=@tokenometer/vscode
 code --install-extension packages/vscode/tokenometer-*.vsix
 ```
+
+The same `.vsix` works in Cursor and VSCodium.
 
 ## What it shows
 

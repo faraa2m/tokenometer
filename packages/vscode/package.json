@@ -1,0 +1,103 @@
+{
+  "name": "@tokenometer/vscode",
+  "version": "0.0.2",
+  "displayName": "Tokenometer",
+  "description": "Live token count and USD cost for LLM prompts in the editor (Claude, GPT-4o, Gemini).",
+  "publisher": "faraa2m",
+  "license": "MIT",
+  "private": true,
+  "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
+  "homepage": "https://github.com/faraa2m/tokenometer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraa2m/tokenometer.git",
+    "directory": "packages/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/faraa2m/tokenometer/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Programming Languages", "Other"],
+  "keywords": [
+    "llm",
+    "tokens",
+    "cost",
+    "claude",
+    "gpt",
+    "gemini",
+    "tokenizer",
+    "ai",
+    "prompt-engineering"
+  ],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Tokenometer",
+      "properties": {
+        "tokenometer.model": {
+          "type": "string",
+          "default": "claude-opus-4-7",
+          "enum": [
+            "claude-opus-4-7",
+            "claude-sonnet-4-6",
+            "claude-haiku-4-5",
+            "gpt-4o",
+            "gpt-4o-mini",
+            "gpt-4-turbo",
+            "gpt-3.5-turbo",
+            "gemini-2.5-pro",
+            "gemini-2.5-flash",
+            "gemini-1.5-pro",
+            "gemini-1.5-flash"
+          ],
+          "description": "Model id used to count tokens and price the active file. Run 'Tokenometer: Switch model' for the full list (sourced from @tokenometer/core's KNOWN_MODELS at runtime)."
+        },
+        "tokenometer.format": {
+          "type": "string",
+          "default": "text",
+          "enum": ["text", "markdown", "json", "yaml", "xml"],
+          "description": "Format used by core's tokenize() to convert the file body before counting. 'text' counts the raw bytes; pick the format that matches how you'd send the prompt to the model."
+        },
+        "tokenometer.warnOnCostAbove": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "If non-zero and the current file's input cost exceeds this USD value, the status bar item turns warning-colored. 0 disables the warning."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "tokenometer.switchModel",
+        "title": "Tokenometer: Switch model",
+        "category": "Tokenometer"
+      },
+      {
+        "command": "tokenometer.showInfo",
+        "title": "Tokenometer: Show details for current file",
+        "category": "Tokenometer"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -b && esbuild src/extension.ts --bundle --platform=node --target=node20 --format=cjs --external:vscode --outfile=dist/extension.js",
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "package:vsix": "vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@tokenometer/core": "0.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.2"
+  }
+}

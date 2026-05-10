@@ -76,6 +76,25 @@ npx tokenometer ./prompt.md --output sarif > tokenometer.sarif
 npx tokenometer ./prompt.md --output json | jq '.files[].results | map(.inputCost) | add'
 ```
 
+### Latency
+
+`--latency` measures real generation latency in addition to token cost. For each `(model, format)` cell, tokenometer streams `n` real chat completions (default `n=3`, override with `--latency-trials 1..10`) capped at `max_tokens=200`, and reports:
+
+- **TTFT** — time to first streamed token (ms)
+- **Total** — wall-clock from request start to stream end (ms)
+- **tokens/sec** — `output_tokens / (total - ttft)`
+
+Numbers are reported as **p50 / p95 / mean** over the trials. Full per-trial data is included in `--output json`.
+
+```bash
+ANTHROPIC_API_KEY=… OPENAI_API_KEY=… \
+  npx tokenometer ./prompt.md --latency --model claude-opus-4-7,gpt-4o
+```
+
+`--latency` implies `--empirical` (offline mode can't measure real latency). The default `--max-spend` ceiling is bumped from `$0.05` to `$0.25` to cover the `n × 200-token` generations; pass `--max-spend` explicitly to override.
+
+Supported providers: Anthropic (`messages.stream`), OpenAI (`/v1/chat/completions` SSE), Google (`generateContentStream`), Cohere (`/v1/chat` NDJSON), Mistral (`/v1/chat/completions` SSE). Each trial retries once on transient failures.
+
 ## Per-file attribution
 
 `--by-file` appends a per-file token + USD summary table when you pass multiple input files (single-file inputs are a no-op):
@@ -124,7 +143,9 @@ echo "prompt" | tokenometer - [options]
 --config <path>        Load this exact config file
 --no-config            Skip .tokenometer.yml loading
 --empirical            Use provider countTokens APIs (free, exact)
---max-spend <usd>      Hard ceiling for empirical mode (default 0.05)
+--latency              Measure real generation latency (TTFT, total ms, tokens/s)
+--latency-trials <n>   Trials per cell when --latency is set (1-10, default 3)
+--max-spend <usd>      Hard ceiling for empirical mode (default 0.05; with --latency, 0.25)
 --offline              Force offline (overrides --empirical)
 -h, --help
 -v, --version

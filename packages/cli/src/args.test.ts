@@ -90,4 +90,41 @@ describe('parseArgs', () => {
     expect(r.modelsSet).toBe(false);
     expect(r.formatsSet).toBe(false);
   });
+
+  it('--latency parses as a boolean and implies --empirical', () => {
+    const r = parseArgs(['p.md', '--latency']);
+    expect(r.latency).toBe(true);
+    expect(r.empirical).toBe(true);
+  });
+
+  it('--latency without explicit --max-spend bumps the default ceiling to $0.25', () => {
+    const r = parseArgs(['p.md', '--latency']);
+    expect(r.maxSpend).toBeCloseTo(0.25);
+    expect(r.maxSpendSet).toBe(false);
+  });
+
+  it('--latency with explicit --max-spend keeps the user value', () => {
+    const r = parseArgs(['p.md', '--latency', '--max-spend', '0.40']);
+    expect(r.maxSpend).toBeCloseTo(0.4);
+    expect(r.maxSpendSet).toBe(true);
+  });
+
+  it('--latency-trials defaults to 3 and parses an integer in [1,10]', () => {
+    expect(parseArgs(['p.md']).latencyTrials).toBe(3);
+    expect(parseArgs(['p.md', '--latency-trials', '5']).latencyTrials).toBe(5);
+    expect(parseArgs(['p.md', '--latency-trials', '1']).latencyTrials).toBe(1);
+    expect(parseArgs(['p.md', '--latency-trials', '10']).latencyTrials).toBe(10);
+  });
+
+  it('--latency-trials rejects out-of-range and non-integer values', () => {
+    expect(() => parseArgs(['p.md', '--latency-trials', '0'])).toThrow(/between 1 and 10/);
+    expect(() => parseArgs(['p.md', '--latency-trials', '11'])).toThrow(/between 1 and 10/);
+    expect(() => parseArgs(['p.md', '--latency-trials', 'abc'])).toThrow(/between 1 and 10/);
+  });
+
+  it('--latency-trials requires a value', () => {
+    expect(() => parseArgs(['p.md', '--latency-trials'])).toThrow(
+      /--latency-trials requires a value/,
+    );
+  });
 });

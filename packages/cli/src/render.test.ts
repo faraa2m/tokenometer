@@ -46,6 +46,57 @@ describe('renderTable', () => {
     const out = renderTable(sample);
     expect(out).toMatch(/~80/);
   });
+
+  it('omits latency columns when no cell has latency data', () => {
+    const out = renderTable(sample);
+    expect(out).not.toContain('p50 ttft');
+    expect(out).not.toContain('p50 total');
+    expect(out).not.toContain('tokens/s');
+  });
+
+  it('adds latency columns when at least one cell has latency data', () => {
+    const withLatency: TokenizeResult[] = [
+      {
+        ...(sample[0] as TokenizeResult),
+        latency: {
+          trials: [
+            { ttftMs: 200, totalMs: 1500, outputTokens: 200, tokensPerSec: 153.85 },
+            { ttftMs: 220, totalMs: 1600, outputTokens: 200, tokensPerSec: 144.93 },
+            { ttftMs: 240, totalMs: 1700, outputTokens: 200, tokensPerSec: 136.99 },
+          ],
+          p50: { ttftMs: 220, totalMs: 1600, tokensPerSec: 144.93 },
+          p95: { ttftMs: 240, totalMs: 1700, tokensPerSec: 153.85 },
+          mean: { ttftMs: 220, totalMs: 1600, tokensPerSec: 145.26 },
+        },
+      },
+    ];
+    const out = renderTable(withLatency);
+    expect(out).toContain('p50 ttft');
+    expect(out).toContain('p50 total');
+    expect(out).toContain('tokens/s');
+    expect(out).toContain('220 ms');
+    expect(out).toContain('1600 ms');
+  });
+
+  it('renders a placeholder dash for cells without latency when others have it', () => {
+    const mixed: TokenizeResult[] = [
+      sample[0] as TokenizeResult,
+      {
+        ...(sample[1] as TokenizeResult),
+        latency: {
+          trials: [{ ttftMs: 100, totalMs: 800, outputTokens: 200, tokensPerSec: 285.7 }],
+          p50: { ttftMs: 100, totalMs: 800, tokensPerSec: 285.7 },
+          p95: { ttftMs: 100, totalMs: 800, tokensPerSec: 285.7 },
+          mean: { ttftMs: 100, totalMs: 800, tokensPerSec: 285.7 },
+        },
+      },
+    ];
+    const out = renderTable(mixed);
+    expect(out).toContain('p50 ttft');
+    // The first cell (no latency) should have placeholders.
+    const dataLines = out.split('\n').slice(2);
+    expect(dataLines[0]).toMatch(/-\s+-\s+-/);
+  });
 });
 
 describe('renderModelLimits', () => {

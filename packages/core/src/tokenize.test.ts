@@ -21,6 +21,25 @@ describe('countTokens', () => {
     expect(result.tokenizer).toBe('heuristic');
   });
 
+  it('flags Mistral SentencePiece counts as approximate (mistral_v1_v3)', () => {
+    const result = countTokens('Hello, world!', 'mistral', 'open-mistral-7b');
+    expect(result.approximate).toBe(true);
+    expect(result.tokenizer).toBe('mistral_v1_v3');
+    expect(result.count).toBeGreaterThan(0);
+  });
+
+  it('flags Mistral Tekken counts as approximate (heuristic)', () => {
+    const result = countTokens('Hello, world!', 'mistral', 'mistral-nemo');
+    expect(result.approximate).toBe(true);
+    expect(result.tokenizer).toBe('heuristic');
+  });
+
+  it('flags Cohere counts as approximate (heuristic only)', () => {
+    const result = countTokens('Hello, world!', 'cohere', 'command-r-plus');
+    expect(result.approximate).toBe(true);
+    expect(result.tokenizer).toBe('heuristic');
+  });
+
   it('count scales with input length', () => {
     const short = countTokens('hi', 'openai');
     const long = countTokens('hi'.repeat(200), 'openai');
@@ -56,6 +75,32 @@ describe('tokenize', () => {
     expect(
       tokenize({ format: 'text', modelId: 'gemini-2.5-pro', prompt: sample }).approximate,
     ).toBe(true);
+  });
+
+  it('dispatches a Mistral SentencePiece model end-to-end via tokenize()', () => {
+    const result = tokenize({ format: 'text', modelId: 'open-mistral-7b', prompt: 'Hi there.' });
+    expect(result.provider).toBe('mistral');
+    expect(result.tokenizer).toBe('mistral_v1_v3');
+    expect(result.approximate).toBe(true);
+    expect(result.inputTokens).toBeGreaterThan(0);
+    expect(result.inputCost).toBeGreaterThan(0);
+  });
+
+  it('dispatches a Mistral Tekken model to the heuristic path', () => {
+    const result = tokenize({ format: 'text', modelId: 'mistral-nemo', prompt: 'Hi there.' });
+    expect(result.provider).toBe('mistral');
+    expect(result.tokenizer).toBe('heuristic');
+    expect(result.approximate).toBe(true);
+    expect(result.inputTokens).toBeGreaterThan(0);
+    expect(result.inputCost).toBeGreaterThan(0);
+  });
+
+  it('dispatches a Cohere model to the heuristic path', () => {
+    const result = tokenize({ format: 'text', modelId: 'command-r-plus', prompt: 'Hi there.' });
+    expect(result.provider).toBe('cohere');
+    expect(result.tokenizer).toBe('heuristic');
+    expect(result.approximate).toBe(true);
+    expect(result.inputCost).toBeGreaterThan(0);
   });
 });
 

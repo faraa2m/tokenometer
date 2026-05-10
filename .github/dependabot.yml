@@ -1,0 +1,66 @@
+# Watches upstream model catalogs so new model releases (Anthropic, OpenAI,
+# Google, Mistral) flow into tokenometer automatically. The companion workflow
+# .github/workflows/tokenlens-bump.yml turns each Dependabot PR into a release:
+# it refreshes the registry snapshot, adds a changeset, and auto-merges
+# patch/minor bumps once CI is green.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - tokenlens-bump
+    commit-message:
+      prefix: chore
+      include: scope
+    # Only watch the model-catalog packages here. Everything else is updated
+    # in the broader weekly group below.
+    allow:
+      - dependency-name: tokenlens
+      - dependency-name: "@tokenlens/*"
+    groups:
+      tokenlens:
+        patterns:
+          - tokenlens
+          - "@tokenlens/*"
+
+  # Broader weekly sweep for everything else, kept separate so model-catalog
+  # bumps stay on their own fast track and don't get held up behind unrelated
+  # dep churn.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+    commit-message:
+      prefix: chore
+      include: scope
+    ignore:
+      - dependency-name: tokenlens
+      - dependency-name: "@tokenlens/*"
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    labels:
+      - dependencies
+      - github-actions

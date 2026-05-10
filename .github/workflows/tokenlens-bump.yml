@@ -1,0 +1,147 @@
+# Closes the loop on Dependabot PRs that bump `tokenlens` / `@tokenlens/*`.
+#
+# When a tokenlens release ships new model pricing or new model ids, Dependabot
+# opens a PR (see .github/dependabot.yml). This workflow then:
+#   1. Rebuilds @tokenometer/core against the new catalog.
+#   2. Regenerates packages/core/src/__snapshots__/registry.json so the weekly
+#      registry-check.yml stays clean. Otherwise the next run would file a
+#      drift issue for the very change we just merged.
+#   3. Runs check:overrides — if upstream now ships a model we had pinned in
+#      LOCAL_OVERRIDES, the job fails loudly so we delete the override before
+#      shipping. Better to block the auto-flow than to publish stale data.
+#   4. Adds a changeset (`patch` for patch bumps, `minor` for minor) so the
+#      existing release pipeline picks up the change on merge to main.
+#   5. Enables GitHub native auto-merge for patch/minor bumps. Major bumps
+#      stop here for human review.
+#
+# All commits are pushed back to the Dependabot branch with the GITHUB_TOKEN.
+# Dependabot PRs originate from the same repo, so the default token has push
+# rights on the head ref.
+
+name: tokenlens-bump
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: tokenlens-bump-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  enrich:
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'tokenlens-bump') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Build @tokenometer/core against new catalog
+        run: npm run build -w @tokenometer/core
+
+      - name: Refresh registry snapshot
+        run: npm run snapshot:registry -w @tokenometer/core
+
+      - name: Verify overrides still needed
+        id: overrides
+        run: |
+          set +e
+          OUTPUT=$(npm run --silent check:overrides -w @tokenometer/core 2>&1)
+          STATUS=$?
+          echo "$OUTPUT"
+          {
+            echo 'output<<EOF'
+            echo "$OUTPUT"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          # Drift after a fresh snapshot refresh means nothing — we just wrote
+          # the snapshot. The only failure we care about here is "override
+          # landed upstream", which surfaces as a non-zero exit with that text.
+          if [ $STATUS -ne 0 ] && echo "$OUTPUT" | grep -q "Upstream now ships"; then
+            echo "Override landed upstream — failing so a human deletes the LOCAL_OVERRIDES entry."
+            exit 1
+          fi
+          exit 0
+
+      - name: Determine bump type
+        id: bump
+        run: |
+          UPDATE_TYPE='${{ steps.meta.outputs.update-type }}'
+          case "$UPDATE_TYPE" in
+            version-update:semver-patch) CHANGESET=patch ;;
+            version-update:semver-minor) CHANGESET=minor ;;
+            version-update:semver-major) CHANGESET=major ;;
+            *) CHANGESET=patch ;;
+          esac
+          echo "changeset=$CHANGESET" >> "$GITHUB_OUTPUT"
+          echo "update_type=$UPDATE_TYPE" >> "$GITHUB_OUTPUT"
+
+      - name: Write changeset
+        env:
+          BUMP: ${{ steps.bump.outputs.changeset }}
+          DEPS: ${{ steps.meta.outputs.dependency-names }}
+          NEW_VERSION: ${{ steps.meta.outputs.new-version }}
+        run: |
+          SLUG=$(echo "$DEPS" | tr ',' '-' | tr -cd 'a-zA-Z0-9-' | head -c 60)
+          FILE=".changeset/auto-tokenlens-${SLUG}-${NEW_VERSION}.md"
+          cat > "$FILE" <<EOF
+          ---
+          "tokenometer": ${BUMP}
+          "@tokenometer/core": ${BUMP}
+          ---
+
+          chore(deps): bump ${DEPS} to ${NEW_VERSION}
+
+          Pulls in upstream model catalog changes (new models, pricing updates,
+          context-window changes). Snapshot regenerated automatically.
+          EOF
+          echo "Wrote $FILE"
+
+      - name: Commit snapshot + changeset
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add packages/core/src/__snapshots__/registry.json .changeset/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit (snapshot already current, no changeset needed)."
+            exit 0
+          fi
+          git commit -m "chore(deps): refresh registry snapshot + add changeset"
+          git push
+
+      - name: Enable auto-merge for patch/minor
+        if: ${{ steps.bump.outputs.changeset != 'major' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge --auto --squash "$PR_URL"
+
+      - name: Major bump notice
+        if: ${{ steps.bump.outputs.changeset == 'major' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr comment "$PR_URL" --body "Major version bump for tokenlens — auto-merge skipped. Review breaking changes before merging."

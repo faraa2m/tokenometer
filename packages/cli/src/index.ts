@@ -31,7 +31,22 @@ import {
   resolveImages,
 } from './vision.js';
 
-const VERSION = '0.0.2';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Read version from this package's own package.json so `--version` always
+// matches the published artifact. The dist file lives at packages/cli/dist/,
+// so package.json is one level up from the compiled file.
+const VERSION: string = (() => {
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const pkgPath = join(here, '..', 'package.json');
+    return JSON.parse(readFileSync(pkgPath, 'utf8')).version as string;
+  } catch {
+    return '0.0.0';
+  }
+})();
 
 const readEnv = (): EmpiricalEnv => {
   const env: EmpiricalEnv = {};

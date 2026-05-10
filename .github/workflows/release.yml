@@ -198,9 +198,22 @@ jobs:
 
       - name: Publish VS Code extension to Marketplace
         if: ${{ steps.publish.outputs.published == 'true' && env.VSCE_PAT != '' }}
-        run: npx --yes @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.path }}" --pat "$VSCE_PAT"
+        continue-on-error: true
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          set +e
+          OUT=$(npx --yes @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.path }}" --pat "$VSCE_PAT" 2>&1)
+          CODE=$?
+          echo "$OUT"
+          if [ $CODE -eq 0 ]; then
+            exit 0
+          fi
+          if echo "$OUT" | grep -qiE "already exists|already published"; then
+            echo "ℹ Already published at this version — treating as success." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          exit $CODE
 
       - name: Notice — VS Code Marketplace skipped
         if: ${{ steps.publish.outputs.published == 'true' && env.VSCE_PAT == '' }}
@@ -210,9 +223,22 @@ jobs:
 
       - name: Publish to Open VSX
         if: ${{ steps.publish.outputs.published == 'true' && env.OVSX_PAT != '' }}
-        run: npx --yes ovsx publish "${{ steps.vsix.outputs.path }}" --pat "$OVSX_PAT"
+        continue-on-error: true
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          set +e
+          OUT=$(npx --yes ovsx publish "${{ steps.vsix.outputs.path }}" --pat "$OVSX_PAT" 2>&1)
+          CODE=$?
+          echo "$OUT"
+          if [ $CODE -eq 0 ]; then
+            exit 0
+          fi
+          if echo "$OUT" | grep -qiE "already exists|already published|version.*exists"; then
+            echo "ℹ Already published at this version — treating as success." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          exit $CODE
 
       - name: Notice — Open VSX skipped
         if: ${{ steps.publish.outputs.published == 'true' && env.OVSX_PAT == '' }}

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`c1b608b`](https://github.com/faraa2m/tokenometer/commit/c1b608bcce9df8d1a6d3dd51132554fa6f5318fd)]:
+  - @tokenometer/core@1.0.1
+
 ## 0.1.4
 
 ### Patch Changes

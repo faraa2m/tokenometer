@@ -3,37 +3,28 @@
 # One trigger, every artifact:
 #   1. Changesets opens / merges a "Version Packages" PR. Merging it lands here.
 #   2. The `release` job publishes `tokenometer` + `@tokenometer/core` to npm
-#      with provenance (Wave 1) and creates a GitHub Release on the new tag.
-#      The GitHub Marketplace listens for that Release to re-publish the
-#      Action's Marketplace listing (no extra step needed).
+#      with provenance using direct `npm publish` (Wave-1 style; the
+#      Changesets action's bundled publish path 404'd against this org's
+#      auth — see commit history). It then creates a GitHub Release on the
+#      new tag. The GitHub Marketplace re-publishes the Action listing
+#      automatically when the Release is created from a tag.
 #   3. The same job then publishes the VS Code extension to the VS Code
 #      Marketplace via `vsce` and to Open VSX via `ovsx` (Cursor / Codium).
 #   4. Marketplace listing is HTTP-verified (best-effort — propagation can lag).
 #   5. The Vercel deploy hook is fired so the playground rebuilds against the
 #      new published packages.
 #   6. A separate `smoke-test` job runs on a fresh runner against the
-#      just-published versions on npm, so we catch any "publish succeeded but
-#      the published artifact is broken" class of bug before users hit it.
+#      just-published versions on npm.
 #
 # Required GitHub repository secrets:
-#   NPM_TOKEN           — npm automation token. Set since Wave 1.
-#                         Used by `changesets/action@v1` to publish to npm.
-#   VSCE_PAT            — Personal Access Token from https://dev.azure.com
-#                         (Marketplace publisher → Manage Tokens). Scope:
-#                         "Marketplace → Acquire + Manage". Used by `vsce`
-#                         to publish to https://marketplace.visualstudio.com.
-#                         If absent, the VS Code Marketplace publish step
-#                         is skipped (the workflow logs a clear notice).
-#   OVSX_PAT            — Personal Access Token from https://open-vsx.org
-#                         (User Settings → Access Tokens). Used by `ovsx`
-#                         to publish to https://open-vsx.org. If absent,
-#                         the Open VSX publish step is skipped. Cursor
-#                         and VSCodium read from Open VSX, not the VS
-#                         Code Marketplace, so this is highly recommended.
-#   VERCEL_DEPLOY_HOOK  — Deploy hook URL from Vercel project settings
-#                         (Settings → Git → Deploy Hooks). Optional; the
-#                         playground also rebuilds automatically on every
-#                         push to main. If absent, the step is skipped.
+#   NPM_TOKEN           — npm Automation token (or Granular with Bypass 2FA)
+#                         scoped to publish `tokenometer` and `@tokenometer/*`.
+#   VSCE_PAT            — Personal Access Token from https://dev.azure.com.
+#                         Scope: Marketplace → Manage. Skipped if absent.
+#   OVSX_PAT            — Personal Access Token from https://open-vsx.org.
+#                         Skipped if absent (Cursor / VSCodium read here).
+#   VERCEL_DEPLOY_HOOK  — Vercel deploy hook URL. Optional (auto-rebuild
+#                         on push covers it).
 
 name: release
 
@@ -60,7 +51,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     outputs:
-      published: ${{ steps.changesets.outputs.published }}
+      published: ${{ steps.publish.outputs.published }}
+      version: ${{ steps.publish.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -78,45 +70,113 @@ jobs:
       - run: npm test
       - run: npm run build
 
-      # Changesets opens (or updates) a "Version Packages" PR when changeset files
-      # are present in `.changeset/`. When that PR is merged, this same workflow
-      # auto-bumps versions in package.json, auto-generates CHANGELOG.md entries
-      # from the changeset summaries, then publishes to npm.
-      # Note the chained `npm run lint:fix` after `changeset version`. Changesets
-      # rewrites package.json when bumping versions and produces multi-line arrays,
-      # but Biome wants compact arrays — without the lint:fix the version PR's CI
-      # fails immediately. Running lint:fix re-formats the bumped files in place.
-      - name: Changesets — version PR or publish
+      # Changesets ONLY handles versioning + the "Version Packages" PR.
+      # Publishing is done directly with `npm publish` below — the
+      # Changesets action's own publish path returned E404 on this org's
+      # auth chain even with a verified-good token (token works locally,
+      # fails inside the action). Direct publish is what worked since
+      # Wave 1 of the rollout.
+      - name: Changesets — open / update Version Packages PR
         if: ${{ inputs.dry-run != 'true' }}
         id: changesets
         uses: changesets/action@v1
         with:
           version: npm run changeset:version
-          publish: npx changeset publish
+          # publish: intentionally omitted; we do it explicitly below.
           commit: 'chore(release): version packages'
           title: 'chore(release): version packages'
-          createGithubReleases: true
+          createGithubReleases: false  # we create it after publish succeeds
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Sync cross-package deps after publish
-        if: ${{ steps.changesets.outputs.published == 'true' }}
+      # Detect whether the current commit on main has unpublished package
+      # versions. If so, the Version Packages PR was just merged and we
+      # need to publish.
+      - name: Detect unpublished versions
+        id: detect
+        if: ${{ inputs.dry-run != 'true' && steps.changesets.outputs.hasChangesets != 'true' }}
         run: |
-          PUBLISHED_VERSION=$(node -p "require('./packages/core/package.json').version")
-          npm pkg set 'dependencies.@tokenometer/core'="$PUBLISHED_VERSION" --workspace=packages/cli
-          npm pkg set 'dependencies.@tokenometer/core'="$PUBLISHED_VERSION" --workspace=packages/action
+          CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
+          CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
+          echo "core_version=$CORE_VERSION" >> $GITHUB_OUTPUT
+          echo "cli_version=$CLI_VERSION" >> $GITHUB_OUTPUT
+
+          NEEDS_PUBLISH=false
+          if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
+            echo "@tokenometer/core@$CORE_VERSION not on npm — will publish"
+            NEEDS_PUBLISH=true
+          else
+            echo "@tokenometer/core@$CORE_VERSION already on npm — skip"
+          fi
+          if ! npm view "tokenometer@$CLI_VERSION" version >/dev/null 2>&1; then
+            echo "tokenometer@$CLI_VERSION not on npm — will publish"
+            NEEDS_PUBLISH=true
+          else
+            echo "tokenometer@$CLI_VERSION already on npm — skip"
+          fi
+          echo "needs_publish=$NEEDS_PUBLISH" >> $GITHUB_OUTPUT
+
+      - name: Publish @tokenometer/core
+        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        working-directory: packages/core
+        continue-on-error: true
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish tokenometer (CLI)
+        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        working-directory: packages/cli
+        continue-on-error: true
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Set the `published` output by re-checking the registry. This way
+      # downstream steps and the smoke-test job gate correctly even if one
+      # of the publish steps was already skipped (idempotent re-runs).
+      - name: Set publish status
+        id: publish
+        if: ${{ inputs.dry-run != 'true' && steps.changesets.outputs.hasChangesets != 'true' }}
+        run: |
+          CORE_VERSION="${{ steps.detect.outputs.core_version }}"
+          CLI_VERSION="${{ steps.detect.outputs.cli_version }}"
+          PUBLISHED=true
+          if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
+            PUBLISHED=false
+          fi
+          if ! npm view "tokenometer@$CLI_VERSION" version >/dev/null 2>&1; then
+            PUBLISHED=false
+          fi
+          echo "published=$PUBLISHED" >> $GITHUB_OUTPUT
+          echo "version=$CLI_VERSION" >> $GITHUB_OUTPUT
+          echo "Final publish status: $PUBLISHED (version $CLI_VERSION)"
+
+      # Create GitHub Release on the new tag. Marketplace re-publishes the
+      # Action listing automatically when a Release is created from a tag.
+      - name: Create GitHub Release
+        if: ${{ steps.publish.outputs.published == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.publish.outputs.version }}"
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "Release v$VERSION already exists — skipping"
+          else
+            gh release create "v$VERSION" \
+              --title "v$VERSION" \
+              --generate-notes \
+              --target main
+            echo "Created release v$VERSION"
+          fi
 
       # ── Phase I: VS Code Marketplace + Open VSX ─────────────────────────────
-      # The .vsix is built fresh after the version bump so it carries the new
-      # version metadata. We don't store the .vsix as a release asset; the
-      # Marketplaces are the canonical distribution surface.
       - name: Build VS Code extension .vsix
-        if: ${{ steps.changesets.outputs.published == 'true' }}
+        if: ${{ steps.publish.outputs.published == 'true' }}
         run: npm run package:vsix --workspace=packages/vscode
 
       - name: Locate built .vsix
-        if: ${{ steps.changesets.outputs.published == 'true' }}
+        if: ${{ steps.publish.outputs.published == 'true' }}
         id: vsix
         run: |
           VSIX_PATH=$(ls packages/vscode/*.vsix | head -1)
@@ -124,35 +184,32 @@ jobs:
           echo "Built: $VSIX_PATH"
 
       - name: Publish VS Code extension to Marketplace
-        if: ${{ steps.changesets.outputs.published == 'true' && env.VSCE_PAT != '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.VSCE_PAT != '' }}
         run: npx --yes @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.path }}" --pat "$VSCE_PAT"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Notice — VS Code Marketplace skipped
-        if: ${{ steps.changesets.outputs.published == 'true' && env.VSCE_PAT == '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.VSCE_PAT == '' }}
         run: echo "VSCE_PAT not set, skipping VS Code Marketplace publish." >> $GITHUB_STEP_SUMMARY
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to Open VSX
-        if: ${{ steps.changesets.outputs.published == 'true' && env.OVSX_PAT != '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.OVSX_PAT != '' }}
         run: npx --yes ovsx publish "${{ steps.vsix.outputs.path }}" --pat "$OVSX_PAT"
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       - name: Notice — Open VSX skipped
-        if: ${{ steps.changesets.outputs.published == 'true' && env.OVSX_PAT == '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.OVSX_PAT == '' }}
         run: echo "OVSX_PAT not set, skipping Open VSX publish." >> $GITHUB_STEP_SUMMARY
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       # ── Phase I: GitHub Marketplace verify ──────────────────────────────────
-      # The Marketplace listing is republished by GitHub when a Release is
-      # created from a tag. Verification is best-effort — propagation can take
-      # several minutes, so a non-200 here doesn't fail the run.
       - name: Verify GitHub Marketplace listing
-        if: ${{ steps.changesets.outputs.published == 'true' }}
+        if: ${{ steps.publish.outputs.published == 'true' }}
         run: |
           sleep 30
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/marketplace/actions/tokenometer)
@@ -163,25 +220,22 @@ jobs:
           fi
 
       # ── Phase I: Vercel deploy hook ─────────────────────────────────────────
-      # The playground also rebuilds automatically on every push to main, so
-      # this is mostly a belt-and-suspenders trigger to make sure the just-
-      # published @tokenometer/core lands on the live site immediately.
       - name: Trigger Vercel deploy
-        if: ${{ steps.changesets.outputs.published == 'true' && env.VERCEL_DEPLOY_HOOK != '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.VERCEL_DEPLOY_HOOK != '' }}
         run: curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK"
         env:
           VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
 
       - name: Notice — Vercel deploy hook skipped
-        if: ${{ steps.changesets.outputs.published == 'true' && env.VERCEL_DEPLOY_HOOK == '' }}
+        if: ${{ steps.publish.outputs.published == 'true' && env.VERCEL_DEPLOY_HOOK == '' }}
         run: echo "VERCEL_DEPLOY_HOOK not set, skipping explicit Vercel trigger (Vercel still auto-rebuilds on push to main)." >> $GITHUB_STEP_SUMMARY
         env:
           VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
 
       - name: Summary
-        if: ${{ steps.changesets.outputs.published == 'true' }}
+        if: ${{ steps.publish.outputs.published == 'true' }}
         run: |
-          VERSION=$(node -p "require('./packages/cli/package.json').version")
+          VERSION="${{ steps.publish.outputs.version }}"
           {
             echo "### Published"
             echo "- npm: tokenometer@${VERSION} — https://www.npmjs.com/package/tokenometer"
@@ -197,15 +251,8 @@ jobs:
         if: ${{ inputs.dry-run == 'true' }}
         run: |
           echo "### Dry run" >> $GITHUB_STEP_SUMMARY
-          echo "Skipped Changesets publish step. All Phase I publish/marketplace/Vercel steps also skip because they gate on \`steps.changesets.outputs.published == 'true'\`." >> $GITHUB_STEP_SUMMARY
+          echo "Skipped publish + Phase I steps." >> $GITHUB_STEP_SUMMARY
 
-  # ── Phase I: Smoke-test job ──────────────────────────────────────────────
-  # Runs on a fresh runner against the JUST-published versions on npm. This
-  # catches the "publish succeeded but the published artifact is broken" class
-  # of bug (missing files, wrong bin shebang, dependency not bundled, etc.)
-  # before any user hits it. Best-effort for the Action — the full Action
-  # smoke-test requires a fixture PR setup that can't run from the publishing
-  # repo itself.
   smoke-test:
     needs: release
     if: needs.release.outputs.published == 'true'
@@ -219,16 +266,9 @@ jobs:
 
       - name: Smoke test published CLI
         run: |
-          VERSION=$(node -p "require('./packages/cli/package.json').version")
+          VERSION="${{ needs.release.outputs.version }}"
           echo "Smoke-testing tokenometer@$VERSION"
           npx --yes tokenometer@$VERSION --version
           echo "test prompt" > /tmp/smoke.md
           npx --yes tokenometer@$VERSION /tmp/smoke.md --model claude-opus-4-7 --output sarif | jq -e '.version == "2.1.0"' >/dev/null
           echo "✓ tokenometer@$VERSION CLI smoke passed" >> $GITHUB_STEP_SUMMARY
-
-      - name: Smoke test Action against fixture PR
-        run: |
-          # Skip if fixture isn't available; this is best-effort.
-          # Full implementation would dispatch a workflow on a fixture repo
-          # whose `prompt-cost.yml` references `faraa2m/tokenometer@v$VERSION`.
-          echo "Action smoke test placeholder — full implementation requires a fixture PR setup." >> $GITHUB_STEP_SUMMARY

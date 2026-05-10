@@ -15,3 +15,4 @@ coverage
 .env.local
 .env.*.local
 .tokenometer-cache
+packages/vscode/*.vsix

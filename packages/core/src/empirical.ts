@@ -122,7 +122,7 @@ export const tokenizeEmpirical = async (
       break;
     case 'mistral':
       // Mistral does not expose a public free token-count endpoint as of
-      // May 2026 (see local research notes). Refuse
+      // May 2026 (Mistral has no public token-count endpoint). Refuse
       // empirical mode rather than silently falling back to the offline
       // path — that would violate the `--empirical` contract (count is
       // exact). Users who want exact counts can call a metered chat

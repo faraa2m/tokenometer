@@ -3,7 +3,7 @@
 # One trigger, every artifact:
 #   1. Changesets opens / merges a "Version Packages" PR. Merging it lands here.
 #   2. The `release` job publishes `tokenometer` + `@tokenometer/core` to npm
-#      with provenance using direct `npm publish` (Wave-1 style; the
+#      with provenance using direct `npm publish` (the
 #      Changesets action's bundled publish path 404'd against this org's
 #      auth — see commit history). It then creates a GitHub Release on the
 #      new tag. The GitHub Marketplace re-publishes the Action listing
@@ -75,7 +75,7 @@ jobs:
       # Changesets action's own publish path returned E404 on this org's
       # auth chain even with a verified-good token (token works locally,
       # fails inside the action). Direct publish is what worked since
-      # Wave 1 of the rollout.
+      # the initial rollout.
       - name: Changesets — open / update Version Packages PR
         if: ${{ inputs.dry-run != 'true' }}
         id: changesets

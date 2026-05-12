@@ -33,13 +33,37 @@ inputs:
     description: 'Top-N changed files to show in the per-file diff table (1-20).'
     required: false
     default: '5'
+  code-paths:
+    description: 'Glob of source files to scan for inline LLM prompts. Newline or comma separated.'
+    required: false
+    default: 'src/**/*.ts,src/**/*.tsx,src/**/*.js,src/**/*.jsx,src/**/*.py'
+  code-detection:
+    description: 'Mode for code-embedded prompt detection: off | annotations | sdk-regex | both. Default off for backwards compat.'
+    required: false
+    default: 'off'
+  prompt-marker-comment:
+    description: 'Annotation prefix used to mark inline prompts in code (e.g., @tokenometer-prompt model=...).'
+    required: false
+    default: '@tokenometer-prompt'
+  comment-mode:
+    description: 'PR comment shape: single | split. Single appends to the existing cost-diff comment; split posts a second sticky.'
+    required: false
+    default: 'single'
+  top-n-prompts:
+    description: 'Top-N code-embedded prompts to show in the comment table (1-20).'
+    required: false
+    default: '5'
   github-token:
     description: 'GITHUB_TOKEN with `pull-requests: write`.'
     required: false
     default: ${{ github.token }}
 outputs:
   cost-delta:
-    description: 'Total cost delta in USD (head minus base).'
+    description: 'Total cost delta in USD (head minus base, file-based only).'
+  code-cost-delta:
+    description: 'USD cost delta from code-embedded prompt changes.'
+  total-cost-delta:
+    description: 'Total USD cost delta (file-based + code-embedded). Used by the budget gate.'
   comment-url:
     description: 'URL of the sticky comment.'
 runs:

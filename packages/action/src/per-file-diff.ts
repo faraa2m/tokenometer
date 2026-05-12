@@ -83,19 +83,19 @@ export const aggregatePerFileDiff = (
   };
 };
 
-const formatTokensDelta = (delta: number): string => {
+export const formatTokensDelta = (delta: number): string => {
   if (delta === 0) return '0';
   const sign = delta > 0 ? '+' : '−';
   return `${sign}${Math.abs(delta).toLocaleString()}`;
 };
 
-const formatUsd = (usd: number): string => {
+export const formatUsd = (usd: number): string => {
   if (Math.abs(usd) >= 0.01) return `$${usd.toFixed(4)}`;
   if (Math.abs(usd) >= 0.000001) return `$${usd.toFixed(6)}`;
   return `$${usd.toExponential(2)}`;
 };
 
-const formatUsdDelta = (delta: number): string => {
+export const formatUsdDelta = (delta: number): string => {
   if (delta === 0) return '$0';
   const sign = delta > 0 ? '+' : '−';
   return `${sign}${formatUsd(Math.abs(delta))}`;

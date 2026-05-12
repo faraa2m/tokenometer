@@ -62607,6 +62607,513 @@ minimatch.Minimatch = Minimatch;
 minimatch.escape = escape2;
 minimatch.unescape = unescape2;
 
+// src/detectors/extracted-prompt.ts
+var import_node_crypto = require("node:crypto");
+var computeMatchId = (file, sdk, enclosingHint) => {
+  const hash = (0, import_node_crypto.createHash)("sha1");
+  hash.update(file);
+  hash.update("\0");
+  hash.update(sdk);
+  hash.update("\0");
+  hash.update(enclosingHint);
+  return hash.digest("hex");
+};
+var FN_PATTERNS = [
+  /^\s*(?:export\s+)?(?:async\s+)?function\s+(\w+)/,
+  /^\s*(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s+)?\(/,
+  /^\s*(\w+)\s*[:=]\s*(?:async\s+)?\([^)]*\)\s*=>/,
+  /^\s*(?:async\s+)?def\s+(\w+)/,
+  /^\s*class\s+(\w+)/
+];
+var findEnclosingFunction = (lines, line) => {
+  const start = Math.max(0, Math.min(line - 1, lines.length - 1));
+  for (let i = start; i >= 0; i--) {
+    const raw = lines[i];
+    if (raw === void 0) continue;
+    for (const pattern of FN_PATTERNS) {
+      const match2 = pattern.exec(raw);
+      if (match2?.[1]) return match2[1];
+    }
+  }
+  return "top-level";
+};
+
+// src/detectors/annotation-detector.ts
+var INTERP_PLACEHOLDER = "__INTERP__";
+var parseAnnotationMeta = (rest) => {
+  const out = {};
+  const modelMatch = /\bmodel\s*[:=]\s*"?'?([\w.\-:/]+)/.exec(rest);
+  if (modelMatch?.[1]) out.model = modelMatch[1];
+  return out;
+};
+var findAnnotations = (lines, marker) => {
+  const escaped = marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`${escaped}([^\\n\\r]*)`);
+  const hits = [];
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    if (raw === void 0) continue;
+    const idx = raw.indexOf(marker);
+    if (idx < 0) continue;
+    const prefix = raw.slice(0, idx);
+    const looksLikeComment = /(\/\/|#|\*|"""|''')/.test(prefix) || /^\s*\*/.test(raw) || /^\s*#/.test(raw);
+    if (!looksLikeComment) continue;
+    const match2 = re.exec(raw);
+    if (!match2) continue;
+    const meta = parseAnnotationMeta(match2[1] ?? "");
+    const hit = { line: i + 1, col: idx + 1 };
+    if (meta.model !== void 0) hit.model = meta.model;
+    hits.push(hit);
+  }
+  return hits;
+};
+var stripCommentLine = (line) => line.replace(/\/\/.*$/, "").replace(/\/\*.*?\*\//g, "").replace(/^\s*\*.*$/, "").replace(/#.*$/, "");
+var findNextLiteral = (lines, startLine) => {
+  const windowEnd = Math.min(lines.length, startLine + 16);
+  for (let i = startLine; i < windowEnd; i++) {
+    const raw = lines[i];
+    if (raw === void 0) continue;
+    const stripped = stripCommentLine(raw);
+    const tripleMatch = /(?:f|F|r|R|rb|br|b|B)?("""|''')/.exec(stripped);
+    if (tripleMatch) {
+      const quote = tripleMatch[1];
+      const startCol = raw.indexOf(quote);
+      const startQuoteIdx = stripped.indexOf(quote);
+      const afterQuote = stripped.slice(startQuoteIdx + 3);
+      const closingIdx = afterQuote.indexOf(quote);
+      if (closingIdx >= 0) {
+        const text = afterQuote.slice(0, closingIdx).replace(/\{[^}]*\}/g, INTERP_PLACEHOLDER);
+        return { line: i + 1, col: startCol + 1, text };
+      }
+      const buf = [afterQuote];
+      for (let j = i + 1; j < lines.length; j++) {
+        const next = lines[j];
+        if (next === void 0) continue;
+        const closeIdx = next.indexOf(quote);
+        if (closeIdx >= 0) {
+          buf.push(next.slice(0, closeIdx));
+          const text = buf.join("\n").replace(/\{[^}]*\}/g, INTERP_PLACEHOLDER);
+          return { line: i + 1, col: startCol + 1, text };
+        }
+        buf.push(next);
+      }
+      return null;
+    }
+    const backtickIdx = stripped.indexOf("`");
+    if (backtickIdx >= 0) {
+      const fromBacktick = stripped.slice(backtickIdx + 1);
+      const closeIdx = fromBacktick.indexOf("`");
+      if (closeIdx >= 0) {
+        const text = fromBacktick.slice(0, closeIdx).replace(/\$\{[^}]*\}/g, INTERP_PLACEHOLDER);
+        return { line: i + 1, col: backtickIdx + 1, text };
+      }
+      const buf = [fromBacktick];
+      for (let j = i + 1; j < lines.length; j++) {
+        const next = lines[j];
+        if (next === void 0) continue;
+        const ci = next.indexOf("`");
+        if (ci >= 0) {
+          buf.push(next.slice(0, ci));
+          const text = buf.join("\n").replace(/\$\{[^}]*\}/g, INTERP_PLACEHOLDER);
+          return { line: i + 1, col: backtickIdx + 1, text };
+        }
+        buf.push(next);
+      }
+      return null;
+    }
+    const literal = scanSingleQuotedLiteral(stripped);
+    if (literal) {
+      const colOffset = raw.indexOf(literal.raw);
+      const col = colOffset >= 0 ? colOffset + 1 : 1;
+      const text = literal.isFString ? literal.text.replace(/\{[^}]*\}/g, INTERP_PLACEHOLDER) : literal.text;
+      return { line: i + 1, col, text };
+    }
+  }
+  return null;
+};
+var scanSingleQuotedLiteral = (line) => {
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch !== '"' && ch !== "'") continue;
+    const prev = i > 0 ? line[i - 1] : "";
+    const isFString = prev === "f" || prev === "F";
+    let j = i + 1;
+    let escaped = false;
+    while (j < line.length) {
+      const c = line[j];
+      if (escaped) {
+        escaped = false;
+        j++;
+        continue;
+      }
+      if (c === "\\") {
+        escaped = true;
+        j++;
+        continue;
+      }
+      if (c === ch) {
+        const text = line.slice(i + 1, j);
+        const raw = line.slice(i, j + 1);
+        return { raw, text, isFString };
+      }
+      j++;
+    }
+  }
+  return null;
+};
+var detectAnnotations = (content, file, options) => {
+  const lines = content.split("\n");
+  const hits = findAnnotations(lines, options.marker);
+  const out = [];
+  for (const hit of hits) {
+    const literal = findNextLiteral(lines, hit.line);
+    if (!literal) continue;
+    const enclosing = findEnclosingFunction(lines, literal.line);
+    const matchId = computeMatchId(file, "annotation", enclosing);
+    const entry = {
+      file,
+      line: literal.line,
+      col: literal.col,
+      text: literal.text,
+      source: "annotation",
+      matchId
+    };
+    if (hit.model !== void 0) entry.model = hit.model;
+    out.push(entry);
+  }
+  return out;
+};
+
+// src/detectors/sdk-regex-detector.ts
+var SDK_PATTERNS = [
+  {
+    sdk: "anthropic",
+    regex: /\b(?:anthropic|client)\s*\.\s*messages\s*\.\s*create\s*\(\s*\{([\s\S]*?)\}\s*\)/g,
+    modelHintRegex: /model\s*[:=]\s*['"]([^'"]+)['"]/
+  },
+  {
+    sdk: "openai",
+    regex: /\b(?:openai|client)\s*\.\s*chat\s*\.\s*completions\s*\.\s*create\s*\(\s*\{([\s\S]*?)\}\s*\)/g,
+    modelHintRegex: /model\s*[:=]\s*['"]([^'"]+)['"]/
+  },
+  {
+    sdk: "openai",
+    regex: /\b(?:openai|client)\s*\.\s*responses\s*\.\s*create\s*\(\s*\{([\s\S]*?)\}\s*\)/g,
+    modelHintRegex: /model\s*[:=]\s*['"]([^'"]+)['"]/
+  },
+  {
+    sdk: "google",
+    regex: /\bmodel\s*\.\s*generateContent\s*\(\s*\{([\s\S]*?)\}\s*\)/g
+  },
+  {
+    sdk: "mistral",
+    regex: /\b(?:mistralClient|mistral|client)\s*\.\s*chat(?:\s*\.\s*complete)?\s*\(\s*\{([\s\S]*?)\}\s*\)/g,
+    modelHintRegex: /model\s*[:=]\s*['"]([^'"]+)['"]/
+  },
+  {
+    sdk: "cohere",
+    regex: /\b(?:cohere|cohereClient|client)\s*\.\s*chat\s*\(\s*\{([\s\S]*?)\}\s*\)/g,
+    modelHintRegex: /model\s*[:=]\s*['"]([^'"]+)['"]/
+  }
+];
+var KEYS_FOR_PROMPT = ["system", "prompt", "content", "text", "contents"];
+var INTERP_PLACEHOLDER2 = "__INTERP__";
+var extractKeyLiteral = (body, key) => {
+  const keyRe = new RegExp(`\\b${key}\\s*[:=]\\s*`, "g");
+  let match2;
+  while ((match2 = keyRe.exec(body)) !== null) {
+    const start = match2.index + match2[0].length;
+    const rest = body.slice(start);
+    const literal = readStringLiteral(rest);
+    if (literal) return { text: literal, isLiteral: true };
+    const next = rest.trim();
+    if (next.length === 0) continue;
+    if (next.startsWith("[") || next.startsWith("{")) continue;
+    return { text: "", isLiteral: false };
+  }
+  return null;
+};
+var readStringLiteral = (text) => {
+  let i = 0;
+  while (i < text.length && /\s/.test(text[i] ?? "")) i++;
+  const quote = text[i];
+  if (quote !== '"' && quote !== "'" && quote !== "`") return null;
+  let j = i + 1;
+  let escaped = false;
+  while (j < text.length) {
+    const c = text[j];
+    if (escaped) {
+      escaped = false;
+      j++;
+      continue;
+    }
+    if (c === "\\") {
+      escaped = true;
+      j++;
+      continue;
+    }
+    if (c === quote) {
+      const raw = text.slice(i + 1, j);
+      if (quote === "`") return raw.replace(/\$\{[^}]*\}/g, INTERP_PLACEHOLDER2);
+      return raw;
+    }
+    j++;
+  }
+  return null;
+};
+var extractMessagesContents = (body) => {
+  const literals = [];
+  let nonLiteralCount = 0;
+  const re = /\bmessages\s*[:=]\s*\[([\s\S]*?)\]/g;
+  let match2;
+  while ((match2 = re.exec(body)) !== null) {
+    const arr = match2[1] ?? "";
+    const contentRe = /\bcontent\s*[:=]\s*/g;
+    let cMatch;
+    while ((cMatch = contentRe.exec(arr)) !== null) {
+      const after = arr.slice(cMatch.index + cMatch[0].length);
+      const literal = readStringLiteral(after);
+      if (literal !== null) literals.push(literal);
+      else nonLiteralCount++;
+    }
+  }
+  return { literals, nonLiteralCount };
+};
+var lineColForOffset = (content, offset) => {
+  let line = 1;
+  let lastNewline = -1;
+  for (let i = 0; i < offset && i < content.length; i++) {
+    if (content[i] === "\n") {
+      line++;
+      lastNewline = i;
+    }
+  }
+  return { line, col: offset - lastNewline };
+};
+var detectSdkPrompts = (content, file) => {
+  const lines = content.split("\n");
+  const prompts = [];
+  const nonLiteralLocations = [];
+  for (const pattern of SDK_PATTERNS) {
+    pattern.regex.lastIndex = 0;
+    let match2;
+    while ((match2 = pattern.regex.exec(content)) !== null) {
+      const body = match2[1] ?? "";
+      const { line, col } = lineColForOffset(content, match2.index);
+      const enclosing = findEnclosingFunction(lines, line);
+      const matchId = computeMatchId(file, pattern.sdk, enclosing);
+      const modelHint = pattern.modelHintRegex?.exec(body)?.[1];
+      let foundLiteral = false;
+      let sawNonLiteral = false;
+      for (const key of KEYS_FOR_PROMPT) {
+        const extracted = extractKeyLiteral(body, key);
+        if (!extracted) continue;
+        if (!extracted.isLiteral) {
+          sawNonLiteral = true;
+          continue;
+        }
+        foundLiteral = true;
+        const entry = {
+          file,
+          line,
+          col,
+          text: extracted.text,
+          source: "sdk-regex",
+          sdk: pattern.sdk,
+          matchId
+        };
+        if (modelHint !== void 0) entry.model = modelHint;
+        prompts.push(entry);
+      }
+      const msgs = extractMessagesContents(body);
+      for (const text of msgs.literals) {
+        foundLiteral = true;
+        const entry = {
+          file,
+          line,
+          col,
+          text,
+          source: "sdk-regex",
+          sdk: pattern.sdk,
+          matchId
+        };
+        if (modelHint !== void 0) entry.model = modelHint;
+        prompts.push(entry);
+      }
+      if (msgs.nonLiteralCount > 0) sawNonLiteral = true;
+      if (!foundLiteral && sawNonLiteral) {
+        nonLiteralLocations.push({ file, line, sdk: pattern.sdk });
+      }
+    }
+  }
+  return { prompts, nonLiteralLocations };
+};
+
+// src/detectors/index.ts
+var detectPrompts = (content, file, mode, marker) => {
+  if (mode === "off") return { prompts: [], nonLiteralLocations: [] };
+  const prompts = [];
+  let nonLiteralLocations = [];
+  if (mode === "annotations" || mode === "both") {
+    prompts.push(...detectAnnotations(content, file, { marker }));
+  }
+  if (mode === "sdk-regex" || mode === "both") {
+    const sdkResult = detectSdkPrompts(content, file);
+    prompts.push(...sdkResult.prompts);
+    nonLiteralLocations = sdkResult.nonLiteralLocations;
+  }
+  return { prompts, nonLiteralLocations };
+};
+var SKIP_GLOBS = [
+  /(^|\/)node_modules\//,
+  /(^|\/)dist\//,
+  /(^|\/)build\//,
+  /(^|\/)\.next\//,
+  /(^|\/)vendor\//,
+  /\.min\.(js|ts)$/
+];
+var MAX_FILE_BYTES = 2e5;
+var MAX_AVG_LINE_LEN = 500;
+var shouldSkipFile = (path3, content) => {
+  for (const re of SKIP_GLOBS) {
+    if (re.test(path3)) return true;
+  }
+  if (Buffer.byteLength(content, "utf8") > MAX_FILE_BYTES) return true;
+  const lines = content.split("\n");
+  if (lines.length === 0) return false;
+  const avg = content.length / lines.length;
+  if (avg > MAX_AVG_LINE_LEN) return true;
+  return false;
+};
+
+// src/measure-code.ts
+var FALLBACK_MATCH_RATIO = 0.6;
+var levenshtein = (a, b) => {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  const lenA = a.length;
+  const lenB = b.length;
+  let prev = new Array(lenB + 1);
+  let curr = new Array(lenB + 1);
+  for (let j = 0; j <= lenB; j++) prev[j] = j;
+  for (let i = 1; i <= lenA; i++) {
+    curr[0] = i;
+    for (let j = 1; j <= lenB; j++) {
+      const cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
+      curr[j] = Math.min((curr[j - 1] ?? 0) + 1, (prev[j] ?? 0) + 1, (prev[j - 1] ?? 0) + cost);
+    }
+    [prev, curr] = [curr, prev];
+  }
+  return prev[lenB] ?? 0;
+};
+var similarity = (a, b) => {
+  if (a.length === 0 && b.length === 0) return 1;
+  const dist = levenshtein(a, b);
+  const max = Math.max(a.length, b.length);
+  if (max === 0) return 1;
+  return 1 - dist / max;
+};
+var pickModel = (prompt, defaultModels) => {
+  if (prompt.model) return prompt.model;
+  const first = defaultModels[0];
+  if (!first) throw new Error("measureExtractedPrompts: defaultModels must have at least 1 entry");
+  return first;
+};
+var measureCost = (text, modelId, format) => {
+  if (text.length === 0) return { tokens: 0, cost: 0 };
+  try {
+    const r = tokenize2({ format, modelId, prompt: text });
+    return { tokens: r.inputTokens, cost: r.inputCost };
+  } catch {
+    return { tokens: 0, cost: 0 };
+  }
+};
+var formatLocation = (p) => `${p.file}:${p.line}`;
+var pairPrompts = (base, head) => {
+  const pairs = [];
+  const baseByMatchId = /* @__PURE__ */ new Map();
+  for (const p of base) {
+    const list = baseByMatchId.get(p.matchId) ?? [];
+    list.push(p);
+    baseByMatchId.set(p.matchId, list);
+  }
+  const headUnmatched = [];
+  for (const h of head) {
+    const candidates = baseByMatchId.get(h.matchId);
+    if (candidates && candidates.length > 0) {
+      const b = candidates.shift();
+      if (b) {
+        pairs.push({ base: b, head: h });
+        continue;
+      }
+    }
+    headUnmatched.push(h);
+  }
+  const baseUnmatched = [];
+  for (const list of baseByMatchId.values()) baseUnmatched.push(...list);
+  const headByFile = /* @__PURE__ */ new Map();
+  for (const h of headUnmatched) {
+    const list = headByFile.get(h.file) ?? [];
+    list.push(h);
+    headByFile.set(h.file, list);
+  }
+  for (const b of baseUnmatched) {
+    const candidates = headByFile.get(b.file);
+    if (!candidates || candidates.length === 0) {
+      pairs.push({ base: b, head: null });
+      continue;
+    }
+    let bestIdx = -1;
+    let bestScore = FALLBACK_MATCH_RATIO;
+    for (let i = 0; i < candidates.length; i++) {
+      const h = candidates[i];
+      if (!h) continue;
+      const score = similarity(b.text, h.text);
+      if (score >= bestScore) {
+        bestScore = score;
+        bestIdx = i;
+      }
+    }
+    if (bestIdx >= 0) {
+      const h = candidates.splice(bestIdx, 1)[0];
+      if (h) {
+        pairs.push({ base: b, head: h });
+        continue;
+      }
+    }
+    pairs.push({ base: b, head: null });
+  }
+  for (const list of headByFile.values()) {
+    for (const h of list) pairs.push({ base: null, head: h });
+  }
+  return pairs;
+};
+var measureExtractedPrompts = (base, head, defaultModels, _formats) => {
+  if (defaultModels.length === 0) return [];
+  const format = "text";
+  const pairs = pairPrompts(base, head);
+  const rows = [];
+  for (const pair of pairs) {
+    const sample = pair.head ?? pair.base;
+    if (!sample) continue;
+    const model = pickModel(sample, defaultModels);
+    const headMeasure = pair.head ? measureCost(pair.head.text, model, format) : { tokens: 0, cost: 0 };
+    const baseMeasure = pair.base ? measureCost(pair.base.text, model, format) : { tokens: 0, cost: 0 };
+    const location = formatLocation(sample);
+    rows.push({
+      location,
+      model,
+      baseTokens: baseMeasure.tokens,
+      headTokens: headMeasure.tokens,
+      baseCost: baseMeasure.cost,
+      headCost: headMeasure.cost,
+      costDelta: headMeasure.cost - baseMeasure.cost
+    });
+  }
+  return rows;
+};
+
 // src/per-file-diff.ts
 var sumTokens = (cells) => cells.reduce((acc, c) => acc + c.tokens, 0);
 var sumCost = (cells) => cells.reduce((acc, c) => acc + c.cost, 0);
@@ -62681,7 +63188,45 @@ var renderPerFileMarkdown = (result) => {
   return lines.join("\n");
 };
 
+// src/render-code-section.ts
+var TABLE_HEADER2 = ["| Location | Model | Tokens \u0394 | USD \u0394 |", "|---|---|---:|---:|"];
+var renderRow2 = (row) => {
+  const tokensDelta = row.headTokens - row.baseTokens;
+  return `| \`${row.location}\` | ${row.model} | ${formatTokensDelta(tokensDelta)} | ${formatUsdDelta(row.costDelta)} |`;
+};
+var sortRows = (rows) => [...rows].sort((a, b) => {
+  const absCost = Math.abs(b.costDelta) - Math.abs(a.costDelta);
+  if (absCost !== 0) return absCost;
+  const absTok = Math.abs(b.headTokens - b.baseTokens) - Math.abs(a.headTokens - a.baseTokens);
+  if (absTok !== 0) return absTok;
+  return a.location.localeCompare(b.location);
+});
+var renderCodeSection = (rows, topN) => {
+  if (rows.length === 0) return "";
+  const clampedTopN = Math.max(1, Math.min(20, Math.trunc(topN)));
+  const sorted = sortRows(rows);
+  const top = sorted.slice(0, clampedTopN);
+  const lines = [];
+  lines.push(`### Code-Embedded Prompts (${sorted.length})`);
+  lines.push("");
+  lines.push(...TABLE_HEADER2);
+  for (const row of top) lines.push(renderRow2(row));
+  if (sorted.length > top.length) {
+    lines.push("");
+    lines.push(`<details><summary>All ${sorted.length} prompts</summary>`);
+    lines.push("");
+    lines.push(...TABLE_HEADER2);
+    for (const row of sorted) lines.push(renderRow2(row));
+    lines.push("");
+    lines.push("</details>");
+  }
+  return lines.join("\n");
+};
+
 // src/index.ts
+var CODE_DETECTION_MODES = ["off", "annotations", "sdk-regex", "both"];
+var isCodeDetectionMode = (s) => CODE_DETECTION_MODES.includes(s);
+var isCommentMode = (s) => s === "single" || s === "split";
 var readInputs = () => {
   const paths = core.getInput("paths").split(/[\n,]/).map((s) => s.trim()).filter(Boolean);
   const modelIds = core.getInput("models").split(",").map((s) => s.trim()).filter(Boolean);
@@ -62707,15 +63252,40 @@ var readInputs = () => {
     throw new Error(`top-n-files must be an integer 1-20, got "${topNRaw}"`);
   }
   const topNFiles = Math.max(1, Math.min(20, topNParsed));
+  const codePaths = core.getInput("code-paths").split(/[\n,]/).map((s) => s.trim()).filter(Boolean);
+  const codeDetectionRaw = core.getInput("code-detection").trim() || "off";
+  if (!isCodeDetectionMode(codeDetectionRaw)) {
+    throw new Error(
+      `code-detection must be one of ${CODE_DETECTION_MODES.join(", ")}, got "${codeDetectionRaw}"`
+    );
+  }
+  const codeDetection = codeDetectionRaw;
+  const promptMarkerComment = core.getInput("prompt-marker-comment").trim() || "@tokenometer-prompt";
+  const commentModeRaw = core.getInput("comment-mode").trim() || "single";
+  if (!isCommentMode(commentModeRaw)) {
+    throw new Error(`comment-mode must be 'single' or 'split', got "${commentModeRaw}"`);
+  }
+  const commentMode = commentModeRaw;
+  const topNPromptsRaw = core.getInput("top-n-prompts").trim();
+  const topNPromptsParsed = topNPromptsRaw === "" ? 5 : Number.parseInt(topNPromptsRaw, 10);
+  if (!Number.isFinite(topNPromptsParsed)) {
+    throw new Error(`top-n-prompts must be an integer 1-20, got "${topNPromptsRaw}"`);
+  }
+  const topNPrompts = Math.max(1, Math.min(20, topNPromptsParsed));
   return {
     baseRef: core.getInput("base-ref").trim(),
     budget,
+    codeDetection,
+    codePaths,
     commentMarker: core.getInput("comment-marker"),
+    commentMode,
     formats,
     githubToken: core.getInput("github-token"),
     modelIds,
     paths,
-    topNFiles
+    promptMarkerComment,
+    topNFiles,
+    topNPrompts
   };
 };
 var resolveBaseRef = async (input) => {
@@ -62788,7 +63358,8 @@ var formatDelta = (delta) => {
   const sign = delta > 0 ? "+" : "\u2212";
   return `${sign}${formatCost(Math.abs(delta))}`;
 };
-var renderMarkdown = (marker, results, models, formats, budget, topNFiles) => {
+var renderMarkdown = (marker, results, models, formats, budget, topNFiles, opts = {}) => {
+  const renderBudget = opts.renderBudget ?? true;
   const totalHead = results.reduce((acc, r) => acc + sumCost2(r.head), 0);
   const totalBase = results.reduce((acc, r) => acc + (r.base ? sumCost2(r.base) : 0), 0);
   const totalDelta = totalHead - totalBase;
@@ -62837,7 +63408,7 @@ var renderMarkdown = (marker, results, models, formats, budget, topNFiles) => {
       lines.push(perFileMd);
     }
   }
-  if (budget !== null) {
+  if (budget !== null && renderBudget) {
     const ok = totalDelta <= budget;
     lines.push("");
     lines.push(
@@ -62883,6 +63454,57 @@ var upsertStickyComment = async (token, marker, body) => {
   });
   return created.data.html_url;
 };
+var collectCodePrompts = async (baseRef, inputs) => {
+  if (inputs.codeDetection === "off") {
+    return { rows: [], section: "", delta: 0 };
+  }
+  const changedCode = await matchPaths(baseRef, inputs.codePaths);
+  core.info(
+    `Changed code files (for inline-prompt scan): ${changedCode.length === 0 ? "(none)" : changedCode.join(", ")}`
+  );
+  const baseExtracted = [];
+  const headExtracted = [];
+  for (const path3 of changedCode) {
+    const headContent = await import_node_fs.promises.readFile((0, import_node_path.resolve)(path3), "utf8").catch(() => null);
+    if (headContent !== null && !shouldSkipFile(path3, headContent)) {
+      const result = detectPrompts(
+        headContent,
+        path3,
+        inputs.codeDetection,
+        inputs.promptMarkerComment
+      );
+      headExtracted.push(...result.prompts);
+      for (const loc of result.nonLiteralLocations) {
+        core.warning(`prompt at ${loc.file}:${loc.line} (${loc.sdk}) is non-literal \u2014 skipping`);
+      }
+    }
+    const baseContent = await readFileAt(baseRef, path3);
+    if (baseContent !== null && !shouldSkipFile(path3, baseContent)) {
+      const result = detectPrompts(
+        baseContent,
+        path3,
+        inputs.codeDetection,
+        inputs.promptMarkerComment
+      );
+      baseExtracted.push(...result.prompts);
+    }
+  }
+  const rows = measureExtractedPrompts(
+    baseExtracted,
+    headExtracted,
+    inputs.modelIds,
+    inputs.formats
+  );
+  const delta = rows.reduce((acc, r) => acc + r.costDelta, 0);
+  const section = renderCodeSection(rows, inputs.topNPrompts);
+  return { rows, section, delta };
+};
+var composeBudgetLine = (budget, totalDelta) => {
+  if (budget === null) return "";
+  const ok = totalDelta <= budget;
+  return `${ok ? "\u2705" : "\u274C"} Budget: ${formatCost(budget)} \xB7 \u0394 ${ok ? "within" : "exceeds"} budget.`;
+};
+var CODE_COMMENT_MARKER = "<!-- tokenometer-cost-diff-code -->";
 var run = async () => {
   try {
     const inputs = readInputs();
@@ -62904,18 +63526,66 @@ var run = async () => {
         path: path3
       });
     }
-    const { body, totalDelta } = renderMarkdown(
+    const codeResult = await collectCodePrompts(baseRef, inputs);
+    const splitMode = inputs.commentMode === "split" && inputs.codeDetection !== "off";
+    const { body: fileBody, totalDelta: filesCostDelta } = renderMarkdown(
       inputs.commentMarker,
       results,
       inputs.modelIds,
       inputs.formats,
       inputs.budget,
-      inputs.topNFiles
+      inputs.topNFiles,
+      { renderBudget: splitMode }
     );
-    const commentUrl = await upsertStickyComment(inputs.githubToken, inputs.commentMarker, body);
-    core.setOutput("cost-delta", totalDelta.toFixed(8));
+    const totalDelta = filesCostDelta + codeResult.delta;
+    let mainBody = fileBody;
+    if (!splitMode) {
+      const trailer = [];
+      if (codeResult.section) {
+        trailer.push("");
+        trailer.push(codeResult.section);
+      }
+      if (codeResult.rows.length > 0) {
+        trailer.push("");
+        trailer.push(
+          `**Total \u0394 (files + code-embedded):** ${formatDelta(totalDelta)} (files ${formatDelta(filesCostDelta)}, code ${formatDelta(codeResult.delta)})`
+        );
+      }
+      const budgetLine = composeBudgetLine(inputs.budget, totalDelta);
+      if (budgetLine) {
+        trailer.push("");
+        trailer.push(budgetLine);
+      }
+      mainBody = `${fileBody}${trailer.length > 0 ? `
+${trailer.join("\n")}` : ""}`;
+    }
+    const commentUrl = await upsertStickyComment(
+      inputs.githubToken,
+      inputs.commentMarker,
+      mainBody
+    );
+    if (splitMode && codeResult.section) {
+      const codeBudgetLine = composeBudgetLine(inputs.budget, totalDelta);
+      const codeBodyLines = [];
+      codeBodyLines.push(CODE_COMMENT_MARKER);
+      codeBodyLines.push("## tokenometer \xB7 code-embedded prompts");
+      codeBodyLines.push("");
+      codeBodyLines.push(codeResult.section);
+      codeBodyLines.push("");
+      codeBodyLines.push(
+        `**Total \u0394 (files + code-embedded):** ${formatDelta(totalDelta)} (files ${formatDelta(filesCostDelta)}, code ${formatDelta(codeResult.delta)})`
+      );
+      if (codeBudgetLine) {
+        codeBodyLines.push("");
+        codeBodyLines.push(codeBudgetLine);
+      }
+      await upsertStickyComment(inputs.githubToken, CODE_COMMENT_MARKER, codeBodyLines.join("\n"));
+    }
+    core.setOutput("cost-delta", filesCostDelta.toFixed(8));
+    core.setOutput("code-cost-delta", codeResult.delta.toFixed(8));
+    core.setOutput("total-cost-delta", totalDelta.toFixed(8));
     if (commentUrl) core.setOutput("comment-url", commentUrl);
-    core.summary.addRaw(body).write();
+    core.summary.addRaw(mainBody).write();
     if (inputs.budget !== null && totalDelta > inputs.budget) {
       core.setFailed(
         `Cost delta ${formatCost(totalDelta)} exceeds budget ${formatCost(inputs.budget)}`

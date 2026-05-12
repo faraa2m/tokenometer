@@ -16,7 +16,7 @@ export const callChat = async () => {
 export const callResponses = async () => {
   const r = await openai.responses.create({
     model: 'gpt-4o',
-    prompt: 'List three classic distributed-systems papers.',
+    prompt: 'List three classic distributed-systems concepts.',
   });
   return r;
 };

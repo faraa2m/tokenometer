@@ -63001,11 +63001,7 @@ var levenshtein = (a, b) => {
     curr[0] = i;
     for (let j = 1; j <= lenB; j++) {
       const cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
-      curr[j] = Math.min(
-        (curr[j - 1] ?? 0) + 1,
-        (prev[j] ?? 0) + 1,
-        (prev[j - 1] ?? 0) + cost
-      );
+      curr[j] = Math.min((curr[j - 1] ?? 0) + 1, (prev[j] ?? 0) + 1, (prev[j - 1] ?? 0) + cost);
     }
     [prev, curr] = [curr, prev];
   }
@@ -63479,9 +63475,7 @@ var collectCodePrompts = async (baseRef, inputs) => {
       );
       headExtracted.push(...result.prompts);
       for (const loc of result.nonLiteralLocations) {
-        core.warning(
-          `prompt at ${loc.file}:${loc.line} (${loc.sdk}) is non-literal \u2014 skipping`
-        );
+        core.warning(`prompt at ${loc.file}:${loc.line} (${loc.sdk}) is non-literal \u2014 skipping`);
       }
     }
     const baseContent = await readFileAt(baseRef, path3);

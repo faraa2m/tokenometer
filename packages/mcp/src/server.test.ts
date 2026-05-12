@@ -127,7 +127,7 @@ describe('count_tokens_empirical', () => {
 
   it('returns key_missing when the required env var is absent', async () => {
     const saved = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
+    Reflect.deleteProperty(process.env, 'ANTHROPIC_API_KEY');
     try {
       const result = await tool.handler({ text: 'hi', model: 'claude-opus-4-7' });
       expect(result.isError).toBe(true);
@@ -145,7 +145,7 @@ describe('count_tokens_empirical_matrix', () => {
 
   it('returns per-cell results with inline errors rather than failing wholesale', async () => {
     const saved = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
+    Reflect.deleteProperty(process.env, 'ANTHROPIC_API_KEY');
     try {
       const result = await tool.handler({
         text: 'hi',
@@ -305,7 +305,7 @@ describe('measure_latency', () => {
 
   it('returns key_missing without a provider API key', async () => {
     const saved = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
+    Reflect.deleteProperty(process.env, 'ANTHROPIC_API_KEY');
     try {
       const result = await tool.handler({
         model: 'claude-opus-4-7',

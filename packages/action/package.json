@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/action",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Tokenometer GitHub Action — sticky PR comment with prompt-cost diff, per-file attribution, and budget gate.",
   "license": "MIT",
   "private": true,

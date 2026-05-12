@@ -46,14 +46,51 @@ jobs:
 | `base-ref` | _auto_ | Falls back to `origin/<pr-base>` for PRs, `HEAD~1` otherwise |
 | `comment-marker` | `<!-- tokenometer-cost-diff -->` | Sticky comment HTML marker |
 | `top-n-files` | `5` | Rows shown in the "Top changed files" table (clamped to `1`–`20`). Files beyond N are folded into a `<details>` block |
+| `code-paths` | `src/**/*.{ts,tsx,js,jsx,py}` | Globs scanned for inline LLM prompts when `code-detection` is enabled |
+| `code-detection` | `off` | `off` (default) `annotations` `sdk-regex` or `both`. Default keeps behaviour identical for existing users |
+| `prompt-marker-comment` | `@tokenometer-prompt` | Annotation marker for inline prompts |
+| `comment-mode` | `single` | `single` appends the code section to the existing comment; `split` posts a second sticky |
+| `top-n-prompts` | `5` | Rows shown in the code-embedded prompts table (clamped to `1`–`20`) |
 | `github-token` | `${{ github.token }}` | Needs `pull-requests: write` |
 
 ## Outputs
 
 | Name | Notes |
 |---|---|
-| `cost-delta` | Total head − base cost in USD (8 decimals) |
+| `cost-delta` | Total head − base cost in USD (8 decimals), file-based only |
+| `code-cost-delta` | USD cost delta from code-embedded prompt changes (8 decimals) |
+| `total-cost-delta` | File-based + code-embedded total. Budget gate uses this number |
 | `comment-url` | URL of the sticky comment |
+
+## Code-Embedded Prompts (beta)
+
+Set `code-detection: both` to also flag inline prompts in source code. The default is `off`, so existing pipelines see no behaviour change until they opt in.
+
+### Annotation syntax
+
+```ts
+// @tokenometer-prompt model=claude-opus-4-7
+const SYSTEM = `You are a helpful assistant...`;
+```
+
+```python
+# @tokenometer-prompt model=gpt-4o
+SYSTEM = "You are a helpful assistant..."
+```
+
+### Detected SDKs
+
+- Anthropic (`anthropic.messages.create`)
+- OpenAI (`openai.chat.completions.create`, `openai.responses.create`)
+- Google (`model.generateContent`)
+- Mistral (`mistral.chat.complete` / `mistralClient.chat`)
+- Cohere (`cohere.chat`)
+
+### Troubleshooting
+
+- Non-literal prompts (variables, template interpolation) are skipped with a warning — no false flag.
+- Refactor that moves a call across files appears as delete + add.
+- Tune false-positive rate with `code-detection: annotations` (annotations only).
 
 ## Comment shape
 

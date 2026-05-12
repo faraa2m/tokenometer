@@ -12,18 +12,40 @@ import {
   tokenize,
 } from '@tokenometer/core';
 import { minimatch } from 'minimatch';
+import {
+  type CodeDetectionMode,
+  type ExtractedPrompt,
+  detectPrompts,
+  shouldSkipFile,
+} from './detectors/index.js';
+import { type CodePromptRow, measureExtractedPrompts } from './measure-code.js';
 import { aggregatePerFileDiff, renderPerFileMarkdown } from './per-file-diff.js';
+import { renderCodeSection } from './render-code-section.js';
+
+type CommentMode = 'single' | 'split';
 
 interface Inputs {
   baseRef: string;
   budget: number | null;
+  codeDetection: CodeDetectionMode;
+  codePaths: string[];
   commentMarker: string;
+  commentMode: CommentMode;
   formats: Format[];
   githubToken: string;
   modelIds: string[];
   paths: string[];
+  promptMarkerComment: string;
   topNFiles: number;
+  topNPrompts: number;
 }
+
+const CODE_DETECTION_MODES = ['off', 'annotations', 'sdk-regex', 'both'] as const;
+
+const isCodeDetectionMode = (s: string): s is CodeDetectionMode =>
+  (CODE_DETECTION_MODES as readonly string[]).includes(s);
+
+const isCommentMode = (s: string): s is CommentMode => s === 'single' || s === 'split';
 
 interface FileCost {
   cost: number;
@@ -75,15 +97,47 @@ const readInputs = (): Inputs => {
     throw new Error(`top-n-files must be an integer 1-20, got "${topNRaw}"`);
   }
   const topNFiles = Math.max(1, Math.min(20, topNParsed));
+
+  const codePaths = core
+    .getInput('code-paths')
+    .split(/[\n,]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const codeDetectionRaw = (core.getInput('code-detection').trim() || 'off') as string;
+  if (!isCodeDetectionMode(codeDetectionRaw)) {
+    throw new Error(
+      `code-detection must be one of ${CODE_DETECTION_MODES.join(', ')}, got "${codeDetectionRaw}"`,
+    );
+  }
+  const codeDetection = codeDetectionRaw;
+  const promptMarkerComment =
+    core.getInput('prompt-marker-comment').trim() || '@tokenometer-prompt';
+  const commentModeRaw = (core.getInput('comment-mode').trim() || 'single') as string;
+  if (!isCommentMode(commentModeRaw)) {
+    throw new Error(`comment-mode must be 'single' or 'split', got "${commentModeRaw}"`);
+  }
+  const commentMode = commentModeRaw;
+  const topNPromptsRaw = core.getInput('top-n-prompts').trim();
+  const topNPromptsParsed = topNPromptsRaw === '' ? 5 : Number.parseInt(topNPromptsRaw, 10);
+  if (!Number.isFinite(topNPromptsParsed)) {
+    throw new Error(`top-n-prompts must be an integer 1-20, got "${topNPromptsRaw}"`);
+  }
+  const topNPrompts = Math.max(1, Math.min(20, topNPromptsParsed));
+
   return {
     baseRef: core.getInput('base-ref').trim(),
     budget,
+    codeDetection,
+    codePaths,
     commentMarker: core.getInput('comment-marker'),
+    commentMode,
     formats: formats as Format[],
     githubToken: core.getInput('github-token'),
     modelIds,
     paths,
+    promptMarkerComment,
     topNFiles,
+    topNPrompts,
   };
 };
 
@@ -184,7 +238,9 @@ const renderMarkdown = (
   formats: readonly Format[],
   budget: number | null,
   topNFiles: number,
+  opts: { renderBudget?: boolean } = {},
 ): { body: string; totalDelta: number } => {
+  const renderBudget = opts.renderBudget ?? true;
   const totalHead = results.reduce((acc, r) => acc + sumCost(r.head), 0);
   const totalBase = results.reduce((acc, r) => acc + (r.base ? sumCost(r.base) : 0), 0);
   const totalDelta = totalHead - totalBase;
@@ -240,7 +296,7 @@ const renderMarkdown = (
     }
   }
 
-  if (budget !== null) {
+  if (budget !== null && renderBudget) {
     const ok = totalDelta <= budget;
     lines.push('');
     lines.push(
@@ -295,6 +351,65 @@ const upsertStickyComment = async (
   return created.data.html_url;
 };
 
+const collectCodePrompts = async (
+  baseRef: string,
+  inputs: Inputs,
+): Promise<{ rows: CodePromptRow[]; section: string; delta: number }> => {
+  if (inputs.codeDetection === 'off') {
+    return { rows: [], section: '', delta: 0 };
+  }
+  const changedCode = await matchPaths(baseRef, inputs.codePaths);
+  core.info(
+    `Changed code files (for inline-prompt scan): ${
+      changedCode.length === 0 ? '(none)' : changedCode.join(', ')
+    }`,
+  );
+  const baseExtracted: ExtractedPrompt[] = [];
+  const headExtracted: ExtractedPrompt[] = [];
+  for (const path of changedCode) {
+    const headContent = await fs.readFile(resolve(path), 'utf8').catch(() => null);
+    if (headContent !== null && !shouldSkipFile(path, headContent)) {
+      const result = detectPrompts(
+        headContent,
+        path,
+        inputs.codeDetection,
+        inputs.promptMarkerComment,
+      );
+      headExtracted.push(...result.prompts);
+      for (const loc of result.nonLiteralLocations) {
+        core.warning(`prompt at ${loc.file}:${loc.line} (${loc.sdk}) is non-literal — skipping`);
+      }
+    }
+    const baseContent = await readFileAt(baseRef, path);
+    if (baseContent !== null && !shouldSkipFile(path, baseContent)) {
+      const result = detectPrompts(
+        baseContent,
+        path,
+        inputs.codeDetection,
+        inputs.promptMarkerComment,
+      );
+      baseExtracted.push(...result.prompts);
+    }
+  }
+  const rows = measureExtractedPrompts(
+    baseExtracted,
+    headExtracted,
+    inputs.modelIds,
+    inputs.formats,
+  );
+  const delta = rows.reduce((acc, r) => acc + r.costDelta, 0);
+  const section = renderCodeSection(rows, inputs.topNPrompts);
+  return { rows, section, delta };
+};
+
+const composeBudgetLine = (budget: number | null, totalDelta: number): string => {
+  if (budget === null) return '';
+  const ok = totalDelta <= budget;
+  return `${ok ? '✅' : '❌'} Budget: ${formatCost(budget)} · Δ ${ok ? 'within' : 'exceeds'} budget.`;
+};
+
+const CODE_COMMENT_MARKER = '<!-- tokenometer-cost-diff-code -->';
+
 const run = async (): Promise<void> => {
   try {
     const inputs = readInputs();
@@ -319,20 +434,75 @@ const run = async (): Promise<void> => {
       });
     }
 
-    const { body, totalDelta } = renderMarkdown(
+    const codeResult = await collectCodePrompts(baseRef, inputs);
+
+    const splitMode = inputs.commentMode === 'split' && inputs.codeDetection !== 'off';
+
+    // When splitting, the main comment renders the budget against file-only
+    // delta (existing semantics). When not splitting, suppress the per-renderer
+    // budget line so we can render a single combined-total line at the end.
+    const { body: fileBody, totalDelta: filesCostDelta } = renderMarkdown(
       inputs.commentMarker,
       results,
       inputs.modelIds,
       inputs.formats,
       inputs.budget,
       inputs.topNFiles,
+      { renderBudget: splitMode },
     );
 
-    const commentUrl = await upsertStickyComment(inputs.githubToken, inputs.commentMarker, body);
+    const totalDelta = filesCostDelta + codeResult.delta;
 
-    core.setOutput('cost-delta', totalDelta.toFixed(8));
+    let mainBody = fileBody;
+    if (!splitMode) {
+      const trailer: string[] = [];
+      if (codeResult.section) {
+        trailer.push('');
+        trailer.push(codeResult.section);
+      }
+      if (codeResult.rows.length > 0) {
+        trailer.push('');
+        trailer.push(
+          `**Total Δ (files + code-embedded):** ${formatDelta(totalDelta)} (files ${formatDelta(filesCostDelta)}, code ${formatDelta(codeResult.delta)})`,
+        );
+      }
+      const budgetLine = composeBudgetLine(inputs.budget, totalDelta);
+      if (budgetLine) {
+        trailer.push('');
+        trailer.push(budgetLine);
+      }
+      mainBody = `${fileBody}${trailer.length > 0 ? `\n${trailer.join('\n')}` : ''}`;
+    }
+
+    const commentUrl = await upsertStickyComment(
+      inputs.githubToken,
+      inputs.commentMarker,
+      mainBody,
+    );
+
+    if (splitMode && codeResult.section) {
+      const codeBudgetLine = composeBudgetLine(inputs.budget, totalDelta);
+      const codeBodyLines: string[] = [];
+      codeBodyLines.push(CODE_COMMENT_MARKER);
+      codeBodyLines.push('## tokenometer · code-embedded prompts');
+      codeBodyLines.push('');
+      codeBodyLines.push(codeResult.section);
+      codeBodyLines.push('');
+      codeBodyLines.push(
+        `**Total Δ (files + code-embedded):** ${formatDelta(totalDelta)} (files ${formatDelta(filesCostDelta)}, code ${formatDelta(codeResult.delta)})`,
+      );
+      if (codeBudgetLine) {
+        codeBodyLines.push('');
+        codeBodyLines.push(codeBudgetLine);
+      }
+      await upsertStickyComment(inputs.githubToken, CODE_COMMENT_MARKER, codeBodyLines.join('\n'));
+    }
+
+    core.setOutput('cost-delta', filesCostDelta.toFixed(8));
+    core.setOutput('code-cost-delta', codeResult.delta.toFixed(8));
+    core.setOutput('total-cost-delta', totalDelta.toFixed(8));
     if (commentUrl) core.setOutput('comment-url', commentUrl);
-    core.summary.addRaw(body).write();
+    core.summary.addRaw(mainBody).write();
 
     if (inputs.budget !== null && totalDelta > inputs.budget) {
       core.setFailed(

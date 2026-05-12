@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderCodeSection > matches snapshot for canonical fixture 1`] = `
+"### Code-Embedded Prompts (2)
+
+| Location | Model | Tokens Δ | USD Δ |
+|---|---|---:|---:|
+| \`src/router.ts:42\` | claude-opus-4-7 | +120 | +$0.001800 |
+| \`src/agent.ts:10\` | gpt-4o | −80 | −$0.000800 |"
+`;

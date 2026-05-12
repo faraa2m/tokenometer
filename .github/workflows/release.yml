@@ -98,8 +98,10 @@ jobs:
         run: |
           CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
           CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
+          MCP_VERSION=$(node -p "require('./packages/mcp/package.json').version")
           echo "core_version=$CORE_VERSION" >> $GITHUB_OUTPUT
           echo "cli_version=$CLI_VERSION" >> $GITHUB_OUTPUT
+          echo "mcp_version=$MCP_VERSION" >> $GITHUB_OUTPUT
 
           NEEDS_PUBLISH=false
           if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
@@ -113,6 +115,12 @@ jobs:
             NEEDS_PUBLISH=true
           else
             echo "tokenometer@$CLI_VERSION already on npm — skip"
+          fi
+          if ! npm view "@tokenometer/mcp@$MCP_VERSION" version >/dev/null 2>&1; then
+            echo "@tokenometer/mcp@$MCP_VERSION not on npm — will publish"
+            NEEDS_PUBLISH=true
+          else
+            echo "@tokenometer/mcp@$MCP_VERSION already on npm — skip"
           fi
           echo "needs_publish=$NEEDS_PUBLISH" >> $GITHUB_OUTPUT
 
@@ -134,6 +142,15 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish @tokenometer/mcp
+        id: publish_mcp
+        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        working-directory: packages/mcp
+        continue-on-error: true
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       # Set `published` based on step outcomes, NOT registry re-check.
       # npm registry has propagation lag (1-30s), so re-querying right after
       # a successful publish would intermittently return "not found" and
@@ -150,16 +167,17 @@ jobs:
           NEEDS_PUBLISH="${{ steps.detect.outputs.needs_publish }}"
           CORE_OUTCOME="${{ steps.publish_core.outcome }}"
           CLI_OUTCOME="${{ steps.publish_cli.outcome }}"
+          MCP_OUTCOME="${{ steps.publish_mcp.outcome }}"
 
           if [ "$NEEDS_PUBLISH" = "false" ]; then
             PUBLISHED=true
-            echo "Both packages already on npm → published=true (idempotent path)"
-          elif [ "$CORE_OUTCOME" = "success" ] && [ "$CLI_OUTCOME" = "success" ]; then
+            echo "All packages already on npm → published=true (idempotent path)"
+          elif [ "$CORE_OUTCOME" = "success" ] && [ "$CLI_OUTCOME" = "success" ] && [ "$MCP_OUTCOME" = "success" ]; then
             PUBLISHED=true
-            echo "Both publish steps succeeded → published=true"
+            echo "All publish steps succeeded → published=true"
           else
             PUBLISHED=false
-            echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME"
+            echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME mcp=$MCP_OUTCOME"
           fi
 
           echo "published=$PUBLISHED" >> $GITHUB_OUTPUT

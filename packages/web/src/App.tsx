@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout.js';
 import { ByFilePage } from './pages/ByFilePage.js';
 import { ClaudeCodePage } from './pages/ClaudeCodePage.js';
+import { ComponentsPage } from './pages/ComponentsPage.js';
 import { ConfigBuilderPage } from './pages/ConfigBuilderPage.js';
 import { DiffPage } from './pages/DiffPage.js';
 import { EditorPage } from './pages/EditorPage.js';
@@ -28,6 +29,7 @@ export const App = () => (
         <Route path="models/:id" element={<ModelDetailPage />} />
         <Route path="editor" element={<EditorPage />} />
         <Route path="claude-code" element={<ClaudeCodePage />} />
+        <Route path="components" element={<ComponentsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

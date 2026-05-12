@@ -18,7 +18,7 @@
   },
   "workspaces": ["packages/*", "apps/*"],
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && npm run build --workspaces --if-present",
     "clean": "tsc -b --clean && rm -rf packages/*/dist apps/*/dist",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -1,0 +1,60 @@
+name: Update major tag
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  update-major:
+    # Skip prereleases — major tag should only track stable.
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve major tag from release tag
+        id: tags
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          # Strip leading 'v' if present, then take everything before the first '.'
+          NORMALISED="${TAG#v}"
+          MAJOR_NUM="${NORMALISED%%.*}"
+          MAJOR_TAG="v${MAJOR_NUM}"
+          echo "release_tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "major_tag=${MAJOR_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Resolved: ${TAG} -> major ${MAJOR_TAG}"
+
+      - name: Force-update major tag
+        env:
+          RELEASE_TAG: ${{ steps.tags.outputs.release_tag }}
+          MAJOR_TAG: ${{ steps.tags.outputs.major_tag }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Fast-forward only — refuse to move the major tag BACKWARDS in commit
+          # history. (release-please/changesets always tags forward, but a manual
+          # tag-create on an older commit would otherwise silently roll back the
+          # major tag.)
+          RELEASE_COMMIT=$(git rev-list -n1 "${RELEASE_TAG}")
+          if git rev-parse "${MAJOR_TAG}" >/dev/null 2>&1; then
+            CURRENT_MAJOR_COMMIT=$(git rev-list -n1 "${MAJOR_TAG}")
+            if ! git merge-base --is-ancestor "${CURRENT_MAJOR_COMMIT}" "${RELEASE_COMMIT}"; then
+              echo "ERROR: ${RELEASE_TAG} (${RELEASE_COMMIT}) is not a descendant of current ${MAJOR_TAG} (${CURRENT_MAJOR_COMMIT}); refusing to move major tag backwards." >&2
+              exit 1
+            fi
+          fi
+
+          git tag -f "${MAJOR_TAG}" "${RELEASE_COMMIT}"
+          git push origin "${MAJOR_TAG}" --force
+          echo "Pointed ${MAJOR_TAG} at ${RELEASE_TAG} (${RELEASE_COMMIT})"

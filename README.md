@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/github/license/faraa2m/tokenometer.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/faraa2m/tokenometer.svg?style=social)](https://github.com/faraa2m/tokenometer/stargazers)
 
-> Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost-guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
+> Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
 > **Live: https://tokenometer.vercel.app**
 
 Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, Gemini, Mistral, and Cohere — and how fast does each provider actually respond?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). Today it's the only LLM cost CLI that also tells you latency, ships a PR-blocking GitHub Action, lights up your editor's status bar, and teaches Claude Code agents to think in dollars.

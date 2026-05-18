@@ -99,6 +99,12 @@ echo "prompt body" | tokenometer - --model claude-sonnet-4-6
 
 Run `tokenometer --help` for the full flag list and the current set of known model ids (63 across 5 providers).
 
+## Adoption playbooks
+
+Use [`docs/ADOPTION.md`](docs/ADOPTION.md) for copy-paste integration paths:
+GitHub Actions cost gates, VS Code/Cursor rollout, MCP clients, LangChain,
+Vercel AI SDK, OpenAI SDK, Anthropic SDK, and a PR cost-regression case study.
+
 ## Five-line use
 
 ### 1. Compare formats for a single prompt (offline, no API key)

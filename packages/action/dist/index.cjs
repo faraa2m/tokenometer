@@ -59856,7 +59856,7 @@ var gpt4params = {
 var chatModelParams = Object.fromEntries(chatEnabledModels.flatMap((modelName) => modelName.startsWith("gpt-3.5") ? [[modelName, gpt3params]] : [[modelName, gpt4params]]));
 
 // ../../node_modules/gpt-tokenizer/esm/encodingParams/constants.js
-var R50K_TOKEN_SPLIT_REGEX = new RegExp("'s|'t|'re|'ve|'m|'ll|'d| ?\\p{L}+| ?\\p{N}+| ?[^\\s\\p{L}\\p{N}]+|\\s+(?!\\S)|\\s+", "gu");
+var R50K_TOKEN_SPLIT_REGEX = /'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+/gu;
 var CONTRACTION_SUFFIX_PATTERN = String.raw`'(?:[sS]|[dD]|[mM]|[tT]|[lL][lL]|[vV][eE]|[rR][eE])`;
 var OPTIONAL_CONTRACTION_SUFFIX = String.raw`(?:${CONTRACTION_SUFFIX_PATTERN})?`;
 var CL100K_TOKEN_SPLIT_PATTERN = String.raw`${CONTRACTION_SUFFIX_PATTERN}|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s+$|\s*[\r\n]|\s+(?!\S)|\s`;

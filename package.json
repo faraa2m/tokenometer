@@ -14,7 +14,7 @@
     "url": "https://github.com/faraa2m/tokenometer/issues"
   },
   "engines": {
-    "node": ">=26"
+    "node": "24.x"
   },
   "workspaces": ["packages/*", "apps/*"],
   "scripts": {

@@ -1,5 +1,16 @@
 # @tokenometer/mcp
 
+## 2.0.0
+
+### Major Changes
+
+- [#41](https://github.com/faraa2m/tokenometer/pull/41) [`e0b86ff`](https://github.com/faraa2m/tokenometer/commit/e0b86ffe7e6c37cabbe56f02823f7c66f1a14ed8) Thanks [@faraa2m](https://github.com/faraa2m)! - Require Node.js 26 and run CI, release, registry, and automation workflows on Node 26.
+
+### Patch Changes
+
+- Updated dependencies [[`e0b86ff`](https://github.com/faraa2m/tokenometer/commit/e0b86ffe7e6c37cabbe56f02823f7c66f1a14ed8)]:
+  - @tokenometer/core@2.0.0
+
 ## 1.1.0
 
 ### Minor Changes

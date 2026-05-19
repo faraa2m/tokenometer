@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/react",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "React hooks and components for LLM token cost dashboards — drop-in counters, cost matrices, budget meters for Claude, GPT-4o, Gemini, Mistral, Cohere.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
@@ -65,10 +65,10 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "@tokenometer/core": ">=1.1.0"
+    "@tokenometer/core": ">=2.0.0"
   },
   "devDependencies": {
-    "@tokenometer/core": "1.1.0",
+    "@tokenometer/core": "2.0.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",

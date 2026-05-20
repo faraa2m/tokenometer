@@ -97,7 +97,7 @@ The release pipeline is **fully unified** — one merge of the Version Packages 
 
 1. If `.changeset/` has any pending changesets, the workflow opens (or updates) a **Version Packages** PR that auto-bumps `package.json` versions and auto-generates `CHANGELOG.md` entries.
 2. Merging that PR triggers the same workflow to:
-   - Publish `tokenometer` + `@tokenometer/core` to npm with provenance.
+   - Publish `tokenometer`, `@tokenometer/core`, and `@tokenometer/mcp` to npm with provenance through npm Trusted Publishing / GitHub OIDC.
    - Create a GitHub Release on the new tag (GitHub Marketplace listens to that and republishes the Action's listing).
    - Build a fresh `.vsix` and publish the VS Code extension to the **VS Code Marketplace** (`vsce`) and **Open VSX** (`ovsx`, the registry Cursor + VSCodium read from).
    - HTTP-verify the GitHub Marketplace listing (best-effort — propagation can take a few minutes).
@@ -108,10 +108,11 @@ Before merging the Version Packages PR, you can sanity-check the build locally w
 
 Required secrets in repo settings → Secrets and variables → Actions:
 
-- `NPM_TOKEN` — npm automation token.
 - `VSCE_PAT` — Personal Access Token from https://dev.azure.com (Marketplace publisher → Manage Tokens, scope: Marketplace → Acquire + Manage). If absent, the VS Code Marketplace step is skipped with a clear notice.
 - `OVSX_PAT` — Personal Access Token from https://open-vsx.org (User Settings → Access Tokens). If absent, the Open VSX step is skipped.
 - `VERCEL_DEPLOY_HOOK` — Deploy hook URL from Vercel project settings (optional; the playground also rebuilds automatically on every push to main).
+
+npm package publishing does not use a repository secret. Configure npm Trusted Publisher bindings for `tokenometer`, `@tokenometer/core`, and `@tokenometer/mcp` to point at `faraa2m/tokenometer` and `.github/workflows/release.yml`.
 
 ## Questions
 

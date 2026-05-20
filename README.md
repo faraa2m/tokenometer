@@ -211,7 +211,7 @@ Full flag reference: [`packages/cli/README.md`](packages/cli/README.md).
 
 ## Status
 
-**v1.0.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.vercel.app](https://tokenometer.vercel.app). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
+**v2.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`, `@tokenometer/mcp`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.vercel.app](https://tokenometer.vercel.app). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
 
 ## License
 

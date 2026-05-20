@@ -2,8 +2,8 @@
 #
 # One trigger, every artifact:
 #   1. Changesets opens / merges a "Version Packages" PR. Merging it lands here.
-#   2. The `release` job publishes `tokenometer` + `@tokenometer/core` to npm
-#      with provenance using direct `npm publish` (the
+#   2. The `release` job publishes `tokenometer`, `@tokenometer/core`, and
+#      `@tokenometer/mcp` to npm with provenance using direct `npm publish` (the
 #      Changesets action's bundled publish path 404'd against this org's
 #      auth — see commit history). It then creates a GitHub Release on the
 #      new tag. The GitHub Marketplace re-publishes the Action listing
@@ -16,9 +16,16 @@
 #   6. A separate `smoke-test` job runs on a fresh runner against the
 #      just-published versions on npm.
 #
+# npm publishing auth:
+#   Uses npm Trusted Publishing (OIDC), not long-lived tokens. Configure npm
+#   trusted publishers for `tokenometer`, `@tokenometer/core`, and
+#   `@tokenometer/mcp` with:
+#     owner/repo: faraa2m/tokenometer
+#     workflow: release.yml
+#   Keep `permissions.id-token: write` below; npm exchanges the GitHub OIDC
+#   token for a short-lived publish credential at `npm publish` time.
+#
 # Required GitHub repository secrets:
-#   NPM_TOKEN           — npm Automation token (or Granular with Bypass 2FA)
-#                         scoped to publish `tokenometer` and `@tokenometer/*`.
 #   VSCE_PAT            — Personal Access Token from https://dev.azure.com.
 #                         Scope: Marketplace → Manage. Skipped if absent.
 #   OVSX_PAT            — Personal Access Token from https://open-vsx.org.
@@ -62,6 +69,9 @@ jobs:
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org/'
+
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
 
       - run: npm ci
 
@@ -130,8 +140,6 @@ jobs:
         working-directory: packages/core
         continue-on-error: true
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish tokenometer (CLI)
         id: publish_cli
@@ -139,8 +147,6 @@ jobs:
         working-directory: packages/cli
         continue-on-error: true
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @tokenometer/mcp
         id: publish_mcp
@@ -148,8 +154,6 @@ jobs:
         working-directory: packages/mcp
         continue-on-error: true
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # Set `published` based on step outcomes, NOT registry re-check.
       # npm registry has propagation lag (1-30s), so re-querying right after

@@ -1,5 +1,11 @@
 # @tokenometer/core
 
+## 2.0.1
+
+### Patch Changes
+
+- [#44](https://github.com/faraa2m/tokenometer/pull/44) [`3cfc93f`](https://github.com/faraa2m/tokenometer/commit/3cfc93f4a593b2c80744ea5e4d67ad47b0c8fb56) Thanks [@faraa2m](https://github.com/faraa2m)! - Refresh the repository status documentation for the v2 release line.
+
 ## 2.0.0
 
 ### Major Changes

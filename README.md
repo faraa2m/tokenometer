@@ -226,7 +226,7 @@ Tokenometer is part of a focused open-source toolkit for LLM cost, tokenization,
 
 ## Status
 
-**v2.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`, `@tokenometer/mcp`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.dev](https://tokenometer.dev). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
+**v2.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`, `@tokenometer/mcp`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), the repo-hosted GitHub Action (`faraa2m/tokenometer/packages/action@v1`), and the live playground at [tokenometer.dev](https://tokenometer.dev). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
 
 ## License
 

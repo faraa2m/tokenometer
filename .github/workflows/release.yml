@@ -6,11 +6,10 @@
 #      `@tokenometer/mcp` to npm with provenance using direct `npm publish` (the
 #      Changesets action's bundled publish path 404'd against this org's
 #      auth — see commit history). It then creates a GitHub Release on the
-#      new tag. The GitHub Marketplace re-publishes the Action listing
-#      automatically when the Release is created from a tag.
+#      new tag. The repo-hosted GitHub Action is versioned by the release tag.
 #   3. The same job then publishes the VS Code extension to the VS Code
 #      Marketplace via `vsce` and to Open VSX via `ovsx` (Cursor / Codium).
-#   4. Marketplace listing is HTTP-verified (best-effort — propagation can lag).
+#   4. The repo-hosted GitHub Action is verified from packages/action/action.yml.
 #   5. The Vercel deploy hook is fired so the playground rebuilds against the
 #      new published packages.
 #   6. A separate `smoke-test` job runs on a fresh runner against the
@@ -205,8 +204,8 @@ jobs:
             exit 1
           fi
 
-      # Create GitHub Release on the new tag. Marketplace re-publishes the
-      # Action listing automatically when a Release is created from a tag.
+      # Create GitHub Release on the new tag. The repo-hosted GitHub Action is
+      # versioned by the release tag.
       - name: Create GitHub Release
         if: ${{ steps.publish.outputs.published == 'true' }}
         env:
@@ -286,17 +285,14 @@ jobs:
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
-      # ── Phase I: GitHub Marketplace verify ──────────────────────────────────
-      - name: Verify GitHub Marketplace listing
+      # ── Phase I: GitHub Action verify ───────────────────────────────────────
+      - name: Verify GitHub Action metadata
         if: ${{ steps.publish.outputs.published == 'true' }}
         run: |
-          sleep 30
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/marketplace/actions/tokenometer)
-          if [ "$HTTP_CODE" = "200" ]; then
-            echo "✓ Marketplace listing reachable (HTTP $HTTP_CODE)" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "⚠ Marketplace listing returned HTTP $HTTP_CODE — may still be propagating" >> $GITHUB_STEP_SUMMARY
-          fi
+          test -f packages/action/action.yml
+          test -f packages/action/dist/index.cjs
+          grep -q "runs:" packages/action/action.yml
+          echo "✓ GitHub Action metadata present: faraa2m/tokenometer/packages/action@v1" >> $GITHUB_STEP_SUMMARY
 
       # ── Phase I: Vercel deploy hook ─────────────────────────────────────────
       - name: Trigger Vercel deploy
@@ -319,8 +315,9 @@ jobs:
             echo "### Published"
             echo "- npm: tokenometer@${VERSION} — https://www.npmjs.com/package/tokenometer"
             echo "- npm: @tokenometer/core@${VERSION} — https://www.npmjs.com/package/@tokenometer/core"
+            echo "- npm: @tokenometer/mcp@${VERSION} — https://www.npmjs.com/package/@tokenometer/mcp"
             echo "- GitHub Release: v${VERSION} — https://github.com/faraa2m/tokenometer/releases/tag/v${VERSION}"
-            echo "- GitHub Marketplace: https://github.com/marketplace/actions/tokenometer"
+            echo "- GitHub Action: faraa2m/tokenometer/packages/action@v1"
             echo "- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode"
             echo "- Open VSX: https://open-vsx.org/extension/faraa2m/tokenometer-vscode"
             echo "- Playground deploy: https://tokenometer.dev"

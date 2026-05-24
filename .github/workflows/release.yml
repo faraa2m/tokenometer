@@ -145,6 +145,8 @@ jobs:
         if: ${{ steps.detect.outputs.core_needs_publish == 'true' }}
         working-directory: packages/core
         continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
       - name: Publish tokenometer (CLI)
@@ -152,6 +154,8 @@ jobs:
         if: ${{ steps.detect.outputs.cli_needs_publish == 'true' }}
         working-directory: packages/cli
         continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
       - name: Publish @tokenometer/mcp
@@ -159,6 +163,8 @@ jobs:
         if: ${{ steps.detect.outputs.mcp_needs_publish == 'true' }}
         working-directory: packages/mcp
         continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
       # Set `published` based on step outcomes, NOT registry re-check.
@@ -195,6 +201,9 @@ jobs:
 
           echo "published=$PUBLISHED" >> $GITHUB_OUTPUT
           echo "version=$CLI_VERSION" >> $GITHUB_OUTPUT
+          if [ "$PUBLISHED" != "true" ]; then
+            exit 1
+          fi
 
       # Create GitHub Release on the new tag. Marketplace re-publishes the
       # Action listing automatically when a Release is created from a tag.

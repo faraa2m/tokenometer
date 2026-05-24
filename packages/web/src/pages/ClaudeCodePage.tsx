@@ -1,7 +1,20 @@
 import { CodeBlock } from '../components/CodeBlock.js';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 
-const INSTALL_LINE = 'claude install skill faraa2m/tokenometer';
+const CLAUDE_INSTALL = [
+  'mkdir -p ~/.claude/skills/tokenometer',
+  'cp packages/claude-code-skill/SKILL.md ~/.claude/skills/tokenometer/',
+].join('\n');
+
+const CODEX_INSTRUCTIONS = `# Tokenometer cost checks
+
+When a prompt, agent instruction, system message, or LLM-facing template changes,
+measure it before finalizing:
+
+    npx tokenometer <file> --model claude-opus-4-7,gpt-4o --format json,markdown
+
+Report tokens, USD input cost, tokenizer, and rates_version. Use --empirical
+only when the user has provided provider keys and explicitly wants live counts.`;
 
 const SKILL_PREVIEW = `---
 name: tokenometer
@@ -24,52 +37,93 @@ provider env vars to hit countTokens directly (Anthropic / OpenAI /
 Google). Always cite the rates_version in your reply.
 `;
 
+const AGENT_SURFACES = [
+  {
+    name: 'Claude Code',
+    summary: 'Install the packaged SKILL.md so Claude Code can discover tokenometer automatically.',
+  },
+  {
+    name: 'Codex',
+    summary:
+      'Add the same cost-check rule to AGENTS.md so Codex measures prompt changes on demand.',
+  },
+  {
+    name: 'Other agents',
+    summary: 'Use the MCP server or paste the instruction block into your agent memory.',
+  },
+];
+
 export const ClaudeCodePage = () => {
-  usePageTitle('claude code', 'tokenometer skill for claude code');
+  usePageTitle('agents', 'tokenometer for claude code and codex');
   return (
-    <section className="space-y-8 py-8">
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">
-          ›claude code · skill (wave 3)
-        </p>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight">claude code skill</h1>
-        <p className="mt-2 max-w-3xl text-[12.5px] text-[var(--tk-dim)]">
-          A drop-in{' '}
-          <a
-            href="https://docs.anthropic.com/en/docs/agents/skills"
-            className="underline decoration-[var(--tk-amber-dim)] underline-offset-4"
-          >
-            Claude Code skill
-          </a>{' '}
-          that gives the agent a token-cost calculator. Triggered automatically when you ask "how
-          much does this prompt cost" or "is this version cheaper". Currently in development as part
-          of Wave 3.
-        </p>
+    <section className="space-y-10 py-9 sm:py-12">
+      <div className="grid grid-cols-12 gap-x-6 gap-y-6 border-b border-[var(--tk-rule)] pb-9">
+        <div className="col-span-12 lg:col-span-7">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-blue)]">
+            ›agent instructions
+          </p>
+          <h1 className="tk-display mt-3 max-w-4xl text-5xl font-semibold leading-[0.96] tracking-normal sm:text-6xl">
+            Give Claude Code and Codex a real cost meter.
+          </h1>
+          <p className="mt-5 max-w-3xl text-[14px] leading-7 text-[var(--tk-dim)]">
+            Tokenometer gives coding agents a repeatable way to answer cost-shaped questions: "what
+            does this prompt cost", "did this change increase tokens", and "which model is cheaper
+            for this payload". The Claude Code skill is packaged; Codex can use the same rule from
+            AGENTS.md.
+          </p>
+        </div>
+        <div className="col-span-12 lg:col-span-5">
+          <div className="tk-panel rounded-md p-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-blue)]">
+              agent surfaces
+            </p>
+            <div className="mt-4 space-y-3">
+              {AGENT_SURFACES.map((surface, index) => (
+                <div className="grid grid-cols-[auto_1fr] gap-x-3" key={surface.name}>
+                  <span className="text-[10px] tabular-nums text-[var(--tk-blue)]">
+                    0{index + 1}
+                  </span>
+                  <p className="text-[12.5px] leading-6">
+                    <span className="font-bold text-[var(--tk-fg)]">{surface.name}</span>{' '}
+                    <span className="text-[var(--tk-dim)]">{surface.summary}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-12 gap-x-6 gap-y-6">
         <div className="col-span-12 md:col-span-5 space-y-4">
-          <div className="border border-[var(--tk-rule)] bg-[var(--tk-cell)] p-4">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">install</p>
-            <CodeBlock code={INSTALL_LINE} filename="bash" language="bash" />
-            <p className="mt-3 text-[10.5px] text-[var(--tk-dim)]">
-              Once published, this drops a SKILL.md into your `~/.claude/skills/` directory.
+          <div className="tk-panel rounded-md p-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-blue)]">
+              claude code
             </p>
+            <p className="mt-2 text-[12.5px] leading-6 text-[var(--tk-dim)]">
+              Install the skill into <code className="text-[var(--tk-fg)]">~/.claude/skills</code>{' '}
+              and restart Claude Code.
+            </p>
+            <CodeBlock code={CLAUDE_INSTALL} filename="bash" language="bash" />
           </div>
-          <div className="space-y-2 text-[12.5px]">
-            <p className="text-[var(--tk-fg)]">What it does:</p>
-            <ul className="space-y-1 text-[var(--tk-dim)]">
-              <li>· runs `npx tokenometer measure` on demand</li>
-              <li>· cites rates_version + tokenizer in every reply</li>
-              <li>· offline by default; opts into empirical with your keys</li>
-            </ul>
+
+          <div className="tk-panel rounded-md p-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-blue)]">codex</p>
+            <p className="mt-2 text-[12.5px] leading-6 text-[var(--tk-dim)]">
+              Paste this into a repo-level <code className="text-[var(--tk-fg)]">AGENTS.md</code>{' '}
+              when you want Codex to check prompt-cost changes.
+            </p>
+            <CodeBlock code={CODEX_INSTRUCTIONS} filename="AGENTS.md" language="markdown" />
           </div>
         </div>
+
         <div className="col-span-12 md:col-span-7">
-          <p className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">
-            SKILL.md preview
-          </p>
-          <CodeBlock code={SKILL_PREVIEW} filename="SKILL.md" language="markdown" />
+          <div className="tk-soft-panel rounded p-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">
+              SKILL.md preview
+            </p>
+            <CodeBlock code={SKILL_PREVIEW} filename="SKILL.md" language="markdown" />
+          </div>
         </div>
       </div>
     </section>

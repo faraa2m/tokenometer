@@ -32,6 +32,6 @@ Going forward, entries are managed by [Changesets](https://github.com/changesets
 - `tokenometer` CLI: multi-provider (Anthropic, OpenAI, Google), multi-format (JSON, YAML, XML, Markdown, text), offline + empirical modes (`--empirical`, `--max-spend`).
 - `@tokenometer/core` library: tokenizer dispatch, USD cost calculation, honest `approximate` flag when the offline path is a proxy (Claude `cl100k_base`, Google `chars/4`).
 - GitHub Action (`packages/action`): sticky PR comment with prompt-cost diff vs base branch, optional `budget` input that fails the check when exceeded.
-- Web playground at https://tokenometer.vercel.app — paste-and-compare UI, observatory aesthetic.
+- Web playground at https://tokenometer.dev — paste-and-compare UI, observatory aesthetic.
 - Empirical benchmark sweep: `npm run benchmarks:empirical` produces the n=150 dataset that powers the README findings (Opus is +62% denser than `cl100k_base`).
 - Vercel monorepo deploy config.

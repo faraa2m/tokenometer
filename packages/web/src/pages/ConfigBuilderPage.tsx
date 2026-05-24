@@ -40,7 +40,7 @@ const buildYaml = ({
 }: BuildOptions): string => {
   const lines: string[] = [];
   lines.push('# .tokenometer.yml');
-  lines.push('# generated from https://tokenometer.vercel.app/config-builder');
+  lines.push('# generated from https://tokenometer.dev/config-builder');
   lines.push('');
   if (models.length > 0) {
     lines.push('models:');

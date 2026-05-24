@@ -51094,7 +51094,7 @@ var LOCAL_OVERRIDES = {
     }
   },
   "claude-opus-4-7": {
-    rate: { cachedInputPer1k: 15e-4, inputPer1k: 0.015, outputPer1k: 0.075 },
+    rate: { cachedInputPer1k: 5e-4, inputPer1k: 5e-3, outputPer1k: 0.025 },
     descriptor: {
       contextWindow: 2e5,
       id: "claude-opus-4-7",
@@ -51114,7 +51114,7 @@ var LOCAL_OVERRIDES = {
     }
   },
   "command-r": {
-    rate: { inputPer1k: 15e-5, outputPer1k: 6e-4 },
+    rate: { inputPer1k: 5e-4, outputPer1k: 15e-4 },
     descriptor: {
       contextWindow: 128e3,
       id: "command-r",

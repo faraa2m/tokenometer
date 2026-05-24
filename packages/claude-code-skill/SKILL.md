@@ -177,7 +177,7 @@ diff vs the base branch and fails the check when total Δ exceeds
 - Doesn't generate prompts.
 - Doesn't optimize prompts (yet — measurement only).
 - Doesn't track cost over time across runs (use the playground at
-  https://tokenometer.vercel.app for that).
+  https://tokenometer.dev for that).
 
 ## Empirical findings worth citing in conversation
 

@@ -9,7 +9,10 @@
 [![GitHub stars](https://img.shields.io/github/stars/faraa2m/tokenometer.svg?style=social)](https://github.com/faraa2m/tokenometer/stargazers)
 
 > Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
-> **Live: https://tokenometer.vercel.app**
+> **Live: https://tokenometer.dev**
+
+> [!WARNING]
+> `tokenometer.cloud` is not affiliated with this project or its maintainer. Do not enter credentials, API keys, or provider tokens there. Official Tokenometer surfaces are this GitHub repository, the npm packages linked above, the VS Code/Open VSX marketplace listings, and `https://tokenometer.dev`.
 
 Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, Gemini, Mistral, and Cohere — and how fast does each provider actually respond?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). Today it's the only LLM cost CLI that also tells you latency, ships a PR-blocking GitHub Action, lights up your editor's status bar, and teaches Claude Code agents to think in dollars.
 
@@ -61,7 +64,7 @@ $ tokenometer ./prompt.md --model claude-opus-4-7 --format json,yaml,markdown
 
 The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google / Mistral-Tekken / Cohere offline) and is empty when it's an exact match (OpenAI offline, Mistral SentencePiece-family offline, or any provider with `--empirical`).
 
-> Real demo (with empirical mode + GIF) at **https://tokenometer.vercel.app**.
+> Real demo (with empirical mode + GIF) at **https://tokenometer.dev**.
 
 ## Why this exists
 
@@ -175,7 +178,7 @@ Tokenometer picks a tokenizer per provider and flags the count as approximate (`
 | Mistral   | `mistral-tokenizer-js` (V1/V2/V3) · `chars/4` for Tekken family | exact for SP-family · approximate for Tekken | unsupported (no public token-count endpoint) |
 | Cohere    | `chars / 4` heuristic                          | approximate | `POST /v1/tokenize` (exact, free, requires `COHERE_API_KEY`) |
 
-Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet (and the full Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0) — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`).
+Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet (and the full Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0) — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`). Local overrides were last checked against Anthropic and Cohere public pricing on 2026-05-23.
 
 ## Output formats
 
@@ -211,7 +214,7 @@ Full flag reference: [`packages/cli/README.md`](packages/cli/README.md).
 
 ## Status
 
-**v2.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`, `@tokenometer/mcp`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.vercel.app](https://tokenometer.vercel.app). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
+**v2.x — production-ready.** Shipped across npm (`tokenometer`, `@tokenometer/core`, `@tokenometer/mcp`), VS Code Marketplace + Open VSX (`faraa2m.tokenometer-vscode`), GitHub Marketplace (the `Tokenometer` Action), and the live playground at [tokenometer.dev](https://tokenometer.dev). See [CHANGELOG.md](CHANGELOG.md) for release notes and the [milestones page](https://github.com/faraa2m/tokenometer/milestones) for what's next.
 
 ## License
 

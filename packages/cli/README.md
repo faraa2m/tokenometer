@@ -7,7 +7,7 @@
 
 See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
-[**Live playground: tokenometer.vercel.app**](https://tokenometer.vercel.app) · [Source](https://github.com/faraa2m/tokenometer) · MIT
+[**Live playground: tokenometer.dev**](https://tokenometer.dev) · [Source](https://github.com/faraa2m/tokenometer) · MIT
 
 ```bash
 npx tokenometer ./prompt.md --model claude-opus-4-7,gpt-4o
@@ -53,7 +53,7 @@ echo "prompt" | tokenometer - [options]
 
 ## Models supported
 
-63 models across 5 providers. Run `tokenometer --help` for the full list at runtime, or browse the [Cost Atlas](https://tokenometer.vercel.app/models) for sortable per-model pages.
+63 models across 5 providers. Run `tokenometer --help` for the full list at runtime, or browse the [Cost Atlas](https://tokenometer.dev/models) for sortable per-model pages.
 
 | Provider | Examples | Offline tokenizer | Empirical |
 |---|---|---|---|

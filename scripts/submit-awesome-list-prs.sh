@@ -121,7 +121,7 @@ submit_one() {
 - Repo: https://github.com/faraa2m/tokenometer
 - npm: \`npx tokenometer ./prompt.md --model claude-opus-4-7\`
 - GitHub Marketplace: https://github.com/marketplace/actions/tokenometer
-- Live demo: https://tokenometer.vercel.app
+- Live demo: https://tokenometer.dev
 - VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode
 
 If the placement is in the wrong section happy to adjust.'"

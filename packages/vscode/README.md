@@ -73,7 +73,7 @@ Under the hood the extension reuses [`@tokenometer/core`](https://www.npmjs.com/
 
 - [Root README](https://github.com/faraa2m/tokenometer#readme) — methodology, findings, and the full project overview.
 - [`tokenometer` CLI on npm](https://www.npmjs.com/package/tokenometer)
-- [Live playground](https://tokenometer.vercel.app)
+- [Live playground](https://tokenometer.dev)
 
 ## License
 

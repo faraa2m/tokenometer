@@ -55,11 +55,19 @@ describe('rates', () => {
 
   it('local-overridden Claude models keep tokenometer-controlled prices', () => {
     expect(getRate('claude-opus-4-7')).toEqual({
-      cachedInputPer1k: 0.0015,
-      inputPer1k: 0.015,
-      outputPer1k: 0.075,
+      cachedInputPer1k: 0.0005,
+      inputPer1k: 0.005,
+      outputPer1k: 0.025,
     });
     expect(getModel('claude-opus-4-7').pricingSource).toBe('local');
+  });
+
+  it('local-overridden Cohere Command R matches Cohere legacy API pricing', () => {
+    expect(getRate('command-r')).toEqual({
+      inputPer1k: 0.0005,
+      outputPer1k: 0.0015,
+    });
+    expect(getModel('command-r').pricingSource).toBe('local');
   });
 
   it('tokenlens-sourced models include context-window metadata', () => {

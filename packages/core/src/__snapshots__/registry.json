@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T03:47:29.144Z",
+  "generatedAt": "2026-05-23T23:39:22.262Z",
   "models": [
     {
       "id": "claude-3-5-haiku-20241022",
@@ -107,9 +107,9 @@
       "pricingSource": "local",
       "contextWindow": 200000,
       "maxOutputTokens": 32000,
-      "inputPer1k": 0.015,
-      "outputPer1k": 0.075,
-      "cachedInputPer1k": 0.0015
+      "inputPer1k": 0.005,
+      "outputPer1k": 0.025,
+      "cachedInputPer1k": 0.0005
     },
     {
       "id": "claude-sonnet-4-20250514",
@@ -157,8 +157,8 @@
       "pricingSource": "local",
       "contextWindow": 128000,
       "maxOutputTokens": 4096,
-      "inputPer1k": 0.00015,
-      "outputPer1k": 0.0006,
+      "inputPer1k": 0.0005,
+      "outputPer1k": 0.0015,
       "cachedInputPer1k": null
     },
     {

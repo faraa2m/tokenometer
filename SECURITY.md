@@ -30,7 +30,7 @@ Typical flow:
 
 - Issues in dependencies (file those upstream; we'll bump after they land).
 - Self-inflicted misconfiguration (e.g., committing your own API keys to a repo).
-- Findings against `https://tokenometer.vercel.app` that result from the playground being a public read-only demo.
+- Findings against `https://tokenometer.dev` that result from the playground being a public read-only demo.
 
 ## Recognition
 

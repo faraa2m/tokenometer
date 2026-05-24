@@ -7,7 +7,7 @@ import { getContext, getTokenCosts } from 'tokenlens';
 import { UserFacingError } from './errors.js';
 import type { ModelDescriptor, Provider, RateEntry } from './types.js';
 
-export const RATES_VERSION = '2026-05-09';
+export const RATES_VERSION = '2026-05-23';
 
 // `@tokenlens/models` does not yet ship a Cohere catalog (verified against
 // node_modules/@tokenlens/models/dist/providers/ at v1.3.0). When upstream
@@ -44,7 +44,7 @@ const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
     },
   },
   'claude-opus-4-7': {
-    rate: { cachedInputPer1k: 0.0015, inputPer1k: 0.015, outputPer1k: 0.075 },
+    rate: { cachedInputPer1k: 0.0005, inputPer1k: 0.005, outputPer1k: 0.025 },
     descriptor: {
       contextWindow: 200_000,
       id: 'claude-opus-4-7',
@@ -64,7 +64,7 @@ const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
     },
   },
   'command-r': {
-    rate: { inputPer1k: 0.00015, outputPer1k: 0.0006 },
+    rate: { inputPer1k: 0.0005, outputPer1k: 0.0015 },
     descriptor: {
       contextWindow: 128_000,
       id: 'command-r',

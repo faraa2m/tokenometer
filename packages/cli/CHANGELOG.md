@@ -75,7 +75,7 @@
 
   **Claude Code skill** — `tokenometer-cost-check` skill that teaches Claude Code agents to invoke the CLI for prompt cost analysis. One-line install to `~/.claude/skills/tokenometer/`.
 
-  **Web playground** — calculator, Cost Atlas (all 63 models, sortable + searchable), per-model SEO pages, prompt-diff preview, vision-token cost estimator, SARIF JSON viewer, config builder, init wizard. Live at https://tokenometer.vercel.app.
+  **Web playground** — calculator, Cost Atlas (all 63 models, sortable + searchable), per-model SEO pages, prompt-diff preview, vision-token cost estimator, SARIF JSON viewer, config builder, init wizard. Live at https://tokenometer.dev.
 
   **Empirical findings** — `tiktoken cl100k_base` under-counts Claude Opus by 62% median. Format choice (JSON / YAML / XML / Markdown / text) is rounding error vs model choice (Opus → Haiku is 7-12× cheaper).
 
@@ -200,7 +200,7 @@ build` runs `tsc -b` without recursing into workspace scripts, so the
   pricing comes from `LOCAL_OVERRIDES` (`command-r`, `command-r-plus`)
   because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0.
 
-- [#14](https://github.com/faraa2m/tokenometer/pull/14) [`061e0c5`](https://github.com/faraa2m/tokenometer/commit/061e0c577fce3ecc09c6a201a408cd1a360d5587) Thanks [@faraa2m](https://github.com/faraa2m)! - Playground (`https://tokenometer.vercel.app`) gains showcase pages for
+- [#14](https://github.com/faraa2m/tokenometer/pull/14) [`061e0c5`](https://github.com/faraa2m/tokenometer/commit/061e0c577fce3ecc09c6a201a408cd1a360d5587) Thanks [@faraa2m](https://github.com/faraa2m)! - Playground (`https://tokenometer.dev`) gains showcase pages for
   every Wave 2 feature: `/diff`, `/by-file`, `/sarif`, `/vision`,
   `/config-builder`, `/init`, `/models` (Cost Atlas + per-model SEO pages),
   plus placeholder pages for the VS Code extension and Claude Code skill.

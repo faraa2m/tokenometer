@@ -5,7 +5,7 @@
   "description": "Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost-guardrail Action for Claude, GPT-4o, Gemini, Mistral, and Cohere. Includes VS Code extension and Claude Code skill.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
-  "homepage": "https://github.com/faraa2m/tokenometer",
+  "homepage": "https://tokenometer.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/faraa2m/tokenometer.git"

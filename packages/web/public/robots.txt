@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tokenometer.vercel.app/sitemap.xml
+Sitemap: https://tokenometer.dev/sitemap.xml

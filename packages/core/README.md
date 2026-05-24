@@ -7,7 +7,7 @@
 
 See the [root README](https://github.com/faraa2m/tokenometer#readme) for findings, methodology, and the full project overview.
 
-[**Live playground**](https://tokenometer.vercel.app) · [Source](https://github.com/faraa2m/tokenometer) · MIT
+[**Live playground**](https://tokenometer.dev) · [Source](https://github.com/faraa2m/tokenometer) · MIT
 
 If you just want a CLI, `npm install -g tokenometer`. This package is for programmatic use — it's the engine the CLI, the GitHub Action, the VS Code / Cursor extension, and the playground all share, so counts and pricing stay identical across every surface.
 
@@ -156,7 +156,7 @@ const sarif = toSarif({ files: [{ path: 'prompt.md', results: [...] }] });
 | Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` (V1/V2/V3 SentencePiece); `chars/4` for Tekken family (NeMo, Pixtral, Mistral Small 2409+, Devstral, Mistral Medium 2505+, Magistral, Ministral) | exact for SentencePiece · approximate for Tekken | unsupported (no public token-count endpoint) |
 | Cohere    | `command-r`, `command-r-plus` | `chars / 4` heuristic | approximate | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
 
-Pricing comes from `@tokenlens/models` plus a small `LOCAL_OVERRIDES` map for bleeding-edge models the registry hasn't picked up yet. Cohere lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0; pull from `cohere.com/pricing` whenever `RATES_VERSION` bumps.
+Pricing comes from `@tokenlens/models` plus a small `LOCAL_OVERRIDES` map for bleeding-edge models the registry hasn't picked up yet. Cohere lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0; pull from `cohere.com/pricing` whenever `RATES_VERSION` bumps. Local overrides were last checked against Anthropic and Cohere public pricing on 2026-05-23.
 
 Internally the dispatch helpers `mistralCount`, `cohereCount`, `cohereTokenizeApi`, and `isTekken` (in `tokenize-mistral.ts` / `tokenize-cohere.ts`) are not part of the public API — they're called from `tokenize` / `tokenizeEmpirical`. If you need them, import the files directly; they may move.
 

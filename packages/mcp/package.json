@@ -4,7 +4,7 @@
   "description": "Model Context Protocol server for tokenometer — lets AI agents self-monitor LLM token spend, estimate costs, and budget-check before sending prompts.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
-  "homepage": "https://tokenometer.vercel.app",
+  "homepage": "https://tokenometer.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/faraa2m/tokenometer.git",

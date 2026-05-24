@@ -4,7 +4,7 @@
   "description": "Tokenometer CLI — LLM token cost + latency benchmarking across Claude, GPT-4o, Gemini, Mistral, and Cohere. Multi-format, empirical mode, vision tokens, SARIF output.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
-  "homepage": "https://tokenometer.vercel.app",
+  "homepage": "https://tokenometer.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/faraa2m/tokenometer.git",

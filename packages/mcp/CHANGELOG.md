@@ -1,5 +1,12 @@
 # @tokenometer/mcp
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`39e9281`](https://github.com/faraa2m/tokenometer/commit/39e9281c17f787c7810a9921bcbc177909efe989)]:
+  - @tokenometer/core@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

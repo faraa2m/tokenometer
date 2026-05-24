@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://tokenometer.dev/sitemap.xml
+LLMs: https://tokenometer.dev/llms.txt

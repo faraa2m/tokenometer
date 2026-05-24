@@ -2,29 +2,71 @@
 
 :root {
   color-scheme: light dark;
-  --tk-bg: #0a0a0a;
-  --tk-fg: #e8e6dc;
-  --tk-dim: #6e6a5e;
-  --tk-rule: #1f1d18;
-  --tk-amber: #f5b042;
-  --tk-amber-dim: #b3811e;
-  --tk-green: #7dd99c;
-  --tk-red: #e26b6b;
-  --tk-cell: #121110;
+  --tk-bg: #080807;
+  --tk-fg: #f3efe2;
+  --tk-dim: #8f8776;
+  --tk-rule: #2f2a21;
+  --tk-amber: #f6b44b;
+  --tk-amber-dim: #8f6225;
+  --tk-green: #82d69c;
+  --tk-red: #ef7c70;
+  --tk-blue: #74c7d3;
+  --tk-cell: #14120f;
+  --tk-cell-strong: #1d1913;
+  --tk-paper: #f4ead2;
+  --tk-shadow: rgba(0, 0, 0, 0.34);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --tk-bg: #f3f1ea;
-    --tk-fg: #15140f;
-    --tk-dim: #6e6a5e;
-    --tk-rule: #cfcabc;
-    --tk-amber: #b35200;
-    --tk-amber-dim: #7a3a00;
-    --tk-green: #1d6b3d;
-    --tk-red: #a8231d;
-    --tk-cell: #ebe8df;
+    --tk-bg: #f3efe4;
+    --tk-fg: #17130d;
+    --tk-dim: #776d5d;
+    --tk-rule: #d2c4a7;
+    --tk-amber: #ad5b12;
+    --tk-amber-dim: #7e3f0b;
+    --tk-green: #217047;
+    --tk-red: #ad3d35;
+    --tk-blue: #1f6f86;
+    --tk-cell: #fffaf0;
+    --tk-cell-strong: #eadfca;
+    --tk-paper: #fff7e6;
+    --tk-shadow: rgba(61, 45, 20, 0.16);
   }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --tk-bg: #f3efe4;
+  --tk-fg: #17130d;
+  --tk-dim: #776d5d;
+  --tk-rule: #d2c4a7;
+  --tk-amber: #ad5b12;
+  --tk-amber-dim: #7e3f0b;
+  --tk-green: #217047;
+  --tk-red: #ad3d35;
+  --tk-blue: #1f6f86;
+  --tk-cell: #fffaf0;
+  --tk-cell-strong: #eadfca;
+  --tk-paper: #fff7e6;
+  --tk-shadow: rgba(61, 45, 20, 0.16);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --tk-bg: #080807;
+  --tk-fg: #f3efe2;
+  --tk-dim: #8f8776;
+  --tk-rule: #2f2a21;
+  --tk-amber: #f6b44b;
+  --tk-amber-dim: #8f6225;
+  --tk-green: #82d69c;
+  --tk-red: #ef7c70;
+  --tk-blue: #74c7d3;
+  --tk-cell: #14120f;
+  --tk-cell-strong: #1d1913;
+  --tk-paper: #f4ead2;
+  --tk-shadow: rgba(0, 0, 0, 0.34);
 }
 
 html,
@@ -34,7 +76,10 @@ body,
 }
 
 body {
-  background: var(--tk-bg);
+  background: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(145deg, var(--tk-bg) 0%, #11100e 55%, #080807 100%);
+  background-size: 36px 36px, 36px 36px, auto;
   color: var(--tk-fg);
   font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
   font-feature-settings: "liga" 0, "calt" 0;
@@ -42,9 +87,70 @@ body {
   line-height: 1.55;
 }
 
+@media (prefers-color-scheme: light) {
+  body {
+    background: linear-gradient(rgba(23, 19, 13, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 19, 13, 0.03) 1px, transparent 1px),
+      linear-gradient(145deg, #f8f1df 0%, var(--tk-bg) 62%, #eadfca 100%);
+    background-size: 36px 36px, 36px 36px, auto;
+  }
+}
+
+:root[data-theme="light"] body {
+  background: linear-gradient(rgba(23, 19, 13, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 19, 13, 0.03) 1px, transparent 1px),
+    linear-gradient(145deg, #f8f1df 0%, var(--tk-bg) 62%, #eadfca 100%);
+  background-size: 36px 36px, 36px 36px, auto;
+}
+
+:root[data-theme="dark"] body {
+  background: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(145deg, var(--tk-bg) 0%, #11100e 55%, #080807 100%);
+  background-size: 36px 36px, 36px 36px, auto;
+}
+
 ::selection {
   background: var(--tk-amber);
   color: var(--tk-bg);
+}
+
+.tk-display {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-feature-settings: "kern" 1;
+}
+
+.tk-panel {
+  border: 1px solid var(--tk-rule);
+  background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--tk-cell) 94%, var(--tk-paper) 6%),
+      var(--tk-cell)
+    ), var(--tk-cell);
+  box-shadow: 0 24px 70px var(--tk-shadow);
+}
+
+.tk-soft-panel {
+  border: 1px solid color-mix(in srgb, var(--tk-rule) 86%, var(--tk-amber) 14%);
+  background: color-mix(in srgb, var(--tk-cell) 90%, transparent);
+}
+
+.tk-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--tk-rule);
+  background: color-mix(in srgb, var(--tk-cell) 86%, transparent);
+}
+
+.tk-link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--tk-amber-dim);
+  text-underline-offset: 4px;
+}
+
+.tk-link:hover {
+  color: var(--tk-amber);
+  text-decoration-color: var(--tk-amber);
 }
 
 /* phosphor cursor */

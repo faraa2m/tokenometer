@@ -13,6 +13,7 @@ const DEFAULT_MODELS = ['claude-opus-4-7', 'claude-sonnet-4-6', 'gpt-4o'] as con
 const ALL_FORMATS: readonly Format[] = allFormats();
 // Listed providers come first; any extras (e.g. mistral, cohere) are appended.
 const PROVIDER_ORDER: readonly Provider[] = ['anthropic', 'openai', 'google'];
+const MODEL_RESULT_LIMIT = 7;
 
 const formatContextWindow = (n: number): string => {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`;
@@ -47,6 +48,28 @@ const Selector = ({
   </button>
 );
 
+const SelectedModel = ({ id, onRemove }: { id: string; onRemove: () => void }) => {
+  const model = getModel(id);
+  return (
+    <button
+      type="button"
+      onClick={onRemove}
+      className="group flex w-full items-center justify-between gap-3 rounded border border-[var(--tk-rule)] bg-[var(--tk-cell)] px-3 py-2 text-left hover:border-[var(--tk-amber)]"
+    >
+      <span>
+        <span className="block text-[12px] text-[var(--tk-fg)]">{id}</span>
+        <span className="block text-[10px] uppercase tracking-[0.18em] text-[var(--tk-dim)]">
+          {model.provider}
+          {model.contextWindow ? ` · ${formatContextWindow(model.contextWindow)}` : ''}
+        </span>
+      </span>
+      <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--tk-dim)] group-hover:text-[var(--tk-red)]">
+        remove
+      </span>
+    </button>
+  );
+};
+
 const Field = ({ children, label }: { children: React.ReactNode; label: string }) => (
   <div>
     <p className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">{label}</p>
@@ -80,8 +103,11 @@ const buildModelGroups = (): { provider: Provider; models: ModelOption[] }[] => 
 export const Playground = ({ initialPrompt }: PlaygroundProps) => {
   const [prompt, setPrompt] = useState(initialPrompt);
   const modelGroups = useMemo(() => buildModelGroups(), []);
+  const allModels = useMemo(() => modelGroups.flatMap(({ models }) => models), [modelGroups]);
   const [selectedModels, setSelectedModels] = useState<string[]>([...DEFAULT_MODELS]);
   const [selectedFormats, setSelectedFormats] = useState<Format[]>([...ALL_FORMATS]);
+  const [providerFilter, setProviderFilter] = useState<Provider | 'all'>('all');
+  const [modelQuery, setModelQuery] = useState('');
   const [empirical, setEmpirical] = useState(false);
   const [anthropicKey, setAnthropicKey] = useState('');
   const [googleKey, setGoogleKey] = useState('');
@@ -91,8 +117,22 @@ export const Playground = ({ initialPrompt }: PlaygroundProps) => {
 
   const toggleModel = (id: string) =>
     setSelectedModels((p) => (p.includes(id) ? p.filter((m) => m !== id) : [...p, id]));
+  const addModel = (id: string) => setSelectedModels((p) => (p.includes(id) ? p : [...p, id]));
   const toggleFormat = (f: Format) =>
     setSelectedFormats((p) => (p.includes(f) ? p.filter((x) => x !== f) : [...p, f]));
+
+  const matchingModels = useMemo(() => {
+    const query = modelQuery.trim().toLowerCase();
+    return allModels
+      .filter(({ id }) => {
+        const model = getModel(id);
+        if (providerFilter !== 'all' && model.provider !== providerFilter) return false;
+        if (!query) return true;
+        return `${id} ${model.provider}`.toLowerCase().includes(query);
+      })
+      .filter(({ id }) => !selectedModels.includes(id))
+      .slice(0, MODEL_RESULT_LIMIT);
+  }, [allModels, modelQuery, providerFilter, selectedModels]);
 
   const run = async () => {
     if (!prompt.trim()) return setError('empty prompt - paste something to measure');
@@ -142,26 +182,80 @@ export const Playground = ({ initialPrompt }: PlaygroundProps) => {
         </Field>
       </div>
 
-      <div className="col-span-12 lg:col-span-4 space-y-6">
-        <Field label="02 ›models">
+      <div className="col-span-12 lg:col-span-4 space-y-5">
+        <div className="tk-panel sticky top-4 z-[1] rounded-md p-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={run}
+              disabled={loading}
+              className="rounded-full border border-[var(--tk-amber)] bg-[var(--tk-amber)] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--tk-bg)] hover:bg-transparent hover:text-[var(--tk-amber)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {loading ? '> measuring' : '> measure'}
+            </button>
+            <p className="text-[10.5px] leading-5 text-[var(--tk-dim)]">
+              {selectedModels.length} models · {selectedFormats.length} formats
+            </p>
+          </div>
+          {error && <p className="mt-3 text-[11.5px] text-[var(--tk-red)]">err: {error}</p>}
+        </div>
+
+        <Field label="02 ›guided model search">
           <div className="space-y-3">
-            {modelGroups.map(({ provider, models }) => (
-              <div key={provider}>
-                <p className="mb-1.5 text-[9.5px] uppercase tracking-[0.28em] text-[var(--tk-dim)]">
-                  {provider}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {models.map(({ id, label }) => (
-                    <Selector
-                      key={id}
-                      active={selectedModels.includes(id)}
-                      label={label}
-                      onToggle={() => toggleModel(id)}
-                    />
-                  ))}
-                </div>
+            <div className="grid grid-cols-2 gap-2">
+              <select
+                value={providerFilter}
+                onChange={(e) => setProviderFilter(e.target.value as Provider | 'all')}
+                className="rounded border border-[var(--tk-rule)] bg-[var(--tk-cell)] px-3 py-2 text-[12px] text-[var(--tk-fg)] focus:border-[var(--tk-amber)] focus:outline-none"
+              >
+                <option value="all">all providers</option>
+                {modelGroups.map(({ provider }) => (
+                  <option key={provider} value={provider}>
+                    {provider}
+                  </option>
+                ))}
+              </select>
+              <input
+                value={modelQuery}
+                onChange={(e) => setModelQuery(e.target.value)}
+                className="rounded border border-[var(--tk-rule)] bg-[var(--tk-cell)] px-3 py-2 text-[12px] text-[var(--tk-fg)] focus:border-[var(--tk-amber)] focus:outline-none"
+                placeholder="search model"
+                spellCheck={false}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-[9.5px] uppercase tracking-[0.28em] text-[var(--tk-dim)]">
+                selected
+              </p>
+              {selectedModels.map((id) => (
+                <SelectedModel key={id} id={id} onRemove={() => toggleModel(id)} />
+              ))}
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-[9.5px] uppercase tracking-[0.28em] text-[var(--tk-dim)]">
+                add model
+              </p>
+              <div className="grid gap-2">
+                {matchingModels.map(({ id, label }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => addModel(id)}
+                    className="flex items-center justify-between gap-3 rounded border border-[var(--tk-rule)] px-3 py-2 text-left text-[12px] text-[var(--tk-dim)] hover:border-[var(--tk-amber)] hover:text-[var(--tk-amber)]"
+                  >
+                    <span>{label}</span>
+                    <span className="text-[10px] uppercase tracking-[0.18em]">add</span>
+                  </button>
+                ))}
+                {!matchingModels.length && (
+                  <p className="rounded border border-dashed border-[var(--tk-rule)] px-3 py-3 text-[11px] text-[var(--tk-dim)]">
+                    No more matching models.
+                  </p>
+                )}
               </div>
-            ))}
+            </div>
           </div>
         </Field>
 
@@ -226,17 +320,14 @@ export const Playground = ({ initialPrompt }: PlaygroundProps) => {
           )}
         </Field>
 
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={run}
-            disabled={loading}
-            className="border border-[var(--tk-amber)] bg-[var(--tk-amber)] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--tk-bg)] hover:bg-[var(--tk-amber-dim)] hover:text-[var(--tk-fg)] disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {loading ? '> measuring' : '> measure'}
-          </button>
-          {error && <p className="text-[11.5px] text-[var(--tk-red)]">err: {error}</p>}
-        </div>
+        <button
+          type="button"
+          onClick={run}
+          disabled={loading}
+          className="w-full rounded-full border border-[var(--tk-amber)] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--tk-amber)] hover:bg-[var(--tk-amber)] hover:text-[var(--tk-bg)] disabled:cursor-not-allowed disabled:opacity-60 lg:hidden"
+        >
+          {loading ? '> measuring' : '> measure'}
+        </button>
       </div>
 
       {results && results.length > 0 && (

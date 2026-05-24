@@ -19,13 +19,13 @@ const TOOLS_NAV: readonly NavItem[] = [
   { to: '/config-builder', label: 'config builder' },
   { to: '/init', label: 'init' },
   { to: '/editor', label: 'vs code' },
-  { to: '/claude-code', label: 'claude code' },
+  { to: '/claude-code', label: 'agents' },
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }): string =>
   isActive
-    ? 'border-b border-[var(--tk-amber)] pb-[2px] text-[var(--tk-amber)]'
-    : 'border-b border-transparent pb-[2px] text-[var(--tk-fg)] hover:border-[var(--tk-amber-dim)] hover:text-[var(--tk-amber)]';
+    ? 'rounded-full border border-[var(--tk-amber)] bg-[var(--tk-amber)] px-3 py-1 text-[var(--tk-bg)] shadow-sm'
+    : 'rounded-full border border-transparent px-3 py-1 text-[var(--tk-fg)] hover:border-[var(--tk-amber-dim)] hover:text-[var(--tk-amber)]';
 
 export const Nav = () => {
   const [toolsOpen, setToolsOpen] = useState(false);
@@ -43,7 +43,7 @@ export const Nav = () => {
   }, [toolsOpen]);
 
   return (
-    <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11.5px] uppercase tracking-[0.18em]">
+    <nav className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.16em]">
       {PRIMARY_NAV.map(({ to, label }) => (
         <NavLink key={to} to={to} className={linkClass} end={to === '/'}>
           {label}
@@ -55,8 +55,8 @@ export const Nav = () => {
           onClick={() => setToolsOpen((v) => !v)}
           className={
             toolsOpen
-              ? 'border-b border-[var(--tk-amber)] pb-[2px] text-[var(--tk-amber)] uppercase tracking-[0.18em]'
-              : 'border-b border-transparent pb-[2px] text-[var(--tk-fg)] hover:border-[var(--tk-amber-dim)] hover:text-[var(--tk-amber)] uppercase tracking-[0.18em]'
+              ? 'rounded-full border border-[var(--tk-amber)] bg-[var(--tk-amber)] px-3 py-1 text-[var(--tk-bg)] uppercase tracking-[0.16em]'
+              : 'rounded-full border border-transparent px-3 py-1 text-[var(--tk-fg)] hover:border-[var(--tk-amber-dim)] hover:text-[var(--tk-amber)] uppercase tracking-[0.16em]'
           }
           aria-expanded={toolsOpen}
           aria-haspopup="true"
@@ -64,7 +64,7 @@ export const Nav = () => {
           tools <span className="text-[var(--tk-dim)]">{toolsOpen ? '▴' : '▾'}</span>
         </button>
         {toolsOpen && (
-          <div className="absolute right-0 z-10 mt-2 min-w-[12rem] border border-[var(--tk-rule)] bg-[var(--tk-cell)] p-2 shadow-lg">
+          <div className="tk-panel absolute right-0 z-10 mt-2 min-w-[13rem] rounded p-2">
             <ul className="flex flex-col gap-1">
               {TOOLS_NAV.map(({ to, label }) => (
                 <li key={to}>

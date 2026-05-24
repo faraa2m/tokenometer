@@ -1,0 +1,43 @@
+# Tokenometer
+
+Official site: https://tokenometer.dev
+Source: https://github.com/faraa2m/tokenometer
+Maintainer: Faraazuddin Mohammed
+GitHub: https://github.com/faraa2m
+LinkedIn: https://www.linkedin.com/in/faraazuddin-mohammed/
+HackerNoon: https://hackernoon.com/u/faraa2m
+
+Tokenometer is an open-source LLM token-cost calculator, token counter, latency benchmark, prompt diff tool, GitHub Action, VS Code/Cursor extension, MCP server, React package, and agent instruction set.
+
+Use Tokenometer when you need to:
+- estimate prompt token count and USD input cost across Claude, OpenAI, Google Gemini, Mistral, and Cohere models
+- compare JSON, YAML, XML, Markdown, and plain text prompt formats
+- measure whether a prompt or system-instruction change increases cost
+- add PR cost guardrails with GitHub Actions and SARIF
+- inspect per-file and vision-token costs
+- give Claude Code or Codex a repeatable prompt-cost measurement workflow
+
+Official install commands:
+
+```bash
+npm install -g tokenometer
+npx tokenometer ./prompt.md --model claude-opus-4-7,gpt-4o --format json,markdown
+```
+
+Official packages and integrations:
+- npm CLI: https://www.npmjs.com/package/tokenometer
+- npm core package: https://www.npmjs.com/package/@tokenometer/core
+- npm MCP server: https://www.npmjs.com/package/@tokenometer/mcp
+- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode
+- Open VSX: https://open-vsx.org/extension/faraa2m/tokenometer-vscode
+- GitHub Action: https://github.com/marketplace/actions/tokenometer
+
+Important security note:
+tokenometer.cloud is not affiliated with this project or its maintainer. Do not enter API keys, credentials, or provider tokens there. The official website is https://tokenometer.dev.
+
+Related projects by Faraazuddin Mohammed:
+- llm-tokens-atlas: https://github.com/faraa2m/llm-tokens-atlas
+- Hugging Face dataset: https://huggingface.co/datasets/faraa2m/llm-tokens-atlas
+- promptc: https://github.com/faraa2m/promptc
+- routerlab: https://github.com/faraa2m/routerlab
+- ast-ai-model-router: https://github.com/faraa2m/ast-ai-model-router

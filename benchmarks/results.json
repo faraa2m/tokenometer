@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T04:07:57.509Z",
+  "generatedAt": "2026-05-24T12:53:02.825Z",
   "formats": [
     "json",
     "markdown",
@@ -397,31 +397,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00117,
+          "inputCost": 0.00039,
           "inputTokens": 78,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00132,
+          "inputCost": 0.00044,
           "inputTokens": 88,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00144,
+          "inputCost": 0.00048,
           "inputTokens": 96,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.001515,
+          "inputCost": 0.000505,
           "inputTokens": 101,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00126,
+          "inputCost": 0.00042,
           "inputTokens": 84,
           "tokenizer": "cl100k_base"
         }
@@ -557,31 +557,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.0000123,
+          "inputCost": 0.000041,
           "inputTokens": 82,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00001245,
+          "inputCost": 0.0000415,
           "inputTokens": 83,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00001365,
+          "inputCost": 0.0000455,
           "inputTokens": 91,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0000153,
+          "inputCost": 0.000051,
           "inputTokens": 102,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00001185,
+          "inputCost": 0.0000395,
           "inputTokens": 79,
           "tokenizer": "heuristic"
         }
@@ -2415,31 +2415,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00117,
+          "inputCost": 0.00039,
           "inputTokens": 78,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00132,
+          "inputCost": 0.00044,
           "inputTokens": 88,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00144,
+          "inputCost": 0.00048,
           "inputTokens": 96,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.001515,
+          "inputCost": 0.000505,
           "inputTokens": 101,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00126,
+          "inputCost": 0.00042,
           "inputTokens": 84,
           "tokenizer": "cl100k_base"
         }
@@ -2575,31 +2575,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.0000123,
+          "inputCost": 0.000041,
           "inputTokens": 82,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00001245,
+          "inputCost": 0.0000415,
           "inputTokens": 83,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00001365,
+          "inputCost": 0.0000455,
           "inputTokens": 91,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0000153,
+          "inputCost": 0.000051,
           "inputTokens": 102,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00001185,
+          "inputCost": 0.0000395,
           "inputTokens": 79,
           "tokenizer": "heuristic"
         }
@@ -4433,31 +4433,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.002625,
+          "inputCost": 0.000875,
           "inputTokens": 175,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.002595,
+          "inputCost": 0.000865,
           "inputTokens": 173,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00258,
+          "inputCost": 0.00086,
           "inputTokens": 172,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00432,
+          "inputCost": 0.00144,
           "inputTokens": 288,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00273,
+          "inputCost": 0.00091,
           "inputTokens": 182,
           "tokenizer": "cl100k_base"
         }
@@ -4593,31 +4593,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00003345,
+          "inputCost": 0.0001115,
           "inputTokens": 223,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.0000333,
+          "inputCost": 0.000111,
           "inputTokens": 222,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00003315,
+          "inputCost": 0.0001105,
           "inputTokens": 221,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00004965,
+          "inputCost": 0.0001655,
           "inputTokens": 331,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00003375,
+          "inputCost": 0.0001125,
           "inputTokens": 225,
           "tokenizer": "heuristic"
         }
@@ -6451,31 +6451,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.005055,
+          "inputCost": 0.001685,
           "inputTokens": 337,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00408,
+          "inputCost": 0.00136,
           "inputTokens": 272,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00408,
+          "inputCost": 0.00136,
           "inputTokens": 272,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.004365,
+          "inputCost": 0.001455,
           "inputTokens": 291,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.004095,
+          "inputCost": 0.001365,
           "inputTokens": 273,
           "tokenizer": "cl100k_base"
         }
@@ -6611,31 +6611,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.0000426,
+          "inputCost": 0.000142,
           "inputTokens": 284,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.0000411,
+          "inputCost": 0.000137,
           "inputTokens": 274,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.0000411,
+          "inputCost": 0.000137,
           "inputTokens": 274,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00004245,
+          "inputCost": 0.0001415,
           "inputTokens": 283,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00004125,
+          "inputCost": 0.0001375,
           "inputTokens": 275,
           "tokenizer": "heuristic"
         }
@@ -8469,31 +8469,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.005715,
+          "inputCost": 0.001905,
           "inputTokens": 381,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.005115,
+          "inputCost": 0.001705,
           "inputTokens": 341,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.005115,
+          "inputCost": 0.001705,
           "inputTokens": 341,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.005625,
+          "inputCost": 0.001875,
           "inputTokens": 375,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00513,
+          "inputCost": 0.00171,
           "inputTokens": 342,
           "tokenizer": "cl100k_base"
         }
@@ -8629,31 +8629,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00005715,
+          "inputCost": 0.0001905,
           "inputTokens": 381,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00005505,
+          "inputCost": 0.0001835,
           "inputTokens": 367,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00005505,
+          "inputCost": 0.0001835,
           "inputTokens": 367,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0000576,
+          "inputCost": 0.000192,
           "inputTokens": 384,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00005505,
+          "inputCost": 0.0001835,
           "inputTokens": 367,
           "tokenizer": "heuristic"
         }
@@ -10487,31 +10487,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.002835,
+          "inputCost": 0.000945,
           "inputTokens": 189,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00309,
+          "inputCost": 0.00103,
           "inputTokens": 206,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.0045,
+          "inputCost": 0.0015,
           "inputTokens": 300,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00387,
+          "inputCost": 0.00129,
           "inputTokens": 258,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.003345,
+          "inputCost": 0.001115,
           "inputTokens": 223,
           "tokenizer": "cl100k_base"
         }
@@ -10647,31 +10647,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.0000312,
+          "inputCost": 0.000104,
           "inputTokens": 208,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00003225,
+          "inputCost": 0.0001075,
           "inputTokens": 215,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00004395,
+          "inputCost": 0.0001465,
           "inputTokens": 293,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0000375,
+          "inputCost": 0.000125,
           "inputTokens": 250,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00003555,
+          "inputCost": 0.0001185,
           "inputTokens": 237,
           "tokenizer": "heuristic"
         }
@@ -12505,31 +12505,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.010785,
+          "inputCost": 0.003595,
           "inputTokens": 719,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.01044,
+          "inputCost": 0.00348,
           "inputTokens": 696,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.01044,
+          "inputCost": 0.00348,
           "inputTokens": 696,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.01092,
+          "inputCost": 0.00364,
           "inputTokens": 728,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.01104,
+          "inputCost": 0.00368,
           "inputTokens": 736,
           "tokenizer": "cl100k_base"
         }
@@ -12665,31 +12665,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00012615,
+          "inputCost": 0.0004205,
           "inputTokens": 841,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00012465,
+          "inputCost": 0.0004155,
           "inputTokens": 831,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00012465,
+          "inputCost": 0.0004155,
           "inputTokens": 831,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0001278,
+          "inputCost": 0.000426,
           "inputTokens": 852,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.0001251,
+          "inputCost": 0.000417,
           "inputTokens": 834,
           "tokenizer": "heuristic"
         }
@@ -14523,31 +14523,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.003195,
+          "inputCost": 0.001065,
           "inputTokens": 213,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.002865,
+          "inputCost": 0.000955,
           "inputTokens": 191,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.002865,
+          "inputCost": 0.000955,
           "inputTokens": 191,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.003,
+          "inputCost": 0.001,
           "inputTokens": 200,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00288,
+          "inputCost": 0.00096,
           "inputTokens": 192,
           "tokenizer": "cl100k_base"
         }
@@ -14683,31 +14683,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00003225,
+          "inputCost": 0.0001075,
           "inputTokens": 215,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00003105,
+          "inputCost": 0.0001035,
           "inputTokens": 207,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00003105,
+          "inputCost": 0.0001035,
           "inputTokens": 207,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00003195,
+          "inputCost": 0.0001065,
           "inputTokens": 213,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.0000318,
+          "inputCost": 0.000106,
           "inputTokens": 212,
           "tokenizer": "heuristic"
         }
@@ -16541,31 +16541,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00588,
+          "inputCost": 0.00196,
           "inputTokens": 392,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00546,
+          "inputCost": 0.00182,
           "inputTokens": 364,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.00546,
+          "inputCost": 0.00182,
           "inputTokens": 364,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00558,
+          "inputCost": 0.00186,
           "inputTokens": 372,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.005625,
+          "inputCost": 0.001875,
           "inputTokens": 375,
           "tokenizer": "cl100k_base"
         }
@@ -16701,31 +16701,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00006645,
+          "inputCost": 0.0002215,
           "inputTokens": 443,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.0000651,
+          "inputCost": 0.000217,
           "inputTokens": 434,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.0000651,
+          "inputCost": 0.000217,
           "inputTokens": 434,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.00006585,
+          "inputCost": 0.0002195,
           "inputTokens": 439,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00006585,
+          "inputCost": 0.0002195,
           "inputTokens": 439,
           "tokenizer": "heuristic"
         }
@@ -18559,31 +18559,31 @@
       "claude-opus-4-7": {
         "json": {
           "approximate": true,
-          "inputCost": 0.00447,
+          "inputCost": 0.00149,
           "inputTokens": 298,
           "tokenizer": "cl100k_base"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.001455,
+          "inputCost": 0.000485,
           "inputTokens": 97,
           "tokenizer": "cl100k_base"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.01302,
+          "inputCost": 0.00434,
           "inputTokens": 868,
           "tokenizer": "cl100k_base"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.007095,
+          "inputCost": 0.002365,
           "inputTokens": 473,
           "tokenizer": "cl100k_base"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.005835,
+          "inputCost": 0.001945,
           "inputTokens": 389,
           "tokenizer": "cl100k_base"
         }
@@ -18719,31 +18719,31 @@
       "command-r": {
         "json": {
           "approximate": true,
-          "inputCost": 0.0000522,
+          "inputCost": 0.000174,
           "inputTokens": 348,
           "tokenizer": "heuristic"
         },
         "markdown": {
           "approximate": true,
-          "inputCost": 0.00001665,
+          "inputCost": 0.0000555,
           "inputTokens": 111,
           "tokenizer": "heuristic"
         },
         "text": {
           "approximate": true,
-          "inputCost": 0.0001209,
+          "inputCost": 0.000403,
           "inputTokens": 806,
           "tokenizer": "heuristic"
         },
         "xml": {
           "approximate": true,
-          "inputCost": 0.0000705,
+          "inputCost": 0.000235,
           "inputTokens": 470,
           "tokenizer": "heuristic"
         },
         "yaml": {
           "approximate": true,
-          "inputCost": 0.00007455,
+          "inputCost": 0.0002485,
           "inputTokens": 497,
           "tokenizer": "heuristic"
         }
@@ -20254,6 +20254,6 @@
       }
     }
   },
-  "ratesVersion": "2026-05-09",
+  "ratesVersion": "2026-05-23",
   "schemaVersion": 1
 }

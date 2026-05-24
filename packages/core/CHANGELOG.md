@@ -1,5 +1,11 @@
 # @tokenometer/core
 
+## 2.0.2
+
+### Patch Changes
+
+- [`39e9281`](https://github.com/faraa2m/tokenometer/commit/39e9281c17f787c7810a9921bcbc177909efe989) Thanks [@faraa2m](https://github.com/faraa2m)! - Refresh local Anthropic/Cohere pricing overrides and document that tokenometer.cloud is unaffiliated.
+
 ## 2.0.1
 
 ### Patch Changes

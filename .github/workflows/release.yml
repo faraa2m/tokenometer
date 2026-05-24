@@ -117,40 +117,46 @@ jobs:
           if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
             echo "@tokenometer/core@$CORE_VERSION not on npm — will publish"
             NEEDS_PUBLISH=true
+            echo "core_needs_publish=true" >> $GITHUB_OUTPUT
           else
             echo "@tokenometer/core@$CORE_VERSION already on npm — skip"
+            echo "core_needs_publish=false" >> $GITHUB_OUTPUT
           fi
           if ! npm view "tokenometer@$CLI_VERSION" version >/dev/null 2>&1; then
             echo "tokenometer@$CLI_VERSION not on npm — will publish"
             NEEDS_PUBLISH=true
+            echo "cli_needs_publish=true" >> $GITHUB_OUTPUT
           else
             echo "tokenometer@$CLI_VERSION already on npm — skip"
+            echo "cli_needs_publish=false" >> $GITHUB_OUTPUT
           fi
           if ! npm view "@tokenometer/mcp@$MCP_VERSION" version >/dev/null 2>&1; then
             echo "@tokenometer/mcp@$MCP_VERSION not on npm — will publish"
             NEEDS_PUBLISH=true
+            echo "mcp_needs_publish=true" >> $GITHUB_OUTPUT
           else
             echo "@tokenometer/mcp@$MCP_VERSION already on npm — skip"
+            echo "mcp_needs_publish=false" >> $GITHUB_OUTPUT
           fi
           echo "needs_publish=$NEEDS_PUBLISH" >> $GITHUB_OUTPUT
 
       - name: Publish @tokenometer/core
         id: publish_core
-        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        if: ${{ steps.detect.outputs.core_needs_publish == 'true' }}
         working-directory: packages/core
         continue-on-error: true
         run: npm publish --provenance --access public
 
       - name: Publish tokenometer (CLI)
         id: publish_cli
-        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        if: ${{ steps.detect.outputs.cli_needs_publish == 'true' }}
         working-directory: packages/cli
         continue-on-error: true
         run: npm publish --provenance --access public
 
       - name: Publish @tokenometer/mcp
         id: publish_mcp
-        if: ${{ steps.detect.outputs.needs_publish == 'true' }}
+        if: ${{ steps.detect.outputs.mcp_needs_publish == 'true' }}
         working-directory: packages/mcp
         continue-on-error: true
         run: npm publish --provenance --access public
@@ -176,9 +182,12 @@ jobs:
           if [ "$NEEDS_PUBLISH" = "false" ]; then
             PUBLISHED=true
             echo "All packages already on npm → published=true (idempotent path)"
-          elif [ "$CORE_OUTCOME" = "success" ] && [ "$CLI_OUTCOME" = "success" ] && [ "$MCP_OUTCOME" = "success" ]; then
+          elif \
+            { [ "${{ steps.detect.outputs.core_needs_publish }}" != "true" ] || [ "$CORE_OUTCOME" = "success" ]; } && \
+            { [ "${{ steps.detect.outputs.cli_needs_publish }}" != "true" ] || [ "$CLI_OUTCOME" = "success" ]; } && \
+            { [ "${{ steps.detect.outputs.mcp_needs_publish }}" != "true" ] || [ "$MCP_OUTCOME" = "success" ]; }; then
             PUBLISHED=true
-            echo "All publish steps succeeded → published=true"
+            echo "All needed publish steps succeeded → published=true"
           else
             PUBLISHED=false
             echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME mcp=$MCP_OUTCOME"
@@ -303,9 +312,9 @@ jobs:
             echo "- npm: @tokenometer/core@${VERSION} — https://www.npmjs.com/package/@tokenometer/core"
             echo "- GitHub Release: v${VERSION} — https://github.com/faraa2m/tokenometer/releases/tag/v${VERSION}"
             echo "- GitHub Marketplace: https://github.com/marketplace/actions/tokenometer"
-            echo "- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer"
-            echo "- Open VSX: https://open-vsx.org/extension/faraa2m/tokenometer"
-            echo "- Playground deploy: https://tokenometer.vercel.app"
+            echo "- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode"
+            echo "- Open VSX: https://open-vsx.org/extension/faraa2m/tokenometer-vscode"
+            echo "- Playground deploy: https://tokenometer.dev"
           } >> $GITHUB_STEP_SUMMARY
 
       - name: Dry run notice

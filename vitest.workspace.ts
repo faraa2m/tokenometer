@@ -13,6 +13,7 @@ export default defineWorkspace([
         'packages/vscode/src/**/*.test.ts',
         'packages/mcp/src/**/*.test.ts',
         'packages/claude-code-skill/src/**/*.test.ts',
+        'packages/web/src/**/*.test.ts',
       ],
       exclude: ['**/dist/**', '**/node_modules/**'],
     },

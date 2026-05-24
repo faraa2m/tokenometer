@@ -1,0 +1,22 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+
+const landingSource = readFileSync(
+  fileURLToPath(new URL('./LandingPage.tsx', import.meta.url)),
+  'utf8',
+);
+
+describe('landing page ecosystem links', () => {
+  it('links the creator identity and related LLM tooling projects', () => {
+    expect(landingSource).toContain('Faraazuddin Mohammed');
+    expect(landingSource).toContain('https://github.com/faraa2m');
+    expect(landingSource).toContain('https://www.linkedin.com/in/faraazuddin-mohammed/');
+    expect(landingSource).toContain('https://hackernoon.com/u/faraa2m');
+    expect(landingSource).toContain('https://github.com/faraa2m/llm-tokens-atlas');
+    expect(landingSource).toContain('https://huggingface.co/datasets/faraa2m/llm-tokens-atlas');
+    expect(landingSource).toContain('https://github.com/faraa2m/promptc');
+    expect(landingSource).toContain('https://github.com/faraa2m/routerlab');
+    expect(landingSource).toContain('https://github.com/faraa2m/ast-ai-model-router');
+  });
+});

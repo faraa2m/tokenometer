@@ -11,6 +11,8 @@
 > Tokenometer — LLM cost calculator, token counter, latency benchmark, and CI cost guardrail for Claude, GPT-4o, Gemini, Mistral, and Cohere. CLI + GitHub Action + VS Code extension + Claude Code skill.
 > **Live: https://tokenometer.dev**
 
+Created and maintained by [Faraazuddin Mohammed](https://github.com/faraa2m) · [LinkedIn](https://www.linkedin.com/in/faraazuddin-mohammed/) · [HackerNoon](https://hackernoon.com/u/faraa2m)
+
 > [!WARNING]
 > `tokenometer.cloud` is not affiliated with this project or its maintainer. Do not enter credentials, API keys, or provider tokens there. Official Tokenometer surfaces are this GitHub repository, the npm packages linked above, the VS Code/Open VSX marketplace listings, and `https://tokenometer.dev`.
 
@@ -211,6 +213,16 @@ Full flag reference: [`packages/cli/README.md`](packages/cli/README.md).
 - [Security policy](SECURITY.md) — uses GitHub Private Vulnerability Reporting
 - [Changelog](CHANGELOG.md)
 - [Discussions](https://github.com/faraa2m/tokenometer/discussions)
+
+## More from Faraazuddin Mohammed
+
+Tokenometer is part of a focused open-source toolkit for LLM cost, tokenization, routing, and prompt optimization.
+
+- [llm-tokens-atlas](https://github.com/faraa2m/llm-tokens-atlas) — open benchmark of LLM tokenization calibration across providers.
+- [Hugging Face dataset](https://huggingface.co/datasets/faraa2m/llm-tokens-atlas) — canonical public dataset behind the tokenization atlas.
+- [promptc](https://github.com/faraa2m/promptc) — deterministic compiler for cost-aware prompt optimization.
+- [routerlab](https://github.com/faraa2m/routerlab) — cost-quality routing for LLM APIs with reproducible Pareto frontiers.
+- [ast-ai-model-router](https://github.com/faraa2m/ast-ai-model-router) — AST-aware Claude and Codex model router for token-conscious coding agents.
 
 ## Status
 

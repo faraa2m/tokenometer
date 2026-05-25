@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.11
+
+### Patch Changes
+
+- [#55](https://github.com/faraa2m/tokenometer/pull/55) [`58f300d`](https://github.com/faraa2m/tokenometer/commit/58f300d8f06df655da630975e1821ddc1300e7b1) Thanks [@faraa2m](https://github.com/faraa2m)! - Add a bundled marketplace icon for the VS Code extension.
+
 ## 0.1.10
 
 ### Patch Changes

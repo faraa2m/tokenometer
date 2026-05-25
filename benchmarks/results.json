@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T12:53:02.825Z",
+  "generatedAt": "2026-05-25T15:53:10.756Z",
   "formats": [
     "json",
     "markdown",
@@ -23,8 +23,8 @@
     "claude-sonnet-4-6",
     "codestral-latest",
     "codex-mini-latest",
-    "command-r",
-    "command-r-plus",
+    "command-r-08-2024",
+    "command-r-plus-08-2024",
     "devstral-medium-2507",
     "devstral-small-2505",
     "devstral-small-2507",
@@ -554,7 +554,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000041,
@@ -586,7 +586,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000205,
@@ -2572,7 +2572,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000041,
@@ -2604,7 +2604,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000205,
@@ -4590,7 +4590,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0001115,
@@ -4622,7 +4622,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0005575,
@@ -6608,7 +6608,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000142,
@@ -6640,7 +6640,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.00071,
@@ -8626,7 +8626,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0001905,
@@ -8658,7 +8658,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0009525,
@@ -10644,7 +10644,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000104,
@@ -10676,7 +10676,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.00052,
@@ -12662,7 +12662,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0004205,
@@ -12694,7 +12694,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0021025,
@@ -14680,7 +14680,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0001075,
@@ -14712,7 +14712,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0005375,
@@ -16698,7 +16698,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0002215,
@@ -16730,7 +16730,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.0011075,
@@ -18716,7 +18716,7 @@
           "tokenizer": "o200k_base"
         }
       },
-      "command-r": {
+      "command-r-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.000174,
@@ -18748,7 +18748,7 @@
           "tokenizer": "heuristic"
         }
       },
-      "command-r-plus": {
+      "command-r-plus-08-2024": {
         "json": {
           "approximate": true,
           "inputCost": 0.00087,

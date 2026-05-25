@@ -24,4 +24,10 @@ describe('landing page ecosystem links', () => {
     expect(landingSource).toContain("import('../components/Playground.js')");
     expect(landingSource).not.toContain("import { Playground } from '../components/Playground.js'");
   });
+
+  it('reserves calculator space while the playground chunk loads to avoid CLS', () => {
+    expect(landingSource).toContain('const PlaygroundFallback');
+    expect(landingSource).toContain('min-h-[720px]');
+    expect(landingSource).toContain('fallback={<PlaygroundFallback />}');
+  });
 });

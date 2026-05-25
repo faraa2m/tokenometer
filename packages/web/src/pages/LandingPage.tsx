@@ -50,6 +50,25 @@ const ECOSYSTEM_PROJECTS = [
   },
 ];
 
+const PlaygroundFallback = () => (
+  <section
+    className="grid min-h-[720px] grid-cols-12 gap-x-6 gap-y-8 border-t border-[var(--tk-rule)] py-10"
+    aria-label="Calculator loading"
+  >
+    <div className="col-span-12 lg:col-span-8">
+      <div className="h-[18.75rem] border border-[var(--tk-rule)] bg-[var(--tk-cell)]" />
+      <div className="mt-2 h-4 w-32 bg-[var(--tk-cell)]" />
+    </div>
+    <div className="col-span-12 space-y-5 lg:col-span-4">
+      <div className="tk-panel rounded-md p-4">
+        <div className="h-9 w-36 rounded-full bg-[var(--tk-amber)] opacity-80" />
+      </div>
+      <div className="h-44 rounded border border-[var(--tk-rule)] bg-[var(--tk-cell)]" />
+      <div className="h-24 rounded border border-[var(--tk-rule)] bg-[var(--tk-cell)]" />
+    </div>
+  </section>
+);
+
 export const LandingPage = () => {
   usePageTitle('calculator', 'paste a prompt, see the cost');
   return (
@@ -112,7 +131,7 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <Suspense fallback={<div className="border-t border-[var(--tk-rule)] py-10" />}>
+      <Suspense fallback={<PlaygroundFallback />}>
         <Playground initialPrompt={SAMPLE_PROMPT} />
       </Suspense>
 

@@ -5,6 +5,9 @@ production. Pick the surface that matches the workflow: CLI for local checks,
 GitHub Action for PR guardrails, VS Code/Cursor for editor feedback, MCP for
 agent clients, and the library packages for app code.
 
+For the canonical step-by-step CI guide, see
+[Add an LLM Prompt Cost Gate to GitHub Actions in 10 Minutes](tutorials/add-llm-prompt-cost-gate-github-actions.md).
+
 ## GitHub Actions: Block Prompt-Cost Regressions
 
 ```yaml

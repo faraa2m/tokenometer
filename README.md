@@ -110,6 +110,8 @@ Use [`docs/ADOPTION.md`](docs/ADOPTION.md) for copy-paste integration paths:
 GitHub Actions cost gates, VS Code/Cursor rollout, MCP clients, LangChain,
 Vercel AI SDK, OpenAI SDK, Anthropic SDK, and a PR cost-regression case study.
 
+Canonical tutorial: [Add an LLM Prompt Cost Gate to GitHub Actions in 10 Minutes](docs/tutorials/add-llm-prompt-cost-gate-github-actions.md).
+
 ## Five-line use
 
 ### 1. Compare formats for a single prompt (offline, no API key)

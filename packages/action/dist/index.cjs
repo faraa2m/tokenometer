@@ -33603,7 +33603,7 @@ var core = __toESM(require_core(), 1);
 var import_exec = __toESM(require_exec(), 1);
 var github = __toESM(require_github(), 1);
 
-// ../core/dist/config.js
+// ../core/dist/parse-config.js
 var import_yaml = __toESM(require_dist(), 1);
 
 // ../../node_modules/@tokenlens/models/dist/providers/anthropic.js

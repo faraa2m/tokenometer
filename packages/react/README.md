@@ -1,19 +1,16 @@
 # @tokenometer/react
 
-React hooks and unstyled components for building LLM token-cost dashboards on
-top of [`@tokenometer/core`](https://www.npmjs.com/package/@tokenometer/core).
-Counters, cost matrices, budget meters, vision-token estimators and a live
-tokenizer textarea for Claude, GPT-4o, Gemini, Mistral and Cohere — with a
-headless API so you can bring your own UI.
+Internal React hooks and unstyled components for the Tokenometer web app,
+built on top of [`@tokenometer/core`](https://www.npmjs.com/package/@tokenometer/core).
+This workspace package is private and is not part of the public npm release
+surface.
 
-## Install
+## Workspace Usage
 
-```bash
-npm i @tokenometer/react @tokenometer/core react react-dom
-```
-
-`react`, `react-dom` and `@tokenometer/core` are peer dependencies, so the
-package adds nothing extra to your bundle beyond its own code.
+`packages/web` consumes this package through npm workspaces. Do not install it
+from npm; public users should use the hosted app at
+[`tokenometer.dev`](https://tokenometer.dev) or the published `tokenometer`,
+`@tokenometer/core`, and `@tokenometer/mcp` packages.
 
 ## Quickstart
 

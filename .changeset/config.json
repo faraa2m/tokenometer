@@ -2,10 +2,10 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "faraa2m/tokenometer" }],
   "commit": false,
-  "fixed": [["tokenometer", "@tokenometer/core", "@tokenometer/mcp", "@tokenometer/react"]],
+  "fixed": [["tokenometer", "@tokenometer/core", "@tokenometer/mcp"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@tokenometer/web", "@tokenometer/action"]
+  "ignore": ["@tokenometer/web", "@tokenometer/action", "@tokenometer/react"]
 }

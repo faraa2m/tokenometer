@@ -43,20 +43,19 @@ const Section = ({ title, sub, children }: SectionProps) => (
 );
 
 export const ComponentsPage = () => {
-  usePageTitle('components', 'react playground for @tokenometer/react');
+  usePageTitle('components', 'internal react component playground');
   const [model, setModel] = useState<string>(DEFAULT_MODELS[0] ?? 'gpt-4o');
 
   return (
     <section className="space-y-12 py-8">
       <div>
         <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--tk-dim)]">
-          ›components · @tokenometer/react
+          ›components · internal workspace
         </p>
         <h1 className="mt-2 text-2xl font-bold tracking-tight">react components</h1>
         <p className="mt-2 max-w-3xl text-[12.5px] text-[var(--tk-dim)]">
-          Live previews of every component in <code>@tokenometer/react</code>. Components below are
-          rendered unstyled so you can see the raw HTML emitted by the library. Each section links
-          to the corresponding hook in the README.
+          Live previews of the private React component workspace used by the web app. Components
+          below are rendered unstyled so you can see the raw HTML emitted by each primitive.
         </p>
       </div>
 

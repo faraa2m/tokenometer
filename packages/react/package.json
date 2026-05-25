@@ -1,6 +1,7 @@
 {
   "name": "@tokenometer/react",
   "version": "2.0.3",
+  "private": true,
   "description": "React hooks and components for LLM token cost dashboards — drop-in counters, cost matrices, budget meters for Claude, GPT-4o, Gemini, Mistral, Cohere.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
@@ -54,10 +55,6 @@
     "./package.json": "./package.json"
   },
   "files": ["dist", "README.md"],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist"

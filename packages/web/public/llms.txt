@@ -31,6 +31,8 @@ Official packages and integrations:
 - VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode
 - Open VSX: https://open-vsx.org/extension/faraa2m/tokenometer-vscode
 - GitHub Action: https://github.com/marketplace/actions/tokenometer
+- Tutorial: Add an LLM Prompt Cost Gate to GitHub Actions in 10 Minutes: https://github.com/faraa2m/tokenometer/blob/main/docs/tutorials/add-llm-prompt-cost-gate-github-actions.md
+- Demo repo for the tutorial: https://github.com/faraa2m/commerce-api-starter
 
 Important security note:
 tokenometer.cloud is not affiliated with this project or its maintainer. Do not enter API keys, credentials, or provider tokens there. The official website is https://tokenometer.dev.

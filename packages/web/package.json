@@ -13,7 +13,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
     "@google/generative-ai": "^0.21.0",
-    "@tokenometer/core": "2.0.3",
+    "@tokenometer/core": "2.0.4",
     "@tokenometer/react": "2.0.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

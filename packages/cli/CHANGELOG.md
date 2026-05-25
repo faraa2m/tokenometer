@@ -1,5 +1,14 @@
 # tokenometer
 
+## 2.0.4
+
+### Patch Changes
+
+- [`c63b83e`](https://github.com/faraa2m/tokenometer/commit/c63b83eea9f9be7485019ce6322d3ce38cfd0cf5) Thanks [@faraa2m](https://github.com/faraa2m)! - Replace removed Cohere `command-r` model IDs with stable dated `command-r-08-2024` and `command-r-plus-08-2024` entries.
+
+- Updated dependencies [[`c63b83e`](https://github.com/faraa2m/tokenometer/commit/c63b83eea9f9be7485019ce6322d3ce38cfd0cf5)]:
+  - @tokenometer/core@2.0.4
+
 ## 2.0.3
 
 ### Patch Changes

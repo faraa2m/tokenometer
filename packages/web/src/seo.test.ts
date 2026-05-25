@@ -1,8 +1,9 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const html = readFileSync(resolve(__dirname, '../index.html'), 'utf8');
+const webRoot = resolve(__dirname, '..');
 
 describe('web SEO metadata', () => {
   it('uses the canonical product title and social metadata', () => {
@@ -23,5 +24,14 @@ describe('web SEO metadata', () => {
     expect(html).toContain('"name": "Tokenometer"');
     expect(html).toContain('"url": "https://tokenometer.dev/"');
     expect(html).toContain('"codeRepository": "https://github.com/faraa2m/tokenometer"');
+  });
+
+  it('links to a public favicon asset', () => {
+    const faviconMatch = html.match(
+      /<link\s+rel="icon"\s+type="image\/svg\+xml"\s+href="([^"]+)"\s+\/>/,
+    );
+
+    expect(faviconMatch?.[1]).toBe('/favicon.svg');
+    expect(existsSync(resolve(webRoot, 'public/favicon.svg'))).toBe(true);
   });
 });

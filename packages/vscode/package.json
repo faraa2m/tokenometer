@@ -5,6 +5,7 @@
   "description": "Tokenometer for VS Code / Cursor — live token count and USD cost in the status bar for LLM prompts (Claude, GPT-4o, Gemini, Mistral, Cohere).",
   "publisher": "faraa2m",
   "license": "MIT",
+  "icon": "images/icon.png",
   "private": true,
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
   "homepage": "https://tokenometer.dev",

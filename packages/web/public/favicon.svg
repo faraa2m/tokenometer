@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Tokenometer</title>
+  <desc id="desc">Compact Tokenometer mark based on the site social preview.</desc>
+  <rect width="64" height="64" rx="12" fill="#0b0b0b"/>
+  <path d="M0 50h64v14H0z" fill="#f59f00"/>
+  <path d="M8 8h48v38H8z" fill="#111827" stroke="#2f3a4a" stroke-width="2"/>
+  <path d="M17 20h15" stroke="#60a5fa" stroke-width="4" stroke-linecap="round"/>
+  <path d="M17 30h30" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+  <path d="M17 40h23" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+  <path d="M22 56h20" stroke="#0b0b0b" stroke-width="5" stroke-linecap="round"/>
+</svg>

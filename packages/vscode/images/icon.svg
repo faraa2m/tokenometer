@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Tokenometer</title>
+  <desc id="desc">Tokenometer VS Code extension icon.</desc>
+  <rect width="128" height="128" rx="24" fill="#0b0b0b"/>
+  <path d="M0 100h128v28H0z" fill="#f59f00"/>
+  <path d="M16 16h96v76H16z" fill="#111827" stroke="#2f3a4a" stroke-width="4"/>
+  <path d="M34 40h30" stroke="#60a5fa" stroke-width="8" stroke-linecap="round"/>
+  <path d="M34 60h60" stroke="#f8fafc" stroke-width="10" stroke-linecap="round"/>
+  <path d="M34 80h46" stroke="#f8fafc" stroke-width="10" stroke-linecap="round"/>
+  <path d="M44 112h40" stroke="#0b0b0b" stroke-width="10" stroke-linecap="round"/>
+</svg>

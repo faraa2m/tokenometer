@@ -2,8 +2,9 @@
 #
 # One trigger, every artifact:
 #   1. Changesets opens / merges a "Version Packages" PR. Merging it lands here.
-#   2. The `release` job publishes `tokenometer`, `@tokenometer/core`, and
-#      `@tokenometer/mcp` to npm with provenance using direct `npm publish` (the
+#   2. The `release` job publishes `tokenometer`, `@tokenometer/core`,
+#      `@tokenometer/mcp`, and `@tokenometer/react` to npm with provenance using
+#      direct `npm publish` (the
 #      Changesets action's bundled publish path 404'd against this org's
 #      auth — see commit history). It then creates a GitHub Release on the
 #      new tag. The repo-hosted GitHub Action is versioned by the release tag.
@@ -17,8 +18,8 @@
 #
 # npm publishing auth:
 #   Uses npm Trusted Publishing (OIDC), not long-lived tokens. Configure npm
-#   trusted publishers for `tokenometer`, `@tokenometer/core`, and
-#   `@tokenometer/mcp` with:
+#   trusted publishers for `tokenometer`, `@tokenometer/core`,
+#   `@tokenometer/mcp`, and `@tokenometer/react` with:
 #     owner/repo: faraa2m/tokenometer
 #     workflow: release.yml
 #   Keep `permissions.id-token: write` below; npm exchanges the GitHub OIDC
@@ -108,9 +109,11 @@ jobs:
           CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
           CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
           MCP_VERSION=$(node -p "require('./packages/mcp/package.json').version")
+          REACT_VERSION=$(node -p "require('./packages/react/package.json').version")
           echo "core_version=$CORE_VERSION" >> $GITHUB_OUTPUT
           echo "cli_version=$CLI_VERSION" >> $GITHUB_OUTPUT
           echo "mcp_version=$MCP_VERSION" >> $GITHUB_OUTPUT
+          echo "react_version=$REACT_VERSION" >> $GITHUB_OUTPUT
 
           NEEDS_PUBLISH=false
           if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
@@ -136,6 +139,14 @@ jobs:
           else
             echo "@tokenometer/mcp@$MCP_VERSION already on npm — skip"
             echo "mcp_needs_publish=false" >> $GITHUB_OUTPUT
+          fi
+          if ! npm view "@tokenometer/react@$REACT_VERSION" version >/dev/null 2>&1; then
+            echo "@tokenometer/react@$REACT_VERSION not on npm — will publish"
+            NEEDS_PUBLISH=true
+            echo "react_needs_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "@tokenometer/react@$REACT_VERSION already on npm — skip"
+            echo "react_needs_publish=false" >> $GITHUB_OUTPUT
           fi
           echo "needs_publish=$NEEDS_PUBLISH" >> $GITHUB_OUTPUT
 
@@ -166,6 +177,15 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
+      - name: Publish @tokenometer/react
+        id: publish_react
+        if: ${{ steps.detect.outputs.react_needs_publish == 'true' }}
+        working-directory: packages/react
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
+
       # Set `published` based on step outcomes, NOT registry re-check.
       # npm registry has propagation lag (1-30s), so re-querying right after
       # a successful publish would intermittently return "not found" and
@@ -183,6 +203,7 @@ jobs:
           CORE_OUTCOME="${{ steps.publish_core.outcome }}"
           CLI_OUTCOME="${{ steps.publish_cli.outcome }}"
           MCP_OUTCOME="${{ steps.publish_mcp.outcome }}"
+          REACT_OUTCOME="${{ steps.publish_react.outcome }}"
 
           if [ "$NEEDS_PUBLISH" = "false" ]; then
             PUBLISHED=true
@@ -190,12 +211,13 @@ jobs:
           elif \
             { [ "${{ steps.detect.outputs.core_needs_publish }}" != "true" ] || [ "$CORE_OUTCOME" = "success" ]; } && \
             { [ "${{ steps.detect.outputs.cli_needs_publish }}" != "true" ] || [ "$CLI_OUTCOME" = "success" ]; } && \
-            { [ "${{ steps.detect.outputs.mcp_needs_publish }}" != "true" ] || [ "$MCP_OUTCOME" = "success" ]; }; then
+            { [ "${{ steps.detect.outputs.mcp_needs_publish }}" != "true" ] || [ "$MCP_OUTCOME" = "success" ]; } && \
+            { [ "${{ steps.detect.outputs.react_needs_publish }}" != "true" ] || [ "$REACT_OUTCOME" = "success" ]; }; then
             PUBLISHED=true
             echo "All needed publish steps succeeded → published=true"
           else
             PUBLISHED=false
-            echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME mcp=$MCP_OUTCOME"
+            echo "Publish gate failed: needs_publish=$NEEDS_PUBLISH core=$CORE_OUTCOME cli=$CLI_OUTCOME mcp=$MCP_OUTCOME react=$REACT_OUTCOME"
           fi
 
           echo "published=$PUBLISHED" >> $GITHUB_OUTPUT
@@ -316,6 +338,7 @@ jobs:
             echo "- npm: tokenometer@${VERSION} — https://www.npmjs.com/package/tokenometer"
             echo "- npm: @tokenometer/core@${VERSION} — https://www.npmjs.com/package/@tokenometer/core"
             echo "- npm: @tokenometer/mcp@${VERSION} — https://www.npmjs.com/package/@tokenometer/mcp"
+            echo "- npm: @tokenometer/react@${VERSION} — https://www.npmjs.com/package/@tokenometer/react"
             echo "- GitHub Release: v${VERSION} — https://github.com/faraa2m/tokenometer/releases/tag/v${VERSION}"
             echo "- GitHub Action: faraa2m/tokenometer/packages/action@v1"
             echo "- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode"

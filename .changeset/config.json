@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "faraa2m/tokenometer" }],
   "commit": false,
-  "fixed": [["tokenometer", "@tokenometer/core", "@tokenometer/mcp"]],
+  "fixed": [["tokenometer", "@tokenometer/core", "@tokenometer/mcp", "@tokenometer/react"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",

@@ -29,7 +29,7 @@ tools: Bash
 When the user asks how much a prompt costs, what tokenizer to use, or
 whether a change is cheaper, run:
 
-    npx tokenometer measure <file-or-prompt>
+    npx tokenometer <file-or-prompt>
 
 For a folder, point it at the path; tokenometer respects
 \`.tokenometer.yml\` budgets and \`paths:\`. Add \`--empirical\` and the

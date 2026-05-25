@@ -54,14 +54,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: faraa2m/tokenometer@v1
+      - uses: faraa2m/tokenometer/packages/action@v1
         with:
+          paths: '${paths}'
           models: '${modelsCsv}'
           formats: '${formatsCsv}'
-          total-budget: '${totalBudget}'
+          budget: '${totalBudget}'
           # top-n-files: '5'      # how many files to highlight in the sticky comment
-          # paths: '${paths}'      # override the on.paths trigger if you want
-          # sarif: 'tokenometer.sarif'  # uncomment + the security-events permission
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 `;
@@ -192,10 +191,10 @@ export const InitPage = () => {
         <p className="mt-3 text-[11px] text-[var(--tk-dim)]">
           See full input docs at{' '}
           <a
-            href="https://github.com/faraa2m/tokenometer#github-action"
+            href="https://github.com/faraa2m/tokenometer/tree/main/packages/action#readme"
             className="underline decoration-[var(--tk-amber-dim)] underline-offset-4"
           >
-            github.com/faraa2m/tokenometer#github-action
+            github.com/faraa2m/tokenometer/tree/main/packages/action
           </a>
           .
         </p>

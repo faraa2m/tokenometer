@@ -13,7 +13,7 @@ I'd like to add Tokenometer to the **Utility / Pull Requests** (or **Code Qualit
 - Repo: https://github.com/faraa2m/tokenometer
 - npm: `npx tokenometer ./prompt.md --model claude-opus-4-7`
 - Marketplace: https://github.com/marketplace/actions/tokenometer
-- Live demo: https://tokenometer.vercel.app
+- Live demo: https://tokenometer.dev
 
 ## Why it fits this list
 

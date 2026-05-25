@@ -112,7 +112,8 @@ export const ConfigBuilderPage = () => {
         <p className="mt-2 max-w-3xl text-[12.5px] text-[var(--tk-dim)]">
           Pick models, formats, paths, and budgets. We render a copy-paste-ready{' '}
           <code className="text-[var(--tk-fg)]">.tokenometer.yml</code> validated by the same parser
-          the CLI uses. Drop it at the repo root and `tokenometer measure` will pick it up.
+          the CLI uses. Drop it at the repo root and{' '}
+          <code className="text-[var(--tk-fg)]">tokenometer &lt;file&gt;</code> will pick it up.
         </p>
       </div>
 

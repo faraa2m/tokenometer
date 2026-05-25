@@ -1,5 +1,9 @@
-import { Playground } from '../components/Playground.js';
+import { Suspense, lazy } from 'react';
 import { usePageTitle } from '../hooks/usePageTitle.js';
+
+const Playground = lazy(() =>
+  import('../components/Playground.js').then((m) => ({ default: m.Playground })),
+);
 
 const SAMPLE_PROMPT = `{
   "instructions": "Summarize the user's input in three bullets.",
@@ -108,7 +112,9 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <Playground initialPrompt={SAMPLE_PROMPT} />
+      <Suspense fallback={<div className="border-t border-[var(--tk-rule)] py-10" />}>
+        <Playground initialPrompt={SAMPLE_PROMPT} />
+      </Suspense>
 
       <section className="border-t border-[var(--tk-rule)] py-10 sm:py-12">
         <div className="grid grid-cols-12 gap-x-6 gap-y-8">

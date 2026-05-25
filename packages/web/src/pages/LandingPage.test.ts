@@ -19,4 +19,9 @@ describe('landing page ecosystem links', () => {
     expect(landingSource).toContain('https://github.com/faraa2m/routerlab');
     expect(landingSource).toContain('https://github.com/faraa2m/ast-ai-model-router');
   });
+
+  it('lazy-loads the playground so tokenizer tables are not in the initial page chunk', () => {
+    expect(landingSource).toContain("import('../components/Playground.js')");
+    expect(landingSource).not.toContain("import { Playground } from '../components/Playground.js'");
+  });
 });

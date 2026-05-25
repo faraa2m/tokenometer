@@ -41,9 +41,9 @@ describe('cohereTokenizeApi (empirical, mocked)', () => {
     const fetchMock = vi.fn(
       async () => new Response('unauthorized', { status: 401, statusText: 'Unauthorized' }),
     ) as unknown as typeof fetch;
-    await expect(cohereTokenizeApi('hi', 'command-r-08-2024', 'bad-key', fetchMock)).rejects.toThrow(
-      /Cohere \/v1\/tokenize returned 401/,
-    );
+    await expect(
+      cohereTokenizeApi('hi', 'command-r-08-2024', 'bad-key', fetchMock),
+    ).rejects.toThrow(/Cohere \/v1\/tokenize returned 401/);
   });
 
   it('throws when response shape is unexpected', async () => {

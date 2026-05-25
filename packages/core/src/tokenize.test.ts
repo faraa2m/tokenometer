@@ -96,7 +96,11 @@ describe('tokenize', () => {
   });
 
   it('dispatches a Cohere model to the heuristic path', () => {
-    const result = tokenize({ format: 'text', modelId: 'command-r-plus-08-2024', prompt: 'Hi there.' });
+    const result = tokenize({
+      format: 'text',
+      modelId: 'command-r-plus-08-2024',
+      prompt: 'Hi there.',
+    });
     expect(result.provider).toBe('cohere');
     expect(result.tokenizer).toBe('heuristic');
     expect(result.approximate).toBe(true);

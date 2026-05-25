@@ -102,7 +102,8 @@ const DetailView = ({ id, model, rate }: DetailViewProps) => {
         <p>
           Counted with the same tokenizer the calculator uses for {model.provider}. For exact
           provider numbers, run{' '}
-          <code className="text-[var(--tk-fg)]">tokenometer measure --empirical</code> from the CLI.
+          <code className="text-[var(--tk-fg)]">tokenometer &lt;file&gt; --empirical</code> from the
+          CLI.
         </p>
       </div>
 

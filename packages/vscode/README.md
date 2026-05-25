@@ -8,7 +8,7 @@
 
 Most "token counter" extensions stop at counts. Tokenometer adds the dollar value, using the same pricing the [`tokenometer` CLI](https://www.npmjs.com/package/tokenometer) and GitHub Action use, so what you see in the editor matches what you'd see in CI and on the npm side.
 
-![status bar screenshot placeholder](docs/status-bar.png)
+![Tokenometer status bar showing model, token count, and USD cost](docs/status-bar.svg)
 
 ## Install
 

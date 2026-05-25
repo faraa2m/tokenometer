@@ -94,7 +94,7 @@ export const LandingPage = () => {
             <div className="space-y-3 text-[12.5px] leading-6">
               <p>
                 <span className="text-[var(--tk-blue)]">$</span>{' '}
-                <span className="text-[var(--tk-fg)]">tokenometer measure prompt.json</span>
+                <span className="text-[var(--tk-fg)]">tokenometer prompt.json</span>
               </p>
               <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2 border-y border-[var(--tk-rule)] py-3 text-[11.5px]">
                 <span className="text-[var(--tk-dim)]">claude-sonnet-4-6 · messages</span>

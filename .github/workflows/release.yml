@@ -2,9 +2,8 @@
 #
 # One trigger, every artifact:
 #   1. Changesets opens / merges a "Version Packages" PR. Merging it lands here.
-#   2. The `release` job publishes `tokenometer`, `@tokenometer/core`,
-#      `@tokenometer/mcp`, and `@tokenometer/react` to npm with provenance using
-#      direct `npm publish` (the
+#   2. The `release` job publishes `tokenometer`, `@tokenometer/core`, and
+#      `@tokenometer/mcp` to npm with provenance using direct `npm publish` (the
 #      Changesets action's bundled publish path 404'd against this org's
 #      auth — see commit history). It then creates a GitHub Release on the
 #      new tag. The repo-hosted GitHub Action is versioned by the release tag.
@@ -18,8 +17,8 @@
 #
 # npm publishing auth:
 #   Uses npm Trusted Publishing (OIDC), not long-lived tokens. Configure npm
-#   trusted publishers for `tokenometer`, `@tokenometer/core`,
-#   `@tokenometer/mcp`, and `@tokenometer/react` with:
+#   trusted publishers for `tokenometer`, `@tokenometer/core`, and
+#   `@tokenometer/mcp` with:
 #     owner/repo: faraa2m/tokenometer
 #     workflow: release.yml
 #   Keep `permissions.id-token: write` below; npm exchanges the GitHub OIDC
@@ -32,6 +31,9 @@
 #                         Skipped if absent (Cursor / VSCodium read here).
 #   VERCEL_DEPLOY_HOOK  — Vercel deploy hook URL. Optional (auto-rebuild
 #                         on push covers it).
+#   PUBLISH_TOKENOMETER_REACT — Set to "true" only after the npm
+#                         @tokenometer/react package exists or the npm token
+#                         can create new packages in the @tokenometer scope.
 
 name: release
 
@@ -105,15 +107,19 @@ jobs:
       - name: Detect unpublished versions
         id: detect
         if: ${{ inputs.dry-run != 'true' && steps.changesets.outputs.hasChangesets != 'true' }}
+        env:
+          PUBLISH_TOKENOMETER_REACT: ${{ secrets.PUBLISH_TOKENOMETER_REACT }}
         run: |
           CORE_VERSION=$(node -p "require('./packages/core/package.json').version")
           CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
           MCP_VERSION=$(node -p "require('./packages/mcp/package.json').version")
           REACT_VERSION=$(node -p "require('./packages/react/package.json').version")
+          REACT_PUBLISH_ENABLED="${PUBLISH_TOKENOMETER_REACT:-false}"
           echo "core_version=$CORE_VERSION" >> $GITHUB_OUTPUT
           echo "cli_version=$CLI_VERSION" >> $GITHUB_OUTPUT
           echo "mcp_version=$MCP_VERSION" >> $GITHUB_OUTPUT
           echo "react_version=$REACT_VERSION" >> $GITHUB_OUTPUT
+          echo "react_publish_enabled=$REACT_PUBLISH_ENABLED" >> $GITHUB_OUTPUT
 
           NEEDS_PUBLISH=false
           if ! npm view "@tokenometer/core@$CORE_VERSION" version >/dev/null 2>&1; then
@@ -140,7 +146,10 @@ jobs:
             echo "@tokenometer/mcp@$MCP_VERSION already on npm — skip"
             echo "mcp_needs_publish=false" >> $GITHUB_OUTPUT
           fi
-          if ! npm view "@tokenometer/react@$REACT_VERSION" version >/dev/null 2>&1; then
+          if [ "$REACT_PUBLISH_ENABLED" != "true" ]; then
+            echo "@tokenometer/react publish disabled — set PUBLISH_TOKENOMETER_REACT=true after npm package access is configured"
+            echo "react_needs_publish=false" >> $GITHUB_OUTPUT
+          elif ! npm view "@tokenometer/react@$REACT_VERSION" version >/dev/null 2>&1; then
             echo "@tokenometer/react@$REACT_VERSION not on npm — will publish"
             NEEDS_PUBLISH=true
             echo "react_needs_publish=true" >> $GITHUB_OUTPUT
@@ -338,7 +347,11 @@ jobs:
             echo "- npm: tokenometer@${VERSION} — https://www.npmjs.com/package/tokenometer"
             echo "- npm: @tokenometer/core@${VERSION} — https://www.npmjs.com/package/@tokenometer/core"
             echo "- npm: @tokenometer/mcp@${VERSION} — https://www.npmjs.com/package/@tokenometer/mcp"
-            echo "- npm: @tokenometer/react@${VERSION} — https://www.npmjs.com/package/@tokenometer/react"
+            if [ "${{ steps.detect.outputs.react_publish_enabled }}" = "true" ]; then
+              echo "- npm: @tokenometer/react@${VERSION} — https://www.npmjs.com/package/@tokenometer/react"
+            else
+              echo "- npm: @tokenometer/react — skipped; enable PUBLISH_TOKENOMETER_REACT after npm package access is configured"
+            fi
             echo "- GitHub Release: v${VERSION} — https://github.com/faraa2m/tokenometer/releases/tag/v${VERSION}"
             echo "- GitHub Action: faraa2m/tokenometer/packages/action@v1"
             echo "- VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=faraa2m.tokenometer-vscode"

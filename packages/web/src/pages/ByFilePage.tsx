@@ -1,5 +1,5 @@
-import { allFormats, getModel, tokenize } from '@tokenometer/core';
-import type { Format, Provider } from '@tokenometer/core';
+import { allFormats, getModel, tokenize } from '@tokenometer/core/browser';
+import type { Format, Provider } from '@tokenometer/core/browser';
 import { useMemo, useState } from 'react';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 

@@ -1,5 +1,5 @@
-import { MODELS, RATES } from '@tokenometer/core';
-import type { ModelDescriptor, Provider, RateEntry } from '@tokenometer/core';
+import { MODELS, RATES } from '@tokenometer/core/browser';
+import type { ModelDescriptor, Provider, RateEntry } from '@tokenometer/core/browser';
 import { useMemo } from 'react';
 
 export interface PricingRow {

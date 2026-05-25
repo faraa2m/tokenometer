@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { KNOWN_MODELS } from '@tokenometer/core';
+import { KNOWN_MODELS } from '@tokenometer/core/browser';
 import { describe, expect, it } from 'vitest';
 import { ModelCostMatrix } from './ModelCostMatrix.js';
 

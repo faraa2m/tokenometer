@@ -1,4 +1,4 @@
-import type { Format } from '@tokenometer/core';
+import type { Format } from '@tokenometer/core/browser';
 import { type ReactNode, forwardRef } from 'react';
 import { type UseTokenCountResult, useTokenCount } from '../hooks/useTokenCount.js';
 import { formatUsd } from '../utils/format.js';

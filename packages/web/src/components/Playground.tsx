@@ -1,11 +1,5 @@
-import {
-  KNOWN_MODELS,
-  allFormats,
-  getModel,
-  tokenizeMatrix,
-  tokenizeMatrixEmpirical,
-} from '@tokenometer/core';
-import type { Format, Provider, TokenizeResult } from '@tokenometer/core';
+import { KNOWN_MODELS, allFormats, getModel, tokenizeMatrix } from '@tokenometer/core/browser';
+import type { Format, Provider, TokenizeResult } from '@tokenometer/core/browser';
 import { useMemo, useState } from 'react';
 import { ResultsMatrix } from './ResultsMatrix.js';
 
@@ -141,21 +135,25 @@ export const Playground = ({ initialPrompt }: PlaygroundProps) => {
     setError(null);
     setLoading(true);
     try {
-      const out = empirical
-        ? await tokenizeMatrixEmpirical({
-            env: {
-              ...(anthropicKey ? { anthropicApiKey: anthropicKey } : {}),
-              ...(googleKey ? { googleApiKey: googleKey } : {}),
-            },
-            formats: selectedFormats,
-            modelIds: selectedModels,
-            prompt,
-          })
-        : tokenizeMatrix({
-            formats: selectedFormats,
-            modelIds: selectedModels,
-            prompt,
-          });
+      let out: TokenizeResult[];
+      if (empirical) {
+        const { tokenizeMatrixEmpirical } = await import('@tokenometer/core/empirical');
+        out = await tokenizeMatrixEmpirical({
+          env: {
+            ...(anthropicKey ? { anthropicApiKey: anthropicKey } : {}),
+            ...(googleKey ? { googleApiKey: googleKey } : {}),
+          },
+          formats: selectedFormats,
+          modelIds: selectedModels,
+          prompt,
+        });
+      } else {
+        out = tokenizeMatrix({
+          formats: selectedFormats,
+          modelIds: selectedModels,
+          prompt,
+        });
+      }
       setResults(out);
     } catch (err) {
       setError((err as Error).message.toLowerCase());

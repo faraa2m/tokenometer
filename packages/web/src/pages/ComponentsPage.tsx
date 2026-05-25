@@ -1,4 +1,4 @@
-import { KNOWN_MODELS } from '@tokenometer/core';
+import { KNOWN_MODELS } from '@tokenometer/core/browser';
 import {
   BudgetMeter,
   CostBreakdown,
@@ -8,7 +8,7 @@ import {
   PricingTable,
   TokenCounter,
   VisionCostEstimator,
-} from '@tokenometer/react';
+} from '@tokenometer/react/components';
 import { useState } from 'react';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 

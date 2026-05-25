@@ -1,5 +1,6 @@
-import { tokenizeEmpirical } from '@tokenometer/core';
-import type { EmpiricalEnv, Format, TokenizeResult } from '@tokenometer/core';
+import type { Format, TokenizeResult } from '@tokenometer/core/browser';
+import { tokenizeEmpirical } from '@tokenometer/core/empirical';
+import type { EmpiricalEnv } from '@tokenometer/core/empirical';
 import { useEffect, useState } from 'react';
 
 export interface UseTokenCountEmpiricalOptions {

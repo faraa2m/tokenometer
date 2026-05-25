@@ -1,5 +1,5 @@
-import { MODELS } from '@tokenometer/core';
-import type { ModelDescriptor, Provider } from '@tokenometer/core';
+import { MODELS } from '@tokenometer/core/browser';
+import type { ModelDescriptor, Provider } from '@tokenometer/core/browser';
 import { useMemo } from 'react';
 
 export interface UseModelListOptions {

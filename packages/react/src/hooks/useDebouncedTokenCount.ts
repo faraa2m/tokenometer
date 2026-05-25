@@ -1,4 +1,4 @@
-import type { Format } from '@tokenometer/core';
+import type { Format } from '@tokenometer/core/browser';
 import { useEffect, useState } from 'react';
 import { type UseTokenCountResult, useTokenCount } from './useTokenCount.js';
 

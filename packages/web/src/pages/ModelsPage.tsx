@@ -1,5 +1,5 @@
-import { KNOWN_MODELS, RATES_VERSION, getModel, getRate } from '@tokenometer/core';
-import type { Provider } from '@tokenometer/core';
+import { KNOWN_MODELS, RATES_VERSION, getModel, getRate } from '@tokenometer/core/browser';
+import type { Provider } from '@tokenometer/core/browser';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle.js';

@@ -1,5 +1,5 @@
-import { RATES_VERSION, getModel, getRate } from '@tokenometer/core';
-import type { ModelDescriptor, RateEntry } from '@tokenometer/core';
+import { RATES_VERSION, getModel, getRate } from '@tokenometer/core/browser';
+import type { ModelDescriptor, RateEntry } from '@tokenometer/core/browser';
 import { Link, useParams } from 'react-router-dom';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 

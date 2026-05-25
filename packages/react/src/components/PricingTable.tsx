@@ -1,4 +1,4 @@
-import type { Provider } from '@tokenometer/core';
+import type { Provider } from '@tokenometer/core/browser';
 import { forwardRef } from 'react';
 import { usePricing } from '../hooks/usePricing.js';
 

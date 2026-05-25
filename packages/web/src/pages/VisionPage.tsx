@@ -3,7 +3,7 @@ import {
   getRate,
   googleVisionTokens,
   openaiVisionTokens,
-} from '@tokenometer/core';
+} from '@tokenometer/core/browser';
 import { useEffect, useState } from 'react';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 

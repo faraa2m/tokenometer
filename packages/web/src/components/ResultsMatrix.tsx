@@ -1,4 +1,4 @@
-import type { TokenizeResult } from '@tokenometer/core';
+import type { TokenizeResult } from '@tokenometer/core/browser';
 
 interface ResultsMatrixProps {
   empirical: boolean;

@@ -1,4 +1,4 @@
-import type { Format } from '@tokenometer/core';
+import type { Format } from '@tokenometer/core/browser';
 import { forwardRef } from 'react';
 import { useCostMatrix } from '../hooks/useCostMatrix.js';
 import { formatUsd } from '../utils/format.js';

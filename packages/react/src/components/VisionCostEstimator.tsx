@@ -3,8 +3,8 @@ import {
   getRate,
   googleVisionTokens,
   openaiVisionTokens,
-} from '@tokenometer/core';
-import type { Provider } from '@tokenometer/core';
+} from '@tokenometer/core/browser';
+import type { Provider } from '@tokenometer/core/browser';
 import { forwardRef, useMemo } from 'react';
 import { formatUsd } from '../utils/format.js';
 

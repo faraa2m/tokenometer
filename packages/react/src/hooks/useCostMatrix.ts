@@ -1,5 +1,5 @@
-import { tokenizeMatrix } from '@tokenometer/core';
-import type { Format, TokenizeResult } from '@tokenometer/core';
+import { tokenizeMatrix } from '@tokenometer/core/browser';
+import type { Format, TokenizeResult } from '@tokenometer/core/browser';
 import { useMemo } from 'react';
 
 export interface UseCostMatrixOptions {

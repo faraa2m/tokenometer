@@ -1,5 +1,5 @@
-import { KNOWN_MODELS, allFormats, getModel, parseConfig } from '@tokenometer/core';
-import type { Format, Provider } from '@tokenometer/core';
+import { KNOWN_MODELS, allFormats, getModel, parseConfig } from '@tokenometer/core/browser';
+import type { Format, Provider } from '@tokenometer/core/browser';
 import { useMemo, useState } from 'react';
 import { CodeBlock } from '../components/CodeBlock.js';
 import { usePageTitle } from '../hooks/usePageTitle.js';

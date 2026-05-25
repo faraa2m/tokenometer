@@ -1,5 +1,5 @@
-import { tokenize } from '@tokenometer/core';
-import type { Format, TokenizerKind } from '@tokenometer/core';
+import { tokenize } from '@tokenometer/core/browser';
+import type { Format, TokenizerKind } from '@tokenometer/core/browser';
 import { useMemo } from 'react';
 
 export interface UseTokenCountOptions {

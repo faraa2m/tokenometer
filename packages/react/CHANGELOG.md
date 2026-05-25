@@ -1,5 +1,14 @@
 # @tokenometer/react
 
+## 2.0.3
+
+### Patch Changes
+
+- [`df44a7d`](https://github.com/faraa2m/tokenometer/commit/df44a7dcd23b4ded764077af3cb68eac9ca536b1) Thanks [@faraa2m](https://github.com/faraa2m)! - Publish `@tokenometer/react` as part of the Tokenometer release pipeline so every documented public package ships together.
+
+- Updated dependencies [[`df44a7d`](https://github.com/faraa2m/tokenometer/commit/df44a7dcd23b4ded764077af3cb68eac9ca536b1)]:
+  - @tokenometer/core@2.0.3
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
   "name": "@tokenometer/mcp",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Model Context Protocol server for tokenometer — lets AI agents self-monitor LLM token spend, estimate costs, and budget-check before sending prompts.",
   "license": "MIT",
   "author": "Faraazuddin Mohammed <mohdfaraaz1@gmail.com>",
@@ -53,7 +53,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@tokenometer/core": "2.0.2",
+    "@tokenometer/core": "2.0.3",
     "@modelcontextprotocol/sdk": "^1.0.4",
     "zod": "^3.23.8",
     "zod-to-json-schema": "^3.23.0"

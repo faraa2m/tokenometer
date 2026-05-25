@@ -93,7 +93,7 @@ Global:
 
 ```bash
 npm i -g tokenometer
-tokenometer ./prompt.md --format yaml,json,xml,markdown,text --model claude-opus-4-7,gpt-4o,mistral-large-latest,command-r-plus
+tokenometer ./prompt.md --format yaml,json,xml,markdown,text --model claude-opus-4-7,gpt-4o,mistral-large-latest,command-r-plus-08-2024
 ```
 
 Stdin works too:

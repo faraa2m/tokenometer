@@ -118,7 +118,7 @@ describe('tokenizeEmpirical', () => {
       const result = await tokenizeEmpirical({
         env: { cohereApiKey: 'co-test' },
         format: 'text',
-        modelId: 'command-r-plus',
+        modelId: 'command-r-plus-08-2024',
         prompt: 'hello',
       });
       expect(result.approximate).toBe(false);
@@ -136,7 +136,7 @@ describe('tokenizeEmpirical', () => {
       tokenizeEmpirical({
         env: {},
         format: 'text',
-        modelId: 'command-r-plus',
+        modelId: 'command-r-plus-08-2024',
         prompt: 'hi',
       }),
     ).rejects.toThrow(/COHERE_API_KEY/);

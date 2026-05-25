@@ -315,7 +315,7 @@ describe('measureLatency (provider trial runners, mocked I/O)', () => {
     const result = await measureLatency(
       {
         env: { cohereApiKey: 'co-test' },
-        modelId: 'command-r-plus',
+        modelId: 'command-r-plus-08-2024',
         prompt: 'hi',
         trials: 1,
       },
@@ -328,7 +328,7 @@ describe('measureLatency (provider trial runners, mocked I/O)', () => {
     await expect(
       measureLatency({
         env: {},
-        modelId: 'command-r-plus',
+        modelId: 'command-r-plus-08-2024',
         prompt: 'hi',
         trials: 1,
       }),

@@ -154,7 +154,7 @@ const sarif = toSarif({ files: [{ path: 'prompt.md', results: [...] }] });
 | Anthropic | `claude-opus-4-7`, `claude-sonnet-4-6`, `claude-haiku-4-5`, Claude 3.x family | `gpt-tokenizer` `cl100k_base` | approximate | `messages.countTokens` (free, exact) |
 | Google    | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-1.5-pro`, `gemini-1.5-flash` | `chars / 4` heuristic | approximate | `model.countTokens` (free, exact) |
 | Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` (V1/V2/V3 SentencePiece); `chars/4` for Tekken family (NeMo, Pixtral, Mistral Small 2409+, Devstral, Mistral Medium 2505+, Magistral, Ministral) | exact for SentencePiece · approximate for Tekken | unsupported (no public token-count endpoint) |
-| Cohere    | `command-r`, `command-r-plus` | `chars / 4` heuristic | approximate | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
+| Cohere    | `command-r-08-2024`, `command-r-plus-08-2024` | `chars / 4` heuristic | approximate | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
 
 Pricing comes from `@tokenlens/models` plus a small `LOCAL_OVERRIDES` map for bleeding-edge models the registry hasn't picked up yet. Cohere lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0; pull from `cohere.com/pricing` whenever `RATES_VERSION` bumps. Local overrides were last checked against Anthropic and Cohere public pricing on 2026-05-23.
 

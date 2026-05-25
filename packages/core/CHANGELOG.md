@@ -181,7 +181,7 @@ build` runs `tsc -b` without recursing into workspace scripts, so the
     `COHERE_API_KEY` is set.
 
   Pricing for Mistral auto-sourced from `@tokenlens/models/mistral`. Cohere
-  pricing comes from `LOCAL_OVERRIDES` (`command-r`, `command-r-plus`)
+  pricing comes from `LOCAL_OVERRIDES` (`command-r-08-2024`, `command-r-plus-08-2024`)
   because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0.
 
 - [#14](https://github.com/faraa2m/tokenometer/pull/14) [`061e0c5`](https://github.com/faraa2m/tokenometer/commit/061e0c577fce3ecc09c6a201a408cd1a360d5587) Thanks [@faraa2m](https://github.com/faraa2m)! - Playground (`https://tokenometer.dev`) gains showcase pages for

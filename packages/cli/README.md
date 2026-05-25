@@ -61,7 +61,7 @@ echo "prompt" | tokenometer - [options]
 | OpenAI | `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-3.5-turbo`, `o1` family | `gpt-tokenizer` `o200k_base` (exact) | same `o200k_base` (matches production) |
 | Google | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-1.5-pro`, `gemini-1.5-flash` | `chars / 4` (approximate) | `model.countTokens` (free, exact) |
 | Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` for SentencePiece V1/V2/V3 (exact); `chars/4` for Tekken (approximate) | unsupported (no public token-count API) |
-| Cohere | `command-r`, `command-r-plus` | `chars / 4` (approximate) | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
+| Cohere | `command-r-08-2024`, `command-r-plus-08-2024` | `chars / 4` (approximate) | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
 
 Pricing comes from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry with a small set of local overrides for bleeding-edge models. Cohere pricing lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` doesn't yet ship a Cohere catalog at v1.3.0.
 
@@ -71,7 +71,7 @@ For exact, vendor-billed counts on Claude, Gemini, and Cohere, set the right env
 
 ```bash
 ANTHROPIC_API_KEY=… GOOGLE_API_KEY=… COHERE_API_KEY=… \
-  npx tokenometer ./prompt.md --empirical --model claude-opus-4-7,gemini-2.5-pro,command-r-plus
+  npx tokenometer ./prompt.md --empirical --model claude-opus-4-7,gemini-2.5-pro,command-r-plus-08-2024
 ```
 
 OpenAI's empirical path uses tiktoken `o200k_base` locally — that encoding matches OpenAI's production count exactly, so no API call is needed. Mistral has no public token-count endpoint; the offline `mistral-tokenizer-js` path is used regardless.
@@ -84,7 +84,7 @@ When `--model` is omitted, tokenometer picks a default based on which provider k
 - `OPENAI_API_KEY` only → `gpt-4o`
 - `GOOGLE_API_KEY` / `GEMINI_API_KEY` only → first known `gemini-*` model (falls back to `gemini-2.5-pro`)
 - `MISTRAL_API_KEY` only → first known `mistral-*` model
-- `COHERE_API_KEY` only → `command-r-plus`
+- `COHERE_API_KEY` only → `command-r-plus-08-2024`
 - Multiple keys set → falls back to `claude-opus-4-7` and prints a stderr note. Pass `--model` to disambiguate.
 - No keys set → existing default (`claude-opus-4-7`).
 

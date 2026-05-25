@@ -35,7 +35,7 @@ describe('countTokens', () => {
   });
 
   it('flags Cohere counts as approximate (heuristic only)', () => {
-    const result = countTokens('Hello, world!', 'cohere', 'command-r-plus');
+    const result = countTokens('Hello, world!', 'cohere', 'command-r-plus-08-2024');
     expect(result.approximate).toBe(true);
     expect(result.tokenizer).toBe('heuristic');
   });
@@ -96,7 +96,7 @@ describe('tokenize', () => {
   });
 
   it('dispatches a Cohere model to the heuristic path', () => {
-    const result = tokenize({ format: 'text', modelId: 'command-r-plus', prompt: 'Hi there.' });
+    const result = tokenize({ format: 'text', modelId: 'command-r-plus-08-2024', prompt: 'Hi there.' });
     expect(result.provider).toBe('cohere');
     expect(result.tokenizer).toBe('heuristic');
     expect(result.approximate).toBe(true);

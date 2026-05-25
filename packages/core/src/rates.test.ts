@@ -39,11 +39,11 @@ describe('rates', () => {
   it('catalog includes Cohere models via local overrides', () => {
     // tokenlens does not ship a Cohere catalog at v1.3.0 — these come from
     // LOCAL_OVERRIDES. Update once tokenlens adds Cohere upstream.
-    expect(KNOWN_MODELS).toContain('command-r-plus');
-    expect(MODELS['command-r-plus']?.provider).toBe('cohere');
-    expect(MODELS['command-r-plus']?.pricingSource).toBe('local');
-    expect(KNOWN_MODELS).toContain('command-r');
-    expect(MODELS['command-r']?.provider).toBe('cohere');
+    expect(KNOWN_MODELS).toContain('command-r-plus-08-2024');
+    expect(MODELS['command-r-plus-08-2024']?.provider).toBe('cohere');
+    expect(MODELS['command-r-plus-08-2024']?.pricingSource).toBe('local');
+    expect(KNOWN_MODELS).toContain('command-r-08-2024');
+    expect(MODELS['command-r-08-2024']?.provider).toBe('cohere');
   });
 
   it('canary pricing for stable upstream models matches expected dollars', () => {
@@ -62,12 +62,12 @@ describe('rates', () => {
     expect(getModel('claude-opus-4-7').pricingSource).toBe('local');
   });
 
-  it('local-overridden Cohere Command R matches Cohere legacy API pricing', () => {
-    expect(getRate('command-r')).toEqual({
+  it('local-overridden Cohere Command R matches Cohere dated API pricing', () => {
+    expect(getRate('command-r-08-2024')).toEqual({
       inputPer1k: 0.0005,
       outputPer1k: 0.0015,
     });
-    expect(getModel('command-r').pricingSource).toBe('local');
+    expect(getModel('command-r-08-2024').pricingSource).toBe('local');
   });
 
   it('tokenlens-sourced models include context-window metadata', () => {

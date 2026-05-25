@@ -51113,21 +51113,21 @@ var LOCAL_OVERRIDES = {
       provider: "anthropic"
     }
   },
-  "command-r": {
+  "command-r-08-2024": {
     rate: { inputPer1k: 5e-4, outputPer1k: 15e-4 },
     descriptor: {
       contextWindow: 128e3,
-      id: "command-r",
+      id: "command-r-08-2024",
       maxOutputTokens: 4096,
       pricingSource: "local",
       provider: "cohere"
     }
   },
-  "command-r-plus": {
+  "command-r-plus-08-2024": {
     rate: { inputPer1k: 25e-4, outputPer1k: 0.01 },
     descriptor: {
       contextWindow: 128e3,
-      id: "command-r-plus",
+      id: "command-r-plus-08-2024",
       maxOutputTokens: 4096,
       pricingSource: "local",
       provider: "cohere"

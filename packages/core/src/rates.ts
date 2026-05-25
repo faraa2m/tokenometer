@@ -63,21 +63,21 @@ const LOCAL_OVERRIDES: Record<string, RegistryEntry> = {
       provider: 'anthropic',
     },
   },
-  'command-r': {
+  'command-r-08-2024': {
     rate: { inputPer1k: 0.0005, outputPer1k: 0.0015 },
     descriptor: {
       contextWindow: 128_000,
-      id: 'command-r',
+      id: 'command-r-08-2024',
       maxOutputTokens: 4096,
       pricingSource: 'local',
       provider: 'cohere',
     },
   },
-  'command-r-plus': {
+  'command-r-plus-08-2024': {
     rate: { inputPer1k: 0.0025, outputPer1k: 0.01 },
     descriptor: {
       contextWindow: 128_000,
-      id: 'command-r-plus',
+      id: 'command-r-plus-08-2024',
       maxOutputTokens: 4096,
       pricingSource: 'local',
       provider: 'cohere',

@@ -26,7 +26,7 @@ describe('cohereTokenizeApi (empirical, mocked)', () => {
         }),
     ) as unknown as typeof fetch;
 
-    const count = await cohereTokenizeApi('hello', 'command-r-plus', 'fake-key', fetchMock);
+    const count = await cohereTokenizeApi('hello', 'command-r-plus-08-2024', 'fake-key', fetchMock);
     expect(count).toBe(5);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -34,14 +34,14 @@ describe('cohereTokenizeApi (empirical, mocked)', () => {
     expect(url).toBe('https://api.cohere.com/v1/tokenize');
     expect(init.method).toBe('POST');
     expect(init.headers.Authorization).toBe('Bearer fake-key');
-    expect(JSON.parse(init.body)).toEqual({ model: 'command-r-plus', text: 'hello' });
+    expect(JSON.parse(init.body)).toEqual({ model: 'command-r-plus-08-2024', text: 'hello' });
   });
 
   it('throws a clear error on non-2xx', async () => {
     const fetchMock = vi.fn(
       async () => new Response('unauthorized', { status: 401, statusText: 'Unauthorized' }),
     ) as unknown as typeof fetch;
-    await expect(cohereTokenizeApi('hi', 'command-r', 'bad-key', fetchMock)).rejects.toThrow(
+    await expect(cohereTokenizeApi('hi', 'command-r-08-2024', 'bad-key', fetchMock)).rejects.toThrow(
       /Cohere \/v1\/tokenize returned 401/,
     );
   });
@@ -54,7 +54,7 @@ describe('cohereTokenizeApi (empirical, mocked)', () => {
           status: 200,
         }),
     ) as unknown as typeof fetch;
-    await expect(cohereTokenizeApi('hi', 'command-r', 'k', fetchMock)).rejects.toThrow(
+    await expect(cohereTokenizeApi('hi', 'command-r-08-2024', 'k', fetchMock)).rejects.toThrow(
       /unexpected shape/,
     );
   });

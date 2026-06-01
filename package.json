@@ -38,7 +38,7 @@
     "@changesets/cli": "^2.27.11",
     "@types/node": "^22.10.5",
     "typescript": "^5.7.2",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.8"
   },
   "overrides": {
     "undici": "^6.24.0"

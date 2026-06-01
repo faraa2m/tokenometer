@@ -45,6 +45,7 @@ import {
   RATES_VERSION,
   getModel,
   getRate,
+  priceUsage,
 } from '@tokenometer/core';
 
 import type {
@@ -77,6 +78,9 @@ import type {
   RateEntry,
   Format,
   TokenizerKind,
+  PriceUsageResult,
+  UsagePricing,
+  UsageTokens,
 } from '@tokenometer/core';
 ```
 
@@ -109,6 +113,33 @@ const result = await tokenizeEmpirical({
   env: { anthropicApiKey: process.env.ANTHROPIC_API_KEY! },
 });
 // approximate: false  ← uses Anthropic's messages.countTokens
+```
+
+### Price actual usage
+
+```ts
+const cost = priceUsage({
+  modelId: 'claude-sonnet-4-6',
+  usage: {
+    inputTokens: 12_000,
+    cachedInputTokens: 4_000,
+    outputTokens: 1_500,
+  },
+});
+// { inputUsd, cachedInputUsd, outputUsd, totalUsd, ... }
+```
+
+Use this after a real LLM call when the provider returns actual usage. `tokenize()`
+estimates the next prompt before execution; `priceUsage()` prices completed
+steps so agent loops and routers can maintain an accurate running budget.
+
+For models outside Tokenometer's registry, pass explicit per-million-token rates:
+
+```ts
+const cost = priceUsage({
+  pricing: { inputUsdPerMtok: 0.59, outputUsdPerMtok: 0.79 },
+  usage: { inputTokens: 8_000, outputTokens: 600 },
+});
 ```
 
 ### Latency benchmarking

@@ -30,7 +30,7 @@
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
-    "@tokenometer/core": "2.0.4",
+    "@tokenometer/core": "2.1.0",
     "minimatch": "^10.2.5"
   },
   "devDependencies": {

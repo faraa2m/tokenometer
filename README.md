@@ -16,7 +16,7 @@ Created and maintained by [Faraazuddin Mohammed](https://github.com/faraa2m) · 
 > [!WARNING]
 > `tokenometer.cloud` is not affiliated with this project or its maintainer. Do not enter credentials, API keys, or provider tokens there. Official Tokenometer surfaces are this GitHub repository, the npm packages linked above, the VS Code/Open VSX marketplace listings, and `https://tokenometer.dev`.
 
-Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, Gemini, Mistral, and Cohere — and how fast does each provider actually respond?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). Today it's the only LLM cost CLI that also tells you latency, ships a PR-blocking GitHub Action, lights up your editor's status bar, and teaches Claude Code agents to think in dollars.
+Tokenometer answers a simple, expensive question: **does it actually cost less to send your prompt as YAML, JSON, XML, or Markdown — across Claude, GPT-4o, Gemini, Mistral, and Cohere — and how fast does each provider actually respond?** It started as a [\$23 question](https://hackernoon.com/i-spent-$23-testing-the-yaml-saves-tokens-hack-it-doesnt-work). Today it's the only LLM cost CLI that also tells you latency, ships a PR-blocking GitHub Action, lights up your editor's status bar, prices actual provider usage with `priceUsage()`, and teaches Claude Code agents to think in dollars.
 
 ## Why Tokenometer vs alternatives
 
@@ -76,6 +76,7 @@ The `Approx` column shows `✓` when the count is a proxy (Anthropic / Google / 
 - How **fast** each provider actually responds (TTFT + tokens/sec, p50/p95/mean) — a real generation, not a synthetic benchmark
 - Whether **format conversion** (YAML ↔ JSON ↔ XML ↔ MD) actually moves the needle
 - The **empirical** cost — what your provider actually charged on a real call, after prompt caching
+- How to price **actual provider-reported usage** after a call completes, so routers and agent loops can keep a running task budget
 - Whether a PR introduced a **prompt-cost regression**
 - The **vision-token** cost when your prompt includes images
 
@@ -223,7 +224,7 @@ Tokenometer is part of a focused open-source toolkit for LLM cost, tokenization,
 - [llm-tokens-atlas](https://github.com/faraa2m/llm-tokens-atlas) — open benchmark of LLM tokenization calibration across providers.
 - [Hugging Face dataset](https://huggingface.co/datasets/faraa2m/llm-tokens-atlas) — canonical public dataset behind the tokenization atlas.
 - [promptc](https://github.com/faraa2m/promptc) — deterministic compiler for cost-aware prompt optimization.
-- [routerlab](https://github.com/faraa2m/routerlab) — cost-quality routing for LLM APIs with reproducible Pareto frontiers.
+- [routerlab](https://github.com/faraa2m/routerlab) — cost-quality routing for LLM APIs with reproducible Pareto frontiers and budget-aware multi-step agent control.
 - [ast-ai-model-router](https://github.com/faraa2m/ast-ai-model-router) — AST-aware Claude and Codex model router for token-conscious coding agents.
 
 ## Status

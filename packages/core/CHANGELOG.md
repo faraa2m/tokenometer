@@ -1,5 +1,11 @@
 # @tokenometer/core
 
+## 2.1.0
+
+### Minor Changes
+
+- [#61](https://github.com/faraa2m/tokenometer/pull/61) [`db7f9a7`](https://github.com/faraa2m/tokenometer/commit/db7f9a75a537e6cf5bd8bcb5dbbc1ca11029ed11) Thanks [@faraa2m](https://github.com/faraa2m)! - Add `priceUsage()` for pricing actual provider-reported token usage, including cached input tokens and explicit per-million-token rates for external model registries.
+
 ## 2.0.4
 
 ### Patch Changes

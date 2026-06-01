@@ -12,6 +12,13 @@ export type { LatencyDeps, MeasureLatencyOptions } from './latency.js';
 export { KNOWN_MODELS, MODELS, RATES, RATES_VERSION, getModel, getRate } from './rates.js';
 export { countTokens, tokenize, tokenizeMatrix } from './tokenize.js';
 export type { CountResult } from './tokenize.js';
+export { priceUsage } from './usage-cost.js';
+export type {
+  PriceUsageOptions,
+  PriceUsageResult,
+  UsagePricing,
+  UsageTokens,
+} from './usage-cost.js';
 export type {
   EmpiricalResult,
   Format,

@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { UserFacingError } from './errors.js';
-import { KNOWN_MODELS, MODELS, RATES, getModel, getRate } from './rates.js';
+import {
+  KNOWN_CATALOG_MODELS,
+  KNOWN_MODELS,
+  MODELS,
+  MODEL_CATALOG,
+  RATES,
+  getCatalogModel,
+  getModel,
+  getRate,
+} from './rates.js';
 
 describe('rates', () => {
   it('every known model has a matching rate entry with positive prices', () => {
@@ -25,6 +34,51 @@ describe('rates', () => {
     for (const modelId of KNOWN_MODELS) {
       expect(MODELS[modelId]?.provider).toMatch(/^(anthropic|cohere|google|mistral|openai)$/);
     }
+  });
+
+  it('full catalog includes visible catalog-only models without making them costable', () => {
+    expect(KNOWN_CATALOG_MODELS).toContain('gpt-5.4-cyber');
+    expect(MODEL_CATALOG['gpt-5.4-cyber']?.provider).toBe('openai');
+    expect(MODEL_CATALOG['gpt-5.4-cyber']?.supportsTextCostEstimate).toBe(false);
+    expect(MODEL_CATALOG['gpt-5.4-cyber']?.supportsTokenCounting).toBe(false);
+    expect(MODEL_CATALOG['gpt-5.4-cyber']?.unsupportedReason).toMatch(/specialized/i);
+    expect(KNOWN_MODELS).not.toContain('gpt-5.4-cyber');
+  });
+
+  it('catalog descriptors explain unsupported cost estimates', () => {
+    const descriptor = getCatalogModel('gpt-5.6-preview');
+
+    expect(descriptor.status).toBe('preview');
+    expect(descriptor.supportsTextCostEstimate).toBe(false);
+    expect(descriptor.unsupportedReason).toMatch(/preview/i);
+    expect(() => getRate('gpt-5.6-preview')).toThrow(/Catalog-only model "gpt-5\.6-preview"/);
+  });
+
+  it('costable models are also present in the full catalog', () => {
+    expect(getCatalogModel('gpt-5.5')).toMatchObject({
+      provider: 'openai',
+      supportsTextCostEstimate: true,
+      supportsTokenCounting: true,
+    });
+    expect(getCatalogModel('gpt-5.4-nano')).toMatchObject({
+      provider: 'openai',
+      supportsTextCostEstimate: true,
+      supportsTokenCounting: true,
+    });
+    expect(getCatalogModel('claude-fable-5')).toMatchObject({
+      provider: 'anthropic',
+      supportsTextCostEstimate: true,
+      supportsTokenCounting: true,
+    });
+    expect(getCatalogModel('command-a-03-2025')).toMatchObject({
+      provider: 'cohere',
+      supportsTextCostEstimate: true,
+      supportsTokenCounting: true,
+    });
+    expect(getCatalogModel('command-a-plus-05-2026')).toMatchObject({
+      provider: 'cohere',
+      supportsTextCostEstimate: false,
+    });
   });
 
   it('catalog includes Mistral models from tokenlens', () => {

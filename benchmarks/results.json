@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T15:53:10.756Z",
+  "generatedAt": "2026-07-04T17:58:20.214Z",
   "formats": [
     "json",
     "markdown",
@@ -15,14 +15,18 @@
     "claude-3-haiku-20240307",
     "claude-3-opus-20240229",
     "claude-3-sonnet-20240229",
+    "claude-fable-5",
     "claude-haiku-4-5",
     "claude-opus-4-1-20250805",
     "claude-opus-4-20250514",
     "claude-opus-4-7",
+    "claude-opus-4-8",
     "claude-sonnet-4-20250514",
     "claude-sonnet-4-6",
+    "claude-sonnet-5",
     "codestral-latest",
     "codex-mini-latest",
+    "command-a-03-2025",
     "command-r-08-2024",
     "command-r-plus-08-2024",
     "devstral-medium-2507",
@@ -47,6 +51,10 @@
     "gpt-5-chat-latest",
     "gpt-5-mini",
     "gpt-5-nano",
+    "gpt-5.4",
+    "gpt-5.4-mini",
+    "gpt-5.4-nano",
+    "gpt-5.5",
     "magistral-medium-latest",
     "magistral-small",
     "ministral-3b-latest",
@@ -298,6 +306,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00078,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00088,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00096,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00101,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00084,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -426,6 +466,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00039,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00044,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00048,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000505,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00042,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -486,6 +558,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000252,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000156,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000176,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000192,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000202,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000168,
           "inputTokens": 84,
           "tokenizer": "cl100k_base"
         }
@@ -552,6 +656,38 @@
           "inputCost": 0.0001245,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000205,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000255,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001975,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -1318,6 +1454,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00000415,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0001925,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0002375,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00025,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00005775,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00006825,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00007125,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.000075,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00006225,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000154,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000182,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000019,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00002,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000166,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000385,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000455,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000475,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0005,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000415,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
         }
@@ -2316,6 +2580,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00078,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00088,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00096,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00101,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00084,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -2444,6 +2740,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00039,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00044,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00048,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000505,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00042,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -2504,6 +2832,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000252,
+          "inputTokens": 84,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000156,
+          "inputTokens": 78,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000176,
+          "inputTokens": 88,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000192,
+          "inputTokens": 96,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000202,
+          "inputTokens": 101,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000168,
           "inputTokens": 84,
           "tokenizer": "cl100k_base"
         }
@@ -2570,6 +2930,38 @@
           "inputCost": 0.0001245,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000205,
+          "inputTokens": 82,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000255,
+          "inputTokens": 102,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0001975,
+          "inputTokens": 79,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -3336,6 +3728,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00000415,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0001925,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0002275,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0002375,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00025,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0002075,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00005775,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00006825,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00007125,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.000075,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00006225,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000154,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000182,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000019,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00002,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000166,
+          "inputTokens": 83,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000385,
+          "inputTokens": 77,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000455,
+          "inputTokens": 91,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000475,
+          "inputTokens": 95,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0005,
+          "inputTokens": 100,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000415,
           "inputTokens": 83,
           "tokenizer": "o200k_base"
         }
@@ -4334,6 +4854,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00175,
+          "inputTokens": 175,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00173,
+          "inputTokens": 173,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00172,
+          "inputTokens": 172,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00288,
+          "inputTokens": 288,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00182,
+          "inputTokens": 182,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -4462,6 +5014,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000875,
+          "inputTokens": 175,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000865,
+          "inputTokens": 173,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00086,
+          "inputTokens": 172,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00144,
+          "inputTokens": 288,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00091,
+          "inputTokens": 182,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -4522,6 +5106,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000546,
+          "inputTokens": 182,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00035,
+          "inputTokens": 175,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000346,
+          "inputTokens": 173,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000344,
+          "inputTokens": 172,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000576,
+          "inputTokens": 288,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000364,
           "inputTokens": 182,
           "tokenizer": "cl100k_base"
         }
@@ -4588,6 +5204,38 @@
           "inputCost": 0.000273,
           "inputTokens": 182,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0005575,
+          "inputTokens": 223,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000555,
+          "inputTokens": 222,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0005525,
+          "inputTokens": 221,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0008275,
+          "inputTokens": 331,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0005625,
+          "inputTokens": 225,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -5354,6 +6002,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.0000091,
+          "inputTokens": 182,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0004375,
+          "inputTokens": 175,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000435,
+          "inputTokens": 174,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00043,
+          "inputTokens": 172,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00074,
+          "inputTokens": 296,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000455,
+          "inputTokens": 182,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00013125,
+          "inputTokens": 175,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0001305,
+          "inputTokens": 174,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000129,
+          "inputTokens": 172,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.000222,
+          "inputTokens": 296,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0001365,
+          "inputTokens": 182,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000035,
+          "inputTokens": 175,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000348,
+          "inputTokens": 174,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0000344,
+          "inputTokens": 172,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000592,
+          "inputTokens": 296,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000364,
+          "inputTokens": 182,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000875,
+          "inputTokens": 175,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00087,
+          "inputTokens": 174,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00086,
+          "inputTokens": 172,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00148,
+          "inputTokens": 296,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00091,
           "inputTokens": 182,
           "tokenizer": "o200k_base"
         }
@@ -6352,6 +7128,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00337,
+          "inputTokens": 337,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00272,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00272,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00291,
+          "inputTokens": 291,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00273,
+          "inputTokens": 273,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -6480,6 +7288,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001685,
+          "inputTokens": 337,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00136,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00136,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001455,
+          "inputTokens": 291,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001365,
+          "inputTokens": 273,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -6540,6 +7380,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000819,
+          "inputTokens": 273,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000674,
+          "inputTokens": 337,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000544,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000544,
+          "inputTokens": 272,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000582,
+          "inputTokens": 291,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000546,
           "inputTokens": 273,
           "tokenizer": "cl100k_base"
         }
@@ -6606,6 +7478,38 @@
           "inputCost": 0.0004125,
           "inputTokens": 275,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00071,
+          "inputTokens": 284,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0007075,
+          "inputTokens": 283,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0006875,
+          "inputTokens": 275,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -7372,6 +8276,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00001375,
+          "inputTokens": 275,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0008475,
+          "inputTokens": 339,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000685,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0007325,
+          "inputTokens": 293,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0006875,
+          "inputTokens": 275,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00025425,
+          "inputTokens": 339,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0002055,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0002055,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00021975,
+          "inputTokens": 293,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00020625,
+          "inputTokens": 275,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000678,
+          "inputTokens": 339,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000548,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0000548,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000586,
+          "inputTokens": 293,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000055,
+          "inputTokens": 275,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.001695,
+          "inputTokens": 339,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00137,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00137,
+          "inputTokens": 274,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.001465,
+          "inputTokens": 293,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.001375,
           "inputTokens": 275,
           "tokenizer": "o200k_base"
         }
@@ -8370,6 +9402,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00381,
+          "inputTokens": 381,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00341,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00341,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00375,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00342,
+          "inputTokens": 342,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -8498,6 +9562,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001905,
+          "inputTokens": 381,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001705,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001705,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001875,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00171,
+          "inputTokens": 342,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -8558,6 +9654,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.001026,
+          "inputTokens": 342,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000762,
+          "inputTokens": 381,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000682,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000682,
+          "inputTokens": 341,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00075,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000684,
           "inputTokens": 342,
           "tokenizer": "cl100k_base"
         }
@@ -8624,6 +9752,38 @@
           "inputCost": 0.0005115,
           "inputTokens": 341,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0009525,
+          "inputTokens": 381,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00096,
+          "inputTokens": 384,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0009175,
+          "inputTokens": 367,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -9390,6 +10550,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00001705,
+          "inputTokens": 341,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00095,
+          "inputTokens": 380,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00085,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00085,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0009325,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0008525,
+          "inputTokens": 341,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000285,
+          "inputTokens": 380,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000255,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000255,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00027975,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00025575,
+          "inputTokens": 341,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000076,
+          "inputTokens": 380,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000068,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000068,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000746,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000682,
+          "inputTokens": 341,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0019,
+          "inputTokens": 380,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0017,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0017,
+          "inputTokens": 340,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.001865,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.001705,
           "inputTokens": 341,
           "tokenizer": "o200k_base"
         }
@@ -10388,6 +11676,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00189,
+          "inputTokens": 189,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00206,
+          "inputTokens": 206,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.003,
+          "inputTokens": 300,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00258,
+          "inputTokens": 258,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00223,
+          "inputTokens": 223,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -10516,6 +11836,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000945,
+          "inputTokens": 189,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00103,
+          "inputTokens": 206,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0015,
+          "inputTokens": 300,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00129,
+          "inputTokens": 258,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001115,
+          "inputTokens": 223,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -10576,6 +11928,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000669,
+          "inputTokens": 223,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000378,
+          "inputTokens": 189,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000412,
+          "inputTokens": 206,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0006,
+          "inputTokens": 300,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000516,
+          "inputTokens": 258,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000446,
           "inputTokens": 223,
           "tokenizer": "cl100k_base"
         }
@@ -10642,6 +12026,38 @@
           "inputCost": 0.000333,
           "inputTokens": 222,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00052,
+          "inputTokens": 208,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0005375,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0007325,
+          "inputTokens": 293,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000625,
+          "inputTokens": 250,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0005925,
+          "inputTokens": 237,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -11408,6 +12824,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.0000111,
+          "inputTokens": 222,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000475,
+          "inputTokens": 190,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0005325,
+          "inputTokens": 213,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0007475,
+          "inputTokens": 299,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00064,
+          "inputTokens": 256,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000555,
+          "inputTokens": 222,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0001425,
+          "inputTokens": 190,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00015975,
+          "inputTokens": 213,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00022425,
+          "inputTokens": 299,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.000192,
+          "inputTokens": 256,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0001665,
+          "inputTokens": 222,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000038,
+          "inputTokens": 190,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000426,
+          "inputTokens": 213,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0000598,
+          "inputTokens": 299,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000512,
+          "inputTokens": 256,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000444,
+          "inputTokens": 222,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00095,
+          "inputTokens": 190,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.001065,
+          "inputTokens": 213,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.001495,
+          "inputTokens": 299,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00128,
+          "inputTokens": 256,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00111,
           "inputTokens": 222,
           "tokenizer": "o200k_base"
         }
@@ -12406,6 +13950,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00719,
+          "inputTokens": 719,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00696,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00696,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00728,
+          "inputTokens": 728,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00736,
+          "inputTokens": 736,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -12534,6 +14110,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.003595,
+          "inputTokens": 719,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00348,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00348,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00364,
+          "inputTokens": 728,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00368,
+          "inputTokens": 736,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -12594,6 +14202,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.002208,
+          "inputTokens": 736,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001438,
+          "inputTokens": 719,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001392,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001392,
+          "inputTokens": 696,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001456,
+          "inputTokens": 728,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001472,
           "inputTokens": 736,
           "tokenizer": "cl100k_base"
         }
@@ -12660,6 +14300,38 @@
           "inputCost": 0.001107,
           "inputTokens": 738,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0021025,
+          "inputTokens": 841,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0020775,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0020775,
+          "inputTokens": 831,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00213,
+          "inputTokens": 852,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.002085,
+          "inputTokens": 834,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -13426,6 +15098,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.0000369,
+          "inputTokens": 738,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.001805,
+          "inputTokens": 722,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0017475,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0017475,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0018275,
+          "inputTokens": 731,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.001845,
+          "inputTokens": 738,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0005415,
+          "inputTokens": 722,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00052425,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00052425,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00054825,
+          "inputTokens": 731,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0005535,
+          "inputTokens": 738,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0001444,
+          "inputTokens": 722,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0001398,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0001398,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0001462,
+          "inputTokens": 731,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0001476,
+          "inputTokens": 738,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00361,
+          "inputTokens": 722,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.003495,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.003495,
+          "inputTokens": 699,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.003655,
+          "inputTokens": 731,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00369,
           "inputTokens": 738,
           "tokenizer": "o200k_base"
         }
@@ -14424,6 +16224,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00213,
+          "inputTokens": 213,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00191,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00191,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.002,
+          "inputTokens": 200,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00192,
+          "inputTokens": 192,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -14552,6 +16384,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.001065,
+          "inputTokens": 213,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000955,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000955,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001,
+          "inputTokens": 200,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00096,
+          "inputTokens": 192,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -14612,6 +16476,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.000576,
+          "inputTokens": 192,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000426,
+          "inputTokens": 213,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000382,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000382,
+          "inputTokens": 191,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0004,
+          "inputTokens": 200,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000384,
           "inputTokens": 192,
           "tokenizer": "cl100k_base"
         }
@@ -14678,6 +16574,38 @@
           "inputCost": 0.0002895,
           "inputTokens": 193,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0005375,
+          "inputTokens": 215,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0005175,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.0005175,
+          "inputTokens": 207,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0005325,
+          "inputTokens": 213,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00053,
+          "inputTokens": 212,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -15444,6 +17372,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00000965,
+          "inputTokens": 193,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.000535,
+          "inputTokens": 214,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00048,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00048,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0005025,
+          "inputTokens": 201,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0004825,
+          "inputTokens": 193,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0001605,
+          "inputTokens": 214,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000144,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000144,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00015075,
+          "inputTokens": 201,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00014475,
+          "inputTokens": 193,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000428,
+          "inputTokens": 214,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000384,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0000384,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000402,
+          "inputTokens": 201,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000386,
+          "inputTokens": 193,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00107,
+          "inputTokens": 214,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00096,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00096,
+          "inputTokens": 192,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.001005,
+          "inputTokens": 201,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.000965,
           "inputTokens": 193,
           "tokenizer": "o200k_base"
         }
@@ -16442,6 +18498,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00392,
+          "inputTokens": 392,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00364,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00364,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00372,
+          "inputTokens": 372,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00375,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -16570,6 +18658,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00196,
+          "inputTokens": 392,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00182,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00182,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00186,
+          "inputTokens": 372,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001875,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -16630,6 +18750,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.001125,
+          "inputTokens": 375,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000784,
+          "inputTokens": 392,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000728,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.000728,
+          "inputTokens": 364,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000744,
+          "inputTokens": 372,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00075,
           "inputTokens": 375,
           "tokenizer": "cl100k_base"
         }
@@ -16696,6 +18848,38 @@
           "inputCost": 0.0005655,
           "inputTokens": 377,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.0011075,
+          "inputTokens": 443,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.001085,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001085,
+          "inputTokens": 434,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.0010975,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0010975,
+          "inputTokens": 439,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -17462,6 +19646,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00001885,
+          "inputTokens": 377,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0009825,
+          "inputTokens": 393,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0009125,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0009125,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0009325,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0009425,
+          "inputTokens": 377,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00029475,
+          "inputTokens": 393,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00027375,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00027375,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00027975,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00028275,
+          "inputTokens": 377,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000786,
+          "inputTokens": 393,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000073,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.000073,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000746,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000754,
+          "inputTokens": 377,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.001965,
+          "inputTokens": 393,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.001825,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.001825,
+          "inputTokens": 365,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.001865,
+          "inputTokens": 373,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.001885,
           "inputTokens": 377,
           "tokenizer": "o200k_base"
         }
@@ -18460,6 +20772,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-fable-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00298,
+          "inputTokens": 298,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.00097,
+          "inputTokens": 97,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00868,
+          "inputTokens": 868,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.00473,
+          "inputTokens": 473,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.00389,
+          "inputTokens": 389,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-haiku-4-5": {
         "json": {
           "approximate": true,
@@ -18588,6 +20932,38 @@
           "tokenizer": "cl100k_base"
         }
       },
+      "claude-opus-4-8": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00149,
+          "inputTokens": 298,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000485,
+          "inputTokens": 97,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.00434,
+          "inputTokens": 868,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.002365,
+          "inputTokens": 473,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.001945,
+          "inputTokens": 389,
+          "tokenizer": "cl100k_base"
+        }
+      },
       "claude-sonnet-4-20250514": {
         "json": {
           "approximate": true,
@@ -18648,6 +21024,38 @@
         "yaml": {
           "approximate": true,
           "inputCost": 0.001167,
+          "inputTokens": 389,
+          "tokenizer": "cl100k_base"
+        }
+      },
+      "claude-sonnet-5": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.000596,
+          "inputTokens": 298,
+          "tokenizer": "cl100k_base"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.000194,
+          "inputTokens": 97,
+          "tokenizer": "cl100k_base"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.001736,
+          "inputTokens": 868,
+          "tokenizer": "cl100k_base"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.000946,
+          "inputTokens": 473,
+          "tokenizer": "cl100k_base"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.000778,
           "inputTokens": 389,
           "tokenizer": "cl100k_base"
         }
@@ -18714,6 +21122,38 @@
           "inputCost": 0.0005835,
           "inputTokens": 389,
           "tokenizer": "o200k_base"
+        }
+      },
+      "command-a-03-2025": {
+        "json": {
+          "approximate": true,
+          "inputCost": 0.00087,
+          "inputTokens": 348,
+          "tokenizer": "heuristic"
+        },
+        "markdown": {
+          "approximate": true,
+          "inputCost": 0.0002775,
+          "inputTokens": 111,
+          "tokenizer": "heuristic"
+        },
+        "text": {
+          "approximate": true,
+          "inputCost": 0.002015,
+          "inputTokens": 806,
+          "tokenizer": "heuristic"
+        },
+        "xml": {
+          "approximate": true,
+          "inputCost": 0.001175,
+          "inputTokens": 470,
+          "tokenizer": "heuristic"
+        },
+        "yaml": {
+          "approximate": true,
+          "inputCost": 0.0012425,
+          "inputTokens": 497,
+          "tokenizer": "heuristic"
         }
       },
       "command-r-08-2024": {
@@ -19480,6 +21920,134 @@
         "yaml": {
           "approximate": false,
           "inputCost": 0.00001945,
+          "inputTokens": 389,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0007675,
+          "inputTokens": 307,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00024,
+          "inputTokens": 96,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0021725,
+          "inputTokens": 869,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.001185,
+          "inputTokens": 474,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0009725,
+          "inputTokens": 389,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-mini": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.00023025,
+          "inputTokens": 307,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.000072,
+          "inputTokens": 96,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.00065175,
+          "inputTokens": 869,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0003555,
+          "inputTokens": 474,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.00029175,
+          "inputTokens": 389,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.4-nano": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.0000614,
+          "inputTokens": 307,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.0000192,
+          "inputTokens": 96,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.0001738,
+          "inputTokens": 869,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.0000948,
+          "inputTokens": 474,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.0000778,
+          "inputTokens": 389,
+          "tokenizer": "o200k_base"
+        }
+      },
+      "gpt-5.5": {
+        "json": {
+          "approximate": false,
+          "inputCost": 0.001535,
+          "inputTokens": 307,
+          "tokenizer": "o200k_base"
+        },
+        "markdown": {
+          "approximate": false,
+          "inputCost": 0.00048,
+          "inputTokens": 96,
+          "tokenizer": "o200k_base"
+        },
+        "text": {
+          "approximate": false,
+          "inputCost": 0.004345,
+          "inputTokens": 869,
+          "tokenizer": "o200k_base"
+        },
+        "xml": {
+          "approximate": false,
+          "inputCost": 0.00237,
+          "inputTokens": 474,
+          "tokenizer": "o200k_base"
+        },
+        "yaml": {
+          "approximate": false,
+          "inputCost": 0.001945,
           "inputTokens": 389,
           "tokenizer": "o200k_base"
         }
@@ -20254,6 +22822,6 @@
       }
     }
   },
-  "ratesVersion": "2026-05-23",
+  "ratesVersion": "2026-07-04",
   "schemaVersion": 1
 }

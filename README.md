@@ -103,7 +103,7 @@ Stdin works too:
 echo "prompt body" | tokenometer - --model claude-sonnet-4-6
 ```
 
-Run `tokenometer --help` for the full flag list and the current set of known model ids (63 across 5 providers).
+Run `tokenometer --help` for the full flag list and the current set of known model ids.
 
 ## Adoption playbooks
 
@@ -183,7 +183,7 @@ Tokenometer picks a tokenizer per provider and flags the count as approximate (`
 | Mistral   | `mistral-tokenizer-js` (V1/V2/V3) · `chars/4` for Tekken family | exact for SP-family · approximate for Tekken | unsupported (no public token-count endpoint) |
 | Cohere    | `chars / 4` heuristic                          | approximate | `POST /v1/tokenize` (exact, free, requires `COHERE_API_KEY`) |
 
-Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with a small set of local overrides for bleeding-edge models the registry hasn't picked up yet (and the full Cohere catalog, which `@tokenlens/models` doesn't ship at v1.3.0) — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`). Local overrides were last checked against Anthropic and Cohere public pricing on 2026-05-23.
+Cost = `tokens / 1000 × per-1k input rate`. Pricing and context windows are sourced from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry, with local overrides for current priced models the registry hasn't picked up yet. Visible provider models without public text pricing, stable access, or a supported token-counting path live in `MODEL_CATALOG` rather than `KNOWN_MODELS` — see [`packages/core/src/rates.ts`](packages/core/src/rates.ts) (`RATES_VERSION`). Local overrides were last checked against OpenAI, Anthropic, Google, Mistral, and Cohere public docs on 2026-07-04.
 
 ## Output formats
 

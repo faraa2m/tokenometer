@@ -13,15 +13,35 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import anthropicProvider from '@tokenlens/models/anthropic';
 import googleProvider from '@tokenlens/models/google';
+import mistralProvider from '@tokenlens/models/mistral';
 import openaiProvider from '@tokenlens/models/openai';
 import { KNOWN_MODELS, getModel, getRate } from '../dist/rates.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SNAPSHOT_PATH = join(HERE, '..', 'src', '__snapshots__', 'registry.json');
 
-const LOCAL_OVERRIDE_IDS = ['claude-haiku-4-5', 'claude-opus-4-7', 'claude-sonnet-4-6'];
+const LOCAL_OVERRIDE_IDS = [
+  'claude-fable-5',
+  'claude-haiku-4-5',
+  'claude-opus-4-7',
+  'claude-opus-4-8',
+  'claude-sonnet-4-6',
+  'claude-sonnet-5',
+  'command-a-03-2025',
+  'command-r-08-2024',
+  'command-r-plus-08-2024',
+  'gpt-5.4',
+  'gpt-5.4-mini',
+  'gpt-5.4-nano',
+  'gpt-5.5',
+];
 
-const PROVIDERS = { anthropic: anthropicProvider, google: googleProvider, openai: openaiProvider };
+const PROVIDERS = {
+  anthropic: anthropicProvider,
+  google: googleProvider,
+  mistral: mistralProvider,
+  openai: openaiProvider,
+};
 
 const findUpstreamMatch = (overrideId) => {
   // Heuristic: match canonical Anthropic family ids like

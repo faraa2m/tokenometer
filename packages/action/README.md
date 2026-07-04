@@ -40,7 +40,7 @@ jobs:
 | Name | Default | Notes |
 |---|---|---|
 | `paths` | `prompts/**/*.{md,json,yaml,yml,txt}` | Comma- or newline-separated globs |
-| `models` | `claude-opus-4-7,claude-sonnet-4-6,gpt-4o` | Any tokenometer-supported model id (63 across Anthropic / OpenAI / Google / Mistral / Cohere) |
+| `models` | `claude-opus-4-7,claude-sonnet-4-6,gpt-4o` | Any costable Tokenometer model id from `KNOWN_MODELS` |
 | `formats` | `json,yaml,xml,markdown,text` | Subset of supported formats |
 | `budget` | _empty_ | Max acceptable total Δ in USD. Empty = disabled |
 | `base-ref` | _auto_ | Falls back to `origin/<pr-base>` for PRs, `HEAD~1` otherwise |

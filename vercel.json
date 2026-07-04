@@ -4,6 +4,26 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build && npm run build -w @tokenometer/web",
   "outputDirectory": "packages/web/dist",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "tokenometer.dev" }],
+      "destination": "https://www.tokenometer.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "tokenometer.io" }],
+      "destination": "https://www.tokenometer.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.tokenometer.io" }],
+      "destination": "https://www.tokenometer.dev/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/:path((?!assets/|robots.txt|sitemap.xml).*)", "destination": "/index.html" }
   ]

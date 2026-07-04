@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useCanonicalUrl } from '../hooks/useCanonicalUrl.js';
 import { Nav } from './Nav.js';
 
 const REPO_URL = 'https://github.com/faraa2m/tokenometer';
@@ -49,6 +50,7 @@ const useTheme = () => {
 
 export const Layout = () => {
   const { theme, toggleTheme } = useTheme();
+  useCanonicalUrl();
 
   return (
     <div className="tk-crt min-h-full">

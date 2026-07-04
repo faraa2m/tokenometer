@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tokenometer.dev/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://tokenometer.dev/calculator</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://tokenometer.dev/diff</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tokenometer.dev/by-file</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tokenometer.dev/vision</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://tokenometer.dev/sarif</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://tokenometer.dev/config-builder</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://tokenometer.dev/init</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://tokenometer.dev/models</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://tokenometer.dev/editor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://tokenometer.dev/claude-code</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.tokenometer.dev/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.tokenometer.dev/calculator</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.tokenometer.dev/diff</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tokenometer.dev/by-file</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tokenometer.dev/vision</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tokenometer.dev/sarif</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.tokenometer.dev/config-builder</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.tokenometer.dev/init</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.tokenometer.dev/models</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.tokenometer.dev/editor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.tokenometer.dev/claude-code</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

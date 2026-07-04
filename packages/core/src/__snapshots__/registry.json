@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T15:03:16.848Z",
+  "generatedAt": "2026-07-04T17:27:40.379Z",
   "models": [
     {
       "id": "claude-3-5-haiku-20241022",
@@ -72,6 +72,16 @@
       "cachedInputPer1k": null
     },
     {
+      "id": "claude-fable-5",
+      "provider": "anthropic",
+      "pricingSource": "local",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "inputPer1k": 0.01,
+      "outputPer1k": 0.05,
+      "cachedInputPer1k": 0.001
+    },
+    {
       "id": "claude-haiku-4-5",
       "provider": "anthropic",
       "pricingSource": "local",
@@ -112,6 +122,16 @@
       "cachedInputPer1k": 0.0005
     },
     {
+      "id": "claude-opus-4-8",
+      "provider": "anthropic",
+      "pricingSource": "local",
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "inputPer1k": 0.005,
+      "outputPer1k": 0.025,
+      "cachedInputPer1k": 0.0005
+    },
+    {
       "id": "claude-sonnet-4-20250514",
       "provider": "anthropic",
       "pricingSource": "tokenlens",
@@ -132,6 +152,16 @@
       "cachedInputPer1k": 0.0003
     },
     {
+      "id": "claude-sonnet-5",
+      "provider": "anthropic",
+      "pricingSource": "local",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "inputPer1k": 0.002,
+      "outputPer1k": 0.01,
+      "cachedInputPer1k": 0.0002
+    },
+    {
       "id": "codestral-latest",
       "provider": "mistral",
       "pricingSource": "tokenlens",
@@ -149,6 +179,16 @@
       "maxOutputTokens": 100000,
       "inputPer1k": 0.0015,
       "outputPer1k": 0.006,
+      "cachedInputPer1k": null
+    },
+    {
+      "id": "command-a-03-2025",
+      "provider": "cohere",
+      "pricingSource": "local",
+      "contextWindow": 256000,
+      "maxOutputTokens": 8000,
+      "inputPer1k": 0.0025,
+      "outputPer1k": 0.01,
       "cachedInputPer1k": null
     },
     {
@@ -390,6 +430,46 @@
       "inputPer1k": 0.00005,
       "outputPer1k": 0.0004,
       "cachedInputPer1k": null
+    },
+    {
+      "id": "gpt-5.4",
+      "provider": "openai",
+      "pricingSource": "local",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.0025,
+      "outputPer1k": 0.015,
+      "cachedInputPer1k": 0.00025
+    },
+    {
+      "id": "gpt-5.4-mini",
+      "provider": "openai",
+      "pricingSource": "local",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "inputPer1k": 0.00075,
+      "outputPer1k": 0.0045,
+      "cachedInputPer1k": 0.000075
+    },
+    {
+      "id": "gpt-5.4-nano",
+      "provider": "openai",
+      "pricingSource": "local",
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "inputPer1k": 0.0002,
+      "outputPer1k": 0.00125,
+      "cachedInputPer1k": 0.00002
+    },
+    {
+      "id": "gpt-5.5",
+      "provider": "openai",
+      "pricingSource": "local",
+      "contextWindow": 400000,
+      "maxOutputTokens": 128000,
+      "inputPer1k": 0.005,
+      "outputPer1k": 0.03,
+      "cachedInputPer1k": 0.0005
     },
     {
       "id": "magistral-medium-latest",

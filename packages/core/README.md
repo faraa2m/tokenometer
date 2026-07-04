@@ -39,10 +39,13 @@ import {
   openaiVisionTokens,
   googleVisionTokens,
   // Pricing / model registry
+  KNOWN_CATALOG_MODELS,
   KNOWN_MODELS,
+  MODEL_CATALOG,
   MODELS,
   RATES,
   RATES_VERSION,
+  getCatalogModel,
   getModel,
   getRate,
   priceUsage,
@@ -175,7 +178,7 @@ const sarif = toSarif({ files: [{ path: 'prompt.md', results: [...] }] });
 
 ### Rate table
 
-`RATES` is a `Record<modelId, { inputPer1k, outputPer1k, cachedInputPer1k? }>`. `RATES_VERSION` ships as a date string so consumers can pin or audit. `KNOWN_MODELS` is the union (currently 63 across 5 providers).
+`RATES` is a `Record<modelId, { inputPer1k, outputPer1k, cachedInputPer1k? }>`. `RATES_VERSION` ships as a date string so consumers can pin or audit. `KNOWN_MODELS` is generated from the costable registry, while `MODEL_CATALOG` includes visible catalog-only models that are not eligible for text cost estimates.
 
 ## Providers
 
@@ -187,7 +190,7 @@ const sarif = toSarif({ files: [{ path: 'prompt.md', results: [...] }] });
 | Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` (V1/V2/V3 SentencePiece); `chars/4` for Tekken family (NeMo, Pixtral, Mistral Small 2409+, Devstral, Mistral Medium 2505+, Magistral, Ministral) | exact for SentencePiece · approximate for Tekken | unsupported (no public token-count endpoint) |
 | Cohere    | `command-r-08-2024`, `command-r-plus-08-2024` | `chars / 4` heuristic | approximate | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
 
-Pricing comes from `@tokenlens/models` plus a small `LOCAL_OVERRIDES` map for bleeding-edge models the registry hasn't picked up yet. Cohere lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` does not yet ship a Cohere catalog at v1.3.0; pull from `cohere.com/pricing` whenever `RATES_VERSION` bumps. Local overrides were last checked against Anthropic and Cohere public pricing on 2026-05-23.
+Pricing comes from `@tokenlens/models` plus a `LOCAL_OVERRIDES` map for current priced models the registry has not picked up yet. Models that are visible in provider catalogs but lack stable public text pricing or a supported token-counting path live in `MODEL_CATALOG` only. Local overrides were last checked against OpenAI, Anthropic, Google, Mistral, and Cohere public docs on 2026-07-04.
 
 Internally the dispatch helpers `mistralCount`, `cohereCount`, `cohereTokenizeApi`, and `isTekken` (in `tokenize-mistral.ts` / `tokenize-cohere.ts`) are not part of the public API — they're called from `tokenize` / `tokenizeEmpirical`. If you need them, import the files directly; they may move.
 

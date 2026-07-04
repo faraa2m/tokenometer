@@ -7,7 +7,14 @@ export interface ModelDescriptor {
   provider: Provider;
   contextWindow?: number;
   maxOutputTokens?: number;
+  modalities?: readonly string[];
   pricingSource?: 'local' | 'tokenlens';
+  releaseDate?: string;
+  sourceUrl?: string;
+  status?: 'stable' | 'preview' | 'deprecated' | 'retired' | 'limited' | 'specialized';
+  supportsTextCostEstimate?: boolean;
+  supportsTokenCounting?: boolean;
+  unsupportedReason?: string;
 }
 
 export interface RateEntry {

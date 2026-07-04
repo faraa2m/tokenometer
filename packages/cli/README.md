@@ -31,7 +31,7 @@ A leading `~` marks an approximate count (offline mode for Claude / Gemini / Mis
 
 | Flag | Default | Notes |
 |---|---|---|
-| `--model <id[,id…]>` | `claude-opus-4-7` (or auto-detected) | Any registered model id (63 across 5 providers). |
+| `--model <id[,id…]>` | `claude-opus-4-7` (or auto-detected) | Any registered model id from the runtime registry. |
 | `--format <fmt[,fmt…]>` | `json,yaml,xml,markdown,text` | Subset of supported formats. |
 | `--output <fmt>` | `table` | `table` \| `json` \| `sarif`. |
 | `--by-file` | _off_ | Append a per-file token/USD table (multi-file only). |
@@ -63,7 +63,7 @@ echo "prompt" | tokenometer - [options]
 | Mistral (19 models) | `open-mistral-7b`, `open-mixtral-8x22b`, `mistral-large-latest`, `codestral-latest`, `mistral-nemo`, `pixtral-large-latest`, `mistral-medium-2505`, `magistral-small`, `ministral-3b-latest`, `devstral-small-2505` | `mistral-tokenizer-js` for SentencePiece V1/V2/V3 (exact); `chars/4` for Tekken (approximate) | unsupported (no public token-count API) |
 | Cohere | `command-r-08-2024`, `command-r-plus-08-2024` | `chars / 4` (approximate) | `POST /v1/tokenize` (free, exact, requires `COHERE_API_KEY`) |
 
-Pricing comes from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry with a small set of local overrides for bleeding-edge models. Cohere pricing lives entirely in `LOCAL_OVERRIDES` because `@tokenlens/models` doesn't yet ship a Cohere catalog at v1.3.0.
+Pricing comes from the [`tokenlens`](https://www.npmjs.com/package/tokenlens) registry with local overrides for current priced models. Visible preview, specialized, limited-access, or missing-price models are catalog-visible through `MODEL_CATALOG` in core but are not accepted by CLI cost estimation until they have public text pricing and a supported token-counting path.
 
 ## Empirical mode
 

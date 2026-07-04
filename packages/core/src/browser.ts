@@ -4,7 +4,17 @@ export { allFormats, isFormat, toFormat } from './convert.js';
 export { UserFacingError } from './errors.js';
 export { toSarif } from './format-sarif.js';
 export type { TokenometerFileResult, TokenometerResult, ToSarifOptions } from './format-sarif.js';
-export { KNOWN_MODELS, MODELS, RATES, RATES_VERSION, getModel, getRate } from './rates.js';
+export {
+  KNOWN_CATALOG_MODELS,
+  KNOWN_MODELS,
+  MODEL_CATALOG,
+  MODELS,
+  RATES,
+  RATES_VERSION,
+  getCatalogModel,
+  getModel,
+  getRate,
+} from './rates.js';
 export { countTokens, tokenize, tokenizeMatrix } from './tokenize.js';
 export type { CountResult } from './tokenize.js';
 export type {

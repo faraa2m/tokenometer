@@ -51082,15 +51082,121 @@ var CATALOG = {
   openai: openai_default
 };
 var PROVIDERS = ["anthropic", "google", "mistral", "openai"];
+var textModalities = ["text"];
+var textVisionModalities = ["text", "image"];
+var SOURCE_URLS = {
+  anthropicModels: "https://platform.claude.com/docs/en/about-claude/models/overview",
+  anthropicPricing: "https://platform.claude.com/docs/en/about-claude/pricing",
+  cohereModels: "https://docs.cohere.com/docs/models",
+  coherePricing: "https://docs.cohere.com/docs/how-does-cohere-pricing-work",
+  googleModels: "https://ai.google.dev/gemini-api/docs/models",
+  mistralModels: "https://docs.mistral.ai/models/overview",
+  openaiModels: "https://developers.openai.com/api/docs/models",
+  openaiPricing: "https://developers.openai.com/api/docs/pricing"
+};
 var LOCAL_OVERRIDES = {
+  "gpt-5.5": {
+    rate: { cachedInputPer1k: 5e-4, inputPer1k: 5e-3, outputPer1k: 0.03 },
+    descriptor: {
+      contextWindow: 4e5,
+      id: "gpt-5.5",
+      maxOutputTokens: 128e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "openai",
+      sourceUrl: SOURCE_URLS.openaiPricing,
+      status: "stable"
+    }
+  },
+  "gpt-5.4": {
+    rate: { cachedInputPer1k: 25e-5, inputPer1k: 25e-4, outputPer1k: 0.015 },
+    descriptor: {
+      contextWindow: 4e5,
+      id: "gpt-5.4",
+      maxOutputTokens: 128e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "openai",
+      sourceUrl: SOURCE_URLS.openaiPricing,
+      status: "stable"
+    }
+  },
+  "gpt-5.4-mini": {
+    rate: { cachedInputPer1k: 75e-6, inputPer1k: 75e-5, outputPer1k: 45e-4 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "gpt-5.4-mini",
+      maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "openai",
+      sourceUrl: SOURCE_URLS.openaiPricing,
+      status: "stable"
+    }
+  },
+  "gpt-5.4-nano": {
+    rate: { cachedInputPer1k: 2e-5, inputPer1k: 2e-4, outputPer1k: 125e-5 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "gpt-5.4-nano",
+      maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "openai",
+      sourceUrl: SOURCE_URLS.openaiPricing,
+      status: "stable"
+    }
+  },
+  "claude-fable-5": {
+    rate: { cachedInputPer1k: 1e-3, inputPer1k: 0.01, outputPer1k: 0.05 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-fable-5",
+      maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
+    }
+  },
+  "claude-opus-4-8": {
+    rate: { cachedInputPer1k: 5e-4, inputPer1k: 5e-3, outputPer1k: 0.025 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-opus-4-8",
+      maxOutputTokens: 32e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
+    }
+  },
+  "claude-sonnet-5": {
+    rate: { cachedInputPer1k: 2e-4, inputPer1k: 2e-3, outputPer1k: 0.01 },
+    descriptor: {
+      contextWindow: 2e5,
+      id: "claude-sonnet-5",
+      maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
+    }
+  },
   "claude-haiku-4-5": {
     rate: { cachedInputPer1k: 1e-4, inputPer1k: 1e-3, outputPer1k: 5e-3 },
     descriptor: {
       contextWindow: 2e5,
       id: "claude-haiku-4-5",
       maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
       pricingSource: "local",
-      provider: "anthropic"
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
     }
   },
   "claude-opus-4-7": {
@@ -51099,8 +51205,11 @@ var LOCAL_OVERRIDES = {
       contextWindow: 2e5,
       id: "claude-opus-4-7",
       maxOutputTokens: 32e3,
+      modalities: textVisionModalities,
       pricingSource: "local",
-      provider: "anthropic"
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
     }
   },
   "claude-sonnet-4-6": {
@@ -51109,8 +51218,25 @@ var LOCAL_OVERRIDES = {
       contextWindow: 2e5,
       id: "claude-sonnet-4-6",
       maxOutputTokens: 64e3,
+      modalities: textVisionModalities,
       pricingSource: "local",
-      provider: "anthropic"
+      provider: "anthropic",
+      sourceUrl: SOURCE_URLS.anthropicPricing,
+      status: "stable"
+    }
+  },
+  "command-a-03-2025": {
+    rate: { inputPer1k: 25e-4, outputPer1k: 0.01 },
+    descriptor: {
+      contextWindow: 256e3,
+      id: "command-a-03-2025",
+      maxOutputTokens: 8e3,
+      modalities: textVisionModalities,
+      pricingSource: "local",
+      provider: "cohere",
+      releaseDate: "2025-03",
+      sourceUrl: "https://docs.cohere.com/docs/command-a",
+      status: "stable"
     }
   },
   "command-r-08-2024": {
@@ -51119,8 +51245,11 @@ var LOCAL_OVERRIDES = {
       contextWindow: 128e3,
       id: "command-r-08-2024",
       maxOutputTokens: 4096,
+      modalities: textModalities,
       pricingSource: "local",
-      provider: "cohere"
+      provider: "cohere",
+      sourceUrl: SOURCE_URLS.coherePricing,
+      status: "stable"
     }
   },
   "command-r-plus-08-2024": {
@@ -51129,9 +51258,156 @@ var LOCAL_OVERRIDES = {
       contextWindow: 128e3,
       id: "command-r-plus-08-2024",
       maxOutputTokens: 4096,
+      modalities: textModalities,
       pricingSource: "local",
-      provider: "cohere"
+      provider: "cohere",
+      sourceUrl: SOURCE_URLS.coherePricing,
+      status: "stable"
     }
+  }
+};
+var CATALOG_ONLY = {
+  "gpt-5.6-preview": {
+    id: "gpt-5.6-preview",
+    modalities: textVisionModalities,
+    provider: "openai",
+    sourceUrl: SOURCE_URLS.openaiModels,
+    status: "preview",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Preview model without stable public text cost behavior."
+  },
+  "gpt-5.4-cyber": {
+    id: "gpt-5.4-cyber",
+    modalities: textModalities,
+    provider: "openai",
+    sourceUrl: SOURCE_URLS.openaiModels,
+    status: "specialized",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: false,
+    unsupportedReason: "Specialized cyber model; public text token pricing/counting is not exposed."
+  },
+  "claude-mythos-5": {
+    contextWindow: 2e5,
+    id: "claude-mythos-5",
+    maxOutputTokens: 64e3,
+    modalities: textVisionModalities,
+    provider: "anthropic",
+    sourceUrl: SOURCE_URLS.anthropicPricing,
+    status: "limited",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Limited-availability Anthropic model; keep out of public cost estimates."
+  },
+  "command-a-plus-05-2026": {
+    contextWindow: 128e3,
+    id: "command-a-plus-05-2026",
+    maxOutputTokens: 64e3,
+    modalities: textVisionModalities,
+    provider: "cohere",
+    releaseDate: "2026-05-20",
+    sourceUrl: "https://docs.cohere.com/docs/command-a-plus",
+    status: "limited",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Cohere documents Command A+ as free until rate limits and Model Vault for production, not public per-token pricing."
+  },
+  "command-a-reasoning-08-2025": {
+    id: "command-a-reasoning-08-2025",
+    modalities: textModalities,
+    provider: "cohere",
+    releaseDate: "2025-08",
+    sourceUrl: "https://docs.cohere.com/docs/command-a-reasoning",
+    status: "specialized",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Specialized reasoning model without public token pricing in the pricing guide."
+  },
+  "command-a-translate-08-2025": {
+    id: "command-a-translate-08-2025",
+    modalities: textModalities,
+    provider: "cohere",
+    releaseDate: "2025-08",
+    sourceUrl: "https://docs.cohere.com/docs/command-a-translate",
+    status: "specialized",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Specialized translation model without public token pricing in the pricing guide."
+  },
+  "command-a-vision-07-2025": {
+    id: "command-a-vision-07-2025",
+    modalities: textVisionModalities,
+    provider: "cohere",
+    releaseDate: "2025-07",
+    sourceUrl: "https://docs.cohere.com/docs/command-a-vision",
+    status: "specialized",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Specialized vision model without public token pricing in the pricing guide."
+  },
+  "command-r7b-12-2024": {
+    id: "command-r7b-12-2024",
+    modalities: textModalities,
+    provider: "cohere",
+    releaseDate: "2024-12",
+    sourceUrl: "https://docs.cohere.com/docs/command-r7b",
+    status: "limited",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Visible Cohere model, but no public per-token price is listed in the pricing guide."
+  },
+  "gemini-3.1-pro-preview": {
+    id: "gemini-3.1-pro-preview",
+    modalities: textVisionModalities,
+    provider: "google",
+    sourceUrl: SOURCE_URLS.googleModels,
+    status: "preview",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: true,
+    unsupportedReason: "Gemini preview model; keep separate from stable cost-estimation registry."
+  },
+  "gemini-3.5-live-translate-preview": {
+    id: "gemini-3.5-live-translate-preview",
+    modalities: ["audio", "text"],
+    provider: "google",
+    sourceUrl: SOURCE_URLS.googleModels,
+    status: "preview",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: false,
+    unsupportedReason: "Live translation model is audio-first and not supported by text cost estimation."
+  },
+  "mistral-medium-3.5": {
+    id: "mistral-medium-3.5",
+    modalities: textVisionModalities,
+    provider: "mistral",
+    releaseDate: "2026-04",
+    sourceUrl: SOURCE_URLS.mistralModels,
+    status: "stable",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: false,
+    unsupportedReason: "Visible Mistral model not yet present in tokenlens v1.3.0 with public token pricing."
+  },
+  "mistral-small-4": {
+    id: "mistral-small-4",
+    modalities: textVisionModalities,
+    provider: "mistral",
+    releaseDate: "2026-03",
+    sourceUrl: SOURCE_URLS.mistralModels,
+    status: "stable",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: false,
+    unsupportedReason: "Visible Mistral model not yet present in tokenlens v1.3.0 with public token pricing."
+  },
+  "voxtral-mini-transcribe-realtime": {
+    id: "voxtral-mini-transcribe-realtime",
+    modalities: ["audio"],
+    provider: "mistral",
+    releaseDate: "2026-02",
+    sourceUrl: SOURCE_URLS.mistralModels,
+    status: "specialized",
+    supportsTextCostEstimate: false,
+    supportsTokenCounting: false,
+    unsupportedReason: "Audio transcription model; text token cost estimation is unsupported."
   }
 };
 var PREVIEW_ID_PATTERN = /(^|-)preview(-|$)/i;
@@ -51162,8 +51438,10 @@ var buildFromTokenlens = () => {
       };
       const descriptor = {
         id: bareId,
+        modalities: textModalities,
         pricingSource: "tokenlens",
         provider,
+        status: "stable",
         ...contextWindow ? { contextWindow } : {},
         ...maxOutputTokens ? { maxOutputTokens } : {}
       };
@@ -51187,9 +51465,23 @@ var REGISTRY = (() => {
 var RATES = Object.fromEntries(Object.entries(REGISTRY).map(([id, e]) => [id, e.rate]));
 var MODELS = Object.fromEntries(Object.entries(REGISTRY).map(([id, e]) => [id, e.descriptor]));
 var KNOWN_MODELS = Object.keys(REGISTRY).sort();
+var toCatalogEntry = (descriptor) => ({
+  ...descriptor,
+  supportsTextCostEstimate: true,
+  supportsTokenCounting: true
+});
+var MODEL_CATALOG = Object.fromEntries([
+  ...Object.entries(MODELS).map(([id, descriptor]) => [id, toCatalogEntry(descriptor)]),
+  ...Object.entries(CATALOG_ONLY)
+].sort(([a], [b]) => a.localeCompare(b)));
+var KNOWN_CATALOG_MODELS = Object.keys(MODEL_CATALOG).sort();
 var getRate = (modelId) => {
   const entry = REGISTRY[modelId];
   if (!entry) {
+    const catalogEntry = MODEL_CATALOG[modelId];
+    if (catalogEntry) {
+      throw new UserFacingError(`Catalog-only model "${modelId}" does not support Tokenometer text cost estimates: ${catalogEntry.unsupportedReason ?? "pricing or token-counting is unsupported"}.`);
+    }
     throw new UserFacingError(`Unknown model "${modelId}". Known models: ${KNOWN_MODELS.join(", ")}.`);
   }
   return entry.rate;

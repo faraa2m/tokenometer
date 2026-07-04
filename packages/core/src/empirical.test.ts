@@ -4,15 +4,19 @@ const mockAnthropicCount = vi.fn();
 const mockGoogleCount = vi.fn();
 
 vi.mock('@anthropic-ai/sdk', () => ({
-  default: vi.fn().mockImplementation(() => ({
-    messages: { countTokens: mockAnthropicCount },
-  })),
+  default: vi.fn().mockImplementation(function MockAnthropic() {
+    return {
+      messages: { countTokens: mockAnthropicCount },
+    };
+  }),
 }));
 
 vi.mock('@google/generative-ai', () => ({
-  GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
-    getGenerativeModel: () => ({ countTokens: mockGoogleCount }),
-  })),
+  GoogleGenerativeAI: vi.fn().mockImplementation(function MockGoogleGenerativeAI() {
+    return {
+      getGenerativeModel: () => ({ countTokens: mockGoogleCount }),
+    };
+  }),
 }));
 
 const { tokenizeEmpirical, tokenizeMatrixEmpirical } = await import('./empirical.js');

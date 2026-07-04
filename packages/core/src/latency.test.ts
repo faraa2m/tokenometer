@@ -4,15 +4,19 @@ const mockAnthropicStream = vi.fn();
 const mockGoogleStream = vi.fn();
 
 vi.mock('@anthropic-ai/sdk', () => ({
-  default: vi.fn().mockImplementation(() => ({
-    messages: { stream: mockAnthropicStream },
-  })),
+  default: vi.fn().mockImplementation(function MockAnthropic() {
+    return {
+      messages: { stream: mockAnthropicStream },
+    };
+  }),
 }));
 
 vi.mock('@google/generative-ai', () => ({
-  GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
-    getGenerativeModel: () => ({ generateContentStream: mockGoogleStream }),
-  })),
+  GoogleGenerativeAI: vi.fn().mockImplementation(function MockGoogleGenerativeAI() {
+    return {
+      getGenerativeModel: () => ({ generateContentStream: mockGoogleStream }),
+    };
+  }),
 }));
 
 const { measureLatency, nthPercentile } = await import('./latency.js');

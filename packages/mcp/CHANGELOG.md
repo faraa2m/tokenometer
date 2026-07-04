@@ -1,5 +1,18 @@
 # @tokenometer/mcp
 
+## 2.2.0
+
+### Minor Changes
+
+- [#75](https://github.com/faraa2m/tokenometer/pull/75) [`1443819`](https://github.com/faraa2m/tokenometer/commit/144381963ae62c57047d398c15984b781b8c3ecb) Thanks [@faraa2m](https://github.com/faraa2m)! - Refresh provider model coverage and split the model registry into costable models and full catalog visibility.
+
+  Adds current priced OpenAI, Anthropic, and Cohere model IDs to the cost-estimation registry, exposes `MODEL_CATALOG`, `KNOWN_CATALOG_MODELS`, and `getCatalogModel()` for visible but unsupported provider models, and returns clearer errors when catalog-only models are used for text cost estimates.
+
+### Patch Changes
+
+- Updated dependencies [[`1443819`](https://github.com/faraa2m/tokenometer/commit/144381963ae62c57047d398c15984b781b8c3ecb)]:
+  - @tokenometer/core@2.2.0
+
 ## 2.1.0
 
 ### Patch Changes

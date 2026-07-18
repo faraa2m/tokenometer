@@ -64,7 +64,8 @@ describe('web SEO metadata', () => {
     expect(vercelConfig).toContain('"value": "www.tokenometer.app"');
     expect(vercelConfig).toContain('"value": "tokenometer.io"');
     expect(vercelConfig).toContain('"value": "www.tokenometer.io"');
-    expect(vercelConfig).toContain('"destination": "https://www.tokenometer.dev/:path*"');
+    expect(vercelConfig).toContain('"source": "/(.*)"');
+    expect(vercelConfig).toContain('"destination": "https://www.tokenometer.dev/$1"');
     expect(vercelConfig).toContain('"permanent": true');
   });
 });

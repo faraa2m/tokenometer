@@ -13,6 +13,18 @@
     },
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "tokenometer.app" }],
+      "destination": "https://www.tokenometer.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.tokenometer.app" }],
+      "destination": "https://www.tokenometer.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "tokenometer.io" }],
       "destination": "https://www.tokenometer.dev/:path*",
       "permanent": true

@@ -60,6 +60,8 @@ describe('web SEO metadata', () => {
   it('redirects alternate Tokenometer hosts to the deployed canonical host', () => {
     expect(vercelConfig).toContain('"type": "host"');
     expect(vercelConfig).toContain('"value": "tokenometer.dev"');
+    expect(vercelConfig).toContain('"value": "tokenometer.app"');
+    expect(vercelConfig).toContain('"value": "www.tokenometer.app"');
     expect(vercelConfig).toContain('"value": "tokenometer.io"');
     expect(vercelConfig).toContain('"value": "www.tokenometer.io"');
     expect(vercelConfig).toContain('"destination": "https://www.tokenometer.dev/:path*"');

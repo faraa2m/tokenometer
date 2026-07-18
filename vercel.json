@@ -6,33 +6,33 @@
   "outputDirectory": "packages/web/dist",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "tokenometer.dev" }],
-      "destination": "https://www.tokenometer.dev/:path*",
+      "destination": "https://www.tokenometer.dev/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "tokenometer.app" }],
-      "destination": "https://www.tokenometer.dev/:path*",
+      "destination": "https://www.tokenometer.dev/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.tokenometer.app" }],
-      "destination": "https://www.tokenometer.dev/:path*",
+      "destination": "https://www.tokenometer.dev/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "tokenometer.io" }],
-      "destination": "https://www.tokenometer.dev/:path*",
+      "destination": "https://www.tokenometer.dev/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.tokenometer.io" }],
-      "destination": "https://www.tokenometer.dev/:path*",
+      "destination": "https://www.tokenometer.dev/$1",
       "permanent": true
     }
   ],

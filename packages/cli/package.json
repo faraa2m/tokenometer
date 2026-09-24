@@ -81,7 +81,7 @@
   },
   "dependencies": {
     "@tokenometer/core": "2.2.0",
-    "image-size": "^2.0.2"
+    "image-size": "^2.0.3"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
